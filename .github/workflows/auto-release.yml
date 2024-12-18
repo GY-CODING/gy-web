@@ -7,6 +7,5 @@ on:
 
 jobs:
   auto-release:
-     uses: GY-CODING/.github/.github/workflows/create-release.yml@master
-     secrets: inherit
-  
+    uses: GY-CODING/.github/.github/workflows/auto-release.yml@master
+    secrets: inherit
