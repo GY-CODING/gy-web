@@ -19,8 +19,8 @@ export default function MobileMenu({ isOpen, menuItems }: MobileMenuProps) {
   if (!isOpen) return null;
 
   const toggleExpand = (index: number) => {
-    setExpandedItems(prev => 
-      prev.includes(index) 
+    setExpandedItems(prev =>
+      prev.includes(index)
         ? prev.filter(i => i !== index)
         : [...prev, index]
     );
@@ -68,7 +68,7 @@ export default function MobileMenu({ isOpen, menuItems }: MobileMenuProps) {
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                   {item.title}
                 </Box>
-                <KeyboardArrowDownIcon 
+                <KeyboardArrowDownIcon
                   sx={{
                     transform: expandedItems.includes(index) ? 'rotate(180deg)' : 'rotate(0)',
                     transition: 'transform 0.2s ease',
@@ -146,7 +146,7 @@ export default function MobileMenu({ isOpen, menuItems }: MobileMenuProps) {
             </Box>
           ) : (
             <Link
-              href={item.path}
+              href={item.path as string}
               style={{ textDecoration: 'none' }}
             >
               <Box
