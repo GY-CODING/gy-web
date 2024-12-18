@@ -1,0 +1,12 @@
+name: Auto Tag & Release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  auto-release:
+     uses: GY-CODING/.github/.github/workflows/create-release.yml@master
+     secrets: inherit
+  
