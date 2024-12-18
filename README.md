@@ -8,13 +8,15 @@
 
 ## Introduction
 
-Brief description of this project.
+This is the **GYCODING**'s official website where everything related to GYCODING will be displayed.
 
 <br>
 
 ## How it was made
 
-Description of the technologies and procedures used to develop this project.
+![NextJS](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+
+This website was made using **ReactJS**.
 
 <br>
 
@@ -22,8 +24,6 @@ Description of the technologies and procedures used to develop this project.
 
 | Product Owner | Collaborators
 | :---: | :---: |
-| <img src="https://github.com/ghost.png?size=115" width=115> <br> [![ghost1](https://img.shields.io/badge/ghost-black?style=for-the-badge)](https://github.com/ghost) | <img src="https://github.com/ghost.png?size=115" width=115> <br> [![ghost2](https://img.shields.io/badge/ghost-black?style=for-the-badge)](https://github.com/ghost) |
+| <img src="https://github.com/gy-gfigueras.png?size=115" width=115> <br> [![gfigueras](https://img.shields.io/badge/gfigueras-B833FF?style=for-the-badge)](https://github.com/gy-gfigueras) | <img src="https://github.com/gy-toxyc.png?size=115" width=115> <br> [![toxyc](https://img.shields.io/badge/toxyc-yellow?style=for-the-badge)](https://github.com/gy-toxyc) |
 
-<br>
-
-<pre align="center">GYCODING 2024</pre>
+<pre align="center"><b>GYCODING 2024</b></pre>
