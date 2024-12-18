@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -18,10 +18,11 @@ export default function FloatingMenu({
   onHover
 }: FloatingMenuProps) {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const activeItem = activeIndex !== null ? items[activeIndex] : null;
   const activeChildren = activeItem?.children || [];
 
-  if (!activeItem) return null;
+  if (!activeItem || isMobile) return null;
 
   return (
     <Box
@@ -39,9 +40,9 @@ export default function FloatingMenu({
         sx={{
           maxWidth: '1200px',
           margin: '0 auto',
-          padding: '0 2rem',
+          padding: '0 1rem',
           position: 'relative',
-          paddingTop: '12px', // Espacio entre el header y el menú
+          paddingTop: '12px',
         }}
       >
         {/* Safe hover area */}
@@ -65,7 +66,10 @@ export default function FloatingMenu({
             boxShadow: '0 8px 16px -4px rgba(0, 0, 0, 0.1), 0 4px 8px -4px rgba(0, 0, 0, 0.06)',
             padding: '2rem',
             display: 'grid',
-            gridTemplateColumns: `repeat(${Math.min(activeChildren.length, 3)}, 280px)`,
+            gridTemplateColumns: {
+              md: `repeat(${Math.min(activeChildren.length, 2)}, 280px)`,
+              lg: `repeat(${Math.min(activeChildren.length, 3)}, 280px)`,
+            },
             gap: '24px',
             opacity: 1,
             transition: 'all 0.15s ease',
@@ -93,35 +97,37 @@ export default function FloatingMenu({
                   }
                 }}
               >
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '40px',
-                    height: '40px',
-                    borderRadius: '8px',
-                    backgroundColor: theme.palette.mode === 'light'
-                      ? 'rgba(140, 84, 255, 0.08)'
-                      : 'rgba(140, 84, 255, 0.16)',
-                    flexShrink: 0
-                  }}
-                >
-                  <Image
-                    src={item.icon}
-                    alt={item.title}
-                    width={24}
-                    height={24}
-                  />
-                </Box>
+                {item.icon && (
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '40px',
+                      height: '40px',
+                      backgroundColor: theme.palette.mode === 'light'
+                        ? 'rgba(140, 84, 255, 0.04)'
+                        : 'rgba(140, 84, 255, 0.08)',
+                      borderRadius: '8px',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Image
+                      src={item.icon}
+                      alt={item.title}
+                      width={24}
+                      height={24}
+                    />
+                  </Box>
+                )}
                 <Box>
                   <Box
                     sx={{
-                      color: theme.palette.mode === 'light' ? '#1A1A1A' : '#FFFFFF',
+                      color: theme.palette.text.primary,
                       fontFamily: lexendFont.style.fontFamily,
-                      fontWeight: 500,
                       fontSize: '0.95rem',
-                      marginBottom: '4px'
+                      fontWeight: 500,
+                      marginBottom: '4px',
                     }}
                   >
                     {item.title}
@@ -129,11 +135,9 @@ export default function FloatingMenu({
                   {item.description && (
                     <Box
                       sx={{
-                        color: theme.palette.mode === 'light'
-                          ? 'rgba(0, 0, 0, 0.6)'
-                          : 'rgba(255, 255, 255, 0.6)',
-                        fontSize: '0.85rem',
-                        lineHeight: 1.4
+                        color: theme.palette.text.secondary,
+                        fontSize: '0.875rem',
+                        lineHeight: 1.5,
                       }}
                     >
                       {item.description}
