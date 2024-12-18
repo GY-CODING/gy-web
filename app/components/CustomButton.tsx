@@ -1,5 +1,3 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { Button } from '@mui/material';
 import { lexendFont } from '@/app/utils/fonts';
 import Link from 'next/link';

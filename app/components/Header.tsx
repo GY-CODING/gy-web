@@ -1,10 +1,12 @@
-import { Box, useTheme } from "@mui/material";
+import { Box, useTheme, IconButton, useMediaQuery } from "@mui/material";
 import React, { useState } from "react";
+import MenuIcon from '@mui/icons-material/Menu';
 import { lexendFont } from "../utils/fonts";
 import ThemeToggle from "./ThemeToggle";
 import CustomButton from "./CustomButton";
 import CustomMenuItem from "./menuItem";
 import FloatingMenu from "./FloatingMenu";
+import MobileMenu from "./MobileMenu";
 import { menuItems } from "../utils/menuItems";
 
 interface HeaderProps {
@@ -14,6 +16,8 @@ interface HeaderProps {
 export default function Header({ onThemeToggle }: HeaderProps) {
   const theme = useTheme();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
     <Box
@@ -60,23 +64,25 @@ export default function Header({ onThemeToggle }: HeaderProps) {
             GY
           </Box>
 
-          {/* Menu items */}
-          <Box
-            sx={{
-              display: "flex",
-              gap: "1.5rem",
-            }}
-          >
-            {menuItems.map((item, index) => (
-              <CustomMenuItem
-                key={index}
-                item={item}
-                index={index}
-                isHovered={hoveredIndex === index}
-                onHover={setHoveredIndex}
-              />
-            ))}
-          </Box>
+          {/* Menu items - Only show on desktop */}
+          {!isMobile && (
+            <Box
+              sx={{
+                display: "flex",
+                gap: "1.5rem",
+              }}
+            >
+              {menuItems.map((item, index) => (
+                <CustomMenuItem
+                  key={index}
+                  item={item}
+                  index={index}
+                  isHovered={hoveredIndex === index}
+                  onHover={setHoveredIndex}
+                />
+              ))}
+            </Box>
+          )}
         </Box>
 
         {/* Right side */}
@@ -88,42 +94,62 @@ export default function Header({ onThemeToggle }: HeaderProps) {
           }}
         >
           <ThemeToggle onToggle={onThemeToggle} />
-          <CustomButton
-            text="Log In"
-            link=""
-            sx={{
-              backgroundColor: 'transparent',
-              border: '2px solid',
-              borderColor: theme.palette.secondary.main,
-              color: theme.palette.secondary.main,
-              '&:hover': {
-                backgroundColor: theme.palette.mode === 'light'
-                  ? 'rgba(140, 84, 255, 0.04)'
-                  : 'rgba(140, 84, 255, 0.16)'
-              }
-            }}
-          />
-          <CustomButton
-            text="Contact"
-            link=""
-            sx={{
-              backgroundColor: theme.palette.secondary.main,
-              border: '2px solid',
-              borderColor: theme.palette.secondary.main,
-              color: '#ffffff',
-              '&:hover': {
-                backgroundColor: theme.palette.secondary.light,
-                borderColor: theme.palette.secondary.light,
-              }
-            }}
-          />
+          {isMobile ? (
+            <IconButton
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              sx={{ ml: 1 }}
+            >
+              <MenuIcon />
+            </IconButton>
+          ) : (
+            <>
+              <CustomButton
+                text="Log In"
+                link=""
+                sx={{
+                  backgroundColor: 'transparent',
+                  border: '2px solid',
+                  borderColor: theme.palette.secondary.main,
+                  color: theme.palette.secondary.main,
+                  '&:hover': {
+                    backgroundColor: theme.palette.mode === 'light'
+                      ? 'rgba(140, 84, 255, 0.04)'
+                      : 'rgba(140, 84, 255, 0.08)',
+                  }
+                }}
+              />
+              <CustomButton
+                text="Contact"
+                link=""
+                sx={{
+                  backgroundColor: theme.palette.secondary.main,
+                  border: '2px solid',
+                  borderColor: theme.palette.secondary.main,
+                  color: '#ffffff',
+                  '&:hover': {
+                    backgroundColor: theme.palette.secondary.light,
+                    borderColor: theme.palette.secondary.light,
+                  }
+                }}
+              />
+            </>
+          )}
         </Box>
       </Box>
 
-      <FloatingMenu
-        items={menuItems}
-        activeIndex={hoveredIndex}
-        onHover={setHoveredIndex}
+      {/* Floating menu for desktop */}
+      {!isMobile && (
+        <FloatingMenu
+          items={menuItems}
+          activeIndex={hoveredIndex}
+          onHover={setHoveredIndex}
+        />
+      )}
+
+      {/* Mobile menu */}
+      <MobileMenu
+        isOpen={isMobile && mobileMenuOpen}
+        menuItems={menuItems}
       />
     </Box>
   );
