@@ -17,26 +17,29 @@ const AboutSection = () => {
       component="section"
       sx={{
         width: '100%',
-        height: ['140vh', '70vh'],
+        minHeight: { xs: '140vh', md: '100vh' },
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        py: { xs: 6, md: 10 },
-        px: { xs: 2, md: '100px' },
+        py: { xs: 6, sm: 8, md: 12 },
+        px: { xs: 2, sm: 4, md: 6 },
         background: theme.palette.mode === 'dark' ? 'transparent' : '#fff',
       }}
     >
       <Box
         sx={{
+          width: '100%',
           maxWidth: '1400px',
           margin: '0 auto',
           display: 'flex',
           flexDirection: { xs: 'column', md: 'row' },
           alignItems: { xs: 'flex-start', md: 'center' },
+          justifyContent: 'center',
           gap: { xs: 4, md: 10 },
-          px: { xs: 2, sm: 4, md: 6 },
+          height: '100%',
+          py: { md: 4 },
         }}
       >
         <Box
