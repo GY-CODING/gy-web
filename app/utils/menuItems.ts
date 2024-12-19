@@ -3,6 +3,7 @@ import GYAccountsIcon from '../../public/icons/gy_accounts.svg';
 import GYMessagesIcon from '../../public/icons/gy_messages.svg';
 import GYDocumentsIcon from '../../public/icons/gy_documents.svg';
 import ACCOUNT_ICON from '../../public/icons/cards/account.svg';
+import GY_DOCUMENTS_LIGHT_ICON from '../../public/icons/gy_documents_light.svg';
 import { SvgIconProps } from '@mui/material';
 
 export interface MenuItem {
@@ -44,7 +45,7 @@ export const menuItems: MenuItem[] = [
         title: 'GY Documents',
         description: 'Document management and sharing',
         path: '/projects/gy-documents',
-        icon: GYDocumentsIcon
+        icon: GY_DOCUMENTS_LIGHT_ICON
       }
     ]
   },

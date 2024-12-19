@@ -3,23 +3,42 @@ import React, { useEffect, useState } from 'react';
 import { ThemeProvider, CssBaseline, Box } from '@mui/material';
 import { createAppTheme } from './utils/theme';
 import Header from './components/Header';
+import LoadingScreen from './components/LoadingScreen';
+import { AnimatePresence } from 'framer-motion';
 
-const App = () => {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [mode, setMode] = useState<'light' | 'dark'>('light');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const savedTheme = localStorage.getItem('theme') || 'light';
+    const initializeApp = async () => {
+      // Simular un tiempo mínimo de carga para evitar parpadeos
+      const minLoadTime = new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Obtener el tema guardado o el preferido del sistema
+      const savedTheme = localStorage.getItem('theme') || 
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      
       setMode(savedTheme as 'light' | 'dark');
-    }
+      
+      // Esperar el tiempo mínimo de carga
+      await minLoadTime;
+      
+      // Ocultar la pantalla de carga
+      setIsLoading(false);
+    };
+
+    initializeApp();
   }, []);
 
   const toggleTheme = () => {
     const newMode = mode === 'light' ? 'dark' : 'light';
     setMode(newMode);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('theme', newMode);
-    }
+    localStorage.setItem('theme', newMode);
   };
 
   const theme = createAppTheme(mode);
@@ -29,20 +48,26 @@ const App = () => {
       <body>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Box sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            width: '100%',
-            margin: '0 auto',
-            padding: '0 20px'
-          }}>
-            <Header onThemeToggle={toggleTheme} />
-          </Box>
+          <AnimatePresence mode="wait">
+            {isLoading ? (
+              <LoadingScreen key="loading" />
+            ) : (
+              <Box
+                key="content"
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  minHeight: '100vh',
+                  width: '100%'
+                }}
+              >
+                <Header onThemeToggle={toggleTheme} />
+                {children}
+              </Box>
+            )}
+          </AnimatePresence>
         </ThemeProvider>
       </body>
     </html>
   );
-};
-
-export default App;
+}
