@@ -155,6 +155,7 @@ const AboutSection = () => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            marginTop: { xs: 4, md: 0 },
           }}
         >
           <Box

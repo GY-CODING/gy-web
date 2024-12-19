@@ -70,7 +70,7 @@ export default function ModularSection() {
                 mb: { xs: 2, sm: 3 },
               }}
             >
-              Our Services
+              Our Scopes
             </Typography>
 
             <Typography

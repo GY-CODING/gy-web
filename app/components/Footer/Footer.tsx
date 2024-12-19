@@ -41,15 +41,14 @@ export default function Footer() {
         transition={{ duration: 0.8, ease: "easeOut" }}
         sx={{
           position: 'relative',
-          backgroundColor: theme.palette.mode === 'dark' 
-            ? 'rgba(0, 0, 0, 0.85)' 
+          backgroundColor: theme.palette.mode === 'dark'
+            ? 'rgba(0, 0, 0, 0.85)'
             : 'rgba(255, 255, 255, 0.85)',
           backdropFilter: 'blur(20px)',
-          borderTop: `1px solid ${
-            theme.palette.mode === 'dark' 
-              ? 'rgba(255, 255, 255, 0.1)' 
+          borderTop: `1px solid ${theme.palette.mode === 'dark'
+              ? 'rgba(255, 255, 255, 0.1)'
               : 'rgba(0, 0, 0, 0.1)'
-          }`,
+            }`,
           boxShadow: theme.palette.mode === 'dark'
             ? '0 -10px 30px -10px rgba(0, 0, 0, 0.3)'
             : '0 -10px 30px -10px rgba(0, 0, 0, 0.1)',
@@ -67,10 +66,10 @@ export default function Footer() {
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
                 <Box sx={{ mb: 4 }}>
-                  <Box 
-                    sx={{ 
-                      display: 'flex', 
-                      alignItems: 'center', 
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
                       mb: 2,
                       background: theme.palette.mode === 'dark'
                         ? 'linear-gradient(45deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%)'
@@ -146,7 +145,7 @@ export default function Footer() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.6 + index * 0.1 }}
-                      whileHover={{ 
+                      whileHover={{
                         y: -5,
                         scale: 1.1,
                         transition: { type: "spring", stiffness: 400 }
@@ -238,11 +237,10 @@ export default function Footer() {
               sx={{
                 mt: 6,
                 pt: 3,
-                borderTop: `1px solid ${
-                  theme.palette.mode === 'dark'
+                borderTop: `1px solid ${theme.palette.mode === 'dark'
                     ? 'rgba(255, 255, 255, 0.1)'
                     : 'rgba(0, 0, 0, 0.1)'
-                }`,
+                  }`,
                 textAlign: 'center',
                 background: theme.palette.mode === 'dark'
                   ? 'linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent)'
@@ -256,7 +254,7 @@ export default function Footer() {
                   fontFamily: lexendFont.style.fontFamily,
                 }}
               >
-                {new Date().getFullYear()} GyCoding. All rights reserved.
+                {new Date().getFullYear()} @GYCODING. All rights reserved.
               </Typography>
             </Box>
           </motion.div>

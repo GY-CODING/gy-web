@@ -3,7 +3,7 @@ import { useScroll, useTransform, MotionValue } from 'framer-motion';
 import { useRef } from 'react';
 
 interface ScrollAnimationConfig {
-  offset?: [string, string];
+  offset?: [string, string] | [number, number] | any;
   inputRange?: [number, number];
   outputRange?: number[];
   smooth?: number;
@@ -11,8 +11,8 @@ interface ScrollAnimationConfig {
 
 export const useScrollAnimation = (config: ScrollAnimationConfig = {}) => {
   const elementRef = useRef<HTMLDivElement>(null);
-  
-  const { 
+
+  const {
     offset = ["start start", "end center"],
     inputRange = [0, 1],
     outputRange = [0, 1],
