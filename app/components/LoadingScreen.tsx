@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 export default function LoadingScreen() {
   const theme = useTheme();
-  
+
   return (
     <Box
       component={motion.div}
@@ -31,7 +31,6 @@ export default function LoadingScreen() {
           position: 'relative',
           width: '120px',
           height: '120px',
-          filter: theme.palette.mode === 'dark' ? 'invert(1)' : 'none',
         }}
       >
         <Image
@@ -41,7 +40,7 @@ export default function LoadingScreen() {
           style={{ objectFit: 'contain' }}
         />
       </Box>
-      <CircularProgress 
+      <CircularProgress
         size={40}
         sx={{
           color: theme.palette.mode === 'dark' ? '#fff' : '#000',

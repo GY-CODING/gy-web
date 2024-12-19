@@ -3,7 +3,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
-import { lexendFont } from '../utils/fonts';
+import { lexendFont, valorantFont } from '../utils/fonts';
 import LottieAnimation from './lottieAnimation';
 import FadeIn from './animations/FadeIn';
 import ParallaxScroll from './animations/ParallaxScroll';
@@ -17,6 +17,12 @@ const AboutSection = () => {
       component="section"
       sx={{
         width: '100%',
+        height: ['140vh', '70vh'],
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
         py: { xs: 6, md: 10 },
         px: { xs: 2, md: '100px' },
         background: theme.palette.mode === 'dark' ? 'transparent' : '#fff',
@@ -60,9 +66,9 @@ const AboutSection = () => {
                   mb: 3,
                 }}
               >
-                At <span style={{ color: '#8C54FF', fontWeight: 600 }}>GYCODING</span>,
-                we merge passion with technology. We are a team of developers 
-                specialized in creating innovative digital solutions, 
+                At <span style={{ color: '#8C54FF', fontWeight: 400, fontFamily: valorantFont.style.fontFamily }}>GyCODING</span>,
+                we merge passion with technology. We are a team of developers
+                specialized in creating innovative digital solutions,
                 covering both frontend and backend development.
               </Typography>
             </FadeIn>

@@ -5,6 +5,7 @@ import { createAppTheme } from './utils/theme';
 import Header from './components/Header';
 import LoadingScreen from './components/LoadingScreen';
 import { AnimatePresence } from 'framer-motion';
+import { lexendFont, valorantFont } from './utils/fonts';
 
 export default function RootLayout({
   children,
@@ -16,19 +17,15 @@ export default function RootLayout({
 
   useEffect(() => {
     const initializeApp = async () => {
-      // Simular un tiempo mínimo de carga para evitar parpadeos
       const minLoadTime = new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Obtener el tema guardado o el preferido del sistema
-      const savedTheme = localStorage.getItem('theme') || 
+
+      const savedTheme = localStorage.getItem('theme') ||
         (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      
+
       setMode(savedTheme as 'light' | 'dark');
-      
-      // Esperar el tiempo mínimo de carga
+
       await minLoadTime;
-      
-      // Ocultar la pantalla de carga
+
       setIsLoading(false);
     };
 
@@ -44,7 +41,7 @@ export default function RootLayout({
   const theme = createAppTheme(mode);
 
   return (
-    <html lang="es">
+    <html lang="es" className={`${lexendFont.className} ${valorantFont.className}`}>
       <body>
         <ThemeProvider theme={theme}>
           <CssBaseline />
