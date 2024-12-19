@@ -8,6 +8,7 @@ import CustomMenuItem from "./menuItem";
 import FloatingMenu from "./FloatingMenu";
 import MobileMenu from "./MobileMenu";
 import { menuItems } from "../utils/menuItems";
+import Image from 'next/image';
 
 interface HeaderProps {
   onThemeToggle: () => void;
@@ -55,13 +56,23 @@ export default function Header({ onThemeToggle }: HeaderProps) {
           {/* Logo */}
           <Box
             sx={{
-              fontFamily: lexendFont.style.fontFamily,
-              fontSize: "1.5rem",
-              fontWeight: "bold",
-              color: theme.palette.text.primary,
+              position: 'relative',
+              width: '40px',
+              height: '40px',
+              transition: 'transform 0.2s ease-in-out',
+              cursor: 'pointer',
+              '&:hover': {
+                transform: 'scale(1.05)',
+              }
             }}
           >
-            GY
+            <Image
+              src="/icons/gycoding.svg"
+              alt="GYCODING"
+              fill
+              style={{ objectFit: 'contain' }}
+              priority
+            />
           </Box>
 
           {/* Menu items - Only show on desktop */}
