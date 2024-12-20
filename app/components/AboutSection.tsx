@@ -24,7 +24,7 @@ const AboutSection = () => {
         alignItems: 'center',
         justifyContent: 'center',
         py: { xs: 6, sm: 8, md: 12 },
-        px: { xs: 2, sm: 4, md: 6 },
+        px: { xs: 2, sm: 4, md: '100px' },
         background: theme.palette.mode === 'dark' ? 'transparent' : '#fff',
       }}
     >
