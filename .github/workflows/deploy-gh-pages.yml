@@ -27,9 +27,6 @@ jobs:
       - name: Build with Next.js
         run: yarn build
 
-      - name: Export with Next.js
-        run: yarn export
-
       - name: Deploy to GitHub Pages
         run: |
           git config --global user.name 'github-actions[bot]'
