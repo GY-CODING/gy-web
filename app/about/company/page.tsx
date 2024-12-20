@@ -1,7 +1,7 @@
 'use client';
 
 import { Box, Container, Typography, useTheme, Grid } from '@mui/material';
-import { lexendFont } from '../../utils/fonts';
+import { lexendFont, valorantFont } from '../../utils/fonts';
 import FadeIn from '../../components/animations/FadeIn';
 import FlowingGrid from '../../components/animations/FlowingGrid';
 import { motion } from 'framer-motion';
@@ -67,6 +67,32 @@ const ValueCard = ({ value, index }: { value: ValueCard; index: number }) => {
       </Box>
     </motion.div>
   );
+};
+
+const renderStyledText = (text: string) => {
+  const parts = text.split(/(\[company\].*?\[\/company\])/g);
+  return parts.map((part, index) => {
+    if (part.startsWith('[company]')) {
+      const content = part.replace('[company]', '').replace('[/company]', '');
+      return (
+        <Box
+          key={index}
+          component="span"
+          sx={{
+            fontFamily: valorantFont.style.fontFamily,
+            fontWeight: 600,
+            background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            px: 0.5,
+          }}
+        >
+          {content}
+        </Box>
+      );
+    }
+    return part;
+  });
 };
 
 export default function CompanyPage() {
@@ -161,7 +187,7 @@ export default function CompanyPage() {
                 mb: 4,
               }}
             >
-              {t('company.story.part1')}
+              {renderStyledText(t('company.story.part1'))}
             </Typography>
             <Typography
               sx={{
@@ -170,7 +196,7 @@ export default function CompanyPage() {
                 lineHeight: 1.8,
               }}
             >
-              {t('company.story.part2')}
+              {renderStyledText(t('company.story.part2'))}
             </Typography>
           </Box>
         </FadeIn>

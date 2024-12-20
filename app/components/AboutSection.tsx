@@ -11,6 +11,8 @@ import ParallaxScroll from './animations/ParallaxScroll';
 import AnimatedTitle from './animations/AnimatedTitle';
 import { useLanguage } from '../utils/languageContext';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
+import SmartLink from './SmartLink';
 
 const AboutSection = () => {
   const theme = useTheme();
@@ -143,26 +145,29 @@ const AboutSection = () => {
                     display: 'inline-block',
                   }}
                 >
-                  <Box
-                    component="button"
-                    sx={{
-                      background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '12px',
-                      padding: '16px 32px',
-                      fontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem' },
-                      fontWeight: 600,
-                      fontFamily: lexendFont.style.fontFamily,
-                      cursor: 'pointer',
-                      transition: 'all 0.3s ease-in-out',
-                    }}
-                    onClick={() => {
-                      // Handle click
-                    }}
-                  >
-                    {t('about.buttons.button1')}
-                  </Box>
+                  <Link href={'https://docs.gycoding.com/'} target="_blank">
+                    <Box
+                      component="button"
+                      sx={{
+                        background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '12px',
+                        padding: '16px 32px',
+                        fontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem' },
+                        fontWeight: 600,
+                        fontFamily: lexendFont.style.fontFamily,
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease-in-out',
+                        '&:hover': {
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                        },
+                      }}
+                    >
+                      {t('about.buttons.button1')}
+                    </Box>
+                  </Link>
                 </Box>
 
                 <Box
@@ -174,25 +179,31 @@ const AboutSection = () => {
                     display: 'inline-block',
                   }}
                 >
-                  <Box
-                    component="button"
-                    sx={{
-                      fontFamily: lexendFont.style.fontFamily,
-                      fontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem' },
-                      padding: '16px 32px',
-                      borderRadius: '12px',
-                      border: `2px solid ${theme.palette.mode === 'dark' ? '#fff' : '#000'}`,
-                      backgroundColor: 'transparent',
-                      color: theme.palette.mode === 'dark' ? '#fff' : '#000',
-                      cursor: 'pointer',
-                      transition: 'all 0.3s ease-in-out',
-                      '&:hover': {
-                        boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                      },
-                    }}
-                  >
-                    {t('about.buttons.button2')}
-                  </Box>
+                  <Link href={'/about/company'}>
+                    <Box
+                      component="button"
+                      sx={{
+                        background: 'transparent',
+                        color: theme.palette.mode === 'dark' ? 'white' : 'black',
+                        border: `2px solid ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+                        borderRadius: '12px',
+                        padding: '14px 32px',
+                        fontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem' },
+                        fontWeight: 600,
+                        fontFamily: lexendFont.style.fontFamily,
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease-in-out',
+                        '&:hover': {
+                          transform: 'translateY(-2px)',
+                          borderColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)',
+                          boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                        },
+                        textDecoration: 'none',
+                      }}
+                    >
+                      {t('about.buttons.button2')}
+                    </Box>
+                  </Link>
                 </Box>
               </Box>
             </FadeIn>

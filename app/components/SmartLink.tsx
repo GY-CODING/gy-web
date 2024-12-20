@@ -1,11 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { usePathname } from 'next/navigation';
+import { ReactNode } from 'react';
 import { styled } from '@mui/material/styles';
+import { motion } from 'framer-motion';
 import { useTheme } from '@mui/material';
 
-const StyledLink = styled(motion.div)(({ theme }) => ({
+const StyledLinkWrapper = styled(motion.div)(({ theme }) => ({
   '& a': {
     color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)',
     textDecoration: 'none',
@@ -33,35 +35,50 @@ const StyledLink = styled(motion.div)(({ theme }) => ({
   },
 }));
 
-interface FooterLinkProps {
+interface SmartLinkProps {
   href: string;
-  text: string;
-  scroll?: boolean;
+  children: ReactNode;
+  className?: string;
 }
 
-export default function FooterLink({ href, text, scroll }: FooterLinkProps) {
+export default function SmartLink({ href, children, className }: SmartLinkProps) {
+  const pathname = usePathname();
   const theme = useTheme();
+  const isHomePage = pathname === '/';
+  const isHashLink = href.startsWith('/#');
 
-  const handleClick = (e: React.MouseEvent) => {
-    if (scroll && href.startsWith('#')) {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (isHashLink && isHomePage) {
       e.preventDefault();
-      const element = document.querySelector(href);
+      const targetId = href.slice(2);
+      const element = document.getElementById(targetId);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     }
   };
 
-  return (
-    <StyledLink
+  const content = (
+    <StyledLinkWrapper
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       whileHover={{ x: 5 }}
     >
-      <Link href={href} onClick={handleClick}>
-        {text}
-      </Link>
-    </StyledLink>
+      <a href={href} onClick={handleClick} className={className}>
+        {children}
+      </a>
+    </StyledLinkWrapper>
   );
+
+  // Si no estamos en la página principal o no es un enlace con hash
+  if (!isHashLink || !isHomePage) {
+    return (
+      <Link href={href} passHref legacyBehavior>
+        {content}
+      </Link>
+    );
+  }
+
+  return content;
 }

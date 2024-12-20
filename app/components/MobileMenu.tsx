@@ -41,6 +41,7 @@ export default function MobileMenu({ isOpen, menuItems, onClose }: MobileMenuPro
         zIndex: 1000,
         maxHeight: 'calc(100vh - 64px)',
         overflowY: 'auto',
+        overscrollBehavior: 'contain',
       }}
     >
       {menuItems.map((item, index) => (
@@ -248,21 +249,6 @@ export default function MobileMenu({ isOpen, menuItems, onClose }: MobileMenuPro
               backgroundColor: theme.palette.mode === 'light'
                 ? 'rgba(140, 84, 255, 0.04)'
                 : 'rgba(140, 84, 255, 0.08)',
-            }
-          }}
-        />
-        <CustomButton
-          text="Contact"
-          link=""
-          sx={{
-            width: '100%',
-            backgroundColor: theme.palette.secondary.main,
-            border: '2px solid',
-            borderColor: theme.palette.secondary.main,
-            color: '#ffffff',
-            '&:hover': {
-              backgroundColor: theme.palette.secondary.light,
-              borderColor: theme.palette.secondary.light,
             }
           }}
         />

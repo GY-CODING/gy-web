@@ -2,13 +2,12 @@
 
 import { Box, Container, Typography, useTheme, IconButton } from '@mui/material';
 import { lexendFont, valorantFont } from '../../utils/fonts';
-import FadeIn from '../../components/animations/FadeIn';
-import ParallaxScroll from '../../components/animations/ParallaxScroll';
 import AnimatedBackground from '../../components/animations/AnimatedBackground';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { GitHub, LinkedIn, Email } from '@mui/icons-material';
 import { useLanguage } from '../../utils/languageContext';
+import { fadeInUpVariants } from '../../utils/animations';
 
 interface TeamMember {
   name: string;
@@ -31,9 +30,9 @@ const teamMembers: TeamMember[] = [
     image: '/images/gfigueras.png',
     skills: ['React', 'NextJS', 'TypeScript', 'Unity', 'Material UI'],
     social: {
-      github: 'https://github.com/gyfigueras',
-      linkedin: 'https://linkedin.com/in/guillermo-figueras',
-      email: 'guillermo@gycoding.com'
+      github: 'https://github.com/gy-gfigueras',
+      linkedin: 'https://www.linkedin.com/in/gfigueras/',
+      email: 'gfigueras@gycoding.com'
     }
   },
   {
@@ -43,9 +42,9 @@ const teamMembers: TeamMember[] = [
     image: '/images/toxyc.png',
     skills: ['Java', 'Spring Boot', 'C#', 'NodeJS', 'MongoDB'],
     social: {
-      github: 'https://github.com/ivanvicente',
-      linkedin: 'https://linkedin.com/in/ivan-vicente',
-      email: 'ivan@gycoding.com'
+      github: 'https://github.com/gy-toxyc',
+      linkedin: 'https://www.linkedin.com/in/srtoxyc/',
+      email: 'toxyc@gycoding.com'
     }
   }
 ];
@@ -253,112 +252,68 @@ const TeamMemberCard = ({ member, index }: { member: TeamMember; index: number }
 export default function TeamPage() {
   const theme = useTheme();
   const { t } = useLanguage();
-
-  const teamMembers: TeamMember[] = [
-    {
-      name: t('team.members.0.name'),
-      role: t('team.members.0.role'),
-      description: t('team.members.0.description'),
-      image: '/images/gfigueras.png',
-      skills: ['React', 'NextJS', 'TypeScript', 'Unity', 'Material UI'],
-      social: {
-        github: 'https://github.com/gyfigueras',
-        linkedin: 'https://linkedin.com/in/guillermo-figueras',
-        email: 'guillermo@gycoding.com'
-      }
-    },
-    {
-      name: t('team.members.1.name'),
-      role: t('team.members.1.role'),
-      description: t('team.members.1.description'),
-      image: '/images/toxyc.png',
-      skills: ['Java', 'Spring Boot', 'C#', 'NodeJS', 'MongoDB'],
-      social: {
-        github: 'https://github.com/ivanvicente',
-        linkedin: 'https://linkedin.com/in/ivan-vicente',
-        email: 'ivan@gycoding.com'
-      }
-    }
-  ];
+  const teamMembers = t('team.members');
 
   return (
     <Box
-      component="main"
       sx={{
         minHeight: '100vh',
-        pt: { xs: '80px', sm: '100px', md: '120px' },
-        pb: { xs: 8, md: 12 },
-        backgroundColor: theme.palette.mode === 'dark' ? 'grey.900' : 'grey.50',
+        pt: { xs: 12, sm: 14 },
+        pb: { xs: 8, sm: 10 },
         position: 'relative',
         overflow: 'hidden',
       }}
     >
       <AnimatedBackground />
-
-      <Container
-        maxWidth="lg"
-        sx={{
-          position: 'relative',
-          zIndex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <FadeIn direction="up">
-          <Box
+      <Container maxWidth="lg">
+        <Box
+          component={motion.div}
+          variants={fadeInUpVariants}
+          initial="hidden"
+          animate="visible"
+          sx={{
+            textAlign: 'center',
+            mb: { xs: 6, sm: 8 },
+          }}
+        >
+          <Typography
+            variant="h1"
             sx={{
-              textAlign: 'center',
-              mb: { xs: 8, md: 12 },
-              maxWidth: '800px',
-              mx: 'auto',
-              px: { xs: 2, sm: 4 },
+              fontFamily: valorantFont.style.fontFamily,
+              fontSize: { xs: '2.5rem', sm: '3rem', md: '3.5rem' },
+              mb: 2,
+              background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
             }}
           >
-            <Typography
-              variant="h1"
-              sx={{
-                fontFamily: lexendFont.style.fontFamily,
-                fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4.5rem', lg: '5rem' },
-                fontWeight: 600,
-                mb: 3,
-                background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                letterSpacing: '-0.02em',
-              }}
-            >
-              {t('team.title')}
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: { xs: '1.125rem', sm: '1.25rem', md: '1.5rem' },
-                color: theme.palette.mode === 'dark' ? 'grey.300' : 'grey.700',
-                lineHeight: 1.6,
-                maxWidth: '600px',
-                mx: 'auto',
-              }}
-            >
-              {t('team.description')}
-            </Typography>
-          </Box>
-        </FadeIn>
+            {t('team.title')}
+          </Typography>
+          <Typography
+            variant="h2"
+            sx={{
+              fontFamily: lexendFont.style.fontFamily,
+              fontSize: { xs: '1.1rem', sm: '1.25rem', md: '1.5rem' },
+              color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)',
+              maxWidth: '800px',
+              mx: 'auto',
+            }}
+          >
+            {t('team.description')}
+          </Typography>
+        </Box>
 
         <Box
           sx={{
-            display: 'grid',
-            gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' },
-            gap: { xs: 4, sm: 5, md: 6 },
-            width: '100%',
-            px: { xs: 2, sm: 4 },
+            display: 'flex',
+            flexDirection: { xs: 'column', md: 'row' },
+            gap: { xs: 4, md: 6 },
+            justifyContent: 'center',
+            alignItems: { xs: 'center', md: 'stretch' },
           }}
         >
-          {teamMembers.map((member, index) => (
-            <TeamMemberCard
-              key={member.name}
-              member={member}
-              index={index}
-            />
+          {Array.isArray(teamMembers) && teamMembers.map((member: TeamMember, index: number) => (
+            <TeamMemberCard key={member.name} member={member} index={index} />
           ))}
         </Box>
       </Container>

@@ -23,32 +23,42 @@ export interface Locale {
       name: string;
       role: string;
       description: string;
+      image: string;
+      skills: Array<string>;
+      social: {
+        github: string;
+        linkedin: string;
+        email: string;
+      };
     }>;
   };
   footer: {
     rights: string;
     company: string;
-    links: {
-      main: {
-        title: string;
-        items: Array<{
-          name: string;
-          href: string;
-        }>;
+    home: {
+      title: string;
+      items: {
+        home: string;
+        services: string;
+        techstack: string;
       };
-      legal: {
-        title: string;
-        items: Array<{
-          name: string;
-          href: string;
-        }>;
+    };
+    projects: {
+      title: string;
+    };
+    about: {
+      title: string;
+      items: {
+        team: string;
+        company: string;
       };
-      social: {
-        title: string;
-        items: Array<{
-          name: string;
-          href: string;
-        }>;
+    };
+    legal: {
+      title: string;
+      items: {
+        privacy: string;
+        terms: string;
+        cookies: string;
       };
     };
   };
@@ -145,45 +155,58 @@ export const locales: Record<'en' | 'es', Locale> = {
         {
           name: 'Guillermo Figueras',
           role: 'CEO & Frontend Developer',
-          description: 'Passionate about creating elegant and efficient solutions. Specialized in modern web technologies and cloud architecture.'
+          description: 'Passionate about creating elegant and efficient solutions. Specialized in modern web technologies and cloud architecture.',
+          image: '/images/gfigueras.png',
+          skills: ['React', 'NextJS', 'TypeScript', 'Unity', 'Material UI'],
+          social: {
+            github: 'https://github.com/gy-gfigueras',
+            linkedin: 'https://www.linkedin.com/in/gfigueras/',
+            email: 'gfigueras@gycoding.com'
+          }
         },
         {
           name: 'Ivan Vicente',
           role: 'CEO & Backend Developer',
-          description: 'Expert in building scalable applications and optimizing performance. Focused on delivering exceptional user experiences.'
+          description: 'Expert in building scalable applications and optimizing performance. Focused on delivering exceptional user experiences.',
+          image: '/images/toxyc.png',
+          skills: ['Java', 'Spring Boot', 'C#', 'NodeJS', 'MongoDB'],
+          social: {
+            github: 'https://github.com/gy-toxyc',
+            linkedin: 'https://www.linkedin.com/in/srtoxyc/',
+            email: 'toxyc@gycoding.com'
+          }
         }
       ]
     },
     footer: {
       rights: 'All rights reserved.',
       company: 'GYCODING',
-      links: {
-        main: {
-          title: 'Navigation',
-          items: [
-            { name: 'Home', href: '/' },
-            { name: 'Services', href: '/services' },
-            { name: 'Projects', href: '/projects' },
-            { name: 'About', href: '/about' },
-            { name: 'Contact', href: '/contact' },
-          ],
-        },
-        legal: {
-          title: 'Legal',
-          items: [
-            { name: 'Privacy Policy', href: '/privacy' },
-            { name: 'Terms of Service', href: '/terms' },
-            { name: 'Cookie Policy', href: '/cookies' },
-          ],
-        },
-        social: {
-          title: 'Social',
-          items: [
-            { name: 'GitHub', href: 'https://github.com/gyfigueroa' },
-            { name: 'LinkedIn', href: 'https://linkedin.com/in/guillermo-figueras' },
-          ],
-        },
+      home: {
+        title: 'Home',
+        items: {
+          home: 'Home',
+          services: 'Services',
+          techstack: 'Tech Stack'
+        }
       },
+      projects: {
+        title: 'Projects'
+      },
+      about: {
+        title: 'About',
+        items: {
+          team: 'Team',
+          company: 'Company'
+        }
+      },
+      legal: {
+        title: 'Legal',
+        items: {
+          privacy: 'Privacy Policy',
+          terms: 'Terms of Service',
+          cookies: 'Cookie Policy'
+        }
+      }
     },
     about: {
       title: "Building Digital Dreams",
@@ -197,10 +220,10 @@ export const locales: Record<'en' | 'es', Locale> = {
     },
     company: {
       title: 'Our Story',
-      description: 'We are a dynamic software development company specializing in creating innovative digital solutions that drive business growth',
+      description: 'Discover how we started and where we are heading',
       story: {
-        part1: 'Founded with a vision to bridge the gap between innovative ideas and technological solutions, GyCoding has established itself as a trusted partner in digital transformation. Our expertise spans across modern web development, cloud solutions, and custom software development.',
-        part2: 'What sets us apart is our commitment to not just meeting but exceeding client expectations. We believe in creating solutions that are not only technologically advanced but also user-friendly and scalable for future growth.'
+        part1: "Founded with a vision to revolutionize web development, [company]GyCODING[/company] emerged from the collaboration of two passionate developers who shared a common dream: to create exceptional digital experiences that make a difference.",
+        part2: "What started as a shared vision has grown into a dynamic company that pushes the boundaries of what's possible in web development. Our journey is marked by continuous learning, innovation, and a relentless pursuit of excellence.",
       },
       values: {
         title: 'Our Values',
@@ -293,45 +316,58 @@ export const locales: Record<'en' | 'es', Locale> = {
         {
           name: 'Guillermo Figueras',
           role: 'CEO y Desarrollador Frontend',
-          description: 'Apasionado por crear soluciones elegantes y eficientes. Especializado en tecnologías web modernas y arquitectura en la nube.'
+          description: 'Apasionado por crear soluciones elegantes y eficientes. Especializado en tecnologías web modernas y arquitectura en la nube.',
+          image: '/images/gfigueras.png',
+          skills: ['React', 'NextJS', 'TypeScript', 'Unity', 'Material UI'],
+          social: {
+            github: 'https://github.com/gy-gfigueras',
+            linkedin: 'https://www.linkedin.com/in/gfigueras/',
+            email: 'gfigueras@gycoding.com'
+          }
         },
         {
           name: 'Ivan Vicente',
           role: 'CEO y Desarrollador Backend',
-          description: 'Experto en construir aplicaciones escalables y optimizar el rendimiento. Enfocado en ofrecer experiencias de usuario excepcionales.'
+          description: 'Experto en construir aplicaciones escalables y optimizar el rendimiento. Enfocado en ofrecer experiencias de usuario excepcionales.',
+          image: '/images/toxyc.png',
+          skills: ['Java', 'Spring Boot', 'C#', 'NodeJS', 'MongoDB'],
+          social: {
+            github: 'https://github.com/gy-toxyc',
+            linkedin: 'https://www.linkedin.com/in/srtoxyc/',
+            email: 'toxyc@gycoding.com'
+          }
         }
       ]
     },
     footer: {
       rights: 'Todos los derechos reservados.',
       company: 'GYCODING',
-      links: {
-        main: {
-          title: 'Navegación',
-          items: [
-            { name: 'Inicio', href: '/' },
-            { name: 'Servicios', href: '/services' },
-            { name: 'Proyectos', href: '/projects' },
-            { name: 'Nosotros', href: '/about' },
-            { name: 'Contacto', href: '/contact' },
-          ],
-        },
-        legal: {
-          title: 'Legal',
-          items: [
-            { name: 'Política de Privacidad', href: '/privacy' },
-            { name: 'Términos de Servicio', href: '/terms' },
-            { name: 'Política de Cookies', href: '/cookies' },
-          ],
-        },
-        social: {
-          title: 'Social',
-          items: [
-            { name: 'GitHub', href: 'https://github.com/gyfigueroa' },
-            { name: 'LinkedIn', href: 'https://linkedin.com/in/guillermo-figueras' },
-          ],
-        },
+      home: {
+        title: 'Inicio',
+        items: {
+          home: 'Inicio',
+          services: 'Servicios',
+          techstack: 'Tecnologías'
+        }
       },
+      projects: {
+        title: 'Proyectos'
+      },
+      about: {
+        title: 'Acerca de',
+        items: {
+          team: 'Equipo',
+          company: 'Empresa'
+        }
+      },
+      legal: {
+        title: 'Legal',
+        items: {
+          privacy: 'Política de Privacidad',
+          terms: 'Términos de Servicio',
+          cookies: 'Política de Cookies'
+        }
+      }
     },
     about: {
       title: "Creando sueños digitales",
@@ -345,10 +381,10 @@ export const locales: Record<'en' | 'es', Locale> = {
     },
     company: {
       title: 'Nuestra Historia',
-      description: 'Somos una empresa de desarrollo de software dinámica especializada en crear soluciones digitales innovadoras que impulsan el crecimiento empresarial',
+      description: 'Descubre cómo empezamos y hacia dónde vamos',
       story: {
-        part1: 'Fundada con la visión de cerrar la brecha entre las ideas innovadoras y las soluciones tecnológicas, GyCoding se ha establecido como un socio de confianza en la transformación digital. Nuestra experiencia abarca el desarrollo web moderno, soluciones en la nube y desarrollo de software personalizado.',
-        part2: 'Lo que nos distingue es nuestro compromiso no solo de cumplir sino de superar las expectativas de los clientes. Creemos en crear soluciones que no solo sean tecnológicamente avanzadas sino también fáciles de usar y escalables para el crecimiento futuro.'
+        part1: "Fundada con una visión de revolucionar el desarrollo web, [company]GyCODING[/company] surgió de la colaboración de dos desarrolladores apasionados que compartían un sueño común: crear experiencias digitales excepcionales que marquen la diferencia.",
+        part2: "Lo que comenzó como una visión compartida ha crecido hasta convertirse en una empresa dinámica que empuja los límites de lo que es posible en el desarrollo web. Nuestro viaje está marcado por el aprendizaje continuo, la innovación y la búsqueda incansable de la excelencia.",
       },
       values: {
         title: 'Nuestros Valores',

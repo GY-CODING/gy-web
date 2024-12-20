@@ -49,6 +49,7 @@ export default function ModularSection() {
 
   return (
     <Box
+      id="modular-section"
       ref={containerRef}
       component="section"
       sx={{

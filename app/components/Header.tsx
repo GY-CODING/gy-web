@@ -41,6 +41,7 @@ export default function Header({ onThemeToggle }: HeaderProps) {
         backgroundColor: theme.palette.background.paper,
         borderBottom: `1px solid ${theme.palette.divider}`,
         zIndex: 1000,
+        willChange: 'transform',
       }}
     >
       <Box
@@ -158,9 +159,9 @@ export default function Header({ onThemeToggle }: HeaderProps) {
 
       {/* Mobile menu */}
       <MobileMenu
-        open={mobileMenuOpen}
+        isOpen={mobileMenuOpen}
+        menuItems={currentMenuItems}
         onClose={() => setMobileMenuOpen(false)}
-        items={currentMenuItems}
       />
     </Box>
   );
