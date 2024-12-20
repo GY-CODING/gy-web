@@ -4,13 +4,39 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import { lexendFont, valorantFont } from '../utils/fonts';
+import { gradientTextStyles } from '../utils/styles';
 import LottieAnimation from './lottieAnimation';
 import FadeIn from './animations/FadeIn';
 import ParallaxScroll from './animations/ParallaxScroll';
 import AnimatedTitle from './animations/AnimatedTitle';
+import { useLanguage } from '../utils/languageContext';
+import { motion } from 'framer-motion';
 
 const AboutSection = () => {
   const theme = useTheme();
+  const { t } = useLanguage();
+
+  const renderStyledText = (text: string) => {
+    const parts = text.split(/(\[company\].*?\[\/company\])/);
+    return parts.map((part, index) => {
+      if (part.startsWith('[company]')) {
+        const content = part.replace('[company]', '').replace('[/company]', '');
+        return (
+          <span
+            key={index}
+            style={{
+              color: '#8C54FF',
+              fontWeight: 400,
+              fontFamily: valorantFont.style.fontFamily
+            }}
+          >
+            {content}
+          </span>
+        );
+      }
+      return part;
+    });
+  };
 
   return (
     <Box
@@ -51,7 +77,19 @@ const AboutSection = () => {
         >
           <FadeIn direction="up" delay={0.2}>
             <Box sx={{ fontSize: { xs: '2rem', md: '3rem' }, mb: 3 }}>
-              <AnimatedTitle text="Building Digital Dreams" />
+              <Typography
+                variant="h1"
+                component="h1"
+                sx={{
+                  ...gradientTextStyles('linear-gradient(135deg, #6366f1 0%, #ec4899 100%)'),
+                  fontFamily: lexendFont.style.fontFamily,
+                  fontSize: { xs: '2.5rem', sm: '3rem', md: '3.2rem' },
+                  fontWeight: 600,
+                  mb: 2,
+                }}
+              >
+                {t('about.title')}
+              </Typography>
             </Box>
           </FadeIn>
 
@@ -69,10 +107,7 @@ const AboutSection = () => {
                   mb: 3,
                 }}
               >
-                At <span style={{ color: '#8C54FF', fontWeight: 400, fontFamily: valorantFont.style.fontFamily }}>GyCODING</span>,
-                we merge passion with technology. We are a team of developers
-                specialized in creating innovative digital solutions,
-                covering both frontend and backend development.
+                {renderStyledText(t('about.description1'))}
               </Typography>
             </FadeIn>
           </ParallaxScroll>
@@ -88,12 +123,10 @@ const AboutSection = () => {
                   fontWeight: 400,
                   lineHeight: 1.6,
                   color: theme.palette.mode === 'dark' ? 'grey.300' : 'grey.700',
-                  mb: 6,
+                  mb: 1,
                 }}
               >
-                Our commitment to continuous learning and innovation
-                keeps us at the forefront of the latest web development
-                technologies and trends.
+                {renderStyledText(t('about.description2'))}
               </Typography>
             </FadeIn>
           </ParallaxScroll>
@@ -102,46 +135,64 @@ const AboutSection = () => {
             <FadeIn direction="up" delay={0.8}>
               <Box sx={{ display: 'flex', gap: 2 }}>
                 <Box
-                  component="button"
+                  component={motion.div}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   sx={{
-                    fontFamily: lexendFont.style.fontFamily,
-                    fontSize: '1rem',
-                    py: { xs: 1, sm: 1.5 },
-                    px: { xs: 3, sm: 4 },
-                    borderRadius: '12px',
-                    border: 'none',
-                    backgroundColor: theme.palette.mode === 'dark' ? '#fff' : '#000',
-                    color: theme.palette.mode === 'dark' ? '#000' : '#fff',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease-in-out',
-                    '&:hover': {
-                      transform: 'translateY(-2px)',
-                      boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                    },
+                    mt: { xs: 4, sm: 6 },
+                    display: 'inline-block',
                   }}
                 >
-                  Get Started
+                  <Box
+                    component="button"
+                    sx={{
+                      background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '12px',
+                      padding: '16px 32px',
+                      fontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem' },
+                      fontWeight: 600,
+                      fontFamily: lexendFont.style.fontFamily,
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease-in-out',
+                    }}
+                    onClick={() => {
+                      // Handle click
+                    }}
+                  >
+                    {t('about.buttons.button1')}
+                  </Box>
                 </Box>
+
                 <Box
-                  component="button"
+                  component={motion.div}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   sx={{
-                    fontFamily: lexendFont.style.fontFamily,
-                    fontSize: '1rem',
-                    py: { xs: 1, sm: 1.5 },
-                    px: { xs: 3, sm: 4 },
-                    borderRadius: '12px',
-                    border: `2px solid ${theme.palette.mode === 'dark' ? '#fff' : '#000'}`,
-                    backgroundColor: 'transparent',
-                    color: theme.palette.mode === 'dark' ? '#fff' : '#000',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease-in-out',
-                    '&:hover': {
-                      transform: 'translateY(-2px)',
-                      boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                    },
+                    mt: { xs: 4, sm: 6 },
+                    display: 'inline-block',
                   }}
                 >
-                  Learn More
+                  <Box
+                    component="button"
+                    sx={{
+                      fontFamily: lexendFont.style.fontFamily,
+                      fontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem' },
+                      padding: '16px 32px',
+                      borderRadius: '12px',
+                      border: `2px solid ${theme.palette.mode === 'dark' ? '#fff' : '#000'}`,
+                      backgroundColor: 'transparent',
+                      color: theme.palette.mode === 'dark' ? '#fff' : '#000',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease-in-out',
+                      '&:hover': {
+                        boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                      },
+                    }}
+                  >
+                    {t('about.buttons.button2')}
+                  </Box>
                 </Box>
               </Box>
             </FadeIn>

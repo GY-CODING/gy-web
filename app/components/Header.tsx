@@ -1,12 +1,18 @@
-import { Box, useTheme, IconButton, useMediaQuery } from "@mui/material";
-import React, { useState } from "react";
+'use client';
+
+import { useState } from "react";
+import { useTheme, useMediaQuery } from "@mui/material";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/icons-material/Menu";
 import MenuIcon from '@mui/icons-material/Menu';
 import ThemeToggle from "./ThemeToggle";
 import CustomButton from "./CustomButton";
 import CustomMenuItem from "./menuItem";
 import FloatingMenu from "./FloatingMenu";
 import MobileMenu from "./MobileMenu";
-import { menuItems } from "../utils/menuItems";
+import LanguageSelector from "./LanguageSelector";
+import { getMenuItems, getButtonText } from "../utils/menuItems";
+import { useLanguage } from '../utils/languageContext';
 import Image from 'next/image';
 import Link from "next/link";
 
@@ -19,6 +25,9 @@ export default function Header({ onThemeToggle }: HeaderProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const { language } = useLanguage();
+
+  const currentMenuItems = getMenuItems(language);
 
   return (
     <Box
@@ -74,7 +83,8 @@ export default function Header({ onThemeToggle }: HeaderProps) {
                 style={{ objectFit: 'contain' }}
                 priority
               />
-            </Box></Link>
+            </Box>
+          </Link>
 
           {/* Menu items - Only show on desktop */}
           {!isMobile && (
@@ -84,7 +94,7 @@ export default function Header({ onThemeToggle }: HeaderProps) {
                 gap: "1.5rem",
               }}
             >
-              {menuItems.map((item, index) => (
+              {currentMenuItems.map((item, index) => (
                 <CustomMenuItem
                   key={index}
                   item={item}
@@ -105,6 +115,7 @@ export default function Header({ onThemeToggle }: HeaderProps) {
             alignItems: "center",
           }}
         >
+          <LanguageSelector />
           <ThemeToggle onToggle={onThemeToggle} />
           {isMobile ? (
             <IconButton
@@ -114,37 +125,24 @@ export default function Header({ onThemeToggle }: HeaderProps) {
               <MenuIcon />
             </IconButton>
           ) : (
-            <>
-              <CustomButton
-                text="Log In"
-                link=""
-                sx={{
-                  backgroundColor: 'transparent',
-                  border: '2px solid',
-                  borderColor: theme.palette.secondary.main,
-                  color: theme.palette.secondary.main,
-                  '&:hover': {
-                    backgroundColor: theme.palette.mode === 'light'
-                      ? 'rgba(140, 84, 255, 0.04)'
-                      : 'rgba(140, 84, 255, 0.08)',
-                  }
-                }}
-              />
-              <CustomButton
-                text="Contact"
-                link=""
-                sx={{
-                  backgroundColor: theme.palette.secondary.main,
-                  border: '2px solid',
-                  borderColor: theme.palette.secondary.main,
-                  color: '#ffffff',
-                  '&:hover': {
-                    backgroundColor: theme.palette.secondary.light,
-                    borderColor: theme.palette.secondary.light,
-                  }
-                }}
-              />
-            </>
+            <CustomButton
+              text={getButtonText(language, 'login')}
+              link=""
+              sx={{
+                background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
+                border: 'none',
+                color: '#ffffff',
+                fontWeight: 600,
+                px: 3,
+                '&:hover': {
+                  opacity: 0.9,
+                  transform: 'translateY(-1px)',
+                },
+                '&:active': {
+                  transform: 'translateY(0)',
+                }
+              }}
+            />
           )}
         </Box>
       </Box>
@@ -152,7 +150,7 @@ export default function Header({ onThemeToggle }: HeaderProps) {
       {/* Floating menu for desktop */}
       {!isMobile && (
         <FloatingMenu
-          items={menuItems}
+          items={currentMenuItems}
           activeIndex={hoveredIndex}
           onHover={setHoveredIndex}
         />
@@ -160,9 +158,9 @@ export default function Header({ onThemeToggle }: HeaderProps) {
 
       {/* Mobile menu */}
       <MobileMenu
-        isOpen={isMobile && mobileMenuOpen}
-        menuItems={menuItems}
+        open={mobileMenuOpen}
         onClose={() => setMobileMenuOpen(false)}
+        items={currentMenuItems}
       />
     </Box>
   );

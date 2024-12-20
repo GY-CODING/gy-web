@@ -1,26 +1,29 @@
 'use client';
-import { useTheme } from '@mui/material/styles';
-import { Box, Typography, Container } from '@mui/material';
+import React from 'react';
+import { Box, Container, Typography, useTheme } from '@mui/material';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import { lexendFont } from '../utils/fonts';
+import { useLanguage } from '../utils/languageContext';
+import { gradientTextStyles } from '../utils/styles';
+import Image from 'next/image';
 import FadeIn from './animations/FadeIn';
 
 const technologies = [
-  { name: 'Next.js', icon: '/icons/nextjs.svg' },
-  { name: 'Vercel', icon: '/icons/vercel.svg' },
-  { name: 'MongoDB', icon: '/icons/mongodb.svg' },
-  { name: 'Cloudflare', icon: '/icons/cloudflare.svg' },
-  { name: 'Koyeb', icon: '/icons/koyeb.svg' },
-  { name: 'Spring Boot', icon: '/icons/springboot.svg' },
-  { name: 'Postman', icon: '/icons/postman.svg' },
-  { name: 'GitHub', icon: '/icons/github.svg' },
-  { name: 'Git', icon: '/icons/git.svg' },
-  { name: 'Figma', icon: '/icons/figma.svg' },
+  { name: 'Next.js', icon: '/icons/nextjs.svg', color: '#000000' },
+  { name: 'Vercel', icon: '/icons/vercel.svg', color: '#000000' },
+  { name: 'MongoDB', icon: '/icons/mongodb.svg', color: '#47A248' },
+  { name: 'Cloudflare', icon: '/icons/cloudflare.svg', color: '#F38020' },
+  { name: 'Koyeb', icon: '/icons/koyeb.svg', color: '#121212' },
+  { name: 'Spring Boot', icon: '/icons/springboot.svg', color: '#6DB33F' },
+  { name: 'Postman', icon: '/icons/postman.svg', color: '#FF6C37' },
+  { name: 'GitHub', icon: '/icons/github.svg', color: '#181717' },
+  { name: 'Git', icon: '/icons/git.svg', color: '#F05032' },
+  { name: 'Figma', icon: '/icons/figma.svg', color: '#F24E1E' },
 ];
 
 const TechStack = () => {
   const theme = useTheme();
+  const { t } = useLanguage();
 
   return (
     <Container maxWidth="lg" sx={{ py: { xs: 8, md: 12 } }}>
@@ -29,15 +32,15 @@ const TechStack = () => {
           variant="h2"
           component="h2"
           sx={{
+            ...gradientTextStyles('linear-gradient(135deg, #6366f1 0%, #ec4899 100%)'),
             fontFamily: lexendFont.style.fontFamily,
-            fontSize: { xs: '2rem', md: '2.5rem' },
+            fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
             fontWeight: 600,
-            marginBottom: '4rem',
             textAlign: 'center',
-            color: theme.palette.mode === 'dark' ? '#fff' : '#000',
+            mb: { xs: 4, sm: 6, md: 8 },
           }}
         >
-          Tech Stack
+          {t('techStack.title')}
         </Typography>
       </FadeIn>
 
@@ -139,19 +142,35 @@ const TechStack = () => {
             <Box
               className="tech-icon"
               sx={{
-                width: { xs: '40px', sm: '50px', md: '60px' },
-                height: { xs: '40px', sm: '50px', md: '60px' },
                 position: 'relative',
-                filter: theme.palette.mode === 'dark' ? 'invert(1)' : 'none',
-                transition: 'transform 0.3s ease-out',
+                width: { xs: '60px', sm: '70px', md: '80px' },
+                height: { xs: '60px', sm: '70px', md: '80px' },
+                borderRadius: '16px',
+                backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.9)',
+                border: `2px solid ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+                padding: '12px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.3s ease-in-out',
+                '&:hover': {
+                  transform: 'translateY(-5px)',
+                  boxShadow: `0 8px 16px ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+                  borderColor: tech.color,
+                  backgroundColor: theme.palette.mode === 'dark' 
+                    ? `rgba(${parseInt(tech.color.slice(1,3),16)}, ${parseInt(tech.color.slice(3,5),16)}, ${parseInt(tech.color.slice(5,7),16)}, 0.1)`
+                    : `rgba(${parseInt(tech.color.slice(1,3),16)}, ${parseInt(tech.color.slice(3,5),16)}, ${parseInt(tech.color.slice(5,7),16)}, 0.05)`,
+                },
               }}
             >
               <Image
                 src={tech.icon}
                 alt={tech.name}
-                fill
-                style={{ 
-                  objectFit: 'contain',
+                width={40}
+                height={40}
+                style={{
+                  filter: theme.palette.mode === 'dark' ? 'brightness(0) invert(1)' : 'none',
+                  opacity: theme.palette.mode === 'dark' ? 0.9 : 0.8,
                 }}
               />
             </Box>

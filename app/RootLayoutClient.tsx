@@ -7,6 +7,7 @@ import LoadingScreen from './components/LoadingScreen';
 import { AnimatePresence } from 'framer-motion';
 import { lexendFont, valorantFont } from './utils/fonts';
 import Footer from './components/Footer/Footer';
+import { LanguageProvider } from './utils/languageContext';
 
 export default function RootLayoutClient({
   children,
@@ -42,31 +43,33 @@ export default function RootLayoutClient({
   const theme = createAppTheme(mode);
 
   return (
-    <html lang="es" className={`${lexendFont.className} ${valorantFont.className}`}>
-      <body>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <AnimatePresence mode="wait">
-            {isLoading ? (
-              <LoadingScreen key="loading" />
-            ) : (
-              <Box
-                key="content"
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  minHeight: '100vh',
-                  width: '100%'
-                }}
-              >
-                <Header onThemeToggle={toggleTheme} />
-                {children}
-              </Box>
-            )}
-            <Footer />
-          </AnimatePresence>
-        </ThemeProvider>
-      </body>
-    </html>
+    <LanguageProvider>
+      <html lang="es" className={`${lexendFont.className} ${valorantFont.className}`}>
+        <body>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <AnimatePresence mode="wait">
+              {isLoading ? (
+                <LoadingScreen key="loading" />
+              ) : (
+                <Box
+                  key="content"
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    minHeight: '100vh',
+                    width: '100%'
+                  }}
+                >
+                  <Header onThemeToggle={toggleTheme} />
+                  {children}
+                </Box>
+              )}
+              <Footer />
+            </AnimatePresence>
+          </ThemeProvider>
+        </body>
+      </html>
+    </LanguageProvider>
   );
 }

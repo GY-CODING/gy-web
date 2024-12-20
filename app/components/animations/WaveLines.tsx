@@ -55,7 +55,7 @@ const WaveLines = () => {
           const baseY = useTransform(
             springY,
             [0, 1],
-            [`${20 + progress * 60}%`, `${40 + progress * 60}%`]
+            [20 + progress * 60, 40 + progress * 60]
           );
 
           const pathD = useTransform(
@@ -63,15 +63,15 @@ const WaveLines = () => {
             ([x, y]) => {
               const amplitude = 20 + Math.sin(progress * Math.PI) * 15;
               const frequency = 3 + Math.cos(progress * Math.PI) * 2;
-              
+
               const points = [];
               for (let j = 0; j <= 100; j++) {
                 const px = j;
                 const wave = Math.sin((j / 100 * Math.PI * frequency) + progress * 10) * amplitude;
-                const mouseInfluence = Math.sin((j / 100 - x) * Math.PI) * 30 * (1 - Math.abs(j / 100 - x));
+                const mouseInfluence = Math.sin((j / 100 - (x as number) * Math.PI) * 30 * (1 - Math.abs(j / 100 - (x as number))));
                 points.push(`${px}% ${parseFloat(y as string) + wave + mouseInfluence}%`);
               }
-              
+
               return `M 0 ${y} Q ${points.join(' ')} 100% ${y}`;
             }
           );
@@ -81,7 +81,7 @@ const WaveLines = () => {
               key={i}
               d={pathD}
               fill="none"
-              stroke={theme.palette.mode === 'dark' 
+              stroke={theme.palette.mode === 'dark'
                 ? 'rgba(99, 102, 241, 0.1)'
                 : 'rgba(99, 102, 241, 0.07)'}
               strokeWidth="1"
@@ -105,7 +105,7 @@ const WaveLines = () => {
           bottom: 0,
           background: useTransform(
             [springX, springY],
-            ([x, y]) => `radial-gradient(circle at ${x * 100}% ${y * 100}%, rgba(99, 102, 241, 0.05) 0%, transparent 40%)`
+            ([x, y]) => `radial-gradient(circle at ${x as number * 100}% ${y as number * 100}%, rgba(99, 102, 241, 0.05) 0%, transparent 40%)`
           ),
           opacity: 0.8,
         }}

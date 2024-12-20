@@ -33,8 +33,8 @@ const PixelDot = ({ pixel, mouseX, mouseY, dimensions, theme }: PixelProps) => {
   const distance = useTransform(
     [mouseX, mouseY],
     ([x, y]) => {
-      const dx = (x * dimensions.width - pixel.x) / dimensions.width;
-      const dy = (y * dimensions.height - pixel.y) / dimensions.height;
+      const dx = (x as number * dimensions.width - pixel.x) / dimensions.width;
+      const dy = (y as number * dimensions.height - pixel.y) / dimensions.height;
       return Math.sqrt(dx * dx + dy * dy);
     }
   );
@@ -53,7 +53,7 @@ const PixelDot = ({ pixel, mouseX, mouseY, dimensions, theme }: PixelProps) => {
         top: pixel.y,
         width: pixel.size,
         height: pixel.size,
-        backgroundColor: theme.palette.mode === 'dark' 
+        backgroundColor: theme.palette.mode === 'dark'
           ? 'rgba(99, 102, 241, 0.15)'
           : 'rgba(99, 102, 241, 0.1)',
         opacity,
@@ -101,12 +101,12 @@ const PixelatedBackground = () => {
         for (let x = 0; x < cols; x++) {
           // Crear un patrón de opacidad basado en la posición
           const distanceFromCenter = Math.sqrt(
-            Math.pow((x / cols) - 0.5, 2) + 
+            Math.pow((x / cols) - 0.5, 2) +
             Math.pow((y / rows) - 0.5, 2)
           );
-          
+
           const baseOpacity = Math.random() * 0.04 + 0.01; // Entre 0.01 y 0.05
-          
+
           newPixels.push({
             x: x * pixelSize,
             y: y * pixelSize,
@@ -169,7 +169,7 @@ const PixelatedBackground = () => {
           bottom: 0,
           background: useTransform(
             [springX, springY],
-            ([x, y]) => `radial-gradient(circle at ${x * 100}% ${y * 100}%, rgba(99, 102, 241, 0.05) 0%, transparent 30%)`
+            ([x, y]) => `radial-gradient(circle at ${x as number * 100}% ${y as number * 100}%, rgba(99, 102, 241, 0.05) 0%, transparent 30%)`
           ),
         }}
       />

@@ -1,4 +1,5 @@
 'use client';
+
 import React from 'react';
 import { Box, Container, Typography, useTheme, Grid } from '@mui/material';
 import Image from 'next/image';
@@ -6,32 +7,52 @@ import FooterLink from './FooterLink';
 import SocialIcon from './SocialIcon';
 import { lexendFont, valorantFont } from '../../utils/fonts';
 import { motion, AnimatePresence } from 'framer-motion';
-
-const navigation = {
-  main: [
-    { name: 'Home', href: '/' },
-    { name: 'Services', href: '/services' },
-    { name: 'Projects', href: '/projects' },
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' },
-  ],
-  legal: [
-    { name: 'Privacy Policy', href: '/privacy' },
-    { name: 'Terms of Service', href: '/terms' },
-    { name: 'Cookie Policy', href: '/cookies' },
-  ],
-  social: [
-    { name: 'GitHub', href: 'https://github.com', icon: '/icons/github.svg' },
-    { name: 'LinkedIn', href: 'https://linkedin.com', icon: '/icons/linkedin.svg' },
-    { name: 'Twitter', href: 'https://twitter.com', icon: '/icons/twitter.svg' },
-  ],
-};
+import { useLanguage } from '../../utils/languageContext';
 
 const MotionBox = motion(Box);
 const MotionContainer = motion(Container);
 
+const renderStyledText = (text: string) => {
+  const parts = text.split(/(\[company\].*?\[\/company\])/g);
+  return parts.map((part, index) => {
+    if (part.startsWith('[company]')) {
+      const content = part.replace('[company]', '').replace('[/company]', '');
+      return (
+        <Box
+          key={index}
+          component="span"
+          sx={{
+            fontFamily: valorantFont.style.fontFamily,
+            fontWeight: 600,
+            background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            px: 0.5,
+          }}
+        >
+          {content}
+        </Box>
+      );
+    }
+    return part;
+  });
+};
+
+const socialIcons = {
+  GitHub: '/icons/github.svg',
+  LinkedIn: '/icons/linkedin.svg',
+};
+
 export default function Footer() {
   const theme = useTheme();
+  const { t } = useLanguage();
+
+  const mainLinks = Array.isArray(t('footer.links.main.items',)) ?
+    t('footer.links.main.items',) : [];
+  const legalLinks = Array.isArray(t('footer.links.legal.items',)) ?
+    t('footer.links.legal.items',) : [];
+  const socialLinks = Array.isArray(t('footer.links.social.items',)) ?
+    t('footer.links.social.items',) : [];
 
   return (
     <AnimatePresence>
@@ -110,7 +131,7 @@ export default function Footer() {
                             : '0 0 20px rgba(236, 72, 153, 0.2)',
                         }}
                       >
-                        GyCoding
+                        {t('footer.company')}
                       </Typography>
                     </motion.div>
                   </Box>
@@ -130,15 +151,14 @@ export default function Footer() {
                           : 'none',
                       }}
                     >
-                      Transforming ideas into digital reality. We create innovative solutions
-                      that drive business growth and user engagement.
+                      {renderStyledText(t('about.description1'))}
                     </Typography>
                   </motion.div>
                 </Box>
 
                 {/* Social Icons */}
                 <Box sx={{ display: 'flex', gap: 2, mb: { xs: 4, md: 0 } }}>
-                  {navigation.social.map((item, index) => (
+                  {Array.isArray(socialLinks) && socialLinks.map((item: any, index: any) => (
                     <motion.div
                       key={item.name}
                       initial={{ opacity: 0, y: 20 }}
@@ -150,7 +170,7 @@ export default function Footer() {
                         transition: { type: "spring", stiffness: 400 }
                       }}
                     >
-                      <SocialIcon {...item} />
+                      <SocialIcon name={item.name} href={item.href} />
                     </motion.div>
                   ))}
                 </Box>
@@ -173,10 +193,10 @@ export default function Footer() {
                     color: theme.palette.mode === 'dark' ? 'grey.200' : 'grey.800',
                   }}
                 >
-                  Navigation
+                  {t('footer.links.main.title')}
                 </Typography>
                 <Grid container spacing={2}>
-                  {navigation.main.map((item, index) => (
+                  {Array.isArray(mainLinks) && mainLinks.map((item: any, index: number) => (
                     <Grid item key={item.name} xs={6}>
                       <motion.div
                         initial={{ opacity: 0, x: -20 }}
@@ -207,10 +227,10 @@ export default function Footer() {
                     color: theme.palette.mode === 'dark' ? 'grey.200' : 'grey.800',
                   }}
                 >
-                  Legal
+                  {t('footer.links.legal.title')}
                 </Typography>
                 <Grid container spacing={2}>
-                  {navigation.legal.map((item, index) => (
+                  {Array.isArray(legalLinks) && legalLinks.map((item: any, index: number) => (
                     <Grid item key={item.name} xs={12}>
                       <motion.div
                         initial={{ opacity: 0, x: -20 }}
@@ -253,12 +273,12 @@ export default function Footer() {
                   fontFamily: lexendFont.style.fontFamily,
                 }}
               >
-                {new Date().getFullYear()} @GYCODING. All rights reserved.
+                {new Date().getFullYear()} @{t('footer.company')}. {t('footer.rights')}
               </Typography>
             </Box>
           </motion.div>
         </MotionContainer>
       </MotionBox>
-    </AnimatePresence >
+    </AnimatePresence>
   );
 }

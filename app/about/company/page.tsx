@@ -5,35 +5,13 @@ import { lexendFont } from '../../utils/fonts';
 import FadeIn from '../../components/animations/FadeIn';
 import FlowingGrid from '../../components/animations/FlowingGrid';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../../utils/languageContext';
 
 interface ValueCard {
   title: string;
   description: string;
   icon: string;
 }
-
-const values: ValueCard[] = [
-  {
-    title: 'Innovation',
-    description: 'We constantly push boundaries and embrace new technologies to deliver cutting-edge solutions.',
-    icon: '💡'
-  },
-  {
-    title: 'Quality',
-    description: 'We maintain the highest standards in our code and design, ensuring robust and scalable applications.',
-    icon: '✨'
-  },
-  {
-    title: 'Collaboration',
-    description: 'We work closely with our clients, fostering transparent communication and shared success.',
-    icon: '🤝'
-  },
-  {
-    title: 'Growth',
-    description: 'We are committed to continuous learning and improvement, both for ourselves and our clients.',
-    icon: '🚀'
-  }
-];
 
 const ValueCard = ({ value, index }: { value: ValueCard; index: number }) => {
   const theme = useTheme();
@@ -93,6 +71,9 @@ const ValueCard = ({ value, index }: { value: ValueCard; index: number }) => {
 
 export default function CompanyPage() {
   const theme = useTheme();
+  const { t } = useLanguage();
+
+  const values = t('company.values.items');
 
   return (
     <Box
@@ -107,7 +88,7 @@ export default function CompanyPage() {
       }}
     >
       <FlowingGrid />
-      
+
       <Container
         maxWidth="lg"
         sx={{
@@ -141,7 +122,7 @@ export default function CompanyPage() {
                 letterSpacing: '-0.02em',
               }}
             >
-              Our Story
+              {t('company.title')}
             </Typography>
             <Typography
               sx={{
@@ -152,7 +133,7 @@ export default function CompanyPage() {
                 mx: 'auto',
               }}
             >
-              We are a dynamic software development company specializing in creating innovative digital solutions that drive business growth
+              {t('company.description')}
             </Typography>
           </Box>
         </FadeIn>
@@ -180,7 +161,7 @@ export default function CompanyPage() {
                 mb: 4,
               }}
             >
-              Founded with a vision to bridge the gap between innovative ideas and technological solutions, GyCoding has established itself as a trusted partner in digital transformation. Our expertise spans across modern web development, cloud solutions, and custom software development.
+              {t('company.story.part1')}
             </Typography>
             <Typography
               sx={{
@@ -189,7 +170,7 @@ export default function CompanyPage() {
                 lineHeight: 1.8,
               }}
             >
-              What sets us apart is our commitment to not just meeting but exceeding client expectations. We believe in creating solutions that are not only technologically advanced but also user-friendly and scalable for future growth.
+              {t('company.story.part2')}
             </Typography>
           </Box>
         </FadeIn>
@@ -208,12 +189,12 @@ export default function CompanyPage() {
                 WebkitTextFillColor: 'transparent',
               }}
             >
-              Our Values
+              {t('company.values.title')}
             </Typography>
           </FadeIn>
 
           <Grid container spacing={{ xs: 3, sm: 4 }}>
-            {values.map((value, index) => (
+            {Array.isArray(values) && values.map((value: ValueCard, index: number) => (
               <Grid item xs={12} md={6} key={value.title}>
                 <ValueCard value={value} index={index} />
               </Grid>

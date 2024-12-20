@@ -76,10 +76,10 @@ const FlowingGrid = () => {
   const gridTransform = useTransform(
     [springX, springY],
     ([x, y]) => {
-      const moveX = (x - 0.5) * 30;
-      const moveY = (y - 0.5) * 30;
-      const rotateX = (y - 0.5) * 5;
-      const rotateY = (x - 0.5) * 5;
+      const moveX = (x as number - 0.5) * 30;
+      const moveY = (y as number - 0.5) * 30;
+      const rotateX = (y as number - 0.5) * 5;
+      const rotateY = (x as number - 0.5) * 5;
       return `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate(${moveX}px, ${moveY}px)`;
     }
   );
@@ -128,7 +128,7 @@ const FlowingGrid = () => {
           bottom: 0,
           background: useTransform(
             [springX, springY],
-            ([x, y]) => `radial-gradient(circle at ${x * 100}% ${y * 100}%, rgba(99, 102, 241, 0.03) 0%, transparent 70%)`
+            ([x, y]) => `radial-gradient(circle at ${x as number * 100}% ${y as number * 100}%, rgba(99, 102, 241, 0.03) 0%, transparent 70%)`
           ),
         }}
       />

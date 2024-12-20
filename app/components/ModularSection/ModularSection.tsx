@@ -7,14 +7,41 @@ import { useRef } from 'react';
 import { lexendFont } from '../../utils/fonts';
 import AnimatedGrid from './AnimatedGrid';
 import MobileServices from './MobileServices';
-import { services } from '../../utils/services';
+import { useLanguage } from '../../utils/languageContext';
 import { fadeInUpVariants, fadeInScaleVariants } from '../../utils/animations';
 import { gradientTextStyles } from '../../utils/styles';
+
+const getLocalizedServices = (t: (key: string) => string) => [
+  {
+    title: t('services.modules.webDev.title'),
+    description: t('services.modules.webDev.description'),
+    gradient: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+    icon: 'nextjs',
+    techIcons: ['React', 'Next.js', 'TypeScript'],
+  },
+  {
+    title: t('services.modules.backend.title'),
+    description: t('services.modules.backend.description'),
+    gradient: 'linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%)',
+    icon: 'springboot',
+    techIcons: ['Spring Boot', 'Java', 'MongoDB'],
+  },
+  {
+    title: t('services.modules.gameDev.title'),
+    description: t('services.modules.gameDev.description'),
+    gradient: 'linear-gradient(135deg, #ec4899 0%, #d946ef 100%)',
+    icon: 'unity',
+    techIcons: ['Unity', 'csharp', 'Blender'],
+  },
+];
 
 export default function ModularSection() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const containerRef = useRef(null);
+  const { t } = useLanguage();
+  const localizedServices = getLocalizedServices(t);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'end start'],
@@ -49,85 +76,63 @@ export default function ModularSection() {
         }}
       >
         <motion.div
+          variants={fadeInUpVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          variants={fadeInUpVariants}
-          style={{ width: '100%' }}
+          style={{ width: '100%', textAlign: 'center' }}
         >
-          <Box sx={{
-            textAlign: 'center',
-            mb: { xs: 6, sm: 10, md: 12 },
-            width: '100%',
-          }}>
-            <Typography
-              variant="h2"
-              sx={{
-                fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
-                fontWeight: 700,
-                fontFamily: lexendFont.style.fontFamily,
-                ...gradientTextStyles('linear-gradient(135deg, #6366f1 0%, #ec4899 100%)'),
-                mb: { xs: 2, sm: 3 },
-              }}
-            >
-              Our Scopes
-            </Typography>
+          <Typography
+            variant="h2"
+            component="h2"
+            sx={{
+              ...gradientTextStyles('linear-gradient(135deg, #6366f1 0%, #ec4899 100%)'),
+              fontFamily: lexendFont.style.fontFamily,
+              fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+              fontWeight: 600,
+              textAlign: 'center',
+              mb: 2,
+            }}
+          >
+            {t('services.title')}
+          </Typography>
 
-            <Typography
-              variant="body1"
-              sx={{
-                fontSize: { xs: '1rem', sm: '1.1rem', md: '1.25rem' },
-                color: theme.palette.mode === 'dark' ? 'grey.300' : 'grey.700',
-                maxWidth: '800px',
-                mx: 'auto',
-                lineHeight: 1.6,
-                px: { xs: 2, sm: 4, md: 0 },
-              }}
-            >
-              Transforming ideas into digital reality with cutting-edge technology and innovative solutions
-            </Typography>
-          </Box>
+          <Typography
+            variant="h5"
+            component="p"
+            sx={{
+              fontFamily: lexendFont.style.fontFamily,
+              fontSize: { xs: '1rem', sm: '1.15rem', md: '1.25rem' },
+              color: theme.palette.mode === 'dark' ? 'grey.300' : 'grey.700',
+              maxWidth: '800px',
+              margin: '0 auto',
+              mb: { xs: 6, sm: 8, md: 10 },
+            }}
+          >
+            {t('services.description')}
+          </Typography>
         </motion.div>
 
         {isMobile ? (
-          <MobileServices modules={services} />
+          <MobileServices services={localizedServices} />
         ) : (
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeInScaleVariants}
-            style={{ width: '100%' }}
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: { sm: '1fr', md: 'repeat(3, 1fr)' },
+              gap: { xs: 4, sm: 6, md: 8 },
+              width: '100%',
+            }}
           >
-            <Box
-              sx={{
-                display: 'grid',
-                gridTemplateColumns: {
-                  sm: 'repeat(2, 1fr)',
-                  md: 'repeat(3, 1fr)',
-                },
-                gap: { sm: 4, md: 6 },
-                width: '100%',
-              }}
-            >
-              {services.map((module, index) => (
-                <Box
-                  key={module.title}
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    width: '100%',
-                  }}
-                >
-                  <ModuleCard
-                    {...module}
-                    delay={index * 0.2}
-                    progress={scrollYProgress}
-                    index={index}
-                  />
-                </Box>
-              ))}
-            </Box>
-          </motion.div>
+            {localizedServices.map((service, index) => (
+              <ModuleCard
+                key={service.title}
+                module={service}
+                index={index}
+                scrollYProgress={scrollYProgress}
+              />
+            ))}
+          </Box>
         )}
       </Container>
     </Box>

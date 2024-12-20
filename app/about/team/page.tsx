@@ -8,6 +8,7 @@ import AnimatedBackground from '../../components/animations/AnimatedBackground';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { GitHub, LinkedIn, Email } from '@mui/icons-material';
+import { useLanguage } from '../../utils/languageContext';
 
 interface TeamMember {
   name: string;
@@ -251,6 +252,34 @@ const TeamMemberCard = ({ member, index }: { member: TeamMember; index: number }
 
 export default function TeamPage() {
   const theme = useTheme();
+  const { t } = useLanguage();
+
+  const teamMembers: TeamMember[] = [
+    {
+      name: t('team.members.0.name'),
+      role: t('team.members.0.role'),
+      description: t('team.members.0.description'),
+      image: '/images/gfigueras.png',
+      skills: ['React', 'NextJS', 'TypeScript', 'Unity', 'Material UI'],
+      social: {
+        github: 'https://github.com/gyfigueras',
+        linkedin: 'https://linkedin.com/in/guillermo-figueras',
+        email: 'guillermo@gycoding.com'
+      }
+    },
+    {
+      name: t('team.members.1.name'),
+      role: t('team.members.1.role'),
+      description: t('team.members.1.description'),
+      image: '/images/toxyc.png',
+      skills: ['Java', 'Spring Boot', 'C#', 'NodeJS', 'MongoDB'],
+      social: {
+        github: 'https://github.com/ivanvicente',
+        linkedin: 'https://linkedin.com/in/ivan-vicente',
+        email: 'ivan@gycoding.com'
+      }
+    }
+  ];
 
   return (
     <Box
@@ -299,7 +328,7 @@ export default function TeamPage() {
                 letterSpacing: '-0.02em',
               }}
             >
-              Meet Our Team
+              {t('team.title')}
             </Typography>
             <Typography
               sx={{
@@ -310,7 +339,7 @@ export default function TeamPage() {
                 mx: 'auto',
               }}
             >
-              A passionate duo of developers dedicated to transforming ideas into exceptional digital experiences
+              {t('team.description')}
             </Typography>
           </Box>
         </FadeIn>
