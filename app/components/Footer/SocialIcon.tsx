@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import { IconButton, useTheme } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import TwitterIcon from '@mui/icons-material/Twitter';
+import XIcon from '@mui/icons-material/X';
+import EmailIcon from '@mui/icons-material/Email';
 
 interface SocialIconProps {
   name: string;
@@ -13,8 +13,8 @@ interface SocialIconProps {
 
 const iconMap = {
   GitHub: GitHubIcon,
-  LinkedIn: LinkedInIcon,
-  Twitter: TwitterIcon,
+  X: XIcon,
+  Contact: EmailIcon,
 };
 
 export default function SocialIcon({ name, href }: SocialIconProps) {

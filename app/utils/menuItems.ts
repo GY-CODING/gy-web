@@ -8,8 +8,11 @@ import { SvgIconProps } from '@mui/material';
 
 export interface MenuItem {
   title: string;
-  path?: string;
-  children?: SubMenuItem[];
+  path: string;
+  icon?: string;
+  children?: MenuItem[];
+  description?: string;
+  external?: boolean;
 }
 
 export interface SubMenuItem {
@@ -17,79 +20,168 @@ export interface SubMenuItem {
   description?: string;
   path: string;
   icon: string;
+  external?: boolean;
 }
 
-export const menuItems: MenuItem[] = [
+const menuItemsEN: MenuItem[] = [
   {
     title: 'Projects',
+    path: '/projects',
     children: [
       {
         title: 'Heralds of Chaos',
-        description: 'A unique card game with strategic depth',
         path: '/projects/heralds-of-chaos',
-        icon: HeraldsOfChaosIcon
+        icon: HeraldsOfChaosIcon,
+        description: 'A unique card game with strategic depth'
       },
       {
         title: 'GY Accounts',
-        description: 'Secure account management system',
         path: '/projects/gy-accounts',
-        icon: GYAccountsIcon
+        icon: GYAccountsIcon,
+        description: 'Secure account management system'
       },
       {
         title: 'GY Messages',
-        description: 'Real-time messaging platform',
         path: '/projects/gy-messages',
-        icon: GYMessagesIcon
+        icon: GYMessagesIcon,
+        description: 'Real-time messaging platform'
       },
       {
         title: 'GY Documents',
-        description: 'Document management and sharing',
         path: '/projects/gy-documents',
-        icon: GY_DOCUMENTS_LIGHT_ICON
+        icon: GY_DOCUMENTS_LIGHT_ICON,
+        description: 'Document management and sharing'
       }
     ]
   },
   {
     title: 'Docs',
+    path: '/docs',
     children: [
       {
         title: 'Getting Started',
-        path: '/docs/getting-started',
-        icon: GYDocumentsIcon
+        path: 'https://docs.gycoding.com',
+        icon: GYDocumentsIcon,
+        external: true,
+        description: 'Learn how to get started with our platform'
       },
       {
         title: 'API Reference',
-        path: '/docs/api',
-        icon: GYDocumentsIcon
+        path: 'https://gycoding.stoplight.io/docs/api-docs/5b949c346e2dc-fall-of-the-gods-api',
+        icon: GYDocumentsIcon,
+        description: 'Detailed API documentation',
+        external: true
       },
-      {
-        title: 'Examples',
-        path: '/docs/examples',
-        icon: GYDocumentsIcon
-      }
     ]
   },
   {
     title: 'About',
+    path: '/about',
     children: [
       {
         title: 'Team',
         path: '/about/team',
-        icon: GYAccountsIcon
+        icon: GYAccountsIcon,
+        description: 'Meet our talented team'
       },
       {
         title: 'Company',
         path: '/about/company',
-        icon: GYAccountsIcon
+        icon: GYAccountsIcon,
+        description: 'Learn more about our company'
       },
-      {
-        title: 'Careers',
-        path: '/about/careers',
-        icon: GYAccountsIcon
-      }
     ]
   }
 ];
+
+const menuItemsES: MenuItem[] = [
+  {
+    title: 'Proyectos',
+    path: '/projects',
+    children: [
+      {
+        title: 'Heralds of Chaos',
+        path: '/projects/heralds-of-chaos',
+        icon: HeraldsOfChaosIcon,
+        description: 'Un juego de cartas único con profundidad estratégica'
+      },
+      {
+        title: 'GY Accounts',
+        path: '/projects/gy-accounts',
+        icon: GYAccountsIcon,
+        description: 'Sistema seguro de gestión de cuentas'
+      },
+      {
+        title: 'GY Messages',
+        path: '/projects/gy-messages',
+        icon: GYMessagesIcon,
+        description: 'Plataforma de mensajería en tiempo real'
+      },
+      {
+        title: 'GY Documents',
+        path: '/projects/gy-documents',
+        icon: GY_DOCUMENTS_LIGHT_ICON,
+        description: 'Gestión y colaboración de documentos'
+      }
+    ]
+  },
+  {
+    title: 'Docs',
+    path: '/docs',
+    children: [
+      {
+        title: 'Guía de Inicio',
+        path: 'https://docs.gycoding.com',
+        icon: GYDocumentsIcon,
+        external: true,
+        description: 'Aprende cómo empezar con nuestra plataforma'
+      },
+      {
+        title: 'Referencia de API',
+        path: 'https://gycoding.stoplight.io/docs/api-docs/5b949c346e2dc-fall-of-the-gods-api',
+        icon: GYDocumentsIcon,
+        description: 'Documentación detallada de la API',
+        external: true
+      },
+    ]
+  },
+  {
+    title: 'Acerca de',
+    path: '/about',
+    children: [
+      {
+        title: 'Equipo',
+        path: '/about/team',
+        icon: GYAccountsIcon,
+        description: 'Conoce a nuestro equipo talentoso'
+      },
+      {
+        title: 'Compañía',
+        path: '/about/company',
+        icon: GYAccountsIcon,
+        description: 'Aprende más sobre nuestra compañía'
+      },
+    ]
+  }
+];
+
+export const getMenuItems = (language: string): MenuItem[] => {
+  return language === 'es' ? menuItemsES : menuItemsEN;
+};
+
+export const getButtonText = (language: string, key: 'login' | 'contact'): string => {
+  const buttons = {
+    en: {
+      login: 'Log In',
+      contact: 'Contact'
+    },
+    es: {
+      login: 'Iniciar Sesión',
+      contact: 'Contacto'
+    }
+  };
+  return buttons[language as keyof typeof buttons][key];
+};
 
 export const userItem = (image: string): any => ({
   name: '',

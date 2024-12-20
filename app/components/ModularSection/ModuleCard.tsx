@@ -8,25 +8,21 @@ import { ServiceModule } from '../../utils/services';
 import { springTransition, iconSpringVariants } from '../../utils/animations';
 import { cardStyles, iconStyles, smallIconStyles, gradientTextStyles } from '../../utils/styles';
 
-interface ModuleCardProps extends ServiceModule {
-  delay: number;
-  progress: MotionValue<number>;
+interface ModuleCardProps {
+  module: ServiceModule;
   index: number;
+  scrollYProgress: MotionValue<number>;
 }
 
 export default function ModuleCard({
-  title,
-  description,
-  gradient,
-  icon,
-  techIcons = [],
-  delay,
-  progress,
+  module: { title, description, gradient, icon, techIcons = [] },
+  index,
+  scrollYProgress,
 }: ModuleCardProps) {
   const theme = useTheme();
 
-  const scaleCard = useTransform(progress, [0, 0.5, 1], [0.8, 1, 1]);
-  const opacityCard = useTransform(progress, [0, 0.2, 1], [0, 1, 1]);
+  const scaleCard = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 1]);
+  const opacityCard = useTransform(scrollYProgress, [0, 0.2, 1], [0, 1, 1]);
 
   return (
     <motion.div
@@ -40,7 +36,7 @@ export default function ModuleCard({
       }}
       transition={{
         ...springTransition,
-        delay,
+        delay: index * 0.2,
       }}
     >
       <Box sx={cardStyles(theme)}>

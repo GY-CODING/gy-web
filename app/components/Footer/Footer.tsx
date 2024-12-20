@@ -1,37 +1,104 @@
 'use client';
+
 import React from 'react';
 import { Box, Container, Typography, useTheme, Grid } from '@mui/material';
 import Image from 'next/image';
-import FooterLink from './FooterLink';
-import SocialIcon from './SocialIcon';
-import { lexendFont, valorantFont } from '../../utils/fonts';
 import { motion, AnimatePresence } from 'framer-motion';
-
-const navigation = {
-  main: [
-    { name: 'Home', href: '/' },
-    { name: 'Services', href: '/services' },
-    { name: 'Projects', href: '/projects' },
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' },
-  ],
-  legal: [
-    { name: 'Privacy Policy', href: '/privacy' },
-    { name: 'Terms of Service', href: '/terms' },
-    { name: 'Cookie Policy', href: '/cookies' },
-  ],
-  social: [
-    { name: 'GitHub', href: 'https://github.com', icon: '/icons/github.svg' },
-    { name: 'LinkedIn', href: 'https://linkedin.com', icon: '/icons/linkedin.svg' },
-    { name: 'Twitter', href: 'https://twitter.com', icon: '/icons/twitter.svg' },
-  ],
-};
+import { useLanguage } from '@/app/utils/languageContext';
+import { lexendFont, valorantFont } from '../../utils/fonts';
+import SmartLink from '../SmartLink';
+import SocialIcon from './SocialIcon';
 
 const MotionBox = motion(Box);
 const MotionContainer = motion(Container);
 
+const renderStyledText = (text: string) => {
+  const parts = text.split(/(\[company\].*?\[\/company\])/g);
+  return parts.map((part, index) => {
+    if (part.startsWith('[company]')) {
+      const content = part.replace('[company]', '').replace('[/company]', '');
+      return (
+        <Box
+          key={index}
+          component="span"
+          sx={{
+            fontFamily: valorantFont.style.fontFamily,
+            fontWeight: 600,
+            background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            px: 0.5,
+          }}
+        >
+          {content}
+        </Box>
+      );
+    }
+    return part;
+  });
+};
+
+const socialIcons = {
+  GitHub: '/icons/github.svg',
+  X: '/icons/x.svg',
+  Contact: '/icons/contact.svg',
+};
+
+const FooterLinkBox = ({ children }: { children: React.ReactNode }) => {
+  const theme = useTheme();
+
+  return (
+    <Box
+      component={motion.div}
+      whileHover={{ x: 8 }}
+      sx={{
+        color: theme.palette.text.secondary,
+        fontSize: '0.875rem',
+        transition: 'color 0.2s ease',
+        display: 'inline-block',
+        '&:hover': {
+          color: theme.palette.text.primary,
+        },
+      }}
+    >
+      {children}
+    </Box>
+  );
+};
+
 export default function Footer() {
   const theme = useTheme();
+  const { t } = useLanguage();
+
+  const homeLinks = [
+    { name: t('footer.home.items.home'), href: '/' },
+    { name: t('footer.home.items.services'), href: '/#modular-section', scroll: true },
+    { name: t('footer.home.items.techstack'), href: '/#tech-stack', scroll: true },
+  ];
+
+  const projectLinks = [
+    { name: 'Heralds of Chaos', href: '/projects/heralds-of-chaos' },
+    { name: 'GY Accounts', href: '/projects/gy-accounts' },
+    { name: 'GY Messages', href: '/projects/gy-messages' },
+    { name: 'GY Documents', href: '/projects/gy-documents' },
+  ];
+
+  const aboutLinks = [
+    { name: t('footer.about.items.team'), href: '/about/team' },
+    { name: t('footer.about.items.company'), href: '/about/company' },
+  ];
+
+  const legalLinks = [
+    { name: t('footer.legal.items.privacy'), href: '/privacy' },
+    { name: t('footer.legal.items.terms'), href: '/terms' },
+    { name: t('footer.legal.items.cookies'), href: '/cookies' },
+  ];
+
+  const socialLinks = [
+    { name: 'Contact', href: 'mailto:it@gycoding.com' },
+    { name: 'GitHub', href: 'https://github.com/GY-CODING' },
+    { name: 'X', href: 'https://x.com/GYCODING' },
+  ];
 
   return (
     <AnimatePresence>
@@ -46,14 +113,13 @@ export default function Footer() {
             : 'rgba(255, 255, 255, 0.85)',
           backdropFilter: 'blur(20px)',
           borderTop: `1px solid ${theme.palette.mode === 'dark'
-              ? 'rgba(255, 255, 255, 0.1)'
-              : 'rgba(0, 0, 0, 0.1)'
+            ? 'rgba(255, 255, 255, 0.1)'
+            : 'rgba(0, 0, 0, 0.1)'
             }`,
           boxShadow: theme.palette.mode === 'dark'
             ? '0 -10px 30px -10px rgba(0, 0, 0, 0.3)'
             : '0 -10px 30px -10px rgba(0, 0, 0, 0.1)',
           py: 6,
-          mt: '20px',
         }}
       >
         <MotionContainer maxWidth="lg">
@@ -85,7 +151,7 @@ export default function Footer() {
                     >
                       <Box sx={{ position: 'relative', width: 40, height: 40, mr: 1 }}>
                         <Image
-                          src="icons/gy_icon.svg"
+                          src="/icons/gy_icon.svg"
                           alt="GYCoding Logo"
                           fill
                           style={{ objectFit: 'contain' }}
@@ -111,7 +177,7 @@ export default function Footer() {
                             : '0 0 20px rgba(236, 72, 153, 0.2)',
                         }}
                       >
-                        GyCoding
+                        {t('footer.company')}
                       </Typography>
                     </motion.div>
                   </Box>
@@ -131,99 +197,141 @@ export default function Footer() {
                           : 'none',
                       }}
                     >
-                      Transforming ideas into digital reality. We create innovative solutions
-                      that drive business growth and user engagement.
+                      {renderStyledText(t('about.description1'))}
                     </Typography>
                   </motion.div>
                 </Box>
 
                 {/* Social Icons */}
                 <Box sx={{ display: 'flex', gap: 2, mb: { xs: 4, md: 0 } }}>
-                  {navigation.social.map((item, index) => (
+                  {socialLinks.map((link) => (
                     <motion.div
-                      key={item.name}
+                      key={link.name}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.6 + index * 0.1 }}
+                      transition={{ delay: 0.6 }}
                       whileHover={{
                         y: -5,
                         scale: 1.1,
                         transition: { type: "spring", stiffness: 400 }
                       }}
                     >
-                      <SocialIcon {...item} />
+                      <SocialIcon name={link.name} href={link.href} />
                     </motion.div>
                   ))}
                 </Box>
               </MotionBox>
             </Grid>
 
-            {/* Navigation Links */}
-            <Grid item xs={12} md={4}>
-              <MotionBox
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
+            {/* Links de home */}
+            <Grid item xs={12} sm={6} md={2}>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontFamily: lexendFont.style.fontFamily,
+                  fontWeight: 600,
+                  mb: 2,
+                }}
               >
-                <Typography
-                  variant="subtitle1"
-                  sx={{
-                    fontFamily: lexendFont.style.fontFamily,
-                    fontWeight: 600,
-                    mb: 2,
-                    color: theme.palette.mode === 'dark' ? 'grey.200' : 'grey.800',
-                  }}
-                >
-                  Navigation
-                </Typography>
-                <Grid container spacing={2}>
-                  {navigation.main.map((item, index) => (
-                    <Grid item key={item.name} xs={6}>
-                      <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.4 + index * 0.1 }}
-                      >
-                        <FooterLink {...item} />
-                      </motion.div>
-                    </Grid>
-                  ))}
-                </Grid>
-              </MotionBox>
+                {t('footer.home.title')}
+              </Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                {homeLinks.map((item: any) => (
+                  <motion.div
+                    key={item.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    <SmartLink href={item.href}>
+                      {item.name}
+                    </SmartLink>
+                  </motion.div>
+                ))}
+              </Box>
             </Grid>
 
-            {/* Legal Links */}
-            <Grid item xs={12} md={4}>
-              <MotionBox
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
+            {/* Projects */}
+            <Grid item xs={12} sm={6} md={2}>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontFamily: lexendFont.style.fontFamily,
+                  fontWeight: 600,
+                  mb: 2,
+                }}
               >
-                <Typography
-                  variant="subtitle1"
-                  sx={{
-                    fontFamily: lexendFont.style.fontFamily,
-                    fontWeight: 600,
-                    mb: 2,
-                    color: theme.palette.mode === 'dark' ? 'grey.200' : 'grey.800',
-                  }}
-                >
-                  Legal
-                </Typography>
-                <Grid container spacing={2}>
-                  {navigation.legal.map((item, index) => (
-                    <Grid item key={item.name} xs={12}>
-                      <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.5 + index * 0.1 }}
-                      >
-                        <FooterLink {...item} />
-                      </motion.div>
-                    </Grid>
-                  ))}
-                </Grid>
-              </MotionBox>
+                {t('footer.projects.title')}
+              </Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                {projectLinks.map((item: any) => (
+                  <motion.div
+                    key={item.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    <SmartLink href={item.href}>
+                      {item.name}
+                    </SmartLink>
+                  </motion.div>
+                ))}
+              </Box>
+            </Grid>
+
+            {/* Links de About */}
+            <Grid item xs={12} sm={6} md={2}>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontFamily: lexendFont.style.fontFamily,
+                  fontWeight: 600,
+                  mb: 2,
+                }}
+              >
+                {t('footer.about.title')}
+              </Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                {aboutLinks.map((link) => (
+                  <SmartLink
+                    key={link.name}
+                    href={link.href}
+                    className="footer-link"
+                  >
+                    <FooterLinkBox>
+                      {link.name}
+                    </FooterLinkBox>
+                  </SmartLink>
+                ))}
+              </Box>
+            </Grid>
+
+            {/* Links legales */}
+            <Grid item xs={12} sm={6} md={2}>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontFamily: lexendFont.style.fontFamily,
+                  fontWeight: 600,
+                  mb: 2,
+                }}
+              >
+                {t('footer.legal.title')}
+              </Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                {legalLinks.map((item: any) => (
+                  <motion.div
+                    key={item.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    <SmartLink href={item.href}>
+                      {item.name}
+                    </SmartLink>
+                  </motion.div>
+                ))}
+              </Box>
             </Grid>
           </Grid>
 
@@ -238,8 +346,8 @@ export default function Footer() {
                 mt: 6,
                 pt: 3,
                 borderTop: `1px solid ${theme.palette.mode === 'dark'
-                    ? 'rgba(255, 255, 255, 0.1)'
-                    : 'rgba(0, 0, 0, 0.1)'
+                  ? 'rgba(255, 255, 255, 0.1)'
+                  : 'rgba(0, 0, 0, 0.1)'
                   }`,
                 textAlign: 'center',
                 background: theme.palette.mode === 'dark'
@@ -254,7 +362,7 @@ export default function Footer() {
                   fontFamily: lexendFont.style.fontFamily,
                 }}
               >
-                {new Date().getFullYear()} @GYCODING. All rights reserved.
+                {new Date().getFullYear()} @{t('footer.company')}. {t('footer.rights')}
               </Typography>
             </Box>
           </motion.div>

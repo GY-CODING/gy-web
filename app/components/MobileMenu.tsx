@@ -10,9 +10,10 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 interface MobileMenuProps {
   isOpen: boolean;
   menuItems: MenuItem[];
+  onClose: () => void;
 }
 
-export default function MobileMenu({ isOpen, menuItems }: MobileMenuProps) {
+export default function MobileMenu({ isOpen, menuItems, onClose }: MobileMenuProps) {
   const theme = useTheme();
   const [expandedItems, setExpandedItems] = useState<number[]>([]);
 
@@ -40,6 +41,7 @@ export default function MobileMenu({ isOpen, menuItems }: MobileMenuProps) {
         zIndex: 1000,
         maxHeight: 'calc(100vh - 64px)',
         overflowY: 'auto',
+        overscrollBehavior: 'contain',
       }}
     >
       {menuItems.map((item, index) => (
@@ -82,65 +84,126 @@ export default function MobileMenu({ isOpen, menuItems }: MobileMenuProps) {
                   transition: 'height 0.2s ease',
                 }}
               >
-                {item.children.map((child, childIndex) => (
-                  <Link
-                    key={childIndex}
-                    href={child.path}
-                    style={{ textDecoration: 'none' }}
-                  >
-                    <Box
-                      sx={{
-                        padding: '0.75rem 1rem 0.75rem 3rem',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 2,
-                        color: theme.palette.text.secondary,
-                        fontSize: '0.9rem',
-                        '&:hover': {
-                          backgroundColor: theme.palette.mode === 'light'
-                            ? 'rgba(140, 84, 255, 0.04)'
-                            : 'rgba(140, 84, 255, 0.08)',
-                        },
-                      }}
-                    >
-                      {child.icon && (
+                {item.children?.map((child, childIndex) => (
+                  <Box key={child.title} sx={{ mb: 1 }}>
+                    {child.external ? (
+                      <a
+                        href={child.path}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ textDecoration: 'none' }}
+                        onClick={onClose}
+                      >
                         <Box
                           sx={{
+                            padding: '0.75rem 1rem 0.75rem 3rem',
                             display: 'flex',
                             alignItems: 'center',
-                            justifyContent: 'center',
-                            width: '24px',
-                            height: '24px',
-                            borderRadius: '6px',
-                            backgroundColor: theme.palette.mode === 'light'
-                              ? 'rgba(140, 84, 255, 0.04)'
-                              : 'rgba(140, 84, 255, 0.08)',
+                            gap: 2,
+                            color: theme.palette.text.secondary,
+                            fontSize: '0.9rem',
+                            '&:hover': {
+                              backgroundColor: theme.palette.mode === 'light'
+                                ? 'rgba(140, 84, 255, 0.04)'
+                                : 'rgba(140, 84, 255, 0.08)',
+                            },
                           }}
                         >
-                          <Image
-                            src={child.icon}
-                            alt={child.title}
-                            width={16}
-                            height={16}
-                          />
-                        </Box>
-                      )}
-                      <Box>
-                        <Box sx={{ fontWeight: 500 }}>{child.title}</Box>
-                        {child.description && (
-                          <Box
-                            sx={{
-                              fontSize: '0.8rem',
-                              color: theme.palette.text.secondary,
-                              mt: 0.5,
-                            }}
-                          >
-                            {child.description}
+                          {child.icon && (
+                            <Box
+                              sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: '24px',
+                                height: '24px',
+                                borderRadius: '6px',
+                                backgroundColor: theme.palette.mode === 'light'
+                                  ? 'rgba(140, 84, 255, 0.04)'
+                                  : 'rgba(140, 84, 255, 0.08)',
+                              }}
+                            >
+                              <Image
+                                src={child.icon}
+                                alt={child.title}
+                                width={16}
+                                height={16}
+                              />
+                            </Box>
+                          )}
+                          <Box>
+                            <Box sx={{ fontWeight: 500 }}>{child.title}</Box>
+                            {child.description && (
+                              <Box
+                                sx={{
+                                  fontSize: '0.8rem',
+                                  color: theme.palette.text.secondary,
+                                  mt: 0.5,
+                                }}
+                              >
+                                {child.description}
+                              </Box>
+                            )}
                           </Box>
-                        )}
-                      </Box>
-                    </Box>
-                  </Link>
+                        </Box>
+                      </a>
+                    ) : (
+                      <Link href={child.path} style={{ textDecoration: 'none' }} onClick={onClose}>
+                        <Box
+                          sx={{
+                            padding: '0.75rem 1rem 0.75rem 3rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 2,
+                            color: theme.palette.text.secondary,
+                            fontSize: '0.9rem',
+                            '&:hover': {
+                              backgroundColor: theme.palette.mode === 'light'
+                                ? 'rgba(140, 84, 255, 0.04)'
+                                : 'rgba(140, 84, 255, 0.08)',
+                            },
+                          }}
+                        >
+                          {child.icon && (
+                            <Box
+                              sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: '24px',
+                                height: '24px',
+                                borderRadius: '6px',
+                                backgroundColor: theme.palette.mode === 'light'
+                                  ? 'rgba(140, 84, 255, 0.04)'
+                                  : 'rgba(140, 84, 255, 0.08)',
+                              }}
+                            >
+                              <Image
+                                src={child.icon}
+                                alt={child.title}
+                                width={16}
+                                height={16}
+                              />
+                            </Box>
+                          )}
+                          <Box>
+                            <Box sx={{ fontWeight: 500 }}>{child.title}</Box>
+                            {child.description && (
+                              <Box
+                                sx={{
+                                  fontSize: '0.8rem',
+                                  color: theme.palette.text.secondary,
+                                  mt: 0.5,
+                                }}
+                              >
+                                {child.description}
+                              </Box>
+                            )}
+                          </Box>
+                        </Box>
+                      </Link>
+                    )}
+                  </Box>
                 ))}
               </Box>
             </Box>
@@ -186,21 +249,6 @@ export default function MobileMenu({ isOpen, menuItems }: MobileMenuProps) {
               backgroundColor: theme.palette.mode === 'light'
                 ? 'rgba(140, 84, 255, 0.04)'
                 : 'rgba(140, 84, 255, 0.08)',
-            }
-          }}
-        />
-        <CustomButton
-          text="Contact"
-          link=""
-          sx={{
-            width: '100%',
-            backgroundColor: theme.palette.secondary.main,
-            border: '2px solid',
-            borderColor: theme.palette.secondary.main,
-            color: '#ffffff',
-            '&:hover': {
-              backgroundColor: theme.palette.secondary.light,
-              borderColor: theme.palette.secondary.light,
             }
           }}
         />

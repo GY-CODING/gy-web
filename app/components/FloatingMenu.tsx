@@ -23,6 +23,7 @@ export default function FloatingMenu({
   const activeChildren = activeItem?.children || [];
 
   if (!activeItem || isMobile) return null;
+  console.log(items)
 
   return (
     <Box
@@ -79,6 +80,8 @@ export default function FloatingMenu({
             <Link
               key={index}
               href={item.path}
+              target={item.external ? '_blank' : undefined}
+              rel={item.external ? 'noopener noreferrer' : undefined}
               style={{ textDecoration: 'none' }}
             >
               <Box

@@ -25,20 +25,20 @@ export default function CustomButton({
         fontFamily: lexendFont.style.fontFamily,
         border: '2px solid #8C54FF',
         borderRadius: '37px',
-        transition: 'background-color .3s',
+        transition: 'all 0.2s ease-in-out',
         paddingX: 4,
-
-        ':hover': {
+        boxShadow: 'none',
+        '&:hover': {
           backgroundColor: '#8C54FF80',
+          boxShadow: 'none',
         },
-
         ...sx,
       }}
       onClick={onClick ?? (() => { })}
       {...props}
     >
       {link ? (
-        <Link href={link} passHref>
+        <Link href={link} passHref style={{ color: 'inherit', textDecoration: 'none' }}>
           {text}
         </Link>
       ) : (

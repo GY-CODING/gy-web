@@ -4,7 +4,6 @@ import { Box } from '@mui/material';
 import AboutSection from './components/AboutSection';
 import TechStack from './components/TechStack';
 import ModularSection from './components/ModularSection/ModularSection';
-import Footer from "./components/Footer/Footer";
 
 export default function Home() {
   return (
@@ -28,7 +27,6 @@ export default function Home() {
         <TechStack />
         <ModularSection />
       </Box>
-      <Footer />
     </Box>
   );
 }

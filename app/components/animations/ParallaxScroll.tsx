@@ -8,10 +8,10 @@ interface ParallaxScrollProps {
   className?: string;
 }
 
-const ParallaxScroll = ({ 
-  children, 
+const ParallaxScroll = ({
+  children,
   offset = 50,
-  className = '' 
+  className = ''
 }: ParallaxScrollProps) => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
