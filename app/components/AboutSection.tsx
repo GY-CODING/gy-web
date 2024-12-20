@@ -181,7 +181,7 @@ const AboutSection = () => {
                   transform: { xs: 'scale(1)', md: 'scale(1)' },
                 }}
               >
-                <LottieAnimation />
+                <LottieAnimation animationPath="/lottie/lottie.json" />
               </Box>
             </FadeIn>
           </Box>

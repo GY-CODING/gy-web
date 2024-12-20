@@ -74,19 +74,16 @@ export const menuItems: MenuItem[] = [
     children: [
       {
         title: 'Team',
+        description: 'Meet our talented team',
         path: '/about/team',
         icon: GYAccountsIcon
       },
       {
         title: 'Company',
+        description: 'Learn more about our company',
         path: '/about/company',
         icon: GYAccountsIcon
       },
-      {
-        title: 'Careers',
-        path: '/about/careers',
-        icon: GYAccountsIcon
-      }
     ]
   }
 ];
