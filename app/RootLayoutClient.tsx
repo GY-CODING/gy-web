@@ -6,6 +6,7 @@ import Header from './components/Header';
 import LoadingScreen from './components/LoadingScreen';
 import { AnimatePresence } from 'framer-motion';
 import { lexendFont, valorantFont } from './utils/fonts';
+import Footer from './components/Footer/Footer';
 
 export default function RootLayoutClient({
   children,
@@ -62,6 +63,7 @@ export default function RootLayoutClient({
                 {children}
               </Box>
             )}
+            <Footer />
           </AnimatePresence>
         </ThemeProvider>
       </body>
