@@ -7,8 +7,9 @@ const nextConfig = {
       'api.gycoding.com',
     ],
   },
-  output: 'export', 
-  distDir: 'out',   
-  trailingSlash: true, 
+  output: 'export',
+  distDir: 'out',
+  trailingSlash: true,
+};
 
 module.exports = nextConfig;
