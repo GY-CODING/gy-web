@@ -1,0 +1,32 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master  # Cambia esto a la rama que deseas monitorear
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: '23.4.0'  # Asegúrate de usar la versión de Node.js compatible con tu proyecto
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build the project
+        run: yarn build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out  # Asegúrate de que tu build exporte al directorio correcto
+          cname: gycoding.v2.com  # Opcional, para configurar tu dominio personalizado
