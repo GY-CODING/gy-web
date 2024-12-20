@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect fill="#FFFFFF" x="0" y="0" width="24" height="24" rx="12"></rect>
+        <rect fill="#C60B1E" x="0" y="0" width="24" height="6"></rect>
+        <rect fill="#C60B1E" x="0" y="18" width="24" height="6"></rect>
+        <rect fill="#FFC400" x="0" y="6" width="24" height="12"></rect>
+    </g>
+</svg>
