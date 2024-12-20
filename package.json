@@ -15,7 +15,8 @@
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^6.1.5",
     "@mui/material": "^6.1.5",
-    "@next/font": "^14.2.15",
+    "@next/font": "^14.2.21",
+    "@next/swc-darwin-arm64": "^14.2.21",
     "@notionhq/client": "^2.2.15",
     "@studio-freight/lenis": "^1.0.42",
     "@types/js-cookie": "^3.0.6",
@@ -26,14 +27,14 @@
     "js-cookie": "^3.0.5",
     "lenis": "^1.1.17",
     "lottie-react": "^2.4.0",
-    "next": "^14.2.16",
+    "next": "^14.2.21",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-i18next": "^15.1.0"
   },
   "optionalDependencies": {
-    "@next/swc-darwin-arm64": "^14.2.16"
+    "@next/swc-darwin-arm64": "^14.2.21"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -41,13 +42,13 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^9",
-    "eslint-config-next": "^14.2.16",
+    "eslint-config-next": "^14.2.21",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "prettier": "^3.4.2",
     "typescript": "^5"
   },
   "resolutions": {
-    "@next/swc-darwin-arm64": "14.2.16"
+    "@next/swc-darwin-arm64": "14.2.21"
   }
 }
