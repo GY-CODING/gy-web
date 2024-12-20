@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 'use client';
-import React from 'react';
-import { Box } from '@mui/material';
+
+import { Box, Typography, useTheme } from '@mui/material';
 import Link from 'next/link';
-import { MenuItem } from '../utils/menuItems';
+import { usePathname } from 'next/navigation';
 import { lexendFont } from '../utils/fonts';
+import { MenuItem } from '../utils/menuItems';
 
 interface MenuItemProps {
   item: MenuItem;
@@ -15,51 +14,66 @@ interface MenuItemProps {
 }
 
 export default function CustomMenuItem({ item, index, isHovered, onHover }: MenuItemProps) {
+  const theme = useTheme();
+  const pathname = usePathname();
   const hasChildren = item.children && item.children.length > 0;
+  const isActive = pathname === item.path;
 
-  return (
+  const menuContent = (
     <Box
-      component={!hasChildren ? Link : 'div'}
-      href={!hasChildren ? item.path : ''}
       onMouseEnter={() => onHover(index)}
       sx={{
         padding: '8px 16px',
         cursor: 'pointer',
-        color: isHovered ? '#8C54FF' : 'inherit',
-        fontFamily: lexendFont.style.fontFamily,
-        fontSize: '0.95rem',
-        fontWeight: 500,
-        transition: 'all 0.15s ease',
-        textDecoration: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '4px',
-        borderRadius: '6px',
-        userSelect: 'none',
-
+        borderRadius: '12px',
+        transition: 'all 0.2s ease',
+        backgroundColor: isActive || isHovered
+          ? theme.palette.mode === 'dark'
+            ? 'rgba(255,255,255,0.1)'
+            : 'rgba(0,0,0,0.05)'
+          : 'transparent',
         '&:hover': {
-          color: '#8C54FF',
-        }
+          backgroundColor: theme.palette.mode === 'dark'
+            ? 'rgba(255,255,255,0.1)'
+            : 'rgba(0,0,0,0.05)',
+        },
       }}
     >
-      {item.title}
-      {hasChildren && (
-        <Box
-          component="span"
-          sx={{
-            display: 'inline-flex',
-            width: '6px',
-            height: '6px',
-            borderRight: '1.5px solid currentColor',
-            borderBottom: '1.5px solid currentColor',
-            transform: isHovered ? 'rotate(225deg)' : 'rotate(45deg)',
-            marginLeft: '2px',
-            marginTop: isHovered ? '2px' : '-2px',
-            transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-            transformOrigin: 'center'
-          }}
-        />
-      )}
+      <Typography
+        sx={{
+          ...lexendFont.style,
+          fontSize: '0.95rem',
+          fontWeight: isActive ? 600 : 500,
+          color: theme.palette.mode === 'dark'
+            ? isActive ? 'white' : 'grey.300'
+            : isActive ? 'black' : 'grey.700',
+        }}
+      >
+        {item.title}
+      </Typography>
     </Box>
+  );
+
+  if (hasChildren) {
+    return menuContent;
+  }
+
+  if (item.external) {
+    return (
+      <a
+        href={item.path}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ textDecoration: 'none' }}
+      >
+        {menuContent}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={item.path || '/'} style={{ textDecoration: 'none' }}>
+      {menuContent}
+    </Link>
   );
 }

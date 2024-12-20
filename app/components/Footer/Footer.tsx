@@ -46,14 +46,13 @@ export default function Footer() {
             : 'rgba(255, 255, 255, 0.85)',
           backdropFilter: 'blur(20px)',
           borderTop: `1px solid ${theme.palette.mode === 'dark'
-              ? 'rgba(255, 255, 255, 0.1)'
-              : 'rgba(0, 0, 0, 0.1)'
+            ? 'rgba(255, 255, 255, 0.1)'
+            : 'rgba(0, 0, 0, 0.1)'
             }`,
           boxShadow: theme.palette.mode === 'dark'
             ? '0 -10px 30px -10px rgba(0, 0, 0, 0.3)'
             : '0 -10px 30px -10px rgba(0, 0, 0, 0.1)',
           py: 6,
-          mt: '20px',
         }}
       >
         <MotionContainer maxWidth="lg">
@@ -85,7 +84,7 @@ export default function Footer() {
                     >
                       <Box sx={{ position: 'relative', width: 40, height: 40, mr: 1 }}>
                         <Image
-                          src="icons/gy_icon.svg"
+                          src="/icons/gy_icon.svg"
                           alt="GYCoding Logo"
                           fill
                           style={{ objectFit: 'contain' }}
@@ -238,8 +237,8 @@ export default function Footer() {
                 mt: 6,
                 pt: 3,
                 borderTop: `1px solid ${theme.palette.mode === 'dark'
-                    ? 'rgba(255, 255, 255, 0.1)'
-                    : 'rgba(0, 0, 0, 0.1)'
+                  ? 'rgba(255, 255, 255, 0.1)'
+                  : 'rgba(0, 0, 0, 0.1)'
                   }`,
                 textAlign: 'center',
                 background: theme.palette.mode === 'dark'
@@ -260,6 +259,6 @@ export default function Footer() {
           </motion.div>
         </MotionContainer>
       </MotionBox>
-    </AnimatePresence>
+    </AnimatePresence >
   );
 }

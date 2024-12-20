@@ -27,7 +27,7 @@ const teamMembers: TeamMember[] = [
     name: 'Guillermo Figueras',
     role: 'CEO & FrontEnd Developer',
     description: 'Passionate about creating elegant and efficient solutions. Specialized in modern web technologies and cloud architecture.',
-    image: '/team/guillermo.jpg',
+    image: '/images/gfigueras.png',
     skills: ['React', 'NextJS', 'TypeScript', 'Unity', 'Material UI'],
     social: {
       github: 'https://github.com/gyfigueras',
@@ -39,7 +39,7 @@ const teamMembers: TeamMember[] = [
     name: 'Ivan Vicente',
     role: 'CEO & BackEnd Developer',
     description: 'Expert in building scalable applications and optimizing performance. Focused on delivering exceptional user experiences.',
-    image: '/team/ivan.jpg',
+    image: '/images/toxyc.png',
     skills: ['Java', 'Spring Boot', 'C#', 'NodeJS', 'MongoDB'],
     social: {
       github: 'https://github.com/ivanvicente',
@@ -72,14 +72,14 @@ const SocialIcon = ({ type, url }: { type: string; url: string }) => {
       target={type === 'email' ? '_self' : '_blank'}
       rel="noopener noreferrer"
       sx={{
-        backgroundColor: theme.palette.mode === 'dark' 
-          ? 'rgba(255,255,255,0.1)' 
+        backgroundColor: theme.palette.mode === 'dark'
+          ? 'rgba(255,255,255,0.1)'
           : 'rgba(0,0,0,0.05)',
         color: theme.palette.mode === 'dark' ? 'grey.300' : 'grey.700',
         transition: 'all 0.2s ease',
         '&:hover': {
-          backgroundColor: theme.palette.mode === 'dark' 
-            ? 'rgba(255,255,255,0.2)' 
+          backgroundColor: theme.palette.mode === 'dark'
+            ? 'rgba(255,255,255,0.2)'
             : 'rgba(0,0,0,0.1)',
           transform: 'translateY(-2px)',
         },
@@ -139,15 +139,31 @@ const TeamMemberCard = ({ member, index }: { member: TeamMember; index: number }
               borderRadius: '16px',
               overflow: 'hidden',
               mb: { xs: 3, sm: 4 },
+              '&::before': {
+                content: '""',
+                position: 'absolute',
+                inset: 0,
+                boxShadow: theme.palette.mode === 'dark'
+                  ? 'inset 0 0 20px 10px rgba(0,0,0,0.2)'
+                  : 'inset 0 0 20px 10px rgba(0,0,0,0.1)',
+                zIndex: 1,
+                pointerEvents: 'none',
+              }
             }}
           >
             <Image
               src={member.image}
               alt={member.name}
-              fill
+              width={1000}
+              height={1000}
               style={{
-                objectFit: 'cover',
+                objectFit: 'contain',
                 transform: isEven ? 'scale(1.02) rotate(1deg)' : 'scale(1.02) rotate(-1deg)',
+                width: '100%',
+                height: '100%',
+                filter: theme.palette.mode === 'dark'
+                  ? 'brightness(1.1) contrast(0.95)'
+                  : 'brightness(1.05) contrast(0.98)',
               }}
             />
           </Box>

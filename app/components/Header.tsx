@@ -162,6 +162,7 @@ export default function Header({ onThemeToggle }: HeaderProps) {
       <MobileMenu
         isOpen={isMobile && mobileMenuOpen}
         menuItems={menuItems}
+        onClose={() => setMobileMenuOpen(false)}
       />
     </Box>
   );
