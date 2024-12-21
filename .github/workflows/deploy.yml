@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # o master, dependiendo de tu rama principal
+      - master
 
 jobs:
   build-and-deploy:
@@ -23,12 +23,15 @@ jobs:
         run: |
           rm -rf node_modules
           rm -f package-lock.json
-          npm install
+          npm install --no-optional
 
       - name: Build
-        run: npm run build
+        run: |
+          export NODE_ENV=production
+          npm run build
         env:
           NEXT_TELEMETRY_DISABLED: 1
+          NEXT_IGNORE_PLATFORM_CHECK: 1
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
