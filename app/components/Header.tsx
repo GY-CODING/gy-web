@@ -5,6 +5,9 @@ import { useTheme, useMediaQuery } from "@mui/material";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/icons-material/Menu";
 import MenuIcon from '@mui/icons-material/Menu';
+import Image from 'next/image';
+import Link from "next/link";
+import { useImagePath } from '../utils/useImagePath';
 import ThemeToggle from "./ThemeToggle";
 import CustomButton from "./CustomButton";
 import CustomMenuItem from "./menuItem";
@@ -13,8 +16,6 @@ import MobileMenu from "./MobileMenu";
 import LanguageSelector from "./LanguageSelector";
 import { getMenuItems, getButtonText } from "../utils/menuItems";
 import { useLanguage } from '../utils/languageContext';
-import Image from 'next/image';
-import Link from "next/link";
 
 interface HeaderProps {
   onThemeToggle: () => void;
@@ -78,7 +79,7 @@ export default function Header({ onThemeToggle }: HeaderProps) {
               }}
             >
               <Image
-                src="/icons/gycoding.svg"
+                src={useImagePath('/icons/gycoding.svg')}
                 alt="GYCODING"
                 fill
                 style={{ objectFit: 'contain' }}
