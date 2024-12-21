@@ -1,4 +1,11 @@
 export function useImagePath(path: string): string {
-  const basePath = process.env.NODE_ENV === 'production' ? '/gy-web' : '';
-  return `${basePath}${path}`;
+  // Asegurarse de que el path comienza con /
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  
+  // En producción, añadir el prefijo /gy-web
+  if (process.env.NODE_ENV === 'production') {
+    return `/gy-web${normalizedPath}`;
+  }
+  
+  return normalizedPath;
 }

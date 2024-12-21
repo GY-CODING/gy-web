@@ -38,8 +38,9 @@ export default function LoadingScreen() {
         <Image
           src={imagePath}
           alt="GYCODING"
-          fill
-          style={{ objectFit: 'contain' }}
+          width={120}
+          height={120}
+          priority
         />
       </Box>
       <CircularProgress
