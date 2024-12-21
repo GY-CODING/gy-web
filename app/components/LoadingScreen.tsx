@@ -1,7 +1,7 @@
 import { Box, CircularProgress, useTheme } from '@mui/material';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useImagePath } from '../utils/useImagePath';
+import { useAssetPath } from '../utils/useImagePath';
 
 export default function LoadingScreen() {
   const theme = useTheme();
@@ -35,7 +35,7 @@ export default function LoadingScreen() {
         }}
       >
         <Image
-          src={useImagePath('/icons/gycoding.svg')}
+          src={useAssetPath('/icons/gycoding.svg')}
           alt="GYCODING"
           fill
           style={{ objectFit: 'contain' }}

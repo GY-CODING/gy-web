@@ -3,24 +3,11 @@ const nextConfig = {
   output: 'export',
   distDir: 'out',
   trailingSlash: true,
-  basePath: process.env.NODE_ENV === 'production' ? '/gy-web' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/gy-web/' : '',
   images: {
     unoptimized: true,
   },
-  // Configuración para manejar imágenes y assets estáticos
-  webpack: (config, { isServer }) => {
-    // Evitar errores de plataforma
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-        path: false,
-        os: false,
-      };
-    }
-    return config;
-  },
+  // Configuración para el dominio de producción
+  assetPrefix: process.env.NODE_ENV === 'production' ? 'https://v2.gycoding.com' : '',
 }
 
 module.exports = nextConfig

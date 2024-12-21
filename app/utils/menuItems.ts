@@ -1,11 +1,13 @@
+import { getAssetPath } from './useImagePath';
+
 // Definir las rutas de los iconos como constantes
 const ICON_PATHS = {
-  HERALDS_OF_CHAOS: '/icons/heralds_of_chaos.svg',
-  GY_ACCOUNTS: '/icons/gy_accounts.svg',
-  GY_MESSAGES: '/icons/gy_messages.svg',
-  GY_DOCUMENTS: '/icons/gy_documents.svg',
-  ACCOUNT: '/icons/cards/account.svg',
-  GY_DOCUMENTS_LIGHT: '/icons/gy_documents_light.svg',
+  HERALDS_OF_CHAOS: getAssetPath('/icons/heralds_of_chaos.svg'),
+  GY_ACCOUNTS: getAssetPath('/icons/gy_accounts.svg'),
+  GY_MESSAGES: getAssetPath('/icons/gy_messages.svg'),
+  GY_DOCUMENTS: getAssetPath('/icons/gy_documents.svg'),
+  ACCOUNT: getAssetPath('/icons/cards/account.svg'),
+  GY_DOCUMENTS_LIGHT: getAssetPath('/icons/gy_documents_light.svg'),
 } as const;
 
 export interface MenuItem {
@@ -14,14 +16,6 @@ export interface MenuItem {
   icon?: string;
   children?: MenuItem[];
   description?: string;
-  external?: boolean;
-}
-
-export interface SubMenuItem {
-  title: string;
-  description?: string;
-  path: string;
-  icon: string;
   external?: boolean;
 }
 

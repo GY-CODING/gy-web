@@ -6,6 +6,7 @@ import CustomButton from './CustomButton';
 import Link from 'next/link';
 import Image from 'next/image';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { useAssetPath } from "../utils/useImagePath";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -124,7 +125,7 @@ export default function MobileMenu({ isOpen, menuItems, onClose }: MobileMenuPro
                               }}
                             >
                               <Image
-                                src={child.icon}
+                                src={useAssetPath(child.icon)}
                                 alt={child.title}
                                 width={16}
                                 height={16}
@@ -179,7 +180,7 @@ export default function MobileMenu({ isOpen, menuItems, onClose }: MobileMenuPro
                               }}
                             >
                               <Image
-                                src={child.icon}
+                                src={useAssetPath(child.icon)}
                                 alt={child.title}
                                 width={16}
                                 height={16}

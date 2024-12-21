@@ -8,6 +8,7 @@ import { useLanguage } from '@/app/utils/languageContext';
 import { lexendFont, valorantFont } from '../../utils/fonts';
 import SmartLink from '../SmartLink';
 import SocialIcon from './SocialIcon';
+import { useAssetPath } from '@/app/utils/useImagePath';
 
 const MotionBox = motion(Box);
 const MotionContainer = motion(Container);
@@ -151,7 +152,7 @@ export default function Footer() {
                     >
                       <Box sx={{ position: 'relative', width: 40, height: 40, mr: 1 }}>
                         <Image
-                          src="/icons/gy_icon.svg"
+                          src={useAssetPath('/icons/gy_icon.svg')}
                           alt="GYCoding Logo"
                           fill
                           style={{ objectFit: 'contain' }}

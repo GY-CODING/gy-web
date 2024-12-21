@@ -1,3 +1,5 @@
+import { getAssetPath } from './useImagePath';
+
 export interface Locale {
   navigation: {
     main: Array<{
@@ -109,6 +111,7 @@ export interface Locale {
       };
     };
   };
+  flag: string;
 }
 
 export const locales: Record<'en' | 'es', Locale> = {
@@ -156,7 +159,7 @@ export const locales: Record<'en' | 'es', Locale> = {
           name: 'Guillermo Figueras',
           role: 'CEO & Frontend Developer',
           description: 'Passionate about creating elegant and efficient solutions. Specialized in modern web technologies and cloud architecture.',
-          image: '/images/gfigueras.png',
+          image: getAssetPath('/images/gfigueras.png'),
           skills: ['React', 'NextJS', 'TypeScript', 'Unity', 'Material UI'],
           social: {
             github: 'https://github.com/gy-gfigueras',
@@ -168,7 +171,7 @@ export const locales: Record<'en' | 'es', Locale> = {
           name: 'Ivan Vicente',
           role: 'CEO & Backend Developer',
           description: 'Expert in building scalable applications and optimizing performance. Focused on delivering exceptional user experiences.',
-          image: '/images/toxyc.png',
+          image: getAssetPath('/images/toxyc.png'),
           skills: ['Java', 'Spring Boot', 'C#', 'NodeJS', 'MongoDB'],
           social: {
             github: 'https://github.com/gy-toxyc',
@@ -246,7 +249,7 @@ export const locales: Record<'en' | 'es', Locale> = {
           {
             title: 'Growth',
             description: 'We are committed to continuous learning and improvement, both for ourselves and our clients.',
-            icon: '🚀'
+            icon: getAssetPath('/icons/values/growth.svg')
           }
         ]
       }
@@ -272,6 +275,7 @@ export const locales: Record<'en' | 'es', Locale> = {
         }
       }
     },
+    flag: getAssetPath('/icons/flags/en.svg')
   },
   es: {
     navigation: {
@@ -317,7 +321,7 @@ export const locales: Record<'en' | 'es', Locale> = {
           name: 'Guillermo Figueras',
           role: 'CEO y Desarrollador Frontend',
           description: 'Apasionado por crear soluciones elegantes y eficientes. Especializado en tecnologías web modernas y arquitectura en la nube.',
-          image: '/images/gfigueras.png',
+          image: getAssetPath('/images/gfigueras.png'),
           skills: ['React', 'NextJS', 'TypeScript', 'Unity', 'Material UI'],
           social: {
             github: 'https://github.com/gy-gfigueras',
@@ -329,7 +333,7 @@ export const locales: Record<'en' | 'es', Locale> = {
           name: 'Ivan Vicente',
           role: 'CEO y Desarrollador Backend',
           description: 'Experto en construir aplicaciones escalables y optimizar el rendimiento. Enfocado en ofrecer experiencias de usuario excepcionales.',
-          image: '/images/toxyc.png',
+          image: getAssetPath('/images/toxyc.png'),
           skills: ['Java', 'Spring Boot', 'C#', 'NodeJS', 'MongoDB'],
           social: {
             github: 'https://github.com/gy-toxyc',
@@ -433,5 +437,6 @@ export const locales: Record<'en' | 'es', Locale> = {
         }
       }
     },
+    flag: getAssetPath('/icons/flags/es.svg')
   },
 };

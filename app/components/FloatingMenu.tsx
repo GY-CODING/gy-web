@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { MenuItem } from '../utils/menuItems';
 import { lexendFont } from '../utils/fonts';
+import { useAssetPath } from '../utils/useImagePath';
 
 interface FloatingMenuProps {
   items: MenuItem[];
@@ -116,7 +117,7 @@ export default function FloatingMenu({
                     }}
                   >
                     <Image
-                      src={item.icon}
+                      src={useAssetPath(item.icon)}
                       alt={item.title}
                       width={24}
                       height={24}

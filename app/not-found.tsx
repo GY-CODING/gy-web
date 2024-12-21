@@ -6,6 +6,7 @@ import { lexendFont } from './utils/fonts';
 import LottieAnimation from './components/lottieAnimation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { useAssetPath } from './utils/useImagePath';
 
 export default function NotFound() {
   const theme = useTheme();
@@ -43,7 +44,7 @@ export default function NotFound() {
               position: 'relative',
             }}
           >
-            <LottieAnimation animationPath="/lottie/not_found.json" />
+            <LottieAnimation animationPath={useAssetPath('/lottie/not_found.json')} />
           </Box>
 
           <Typography

@@ -7,6 +7,7 @@ import { useLanguage } from '../utils/languageContext';
 import { gradientTextStyles } from '../utils/styles';
 import Image from 'next/image';
 import FadeIn from './animations/FadeIn';
+import { useAssetPath } from '../utils/useImagePath';
 
 const technologies = [
   { name: 'Next.js', icon: '/icons/nextjs.svg', color: '#000000' },
@@ -85,7 +86,7 @@ export default function TechStack() {
               key={tech.name}
               component={motion.div}
               variants={{
-                hidden: { 
+                hidden: {
                   opacity: 0,
                   y: 20,
                   scale: 0.95
@@ -117,7 +118,7 @@ export default function TechStack() {
                 gap: 2,
                 padding: { xs: 2, sm: 3 },
                 borderRadius: '16px',
-                backgroundColor: theme.palette.mode === 'dark' 
+                backgroundColor: theme.palette.mode === 'dark'
                   ? 'rgba(255, 255, 255, 0.03)'
                   : 'rgba(0, 0, 0, 0.02)',
                 cursor: 'pointer',
@@ -137,7 +138,7 @@ export default function TechStack() {
                   opacity: 1,
                 },
                 '&:hover': {
-                  backgroundColor: theme.palette.mode === 'dark' 
+                  backgroundColor: theme.palette.mode === 'dark'
                     ? 'rgba(255, 255, 255, 0.05)'
                     : 'rgba(0, 0, 0, 0.03)',
                   '& .tech-icon': {
@@ -164,14 +165,14 @@ export default function TechStack() {
                     transform: 'translateY(-5px)',
                     boxShadow: `0 8px 16px ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
                     borderColor: tech.color,
-                    backgroundColor: theme.palette.mode === 'dark' 
-                      ? `rgba(${parseInt(tech.color.slice(1,3),16)}, ${parseInt(tech.color.slice(3,5),16)}, ${parseInt(tech.color.slice(5,7),16)}, 0.1)`
-                      : `rgba(${parseInt(tech.color.slice(1,3),16)}, ${parseInt(tech.color.slice(3,5),16)}, ${parseInt(tech.color.slice(5,7),16)}, 0.05)`,
+                    backgroundColor: theme.palette.mode === 'dark'
+                      ? `rgba(${parseInt(tech.color.slice(1, 3), 16)}, ${parseInt(tech.color.slice(3, 5), 16)}, ${parseInt(tech.color.slice(5, 7), 16)}, 0.1)`
+                      : `rgba(${parseInt(tech.color.slice(1, 3), 16)}, ${parseInt(tech.color.slice(3, 5), 16)}, ${parseInt(tech.color.slice(5, 7), 16)}, 0.05)`,
                   },
                 }}
               >
                 <Image
-                  src={tech.icon}
+                  src={useAssetPath(tech.icon)}
                   alt={tech.name}
                   width={40}
                   height={40}

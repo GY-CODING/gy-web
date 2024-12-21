@@ -7,7 +7,7 @@ import IconButton from "@mui/icons-material/Menu";
 import MenuIcon from '@mui/icons-material/Menu';
 import Image from 'next/image';
 import Link from "next/link";
-import { useImagePath } from '../utils/useImagePath';
+import { useAssetPath } from '../utils/useImagePath';
 import ThemeToggle from "./ThemeToggle";
 import CustomButton from "./CustomButton";
 import CustomMenuItem from "./menuItem";
@@ -79,7 +79,7 @@ export default function Header({ onThemeToggle }: HeaderProps) {
               }}
             >
               <Image
-                src={useImagePath('/icons/gycoding.svg')}
+                src={useAssetPath('/icons/gycoding.svg')}
                 alt="GYCODING"
                 fill
                 style={{ objectFit: 'contain' }}

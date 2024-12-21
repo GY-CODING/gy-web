@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
+import { useAssetPath } from "../utils/useImagePath";
 
 interface LottieAnimationProps {
   animationPath: string;
@@ -24,7 +25,7 @@ export default function LottieAnimation({
 
         const LottieWithData = () => (
           <Lottie.default
-            animationData={animationData}
+            animationData={useAssetPath(animationData)}
             loop={loop}
             autoplay={autoplay}
             style={{
