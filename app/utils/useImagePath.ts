@@ -1,33 +1,37 @@
-/**
- * Función para obtener la ruta correcta de cualquier asset sin necesidad de hooks
- */
 export function getAssetPath(path: string): string {
+  console.log("getAssetPath called with path:", path);
+
+  // Verificar que path es una cadena
+  if (typeof path !== "string") {
+    console.error("Error: El argumento path debe ser una cadena de texto");
+    throw new TypeError("El argumento path debe ser una cadena de texto");
+  }
+
   // Si es una URL externa, devolverla tal cual
-  if (path.startsWith('http') || path.startsWith('mailto:')) {
+  if (path.startsWith("http") || path.startsWith("mailto:")) {
+    console.log("External URL detected:", path);
     return path;
   }
 
   // Asegurarse de que el path comienza con /
-  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
-  
+  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+  console.log("Normalized path:", normalizedPath);
+
   // En producción, usar el dominio completo
-  if (process.env.NODE_ENV === 'production') {
-    return `https://v2.gycoding.com${normalizedPath}`;
+  if (process.env.NODE_ENV === "production") {
+    const fullPath = `https://v2.gycoding.com${normalizedPath}`;
+    console.log("Production environment detected, full path:", fullPath);
+    return fullPath;
   }
-  
+
+  console.log(
+    "Development environment detected, returning normalized path:",
+    normalizedPath
+  );
   return normalizedPath;
 }
 
-/**
- * Hook para obtener la ruta correcta de cualquier asset (imágenes, lottie, etc.)
- * teniendo en cuenta si estamos en desarrollo o producción
- * 
- * Ejemplos de uso:
- * - Imágenes: useAssetPath('/icons/gycoding.svg')
- * - Lottie: useAssetPath('/lottie/animation.json')
- * - Links internos: useAssetPath('/about')
- * - Links externos: no usar (dejar la URL completa)
- */
 export function useAssetPath(path: string): string {
+  console.log("useAssetPath called with path:", path);
   return getAssetPath(path);
 }
