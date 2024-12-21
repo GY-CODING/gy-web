@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from "react";
+import { use, useState } from "react";
 import { useTheme, useMediaQuery } from "@mui/material";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/icons-material/Menu";
@@ -65,7 +65,7 @@ export default function Header({ onThemeToggle }: HeaderProps) {
           }}
         >
           {/* Logo */}
-          <Link href="./">
+          <Link href={useAssetPath('/')}>
             <Box
               sx={{
                 position: 'relative',

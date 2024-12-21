@@ -280,7 +280,7 @@ export default function TeamPage() {
           <Typography
             variant="h1"
             sx={{
-              fontFamily: valorantFont.style.fontFamily,
+              fontFamily: lexendFont.style.fontFamily,
               fontSize: { xs: '2.5rem', sm: '3rem', md: '3.5rem' },
               mb: 2,
               background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
