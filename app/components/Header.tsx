@@ -64,7 +64,7 @@ export default function Header({ onThemeToggle }: HeaderProps) {
           }}
         >
           {/* Logo */}
-          <Link href="/">
+          <Link href="./">
             <Box
               sx={{
                 position: 'relative',

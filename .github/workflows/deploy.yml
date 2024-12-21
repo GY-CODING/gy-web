@@ -1,35 +1,37 @@
-#name: Deploy to GitHub Pages
+name: Deploy to GitHub Pages
 
-#on:
-  #push:
-    #branches:
-      #- master  # Cambia esto a la rama que deseas monitorear
+on:
+  push:
+    branches:
+      - main  # o master, dependiendo de tu rama principal
 
-#jobs:
-  #build:
-    #runs-on: ubuntu-latest
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
 
-    #steps:
-      #- name: Checkout the repository
-        #uses: actions/checkout@v2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      #- name: Setup Node.js environment
-        #uses: actions/setup-node@v2
-        #with:
-          #node-version: '23.4.0'  # Asegúrate de usar la versión de Node.js compatible con tu proyecto
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
 
-      #- name: Install dependencies
-        #run: yarn install
+      - name: Clean install dependencies
+        run: |
+          rm -rf node_modules
+          rm -f package-lock.json
+          npm install
 
-      #- name: Build the project
-        #run: yarn build
+      - name: Build
+        run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
 
-      #- name: Export the project
-        #run: yarn export
-
-      #- name: Deploy to GitHub Pages
-        #uses: peaceiris/actions-gh-pages@v3
-        #with:
-          #github_token: ${{ secrets.GITHUB_TOKEN }}
-          #publish_dir: ./out  # Asegúrate de que tu build exporte al directorio correcto
-          #cname: gycoding.v2.com  # Opcional, para configurar tu dominio personalizado
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out

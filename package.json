@@ -34,15 +34,9 @@
   },
   "optionalDependencies": {},
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "eslint": "^9",
-    "eslint-config-next": "^14.2.21",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "prettier": "^3.4.2",
     "typescript": "^5"
   },
   "resolutions": {

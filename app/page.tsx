@@ -1,5 +1,4 @@
 'use client';
-import Image from 'next/image';
 import { Box } from '@mui/material';
 import AboutSection from './components/AboutSection';
 import TechStack from './components/TechStack';

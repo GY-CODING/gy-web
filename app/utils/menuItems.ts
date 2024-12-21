@@ -1,10 +1,12 @@
-import HeraldsOfChaosIcon from '../../public/icons/heralds_of_chaos.svg';
-import GYAccountsIcon from '../../public/icons/gy_accounts.svg';
-import GYMessagesIcon from '../../public/icons/gy_messages.svg';
-import GYDocumentsIcon from '../../public/icons/gy_documents.svg';
-import ACCOUNT_ICON from '../../public/icons/cards/account.svg';
-import GY_DOCUMENTS_LIGHT_ICON from '../../public/icons/gy_documents_light.svg';
-import { SvgIconProps } from '@mui/material';
+// Definir las rutas de los iconos como constantes
+const ICON_PATHS = {
+  HERALDS_OF_CHAOS: '/icons/heralds_of_chaos.svg',
+  GY_ACCOUNTS: '/icons/gy_accounts.svg',
+  GY_MESSAGES: '/icons/gy_messages.svg',
+  GY_DOCUMENTS: '/icons/gy_documents.svg',
+  ACCOUNT: '/icons/cards/account.svg',
+  GY_DOCUMENTS_LIGHT: '/icons/gy_documents_light.svg',
+} as const;
 
 export interface MenuItem {
   title: string;
@@ -31,25 +33,25 @@ const menuItemsEN: MenuItem[] = [
       {
         title: 'Heralds of Chaos',
         path: '/projects/heralds-of-chaos',
-        icon: HeraldsOfChaosIcon,
+        icon: ICON_PATHS.HERALDS_OF_CHAOS,
         description: 'A unique card game with strategic depth'
       },
       {
         title: 'GY Accounts',
         path: '/projects/gy-accounts',
-        icon: GYAccountsIcon,
+        icon: ICON_PATHS.GY_ACCOUNTS,
         description: 'Secure account management system'
       },
       {
         title: 'GY Messages',
         path: '/projects/gy-messages',
-        icon: GYMessagesIcon,
+        icon: ICON_PATHS.GY_MESSAGES,
         description: 'Real-time messaging platform'
       },
       {
         title: 'GY Documents',
         path: '/projects/gy-documents',
-        icon: GY_DOCUMENTS_LIGHT_ICON,
+        icon: ICON_PATHS.GY_DOCUMENTS_LIGHT,
         description: 'Document management and sharing'
       }
     ]
@@ -61,14 +63,14 @@ const menuItemsEN: MenuItem[] = [
       {
         title: 'Getting Started',
         path: 'https://docs.gycoding.com',
-        icon: GYDocumentsIcon,
+        icon: ICON_PATHS.GY_DOCUMENTS,
         external: true,
         description: 'Learn how to get started with our platform'
       },
       {
         title: 'API Reference',
         path: 'https://gycoding.stoplight.io/docs/api-docs/5b949c346e2dc-fall-of-the-gods-api',
-        icon: GYDocumentsIcon,
+        icon: ICON_PATHS.GY_DOCUMENTS,
         description: 'Detailed API documentation',
         external: true
       },
@@ -81,13 +83,13 @@ const menuItemsEN: MenuItem[] = [
       {
         title: 'Team',
         path: '/about/team',
-        icon: GYAccountsIcon,
+        icon: ICON_PATHS.GY_ACCOUNTS,
         description: 'Meet our talented team'
       },
       {
         title: 'Company',
         path: '/about/company',
-        icon: GYAccountsIcon,
+        icon: ICON_PATHS.GY_ACCOUNTS,
         description: 'Learn more about our company'
       },
     ]
@@ -102,25 +104,25 @@ const menuItemsES: MenuItem[] = [
       {
         title: 'Heralds of Chaos',
         path: '/projects/heralds-of-chaos',
-        icon: HeraldsOfChaosIcon,
+        icon: ICON_PATHS.HERALDS_OF_CHAOS,
         description: 'Un juego de cartas único con profundidad estratégica'
       },
       {
         title: 'GY Accounts',
         path: '/projects/gy-accounts',
-        icon: GYAccountsIcon,
+        icon: ICON_PATHS.GY_ACCOUNTS,
         description: 'Sistema seguro de gestión de cuentas'
       },
       {
         title: 'GY Messages',
         path: '/projects/gy-messages',
-        icon: GYMessagesIcon,
+        icon: ICON_PATHS.GY_MESSAGES,
         description: 'Plataforma de mensajería en tiempo real'
       },
       {
         title: 'GY Documents',
         path: '/projects/gy-documents',
-        icon: GY_DOCUMENTS_LIGHT_ICON,
+        icon: ICON_PATHS.GY_DOCUMENTS_LIGHT,
         description: 'Gestión y colaboración de documentos'
       }
     ]
@@ -132,14 +134,14 @@ const menuItemsES: MenuItem[] = [
       {
         title: 'Guía de Inicio',
         path: 'https://docs.gycoding.com',
-        icon: GYDocumentsIcon,
+        icon: ICON_PATHS.GY_DOCUMENTS,
         external: true,
         description: 'Aprende cómo empezar con nuestra plataforma'
       },
       {
         title: 'Referencia de API',
         path: 'https://gycoding.stoplight.io/docs/api-docs/5b949c346e2dc-fall-of-the-gods-api',
-        icon: GYDocumentsIcon,
+        icon: ICON_PATHS.GY_DOCUMENTS,
         description: 'Documentación detallada de la API',
         external: true
       },
@@ -152,13 +154,13 @@ const menuItemsES: MenuItem[] = [
       {
         title: 'Equipo',
         path: '/about/team',
-        icon: GYAccountsIcon,
+        icon: ICON_PATHS.GY_ACCOUNTS,
         description: 'Conoce a nuestro equipo talentoso'
       },
       {
         title: 'Compañía',
         path: '/about/company',
-        icon: GYAccountsIcon,
+        icon: ICON_PATHS.GY_ACCOUNTS,
         description: 'Aprende más sobre nuestra compañía'
       },
     ]
@@ -190,10 +192,10 @@ export const userItem = (image: string): any => ({
   childs: [
     {
       name: 'Edit Profile',
-      icon: GYAccountsIcon,
+      icon: ICON_PATHS.GY_ACCOUNTS,
       link: '/profile',
     },
-    { name: 'Logout', icon: GYAccountsIcon, link: '/api/auth/logout' },
+    { name: 'Logout', icon: ICON_PATHS.GY_ACCOUNTS, link: '/api/auth/logout' },
   ],
   isImage: true,
   image,
