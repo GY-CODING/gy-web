@@ -5,7 +5,6 @@ import { useImagePath } from '../utils/useImagePath';
 
 export default function LoadingScreen() {
   const theme = useTheme();
-  const imagePath = useImagePath();
 
   return (
     <Box
@@ -36,7 +35,7 @@ export default function LoadingScreen() {
         }}
       >
         <Image
-          src={imagePath('/icons/gycoding.svg')}
+          src={useImagePath('/icons/gycoding.svg')}
           alt="GYCODING"
           fill
           style={{ objectFit: 'contain' }}
