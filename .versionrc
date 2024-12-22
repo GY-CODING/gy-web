@@ -10,5 +10,19 @@
     {"type": "test", "hidden": true}
   ],
   "commitUrlFormat": "https://github.com/gycoding/gy-web/commit/{{hash}}",
-  "compareUrlFormat": "https://github.com/gycoding/gy-web/compare/{{previousTag}}...{{currentTag}}"
+  "compareUrlFormat": "https://github.com/gycoding/gy-web/compare/{{previousTag}}...{{currentTag}}",
+  "bumpFiles": [
+    {
+      "filename": "package.json",
+      "type": "json"
+    },
+    {
+      "filename": "package-lock.json",
+      "type": "json"
+    }
+  ],
+  "skip": {
+    "commit": true,
+    "tag": false
+  }
 }

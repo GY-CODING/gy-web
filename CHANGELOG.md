@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [0.1.20](https://github.com/gycoding/gy-web/compare/v0.1.6...v0.1.20) (2024-12-22)
+### [1.0.6](https://github.com/gycoding/gy-web/compare/v0.1.6...v1.0.6) (2024-12-22)
 
 ### Features
 
