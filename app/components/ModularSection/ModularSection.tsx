@@ -8,7 +8,7 @@ import { lexendFont } from '../../utils/fonts';
 import AnimatedGrid from './AnimatedGrid';
 import MobileServices from './MobileServices';
 import { useLanguage } from '../../utils/languageContext';
-import { fadeInUpVariants, fadeInScaleVariants } from '../../utils/animations';
+import { fadeInUpVariants } from '../../utils/animations';
 import { gradientTextStyles } from '../../utils/styles';
 
 const getLocalizedServices = (t: (key: string) => string) => [

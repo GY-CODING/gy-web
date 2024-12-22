@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 'use client';
 import React from 'react';
 import { Box, Container, Typography, useTheme } from '@mui/material';

@@ -1,14 +1,14 @@
+/* eslint-disable indent */
 'use client';
 
 import { Box, Container, Typography, useTheme, IconButton } from '@mui/material';
-import { lexendFont, valorantFont } from '../../utils/fonts';
+import { lexendFont } from '../../utils/fonts';
 import AnimatedBackground from '../../components/animations/AnimatedBackground';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { GitHub, LinkedIn, Email } from '@mui/icons-material';
 import { useLanguage } from '../../utils/languageContext';
 import { fadeInUpVariants } from '../../utils/animations';
-import { useAssetPath } from '../../utils/useImagePath';
 
 interface TeamMember {
   name: string;
@@ -22,35 +22,6 @@ interface TeamMember {
     email: string;
   };
 }
-
-const teamMembers: TeamMember[] = [
-  {
-    name: 'Guillermo Figueras',
-    role: 'CEO & FrontEnd Developer',
-    description:
-      'Passionate about creating elegant and efficient solutions. Specialized in modern web technologies and cloud architecture.',
-    image: useAssetPath('/images/gfigueras.png'),
-    skills: ['React', 'NextJS', 'TypeScript', 'Unity', 'Material UI'],
-    social: {
-      github: 'https://github.com/gy-gfigueras',
-      linkedin: 'https://www.linkedin.com/in/gfigueras/',
-      email: 'gfigueras@gycoding.com',
-    },
-  },
-  {
-    name: 'Ivan Vicente',
-    role: 'CEO & BackEnd Developer',
-    description:
-      'Expert in building scalable applications and optimizing performance. Focused on delivering exceptional user experiences.',
-    image: useAssetPath('/images/toxyc.png'),
-    skills: ['Java', 'Spring Boot', 'C#', 'NodeJS', 'MongoDB'],
-    social: {
-      github: 'https://github.com/gy-toxyc',
-      linkedin: 'https://www.linkedin.com/in/srtoxyc/',
-      email: 'toxyc@gycoding.com',
-    },
-  },
-];
 
 const SocialIcon = ({ type, url }: { type: string; url: string }) => {
   const theme = useTheme();

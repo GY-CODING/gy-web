@@ -84,7 +84,7 @@ export default function ModuleCard({
             flexWrap: 'wrap',
           }}
         >
-          {techIcons.map((tech, i) => (
+          {techIcons.map((tech) => (
             <TechIcon key={tech} name={tech} />
           ))}
         </Box>

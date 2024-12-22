@@ -39,12 +39,6 @@ const renderStyledText = (text: string) => {
   });
 };
 
-const socialIcons = {
-  GitHub: '/icons/github.svg',
-  X: '/icons/x.svg',
-  Contact: '/icons/contact.svg',
-};
-
 const FooterLinkBox = ({ children }: { children: React.ReactNode }) => {
   const theme = useTheme();
 
@@ -112,8 +106,7 @@ export default function Footer() {
           backgroundColor:
             theme.palette.mode === 'dark' ? 'rgba(0, 0, 0, 0.85)' : 'rgba(255, 255, 255, 0.85)',
           backdropFilter: 'blur(20px)',
-          borderTop: `1px solid ${
-            theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
+          borderTop: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
           }`,
           boxShadow:
             theme.palette.mode === 'dark'
@@ -334,8 +327,7 @@ export default function Footer() {
               sx={{
                 mt: 6,
                 pt: 3,
-                borderTop: `1px solid ${
-                  theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
+                borderTop: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
                 }`,
                 textAlign: 'center',
                 background:

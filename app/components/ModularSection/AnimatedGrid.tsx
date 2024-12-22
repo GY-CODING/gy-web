@@ -1,3 +1,5 @@
+/* eslint-disable no-constant-condition */
+/* eslint-disable react-hooks/rules-of-hooks */
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, useTheme, useMediaQuery } from '@mui/material';

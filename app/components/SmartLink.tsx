@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
 import { styled } from '@mui/material/styles';
 import { motion } from 'framer-motion';
-import { useTheme } from '@mui/material';
 
 const StyledLinkWrapper = styled(motion.div)(({ theme }) => ({
   '& a': {
@@ -43,7 +42,6 @@ interface SmartLinkProps {
 
 export default function SmartLink({ href, children, className }: SmartLinkProps) {
   const pathname = usePathname();
-  const theme = useTheme();
   const isHomePage = pathname === '/';
   const isHashLink = href.startsWith('/#');
 

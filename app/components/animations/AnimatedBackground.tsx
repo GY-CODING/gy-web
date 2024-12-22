@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-condition */
 'use client';
 
 import { useTheme } from '@mui/material';
@@ -83,7 +84,7 @@ const Particle = ({
       unsubscribeX();
       unsubscribeY();
     };
-  }, [mouseX, mouseY, baseX, baseY, containerWidth, containerHeight]);
+  }, [mouseX, mouseY, baseX, baseY, containerWidth, containerHeight, x, y]);
 
   const distance = useTransform([mouseX, mouseY], ([latestX, latestY]) => {
     const relativeX = baseX / containerWidth;

@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { styled } from '@mui/material/styles';
-import { useTheme } from '@mui/material';
 
 const StyledLink = styled(motion.div)(({ theme }) => ({
   '& a': {
@@ -40,7 +39,6 @@ interface FooterLinkProps {
 }
 
 export default function FooterLink({ href, text, scroll }: FooterLinkProps) {
-  const theme = useTheme();
 
   const handleClick = (e: React.MouseEvent) => {
     if (scroll && href.startsWith('#')) {
