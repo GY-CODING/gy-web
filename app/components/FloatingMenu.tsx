@@ -24,7 +24,6 @@ export default function FloatingMenu({
   const activeChildren = activeItem?.children || [];
 
   if (!activeItem || isMobile) return null;
-  console.log(items)
 
   return (
     <Box

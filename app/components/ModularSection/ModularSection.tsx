@@ -17,14 +17,14 @@ const getLocalizedServices = (t: (key: string) => string) => [
     description: t('services.modules.webDev.description'),
     gradient: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
     icon: 'nextjs',
-    techIcons: ['React', 'Next.js', 'TypeScript'],
+    techIcons: ['React', 'Nextjs', 'TypeScript'],
   },
   {
     title: t('services.modules.backend.title'),
     description: t('services.modules.backend.description'),
     gradient: 'linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%)',
     icon: 'springboot',
-    techIcons: ['Spring Boot', 'Java', 'MongoDB'],
+    techIcons: ['SpringBoot', 'Java', 'MongoDB'],
   },
   {
     title: t('services.modules.gameDev.title'),

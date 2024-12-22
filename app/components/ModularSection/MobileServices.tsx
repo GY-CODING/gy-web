@@ -91,7 +91,7 @@ const MobileServices = ({ services }: MobileServicesProps) => {
                   }}
                 >
                   <Image
-                    src={`/icons/tech/${tech.toLowerCase()}.svg`}
+                    src={`/icons/${tech.toLowerCase()}.svg`}
                     alt={tech}
                     fill
                     style={{

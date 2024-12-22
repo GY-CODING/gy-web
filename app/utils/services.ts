@@ -21,7 +21,7 @@ export const services: ServiceModule[] = [
       'Robust and scalable API development with Spring Boot and Java. Clean architecture, microservices, and NoSQL databases for enterprise applications.',
     gradient: 'linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%)',
     icon: 'springboot',
-    techIcons: ['Spring Boot', 'Java', 'MongoDB'],
+    techIcons: ['SpringBoot', 'Java', 'MongoDB'],
   },
   {
     title: 'Game Development',

@@ -63,9 +63,9 @@ export default function RootLayoutClient({
                 >
                   <Header onThemeToggle={toggleTheme} />
                   {children}
+                  <Footer />
                 </Box>
               )}
-              <Footer />
             </AnimatePresence>
           </ThemeProvider>
         </body>
