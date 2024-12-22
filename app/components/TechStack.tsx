@@ -89,27 +89,27 @@ export default function TechStack() {
                 hidden: {
                   opacity: 0,
                   y: 20,
-                  scale: 0.95
+                  scale: 0.95,
                 },
                 visible: {
                   opacity: 1,
                   y: 0,
                   scale: 1,
                   transition: {
-                    type: "spring",
+                    type: 'spring',
                     stiffness: 100,
                     damping: 12,
-                    duration: 0.5
-                  }
-                }
+                    duration: 0.5,
+                  },
+                },
               }}
               whileHover={{
                 y: -8,
                 transition: {
-                  type: "spring",
+                  type: 'spring',
                   stiffness: 400,
-                  damping: 10
-                }
+                  damping: 10,
+                },
               }}
               sx={{
                 display: 'flex',
@@ -118,9 +118,10 @@ export default function TechStack() {
                 gap: 2,
                 padding: { xs: 2, sm: 3 },
                 borderRadius: '16px',
-                backgroundColor: theme.palette.mode === 'dark'
-                  ? 'rgba(255, 255, 255, 0.03)'
-                  : 'rgba(0, 0, 0, 0.02)',
+                backgroundColor:
+                  theme.palette.mode === 'dark'
+                    ? 'rgba(255, 255, 255, 0.03)'
+                    : 'rgba(0, 0, 0, 0.02)',
                 cursor: 'pointer',
                 position: 'relative',
                 overflow: 'hidden',
@@ -128,9 +129,10 @@ export default function TechStack() {
                   content: '""',
                   position: 'absolute',
                   inset: 0,
-                  background: theme.palette.mode === 'dark'
-                    ? 'radial-gradient(circle at center, rgba(255,255,255,0.15), transparent 70%)'
-                    : 'radial-gradient(circle at center, rgba(0,0,0,0.05), transparent 70%)',
+                  background:
+                    theme.palette.mode === 'dark'
+                      ? 'radial-gradient(circle at center, rgba(255,255,255,0.15), transparent 70%)'
+                      : 'radial-gradient(circle at center, rgba(0,0,0,0.05), transparent 70%)',
                   opacity: 0,
                   transition: 'opacity 0.3s ease',
                 },
@@ -138,12 +140,13 @@ export default function TechStack() {
                   opacity: 1,
                 },
                 '&:hover': {
-                  backgroundColor: theme.palette.mode === 'dark'
-                    ? 'rgba(255, 255, 255, 0.05)'
-                    : 'rgba(0, 0, 0, 0.03)',
+                  backgroundColor:
+                    theme.palette.mode === 'dark'
+                      ? 'rgba(255, 255, 255, 0.05)'
+                      : 'rgba(0, 0, 0, 0.03)',
                   '& .tech-icon': {
                     transform: 'scale(1.1)',
-                  }
+                  },
                 },
               }}
             >
@@ -154,7 +157,10 @@ export default function TechStack() {
                   width: { xs: '60px', sm: '70px', md: '80px' },
                   height: { xs: '60px', sm: '70px', md: '80px' },
                   borderRadius: '16px',
-                  backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.9)',
+                  backgroundColor:
+                    theme.palette.mode === 'dark'
+                      ? 'rgba(255,255,255,0.05)'
+                      : 'rgba(255,255,255,0.9)',
                   border: `2px solid ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
                   padding: '12px',
                   display: 'flex',
@@ -165,9 +171,10 @@ export default function TechStack() {
                     transform: 'translateY(-5px)',
                     boxShadow: `0 8px 16px ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
                     borderColor: tech.color,
-                    backgroundColor: theme.palette.mode === 'dark'
-                      ? `rgba(${parseInt(tech.color.slice(1, 3), 16)}, ${parseInt(tech.color.slice(3, 5), 16)}, ${parseInt(tech.color.slice(5, 7), 16)}, 0.1)`
-                      : `rgba(${parseInt(tech.color.slice(1, 3), 16)}, ${parseInt(tech.color.slice(3, 5), 16)}, ${parseInt(tech.color.slice(5, 7), 16)}, 0.05)`,
+                    backgroundColor:
+                      theme.palette.mode === 'dark'
+                        ? `rgba(${parseInt(tech.color.slice(1, 3), 16)}, ${parseInt(tech.color.slice(3, 5), 16)}, ${parseInt(tech.color.slice(5, 7), 16)}, 0.1)`
+                        : `rgba(${parseInt(tech.color.slice(1, 3), 16)}, ${parseInt(tech.color.slice(3, 5), 16)}, ${parseInt(tech.color.slice(5, 7), 16)}, 0.05)`,
                   },
                 }}
               >
@@ -200,4 +207,4 @@ export default function TechStack() {
       </Container>
     </Box>
   );
-};
+}

@@ -5,7 +5,7 @@ const PURPLE = {
   main: '#8C54FF',
   light: '#8C54FF80',
   dark: '#6B40CC',
-  contrastText: '#FFFFFF'
+  contrastText: '#FFFFFF',
 };
 
 export const createAppTheme = (mode: 'light' | 'dark') => {

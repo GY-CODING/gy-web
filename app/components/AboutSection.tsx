@@ -18,7 +18,8 @@ const AboutSection = () => {
   const { t } = useLanguage();
   const searchParams = useSearchParams();
   console.log(searchParams.get('coffee'));
-  const lottieUrl = searchParams.get('coffee') === 'true' ? '/lottie/coffee.json' : '/lottie/lottie.json';
+  const lottieUrl =
+    searchParams.get('coffee') === 'true' ? '/lottie/coffee.json' : '/lottie/lottie.json';
 
   const renderStyledText = (text: string) => {
     const parts = text.split(/(\[company\].*?\[\/company\])/);
@@ -31,7 +32,7 @@ const AboutSection = () => {
             style={{
               color: '#8C54FF',
               fontWeight: 400,
-              fontFamily: valorantFont.style.fontFamily
+              fontFamily: valorantFont.style.fontFamily,
             }}
           >
             {content}
@@ -137,7 +138,14 @@ const AboutSection = () => {
 
           <ParallaxScroll offset={60}>
             <FadeIn direction="up" delay={0.8}>
-              <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', justifyContent: { xs: 'center', md: 'flex-start' } }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  gap: 2,
+                  alignItems: 'center',
+                  justifyContent: { xs: 'center', md: 'flex-start' },
+                }}
+              >
                 <Box
                   component={motion.div}
                   whileHover={{ scale: 1.05 }}
@@ -197,7 +205,10 @@ const AboutSection = () => {
                         transition: 'all 0.3s ease-in-out',
                         '&:hover': {
                           transform: 'translateY(-2px)',
-                          borderColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)',
+                          borderColor:
+                            theme.palette.mode === 'dark'
+                              ? 'rgba(255,255,255,0.2)'
+                              : 'rgba(0,0,0,0.2)',
                           boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
                         },
                         textDecoration: 'none',

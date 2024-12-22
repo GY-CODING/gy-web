@@ -32,19 +32,20 @@ export default function LanguageSelector() {
           backgroundColor: 'transparent',
           transition: 'all 0.2s ease-in-out',
           '&:hover': {
-            backgroundColor: theme.palette.mode === 'light'
-              ? 'rgba(0, 0, 0, 0.04)'
-              : 'rgba(255, 255, 255, 0.08)',
-          }
+            backgroundColor:
+              theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.04)' : 'rgba(255, 255, 255, 0.08)',
+          },
         }}
       >
-        <div style={{
-          width: 24,
-          height: 24,
-          borderRadius: '50%',
-          overflow: 'hidden',
-          position: 'relative'
-        }}>
+        <div
+          style={{
+            width: 24,
+            height: 24,
+            borderRadius: '50%',
+            overflow: 'hidden',
+            position: 'relative',
+          }}
+        >
           <Image
             src={`/icons/flags/${language}.svg`}
             alt={language === 'en' ? 'English' : 'Español'}
@@ -72,14 +73,15 @@ export default function LanguageSelector() {
               mt: 1,
               minWidth: '120px',
               backgroundColor: theme.palette.background.paper,
-              boxShadow: theme.palette.mode === 'light'
-                ? '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
-                : '0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.12)',
+              boxShadow:
+                theme.palette.mode === 'light'
+                  ? '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
+                  : '0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.12)',
               '& .MuiList-root': {
                 padding: '4px',
-              }
-            }
-          }
+              },
+            },
+          },
         }}
       >
         <MenuItem
@@ -94,25 +96,23 @@ export default function LanguageSelector() {
             minHeight: '36px',
             transition: 'all 0.2s ease-in-out',
             '&:hover': {
-              backgroundColor: theme.palette.mode === 'light'
-                ? 'rgba(0, 0, 0, 0.04)'
-                : 'rgba(255, 255, 255, 0.08)',
-            }
+              backgroundColor:
+                theme.palette.mode === 'light'
+                  ? 'rgba(0, 0, 0, 0.04)'
+                  : 'rgba(255, 255, 255, 0.08)',
+            },
           }}
         >
-          <div style={{ 
-            width: 20, 
-            height: 20, 
-            borderRadius: '50%',
-            overflow: 'hidden',
-            position: 'relative'
-          }}>
-            <Image
-              src="/icons/flags/en.svg"
-              alt="English"
-              fill
-              style={{ objectFit: 'cover' }}
-            />
+          <div
+            style={{
+              width: 20,
+              height: 20,
+              borderRadius: '50%',
+              overflow: 'hidden',
+              position: 'relative',
+            }}
+          >
+            <Image src="/icons/flags/en.svg" alt="English" fill style={{ objectFit: 'cover' }} />
           </div>
           English
         </MenuItem>
@@ -128,25 +128,23 @@ export default function LanguageSelector() {
             minHeight: '36px',
             transition: 'all 0.2s ease-in-out',
             '&:hover': {
-              backgroundColor: theme.palette.mode === 'light'
-                ? 'rgba(0, 0, 0, 0.04)'
-                : 'rgba(255, 255, 255, 0.08)',
-            }
+              backgroundColor:
+                theme.palette.mode === 'light'
+                  ? 'rgba(0, 0, 0, 0.04)'
+                  : 'rgba(255, 255, 255, 0.08)',
+            },
           }}
         >
-          <div style={{ 
-            width: 20, 
-            height: 20, 
-            borderRadius: '50%',
-            overflow: 'hidden',
-            position: 'relative'
-          }}>
-            <Image
-              src="/icons/flags/es.svg"
-              alt="Español"
-              fill
-              style={{ objectFit: 'cover' }}
-            />
+          <div
+            style={{
+              width: 20,
+              height: 20,
+              borderRadius: '50%',
+              overflow: 'hidden',
+              position: 'relative',
+            }}
+          >
+            <Image src="/icons/flags/es.svg" alt="Español" fill style={{ objectFit: 'cover' }} />
           </div>
           Español
         </MenuItem>

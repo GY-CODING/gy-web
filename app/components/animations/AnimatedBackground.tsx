@@ -1,7 +1,14 @@
 'use client';
 
 import { useTheme } from '@mui/material';
-import { motion, useMotionValue, useSpring, animate, useTransform, MotionValue } from 'framer-motion';
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  animate,
+  useTransform,
+  MotionValue,
+} from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react';
 
 interface Point {
@@ -32,7 +39,7 @@ const Particle = ({
   mouseX,
   mouseY,
   containerWidth,
-  containerHeight
+  containerHeight,
 }: {
   baseX: number;
   baseY: number;
@@ -50,7 +57,7 @@ const Particle = ({
   const springY = useSpring(y, { damping: 25, stiffness: 300 });
 
   useEffect(() => {
-    const unsubscribeX = mouseX.on("change", (latestX) => {
+    const unsubscribeX = mouseX.on('change', (latestX) => {
       const relativeX = baseX / containerWidth;
       const distance = Math.abs(latestX - relativeX);
       if (distance < 0.2) {
@@ -61,7 +68,7 @@ const Particle = ({
       }
     });
 
-    const unsubscribeY = mouseY.on("change", (latestY) => {
+    const unsubscribeY = mouseY.on('change', (latestY) => {
       const relativeY = baseY / containerHeight;
       const distance = Math.abs(latestY - relativeY);
       if (distance < 0.2) {
@@ -78,14 +85,11 @@ const Particle = ({
     };
   }, [mouseX, mouseY, baseX, baseY, containerWidth, containerHeight]);
 
-  const distance = useTransform(
-    [mouseX, mouseY],
-    ([latestX, latestY]) => {
-      const relativeX = baseX / containerWidth;
-      const relativeY = baseY / containerHeight;
-      return calculateDistance(relativeX, relativeY, latestX as number, latestY as number);
-    }
-  );
+  const distance = useTransform([mouseX, mouseY], ([latestX, latestY]) => {
+    const relativeX = baseX / containerWidth;
+    const relativeY = baseY / containerHeight;
+    return calculateDistance(relativeX, relativeY, latestX as number, latestY as number);
+  });
 
   const scale = useTransform(distance, [0.2, 0], [1, 1.5]);
   const opacity = useTransform(distance, [0.2, 0], [0.2, 0.8]);
@@ -94,7 +98,7 @@ const Particle = ({
     [0.2, 0],
     [
       theme.palette.mode === 'dark' ? 'rgba(99, 102, 241, 0.15)' : 'rgba(99, 102, 241, 0.1)',
-      theme.palette.mode === 'dark' ? 'rgba(99, 102, 241, 0.5)' : 'rgba(99, 102, 241, 0.3)'
+      theme.palette.mode === 'dark' ? 'rgba(99, 102, 241, 0.5)' : 'rgba(99, 102, 241, 0.3)',
     ]
   );
 
@@ -161,7 +165,7 @@ const AnimatedBackground = () => {
             stiffness: 200,
             duration: 2,
           });
-          await new Promise(resolve => setTimeout(resolve, 1000));
+          await new Promise((resolve) => setTimeout(resolve, 1000));
         }
       };
       animatePosition();
@@ -226,7 +230,8 @@ const AnimatedBackground = () => {
           bottom: 0,
           background: useTransform(
             [mouseX, mouseY],
-            ([x, y]) => `radial-gradient(circle at ${x as number * 100}% ${y as number * 100}%, rgba(99, 102, 241, 0.1) 0%, transparent 60%)`
+            ([x, y]) =>
+              `radial-gradient(circle at ${(x as number) * 100}% ${(y as number) * 100}%, rgba(99, 102, 241, 0.1) 0%, transparent 60%)`
           ),
         }}
       />

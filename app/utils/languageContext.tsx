@@ -24,7 +24,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     const cookieLanguage = Cookies.get(LANGUAGE_COOKIE_NAME) as Language;
     const browserLanguage = navigator.language.startsWith('es') ? 'es' : 'en';
     const initialLanguage = cookieLanguage || browserLanguage;
-    
+
     setLanguageState(initialLanguage);
   }, []);
 
@@ -36,12 +36,12 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const t = (key: string) => {
     const keys = key.split('.');
     let value: any = locales[language];
-    
+
     for (const k of keys) {
       if (value === undefined) return key;
       value = value[k];
     }
-    
+
     return value || key;
   };
 

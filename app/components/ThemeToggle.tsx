@@ -14,11 +14,10 @@ export default function ThemeToggle({ onToggle }: ThemeToggleProps) {
     <IconButton
       onClick={onToggle}
       sx={{
-        color: "primary.contrastText",
+        color: 'primary.contrastText',
         '&:hover': {
-          backgroundColor: theme.palette.mode === 'light'
-            ? 'rgba(0, 0, 0, 0.04)'
-            : 'rgba(255, 255, 255, 0.08)'
+          backgroundColor:
+            theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.04)' : 'rgba(255, 255, 255, 0.08)',
         },
       }}
     >

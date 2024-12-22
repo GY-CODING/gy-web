@@ -1,0 +1,11 @@
+{
+  "formatOnSave": true,
+  "formatter": {
+    "command": "npx prettier --write ${file}",
+    "fileTypes": [".ts", ".tsx", ".js", ".jsx", ".json", ".md"]
+  },
+  "linter": {
+    "command": "npx eslint --fix ${file}",
+    "fileTypes": [".ts", ".tsx", ".js", ".jsx"]
+  }
+}

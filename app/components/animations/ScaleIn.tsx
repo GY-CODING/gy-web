@@ -9,12 +9,7 @@ interface ScaleInProps {
   className?: string;
 }
 
-const ScaleIn = ({ 
-  children, 
-  delay = 0, 
-  duration = 0.5,
-  className = '' 
-}: ScaleInProps) => {
+const ScaleIn = ({ children, delay = 0, duration = 0.5, className = '' }: ScaleInProps) => {
   return (
     <motion.div
       className={className}
@@ -24,7 +19,7 @@ const ScaleIn = ({
       transition={{
         duration,
         delay,
-        ease: [0.25, 0.1, 0.25, 1]
+        ease: [0.25, 0.1, 0.25, 1],
       }}
     >
       {children}

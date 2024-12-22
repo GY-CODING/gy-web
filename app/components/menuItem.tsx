@@ -27,15 +27,15 @@ export default function CustomMenuItem({ item, index, isHovered, onHover }: Menu
         cursor: 'pointer',
         borderRadius: '12px',
         transition: 'all 0.2s ease',
-        backgroundColor: isActive || isHovered
-          ? theme.palette.mode === 'dark'
-            ? 'rgba(255,255,255,0.1)'
-            : 'rgba(0,0,0,0.05)'
-          : 'transparent',
+        backgroundColor:
+          isActive || isHovered
+            ? theme.palette.mode === 'dark'
+              ? 'rgba(255,255,255,0.1)'
+              : 'rgba(0,0,0,0.05)'
+            : 'transparent',
         '&:hover': {
-          backgroundColor: theme.palette.mode === 'dark'
-            ? 'rgba(255,255,255,0.1)'
-            : 'rgba(0,0,0,0.05)',
+          backgroundColor:
+            theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)',
         },
       }}
     >
@@ -44,9 +44,14 @@ export default function CustomMenuItem({ item, index, isHovered, onHover }: Menu
           ...lexendFont.style,
           fontSize: '0.95rem',
           fontWeight: isActive ? 600 : 500,
-          color: theme.palette.mode === 'dark'
-            ? isActive ? 'white' : 'grey.300'
-            : isActive ? 'black' : 'grey.700',
+          color:
+            theme.palette.mode === 'dark'
+              ? isActive
+                ? 'white'
+                : 'grey.300'
+              : isActive
+                ? 'black'
+                : 'grey.700',
         }}
       >
         {item.title}

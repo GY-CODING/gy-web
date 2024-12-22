@@ -1,20 +1,20 @@
 'use client';
 
-import { use, useState } from "react";
-import { useTheme, useMediaQuery } from "@mui/material";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/icons-material/Menu";
+import { use, useState } from 'react';
+import { useTheme, useMediaQuery } from '@mui/material';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/icons-material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Image from 'next/image';
-import Link from "next/link";
+import Link from 'next/link';
 import { useAssetPath } from '../utils/useImagePath';
-import ThemeToggle from "./ThemeToggle";
-import CustomButton from "./CustomButton";
-import CustomMenuItem from "./menuItem";
-import FloatingMenu from "./FloatingMenu";
-import MobileMenu from "./MobileMenu";
-import LanguageSelector from "./LanguageSelector";
-import { getMenuItems, getButtonText } from "../utils/menuItems";
+import ThemeToggle from './ThemeToggle';
+import CustomButton from './CustomButton';
+import CustomMenuItem from './menuItem';
+import FloatingMenu from './FloatingMenu';
+import MobileMenu from './MobileMenu';
+import LanguageSelector from './LanguageSelector';
+import { getMenuItems, getButtonText } from '../utils/menuItems';
 import { useLanguage } from '../utils/languageContext';
 
 interface HeaderProps {
@@ -34,11 +34,11 @@ export default function Header({ onThemeToggle }: HeaderProps) {
     <Box
       component="header"
       sx={{
-        position: "fixed",
+        position: 'fixed',
         top: 0,
         left: 0,
         right: 0,
-        height: "64px",
+        height: '64px',
         backgroundColor: theme.palette.background.paper,
         borderBottom: `1px solid ${theme.palette.divider}`,
         zIndex: 1000,
@@ -47,21 +47,21 @@ export default function Header({ onThemeToggle }: HeaderProps) {
     >
       <Box
         sx={{
-          maxWidth: "1200px",
-          height: "100%",
-          margin: "0 auto",
-          padding: "0 2rem",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
+          maxWidth: '1200px',
+          height: '100%',
+          margin: '0 auto',
+          padding: '0 2rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
         }}
       >
         {/* Left side */}
         <Box
           sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: "3rem",
+            display: 'flex',
+            alignItems: 'center',
+            gap: '3rem',
           }}
         >
           {/* Logo */}
@@ -75,7 +75,7 @@ export default function Header({ onThemeToggle }: HeaderProps) {
                 cursor: 'pointer',
                 '&:hover': {
                   transform: 'scale(1.05)',
-                }
+                },
               }}
             >
               <Image
@@ -92,8 +92,8 @@ export default function Header({ onThemeToggle }: HeaderProps) {
           {!isMobile && (
             <Box
               sx={{
-                display: "flex",
-                gap: "1.5rem",
+                display: 'flex',
+                gap: '1.5rem',
               }}
             >
               {currentMenuItems.map((item, index) => (
@@ -112,18 +112,15 @@ export default function Header({ onThemeToggle }: HeaderProps) {
         {/* Right side */}
         <Box
           sx={{
-            display: "flex",
-            gap: "1rem",
-            alignItems: "center",
+            display: 'flex',
+            gap: '1rem',
+            alignItems: 'center',
           }}
         >
           <LanguageSelector />
           <ThemeToggle onToggle={onThemeToggle} />
           {isMobile ? (
-            <IconButton
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              sx={{ ml: 1 }}
-            >
+            <IconButton onClick={() => setMobileMenuOpen(!mobileMenuOpen)} sx={{ ml: 1 }}>
               <MenuIcon />
             </IconButton>
           ) : (
@@ -142,7 +139,7 @@ export default function Header({ onThemeToggle }: HeaderProps) {
                 },
                 '&:active': {
                   transform: 'translateY(0)',
-                }
+                },
               }}
             />
           )}

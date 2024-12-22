@@ -95,13 +95,9 @@ export default function ModuleCard({
 
 function TechIcon({ name }: { name: string }) {
   const theme = useTheme();
-  
+
   return (
-    <motion.div
-      initial="hidden"
-      animate="visible"
-      variants={iconSpringVariants}
-    >
+    <motion.div initial="hidden" animate="visible" variants={iconSpringVariants}>
       <Box
         sx={{
           display: 'flex',

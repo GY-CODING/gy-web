@@ -8,14 +8,14 @@ export const springTransition = {
 
 export const fadeInUpVariants: Variants = {
   hidden: { opacity: 0, y: 50 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: {
       duration: 0.8,
       ease: [0.4, 0, 0.2, 1],
-    }
-  }
+    },
+  },
 };
 
 export const fadeInScaleVariants: Variants = {
@@ -23,8 +23,8 @@ export const fadeInScaleVariants: Variants = {
   visible: {
     opacity: 1,
     scale: 1,
-    transition: springTransition
-  }
+    transition: springTransition,
+  },
 };
 
 export const iconSpringVariants: Variants = {
@@ -35,6 +35,6 @@ export const iconSpringVariants: Variants = {
       type: 'spring',
       stiffness: 260,
       damping: 20,
-    }
-  }
+    },
+  },
 };

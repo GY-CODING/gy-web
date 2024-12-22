@@ -106,20 +106,19 @@ export default function Footer() {
       <MotionBox
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
         sx={{
           position: 'relative',
-          backgroundColor: theme.palette.mode === 'dark'
-            ? 'rgba(0, 0, 0, 0.85)'
-            : 'rgba(255, 255, 255, 0.85)',
+          backgroundColor:
+            theme.palette.mode === 'dark' ? 'rgba(0, 0, 0, 0.85)' : 'rgba(255, 255, 255, 0.85)',
           backdropFilter: 'blur(20px)',
-          borderTop: `1px solid ${theme.palette.mode === 'dark'
-            ? 'rgba(255, 255, 255, 0.1)'
-            : 'rgba(0, 0, 0, 0.1)'
-            }`,
-          boxShadow: theme.palette.mode === 'dark'
-            ? '0 -10px 30px -10px rgba(0, 0, 0, 0.3)'
-            : '0 -10px 30px -10px rgba(0, 0, 0, 0.1)',
+          borderTop: `1px solid ${
+            theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
+          }`,
+          boxShadow:
+            theme.palette.mode === 'dark'
+              ? '0 -10px 30px -10px rgba(0, 0, 0, 0.3)'
+              : '0 -10px 30px -10px rgba(0, 0, 0, 0.1)',
           py: 6,
         }}
       >
@@ -138,9 +137,10 @@ export default function Footer() {
                       display: 'flex',
                       alignItems: 'center',
                       mb: 2,
-                      background: theme.palette.mode === 'dark'
-                        ? 'linear-gradient(45deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%)'
-                        : 'linear-gradient(45deg, rgba(99, 102, 241, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%)',
+                      background:
+                        theme.palette.mode === 'dark'
+                          ? 'linear-gradient(45deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%)'
+                          : 'linear-gradient(45deg, rgba(99, 102, 241, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%)',
                       p: 2,
                       borderRadius: 2,
                       backdropFilter: 'blur(10px)',
@@ -148,7 +148,7 @@ export default function Footer() {
                   >
                     <motion.div
                       whileHover={{ scale: 1.1, rotate: 5 }}
-                      transition={{ type: "spring", stiffness: 300 }}
+                      transition={{ type: 'spring', stiffness: 300 }}
                     >
                       <Box sx={{ position: 'relative', width: 40, height: 40, mr: 1 }}>
                         <Image
@@ -161,7 +161,7 @@ export default function Footer() {
                     </motion.div>
                     <motion.div
                       whileHover={{ scale: 1.05 }}
-                      transition={{ type: "spring", stiffness: 400 }}
+                      transition={{ type: 'spring', stiffness: 400 }}
                     >
                       <Typography
                         variant="h6"
@@ -173,9 +173,10 @@ export default function Footer() {
                           WebkitTextFillColor: 'transparent',
                           letterSpacing: '0.1em',
                           fontSize: '1.5rem',
-                          textShadow: theme.palette.mode === 'dark'
-                            ? '0 0 20px rgba(236, 72, 153, 0.3)'
-                            : '0 0 20px rgba(236, 72, 153, 0.2)',
+                          textShadow:
+                            theme.palette.mode === 'dark'
+                              ? '0 0 20px rgba(236, 72, 153, 0.3)'
+                              : '0 0 20px rgba(236, 72, 153, 0.2)',
                         }}
                       >
                         {t('footer.company')}
@@ -193,9 +194,8 @@ export default function Footer() {
                         color: theme.palette.mode === 'dark' ? 'grey.400' : 'grey.600',
                         maxWidth: '300px',
                         lineHeight: 1.6,
-                        textShadow: theme.palette.mode === 'dark'
-                          ? '0 0 10px rgba(0, 0, 0, 0.3)'
-                          : 'none',
+                        textShadow:
+                          theme.palette.mode === 'dark' ? '0 0 10px rgba(0, 0, 0, 0.3)' : 'none',
                       }}
                     >
                       {renderStyledText(t('about.description1'))}
@@ -214,7 +214,7 @@ export default function Footer() {
                       whileHover={{
                         y: -5,
                         scale: 1.1,
-                        transition: { type: "spring", stiffness: 400 }
+                        transition: { type: 'spring', stiffness: 400 },
                       }}
                     >
                       <SocialIcon name={link.name} href={link.href} />
@@ -244,9 +244,7 @@ export default function Footer() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.4 }}
                   >
-                    <SmartLink href={item.href}>
-                      {item.name}
-                    </SmartLink>
+                    <SmartLink href={item.href}>{item.name}</SmartLink>
                   </motion.div>
                 ))}
               </Box>
@@ -272,9 +270,7 @@ export default function Footer() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.4 }}
                   >
-                    <SmartLink href={item.href}>
-                      {item.name}
-                    </SmartLink>
+                    <SmartLink href={item.href}>{item.name}</SmartLink>
                   </motion.div>
                 ))}
               </Box>
@@ -294,14 +290,8 @@ export default function Footer() {
               </Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
                 {aboutLinks.map((link) => (
-                  <SmartLink
-                    key={link.name}
-                    href={link.href}
-                    className="footer-link"
-                  >
-                    <FooterLinkBox>
-                      {link.name}
-                    </FooterLinkBox>
+                  <SmartLink key={link.name} href={link.href} className="footer-link">
+                    <FooterLinkBox>{link.name}</FooterLinkBox>
                   </SmartLink>
                 ))}
               </Box>
@@ -327,9 +317,7 @@ export default function Footer() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.4 }}
                   >
-                    <SmartLink href={item.href}>
-                      {item.name}
-                    </SmartLink>
+                    <SmartLink href={item.href}>{item.name}</SmartLink>
                   </motion.div>
                 ))}
               </Box>
@@ -346,14 +334,14 @@ export default function Footer() {
               sx={{
                 mt: 6,
                 pt: 3,
-                borderTop: `1px solid ${theme.palette.mode === 'dark'
-                  ? 'rgba(255, 255, 255, 0.1)'
-                  : 'rgba(0, 0, 0, 0.1)'
-                  }`,
+                borderTop: `1px solid ${
+                  theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
+                }`,
                 textAlign: 'center',
-                background: theme.palette.mode === 'dark'
-                  ? 'linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent)'
-                  : 'linear-gradient(to top, rgba(255, 255, 255, 0.2), transparent)',
+                background:
+                  theme.palette.mode === 'dark'
+                    ? 'linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent)'
+                    : 'linear-gradient(to top, rgba(255, 255, 255, 0.2), transparent)',
               }}
             >
               <Typography

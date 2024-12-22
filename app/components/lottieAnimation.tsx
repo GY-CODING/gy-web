@@ -11,7 +11,7 @@ interface LottieAnimationProps {
 export default function LottieAnimation({
   animationPath,
   loop = true,
-  autoplay = true
+  autoplay = true,
 }: LottieAnimationProps) {
   const [LottieComponent, setLottieComponent] = useState<any>(null);
 
@@ -24,8 +24,7 @@ export default function LottieAnimation({
 
         const LottieWithData = () => (
           <Lottie.default
-            animationData={animationData
-            }
+            animationData={animationData}
             loop={loop}
             autoplay={autoplay}
             style={{
@@ -45,14 +44,16 @@ export default function LottieAnimation({
   }, [animationPath, loop, autoplay]);
 
   return (
-    <Box sx={{
-      width: '100%',
-      height: '100%',
-      background: 'transparent',
-      '& > div': {
-        background: 'transparent !important'
-      }
-    }}>
+    <Box
+      sx={{
+        width: '100%',
+        height: '100%',
+        background: 'transparent',
+        '& > div': {
+          background: 'transparent !important',
+        },
+      }}
+    >
       {LottieComponent && <LottieComponent />}
     </Box>
   );

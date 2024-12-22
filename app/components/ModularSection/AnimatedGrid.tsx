@@ -62,7 +62,7 @@ const useGridAnimation = (isMobile: boolean, isTouch: boolean) => {
           ease: 'easeInOut',
         });
 
-        await new Promise(resolve => setTimeout(resolve, randomInRange(100, 500)));
+        await new Promise((resolve) => setTimeout(resolve, randomInRange(100, 500)));
       }
     };
 
@@ -85,14 +85,10 @@ export default function AnimatedGrid() {
   const [isTouch, setIsTouch] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const {
-    mouseX,
-    mouseY,
-    springX,
-    springY,
-    autoSpringX,
-    autoSpringY,
-  } = useGridAnimation(isMobile, isTouch);
+  const { mouseX, mouseY, springX, springY, autoSpringX, autoSpringY } = useGridAnimation(
+    isMobile,
+    isTouch
+  );
 
   const { columns, rows } = isMobile ? GRID_CONFIG.mobile : GRID_CONFIG.desktop;
   const gridSize = isMobile ? GRID_SIZE.mobile : GRID_SIZE.desktop;

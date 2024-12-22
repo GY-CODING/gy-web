@@ -32,7 +32,7 @@ const MeshLine = ({
   mouseX,
   mouseY,
   containerWidth,
-  containerHeight
+  containerHeight,
 }: {
   line: Line;
   mouseX: number;
@@ -70,17 +70,19 @@ const MeshLine = ({
       y1={line.y1 + displaceY}
       x2={line.x2 + displaceX}
       y2={line.y2 + displaceY}
-      stroke={theme.palette.mode === 'dark' ? 'rgba(99, 102, 241, 0.15)' : 'rgba(99, 102, 241, 0.1)'}
+      stroke={
+        theme.palette.mode === 'dark' ? 'rgba(99, 102, 241, 0.15)' : 'rgba(99, 102, 241, 0.1)'
+      }
       strokeWidth={1}
       initial={{ pathLength: 0, opacity: 0 }}
       animate={{
         pathLength: 1,
         opacity: 0.5 + influence * 0.5,
-        strokeWidth: 1 + influence * 2
+        strokeWidth: 1 + influence * 2,
       }}
       transition={{
         duration: 1.5,
-        ease: "easeInOut"
+        ease: 'easeInOut',
       }}
     />
   );
@@ -205,7 +207,8 @@ const AnimatedMesh = () => {
           bottom: 0,
           background: useTransform(
             [springX, springY],
-            ([x, y]) => `radial-gradient(circle at ${x as number * 100}% ${y as number * 100}%, rgba(99, 102, 241, 0.1) 0%, transparent 60%)`
+            ([x, y]) =>
+              `radial-gradient(circle at ${(x as number) * 100}% ${(y as number) * 100}%, rgba(99, 102, 241, 0.1) 0%, transparent 60%)`
           ),
         }}
       />

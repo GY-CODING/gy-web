@@ -6,7 +6,7 @@ import CustomButton from './CustomButton';
 import Link from 'next/link';
 import Image from 'next/image';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { useAssetPath } from "../utils/useImagePath";
+import { useAssetPath } from '../utils/useImagePath';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -21,10 +21,8 @@ export default function MobileMenu({ isOpen, menuItems, onClose }: MobileMenuPro
   if (!isOpen) return null;
 
   const toggleExpand = (index: number) => {
-    setExpandedItems(prev =>
-      prev.includes(index)
-        ? prev.filter(i => i !== index)
-        : [...prev, index]
+    setExpandedItems((prev) =>
+      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
     );
   };
 
@@ -62,15 +60,14 @@ export default function MobileMenu({ isOpen, menuItems, onClose }: MobileMenuPro
                   justifyContent: 'space-between',
                   cursor: 'pointer',
                   '&:hover': {
-                    backgroundColor: theme.palette.mode === 'light'
-                      ? 'rgba(140, 84, 255, 0.04)'
-                      : 'rgba(140, 84, 255, 0.08)',
+                    backgroundColor:
+                      theme.palette.mode === 'light'
+                        ? 'rgba(140, 84, 255, 0.04)'
+                        : 'rgba(140, 84, 255, 0.08)',
                   },
                 }}
               >
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                  {item.title}
-                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>{item.title}</Box>
                 <KeyboardArrowDownIcon
                   sx={{
                     transform: expandedItems.includes(index) ? 'rotate(180deg)' : 'rotate(0)',
@@ -104,9 +101,10 @@ export default function MobileMenu({ isOpen, menuItems, onClose }: MobileMenuPro
                             color: theme.palette.text.secondary,
                             fontSize: '0.9rem',
                             '&:hover': {
-                              backgroundColor: theme.palette.mode === 'light'
-                                ? 'rgba(140, 84, 255, 0.04)'
-                                : 'rgba(140, 84, 255, 0.08)',
+                              backgroundColor:
+                                theme.palette.mode === 'light'
+                                  ? 'rgba(140, 84, 255, 0.04)'
+                                  : 'rgba(140, 84, 255, 0.08)',
                             },
                           }}
                         >
@@ -119,9 +117,10 @@ export default function MobileMenu({ isOpen, menuItems, onClose }: MobileMenuPro
                                 width: '24px',
                                 height: '24px',
                                 borderRadius: '6px',
-                                backgroundColor: theme.palette.mode === 'light'
-                                  ? 'rgba(140, 84, 255, 0.04)'
-                                  : 'rgba(140, 84, 255, 0.08)',
+                                backgroundColor:
+                                  theme.palette.mode === 'light'
+                                    ? 'rgba(140, 84, 255, 0.04)'
+                                    : 'rgba(140, 84, 255, 0.08)',
                               }}
                             >
                               <Image
@@ -159,9 +158,10 @@ export default function MobileMenu({ isOpen, menuItems, onClose }: MobileMenuPro
                             color: theme.palette.text.secondary,
                             fontSize: '0.9rem',
                             '&:hover': {
-                              backgroundColor: theme.palette.mode === 'light'
-                                ? 'rgba(140, 84, 255, 0.04)'
-                                : 'rgba(140, 84, 255, 0.08)',
+                              backgroundColor:
+                                theme.palette.mode === 'light'
+                                  ? 'rgba(140, 84, 255, 0.04)'
+                                  : 'rgba(140, 84, 255, 0.08)',
                             },
                           }}
                         >
@@ -174,9 +174,10 @@ export default function MobileMenu({ isOpen, menuItems, onClose }: MobileMenuPro
                                 width: '24px',
                                 height: '24px',
                                 borderRadius: '6px',
-                                backgroundColor: theme.palette.mode === 'light'
-                                  ? 'rgba(140, 84, 255, 0.04)'
-                                  : 'rgba(140, 84, 255, 0.08)',
+                                backgroundColor:
+                                  theme.palette.mode === 'light'
+                                    ? 'rgba(140, 84, 255, 0.04)'
+                                    : 'rgba(140, 84, 255, 0.08)',
                               }}
                             >
                               <Image
@@ -209,10 +210,7 @@ export default function MobileMenu({ isOpen, menuItems, onClose }: MobileMenuPro
               </Box>
             </Box>
           ) : (
-            <Link
-              href={item.path as string}
-              style={{ textDecoration: 'none' }}
-            >
+            <Link href={item.path as string} style={{ textDecoration: 'none' }}>
               <Box
                 sx={{
                   padding: '0.75rem 1rem',
@@ -224,9 +222,10 @@ export default function MobileMenu({ isOpen, menuItems, onClose }: MobileMenuPro
                   alignItems: 'center',
                   gap: 2,
                   '&:hover': {
-                    backgroundColor: theme.palette.mode === 'light'
-                      ? 'rgba(140, 84, 255, 0.04)'
-                      : 'rgba(140, 84, 255, 0.08)',
+                    backgroundColor:
+                      theme.palette.mode === 'light'
+                        ? 'rgba(140, 84, 255, 0.04)'
+                        : 'rgba(140, 84, 255, 0.08)',
                   },
                 }}
               >
@@ -247,10 +246,11 @@ export default function MobileMenu({ isOpen, menuItems, onClose }: MobileMenuPro
             borderColor: theme.palette.secondary.main,
             color: theme.palette.secondary.main,
             '&:hover': {
-              backgroundColor: theme.palette.mode === 'light'
-                ? 'rgba(140, 84, 255, 0.04)'
-                : 'rgba(140, 84, 255, 0.08)',
-            }
+              backgroundColor:
+                theme.palette.mode === 'light'
+                  ? 'rgba(140, 84, 255, 0.04)'
+                  : 'rgba(140, 84, 255, 0.08)',
+            },
           }}
         />
       </Box>

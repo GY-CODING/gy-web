@@ -5,7 +5,7 @@ import { useTheme } from '@mui/material';
 export const FrontendIcon = () => {
   const theme = useTheme();
   const color = theme.palette.mode === 'dark' ? '#fff' : '#000';
-  
+
   return (
     <motion.svg
       width="120"
@@ -65,12 +65,7 @@ export const BackendIcon = () => {
   const color = theme.palette.mode === 'dark' ? '#fff' : '#000';
 
   return (
-    <motion.svg
-      width="120"
-      height="120"
-      viewBox="0 0 24 24"
-      fill="none"
-    >
+    <motion.svg width="120" height="120" viewBox="0 0 24 24" fill="none">
       <motion.path
         d="M12 4L3 9L12 14L21 9L12 4Z"
         stroke={color}
@@ -110,12 +105,7 @@ export const MobileIcon = () => {
   const color = theme.palette.mode === 'dark' ? '#fff' : '#000';
 
   return (
-    <motion.svg
-      width="120"
-      height="120"
-      viewBox="0 0 24 24"
-      fill="none"
-    >
+    <motion.svg width="120" height="120" viewBox="0 0 24 24" fill="none">
       <motion.rect
         x="5"
         y="2"

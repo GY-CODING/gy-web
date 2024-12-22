@@ -34,7 +34,7 @@ export default function CustomButton({
         },
         ...sx,
       }}
-      onClick={onClick ?? (() => { })}
+      onClick={onClick ?? (() => {})}
       {...props}
     >
       {link ? (

@@ -1,5 +1,5 @@
-import type { Metadata } from 'next'
-import RootLayoutClient from './RootLayoutClient'
+import type { Metadata } from 'next';
+import RootLayoutClient from './RootLayoutClient';
 
 export const metadata: Metadata = {
   title: 'GYCODING',
@@ -7,12 +7,8 @@ export const metadata: Metadata = {
   icons: {
     icon: '/gy-icon-small.ico',
   },
-}
+};
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return <RootLayoutClient>{children}</RootLayoutClient>;
 }

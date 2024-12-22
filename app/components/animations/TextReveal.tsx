@@ -8,20 +8,15 @@ interface TextRevealProps {
   className?: string;
 }
 
-const TextReveal = ({ 
-  text, 
-  delay = 0, 
-  duration = 0.5,
-  className = '' 
-}: TextRevealProps) => {
+const TextReveal = ({ text, delay = 0, duration = 0.5, className = '' }: TextRevealProps) => {
   const words = text.split(' ');
 
   const container = {
     hidden: { opacity: 0 },
     visible: (i = 1) => ({
       opacity: 1,
-      transition: { staggerChildren: 0.12, delayChildren: delay }
-    })
+      transition: { staggerChildren: 0.12, delayChildren: delay },
+    }),
   };
 
   const child = {
@@ -30,17 +25,17 @@ const TextReveal = ({
       y: 0,
       transition: {
         duration: duration,
-        ease: [0.25, 0.1, 0.25, 1]
-      }
+        ease: [0.25, 0.1, 0.25, 1],
+      },
     },
     hidden: {
       opacity: 0,
       y: 20,
       transition: {
         duration: duration,
-        ease: [0.25, 0.1, 0.25, 1]
-      }
-    }
+        ease: [0.25, 0.1, 0.25, 1],
+      },
+    },
   };
 
   return (
@@ -52,11 +47,7 @@ const TextReveal = ({
       viewport={{ once: true, margin: '-100px' }}
     >
       {words.map((word, index) => (
-        <motion.span
-          key={index}
-          variants={child}
-          className="mr-1"
-        >
+        <motion.span key={index} variants={child} className="mr-1">
           {word}
         </motion.span>
       ))}

@@ -13,11 +13,7 @@ interface FloatingMenuProps {
   onHover: (index: number | null) => void;
 }
 
-export default function FloatingMenu({
-  items,
-  activeIndex,
-  onHover
-}: FloatingMenuProps) {
+export default function FloatingMenu({ items, activeIndex, onHover }: FloatingMenuProps) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const activeItem = activeIndex !== null ? items[activeIndex] : null;
@@ -93,11 +89,12 @@ export default function FloatingMenu({
                   borderRadius: '8px',
                   transition: 'all 0.15s ease',
                   '&:hover': {
-                    backgroundColor: theme.palette.mode === 'light'
-                      ? 'rgba(140, 84, 255, 0.04)'
-                      : 'rgba(140, 84, 255, 0.08)',
+                    backgroundColor:
+                      theme.palette.mode === 'light'
+                        ? 'rgba(140, 84, 255, 0.04)'
+                        : 'rgba(140, 84, 255, 0.08)',
                     transform: 'translateX(4px)',
-                  }
+                  },
                 }}
               >
                 {item.icon && (
@@ -108,19 +105,15 @@ export default function FloatingMenu({
                       justifyContent: 'center',
                       width: '40px',
                       height: '40px',
-                      backgroundColor: theme.palette.mode === 'light'
-                        ? 'rgba(140, 84, 255, 0.04)'
-                        : 'rgba(140, 84, 255, 0.08)',
+                      backgroundColor:
+                        theme.palette.mode === 'light'
+                          ? 'rgba(140, 84, 255, 0.04)'
+                          : 'rgba(140, 84, 255, 0.08)',
                       borderRadius: '8px',
                       flexShrink: 0,
                     }}
                   >
-                    <Image
-                      src={useAssetPath(item.icon)}
-                      alt={item.title}
-                      width={24}
-                      height={24}
-                    />
+                    <Image src={useAssetPath(item.icon)} alt={item.title} width={24} height={24} />
                   </Box>
                 )}
                 <Box>

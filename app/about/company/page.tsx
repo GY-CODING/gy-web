@@ -28,15 +28,14 @@ const ValueCard = ({ value, index }: { value: ValueCard; index: number }) => {
           p: { xs: 3, sm: 4 },
           height: '100%',
           borderRadius: '20px',
-          backgroundColor: theme.palette.mode === 'dark'
-            ? 'rgba(17,17,17,0.8)'
-            : 'rgba(255,255,255,0.9)',
+          backgroundColor:
+            theme.palette.mode === 'dark' ? 'rgba(17,17,17,0.8)' : 'rgba(255,255,255,0.9)',
           backdropFilter: 'blur(10px)',
           border: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
           transition: 'transform 0.2s ease-in-out',
           '&:hover': {
             transform: 'translateY(-5px)',
-          }
+          },
         }}
       >
         <Typography variant="h1" sx={{ fontSize: '2.5rem', mb: 2 }}>
@@ -169,9 +168,8 @@ export default function CompanyPage() {
             sx={{
               p: { xs: 3, sm: 4, md: 6 },
               borderRadius: '24px',
-              backgroundColor: theme.palette.mode === 'dark'
-                ? 'rgba(17,17,17,0.8)'
-                : 'rgba(255,255,255,0.9)',
+              backgroundColor:
+                theme.palette.mode === 'dark' ? 'rgba(17,17,17,0.8)' : 'rgba(255,255,255,0.9)',
               backdropFilter: 'blur(10px)',
               border: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
               mb: { xs: 8, md: 12 },
@@ -220,11 +218,12 @@ export default function CompanyPage() {
           </FadeIn>
 
           <Grid container spacing={{ xs: 3, sm: 4 }}>
-            {Array.isArray(values) && values.map((value: ValueCard, index: number) => (
-              <Grid item xs={12} md={6} key={value.title}>
-                <ValueCard value={value} index={index} />
-              </Grid>
-            ))}
+            {Array.isArray(values) &&
+              values.map((value: ValueCard, index: number) => (
+                <Grid item xs={12} md={6} key={value.title}>
+                  <ValueCard value={value} index={index} />
+                </Grid>
+              ))}
           </Grid>
         </Box>
       </Container>

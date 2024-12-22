@@ -9,19 +9,16 @@ import { lexendFont, valorantFont } from './utils/fonts';
 import Footer from './components/Footer/Footer';
 import { LanguageProvider } from './utils/languageContext';
 
-export default function RootLayoutClient({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayoutClient({ children }: { children: React.ReactNode }) {
   const [mode, setMode] = useState<'light' | 'dark'>('light');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const initializeApp = async () => {
-      const minLoadTime = new Promise(resolve => setTimeout(resolve, 1000));
+      const minLoadTime = new Promise((resolve) => setTimeout(resolve, 1000));
 
-      const savedTheme = localStorage.getItem('theme') ||
+      const savedTheme =
+        localStorage.getItem('theme') ||
         (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
 
       setMode(savedTheme as 'light' | 'dark');
@@ -58,7 +55,7 @@ export default function RootLayoutClient({
                     display: 'flex',
                     flexDirection: 'column',
                     minHeight: '100vh',
-                    width: '100%'
+                    width: '100%',
                   }}
                 >
                   <Header onThemeToggle={toggleTheme} />

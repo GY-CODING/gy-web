@@ -54,9 +54,10 @@ export default function NotFound() {
               fontSize: { xs: '2rem', md: '3rem' },
               fontWeight: 700,
               mb: 2,
-              background: theme.palette.mode === 'dark'
-                ? 'linear-gradient(to right, #6366f1, #a855f7)'
-                : 'linear-gradient(to right, #4f46e5, #9333ea)',
+              background:
+                theme.palette.mode === 'dark'
+                  ? 'linear-gradient(to right, #6366f1, #a855f7)'
+                  : 'linear-gradient(to right, #4f46e5, #9333ea)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
             }}

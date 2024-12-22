@@ -28,27 +28,27 @@ const menuItemsEN: MenuItem[] = [
         title: 'Heralds of Chaos',
         path: '/projects/heralds-of-chaos',
         icon: ICON_PATHS.HERALDS_OF_CHAOS,
-        description: 'A unique card game with strategic depth'
+        description: 'A unique card game with strategic depth',
       },
       {
         title: 'GY Accounts',
         path: '/projects/gy-accounts',
         icon: ICON_PATHS.GY_ACCOUNTS,
-        description: 'Secure account management system'
+        description: 'Secure account management system',
       },
       {
         title: 'GY Messages',
         path: '/projects/gy-messages',
         icon: ICON_PATHS.GY_MESSAGES,
-        description: 'Real-time messaging platform'
+        description: 'Real-time messaging platform',
       },
       {
         title: 'GY Documents',
         path: '/projects/gy-documents',
         icon: ICON_PATHS.GY_DOCUMENTS_LIGHT,
-        description: 'Document management and sharing'
-      }
-    ]
+        description: 'Document management and sharing',
+      },
+    ],
   },
   {
     title: 'Docs',
@@ -59,16 +59,16 @@ const menuItemsEN: MenuItem[] = [
         path: 'https://docs.gycoding.com',
         icon: ICON_PATHS.GY_DOCUMENTS,
         external: true,
-        description: 'Learn how to get started with our platform'
+        description: 'Learn how to get started with our platform',
       },
       {
         title: 'API Reference',
         path: 'https://gycoding.stoplight.io/docs/api-docs/5b949c346e2dc-fall-of-the-gods-api',
         icon: ICON_PATHS.GY_DOCUMENTS,
         description: 'Detailed API documentation',
-        external: true
+        external: true,
       },
-    ]
+    ],
   },
   {
     title: 'About',
@@ -78,16 +78,16 @@ const menuItemsEN: MenuItem[] = [
         title: 'Team',
         path: '/about/team',
         icon: ICON_PATHS.GY_ACCOUNTS,
-        description: 'Meet our talented team'
+        description: 'Meet our talented team',
       },
       {
         title: 'Company',
         path: '/about/company',
         icon: ICON_PATHS.GY_ACCOUNTS,
-        description: 'Learn more about our company'
+        description: 'Learn more about our company',
       },
-    ]
-  }
+    ],
+  },
 ];
 
 const menuItemsES: MenuItem[] = [
@@ -99,27 +99,27 @@ const menuItemsES: MenuItem[] = [
         title: 'Heralds of Chaos',
         path: '/projects/heralds-of-chaos',
         icon: ICON_PATHS.HERALDS_OF_CHAOS,
-        description: 'Un juego de cartas único con profundidad estratégica'
+        description: 'Un juego de cartas único con profundidad estratégica',
       },
       {
         title: 'GY Accounts',
         path: '/projects/gy-accounts',
         icon: ICON_PATHS.GY_ACCOUNTS,
-        description: 'Sistema seguro de gestión de cuentas'
+        description: 'Sistema seguro de gestión de cuentas',
       },
       {
         title: 'GY Messages',
         path: '/projects/gy-messages',
         icon: ICON_PATHS.GY_MESSAGES,
-        description: 'Plataforma de mensajería en tiempo real'
+        description: 'Plataforma de mensajería en tiempo real',
       },
       {
         title: 'GY Documents',
         path: '/projects/gy-documents',
         icon: ICON_PATHS.GY_DOCUMENTS_LIGHT,
-        description: 'Gestión y colaboración de documentos'
-      }
-    ]
+        description: 'Gestión y colaboración de documentos',
+      },
+    ],
   },
   {
     title: 'Docs',
@@ -130,16 +130,16 @@ const menuItemsES: MenuItem[] = [
         path: 'https://docs.gycoding.com',
         icon: ICON_PATHS.GY_DOCUMENTS,
         external: true,
-        description: 'Aprende cómo empezar con nuestra plataforma'
+        description: 'Aprende cómo empezar con nuestra plataforma',
       },
       {
         title: 'Referencia de API',
         path: 'https://gycoding.stoplight.io/docs/api-docs/5b949c346e2dc-fall-of-the-gods-api',
         icon: ICON_PATHS.GY_DOCUMENTS,
         description: 'Documentación detallada de la API',
-        external: true
+        external: true,
       },
-    ]
+    ],
   },
   {
     title: 'Acerca de',
@@ -149,16 +149,16 @@ const menuItemsES: MenuItem[] = [
         title: 'Equipo',
         path: '/about/team',
         icon: ICON_PATHS.GY_ACCOUNTS,
-        description: 'Conoce a nuestro equipo talentoso'
+        description: 'Conoce a nuestro equipo talentoso',
       },
       {
         title: 'Compañía',
         path: '/about/company',
         icon: ICON_PATHS.GY_ACCOUNTS,
-        description: 'Aprende más sobre nuestra compañía'
+        description: 'Aprende más sobre nuestra compañía',
       },
-    ]
-  }
+    ],
+  },
 ];
 
 export const getMenuItems = (language: string): MenuItem[] => {
@@ -169,12 +169,12 @@ export const getButtonText = (language: string, key: 'login' | 'contact'): strin
   const buttons = {
     en: {
       login: 'Log In',
-      contact: 'Contact'
+      contact: 'Contact',
     },
     es: {
       login: 'Iniciar Sesión',
-      contact: 'Contacto'
-    }
+      contact: 'Contacto',
+    },
   };
   return buttons[language as keyof typeof buttons][key];
 };

@@ -6,7 +6,7 @@ import React, { useEffect, useRef } from 'react';
 
 const GRID_SIZE = {
   COLS: 10,
-  ROWS: 6
+  ROWS: 6,
 };
 
 const FlowingGrid = () => {
@@ -46,7 +46,9 @@ const FlowingGrid = () => {
           x2="100%"
           y1={`${y}%`}
           y2={`${y}%`}
-          stroke={theme.palette.mode === 'dark' ? 'rgba(99, 102, 241, 0.1)' : 'rgba(99, 102, 241, 0.07)'}
+          stroke={
+            theme.palette.mode === 'dark' ? 'rgba(99, 102, 241, 0.1)' : 'rgba(99, 102, 241, 0.07)'
+          }
           strokeWidth="1"
           vectorEffect="non-scaling-stroke"
         />
@@ -63,7 +65,9 @@ const FlowingGrid = () => {
           x2={`${x}%`}
           y1="0%"
           y2="100%"
-          stroke={theme.palette.mode === 'dark' ? 'rgba(99, 102, 241, 0.1)' : 'rgba(99, 102, 241, 0.07)'}
+          stroke={
+            theme.palette.mode === 'dark' ? 'rgba(99, 102, 241, 0.1)' : 'rgba(99, 102, 241, 0.07)'
+          }
           strokeWidth="1"
           vectorEffect="non-scaling-stroke"
         />
@@ -73,16 +77,13 @@ const FlowingGrid = () => {
     return lines;
   };
 
-  const gridTransform = useTransform(
-    [springX, springY],
-    ([x, y]) => {
-      const moveX = (x as number - 0.5) * 30;
-      const moveY = (y as number - 0.5) * 30;
-      const rotateX = (y as number - 0.5) * 5;
-      const rotateY = (x as number - 0.5) * 5;
-      return `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate(${moveX}px, ${moveY}px)`;
-    }
-  );
+  const gridTransform = useTransform([springX, springY], ([x, y]) => {
+    const moveX = ((x as number) - 0.5) * 30;
+    const moveY = ((y as number) - 0.5) * 30;
+    const rotateX = ((y as number) - 0.5) * 5;
+    const rotateY = ((x as number) - 0.5) * 5;
+    return `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate(${moveX}px, ${moveY}px)`;
+  });
 
   return (
     <div
@@ -128,7 +129,8 @@ const FlowingGrid = () => {
           bottom: 0,
           background: useTransform(
             [springX, springY],
-            ([x, y]) => `radial-gradient(circle at ${x as number * 100}% ${y as number * 100}%, rgba(99, 102, 241, 0.03) 0%, transparent 70%)`
+            ([x, y]) =>
+              `radial-gradient(circle at ${(x as number) * 100}% ${(y as number) * 100}%, rgba(99, 102, 241, 0.03) 0%, transparent 70%)`
           ),
         }}
       />
