@@ -8,6 +8,11 @@ const nextConfig = {
   },
   // Configuración para el dominio de producción
   assetPrefix: process.env.NODE_ENV === 'production' ? 'https://v2.gycoding.com' : '',
+  // Add configuration for static exports
+  optimizeFonts: true,
+  compiler: {
+    emotion: true,
+  },
 };
 
 module.exports = nextConfig;

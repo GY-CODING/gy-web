@@ -10,7 +10,7 @@ export const cardStyles = (theme: Theme) => ({
   backdropFilter: 'blur(10px)',
   border: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
   boxShadow:
-    theme.palette.mode === 'dark' ? `0 8px 32px rgba(0,0,0,0.4)` : `0 8px 32px rgba(0,0,0,0.1)`,
+    theme.palette.mode === 'dark' ? '0 8px 32px rgba(0,0,0,0.4)' : '0 8px 32px rgba(0,0,0,0.1)',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
@@ -20,8 +20,8 @@ export const cardStyles = (theme: Theme) => ({
     transform: 'translateY(-8px)',
     boxShadow:
       theme.palette.mode === 'dark'
-        ? `0 12px 40px rgba(0,0,0,0.6)`
-        : `0 12px 40px rgba(0,0,0,0.15)`,
+        ? '0 12px 40px rgba(0,0,0,0.6)'
+        : '0 12px 40px rgba(0,0,0,0.15)',
   },
 });
 
