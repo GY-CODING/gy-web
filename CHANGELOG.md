@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.12](https://github.com/gycoding/gy-web/compare/v1.0.11...v1.0.12) (2024-12-22)
+
+
+### Bug Fixes
+
+* update footer company name ([144d7b9](https://github.com/gycoding/gy-web/commit/144d7b9d3983e63ba44b2ea1ddb16e9fe9e43a44))
+
 ### [1.0.11](https://github.com/gycoding/gy-web/compare/v1.0.10...v1.0.11) (2024-12-22)
 
 ### [1.0.10](https://github.com/gycoding/gy-web/compare/v0.1.6...v1.0.10) (2024-12-22)
