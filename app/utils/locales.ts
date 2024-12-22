@@ -186,7 +186,7 @@ export const locales: Record<'en' | 'es', Locale> = {
     },
     footer: {
       rights: 'All rights reserved.',
-      company: 'GYCODING',
+      company: 'GyCODING',
       home: {
         title: 'Home',
         items: {
@@ -362,7 +362,7 @@ export const locales: Record<'en' | 'es', Locale> = {
     },
     footer: {
       rights: 'Todos los derechos reservados.',
-      company: 'GYCODING',
+      company: 'GyCODING',
       home: {
         title: 'Inicio',
         items: {

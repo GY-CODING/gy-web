@@ -239,7 +239,7 @@ const AboutSection = () => {
           <Box
             sx={{
               position: 'relative',
-              width: { xs: '280px', sm: '350px', md: '100%' },
+              width: { xs: '280px', sm: '350px', md: '90%' },
               height: '100%',
               borderRadius: '24px',
               overflow: 'hidden',
