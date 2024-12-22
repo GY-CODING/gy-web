@@ -5,6 +5,8 @@ import TechStack from './components/TechStack';
 import ModularSection from './components/ModularSection/ModularSection';
 
 export default function Home() {
+
+
   return (
     <Box
       sx={{

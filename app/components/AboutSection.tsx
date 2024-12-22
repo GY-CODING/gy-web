@@ -8,15 +8,17 @@ import { gradientTextStyles } from '../utils/styles';
 import LottieAnimation from './lottieAnimation';
 import FadeIn from './animations/FadeIn';
 import ParallaxScroll from './animations/ParallaxScroll';
-import AnimatedTitle from './animations/AnimatedTitle';
 import { useLanguage } from '../utils/languageContext';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import SmartLink from './SmartLink';
+import { useSearchParams } from 'next/navigation';
 
 const AboutSection = () => {
   const theme = useTheme();
   const { t } = useLanguage();
+  const searchParams = useSearchParams();
+  console.log(searchParams.get('coffee'));
+  const lottieUrl = searchParams.get('coffee') === 'true' ? '/lottie/coffee.json' : '/lottie/lottie.json';
 
   const renderStyledText = (text: string) => {
     const parts = text.split(/(\[company\].*?\[\/company\])/);
@@ -135,7 +137,7 @@ const AboutSection = () => {
 
           <ParallaxScroll offset={60}>
             <FadeIn direction="up" delay={0.8}>
-              <Box sx={{ display: 'flex', gap: 2 }}>
+              <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', justifyContent: { xs: 'center', md: 'flex-start' } }}>
                 <Box
                   component={motion.div}
                   whileHover={{ scale: 1.05 }}
@@ -230,6 +232,9 @@ const AboutSection = () => {
               height: '100%',
               borderRadius: '24px',
               overflow: 'hidden',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
             <FadeIn direction="left" delay={0.8}>
@@ -243,7 +248,7 @@ const AboutSection = () => {
                   transform: { xs: 'scale(1)', md: 'scale(1)' },
                 }}
               >
-                <LottieAnimation animationPath="/lottie/lottie.json" />
+                <LottieAnimation animationPath={lottieUrl} />
               </Box>
             </FadeIn>
           </Box>
