@@ -13,7 +13,7 @@ This is the **GYCODING**'s official website where everything related to GYCODING
 <br>
 
 ## How it was made
-
+ 
 ![NextJS](https://img.shields.io/badge/Next%20JS-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![MaterialUI](https://img.shields.io/badge/Material%20UI-007FFF?style=for-the-badge&logo=mui&logoColor=white)
