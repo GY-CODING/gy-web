@@ -2,18 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [1.0.13](https://github.com/gycoding/gy-web/compare/v1.0.9...v1.0.13) (2024-12-22)
+### [1.0.14](https://github.com/gycoding/gy-web/compare/v1.0.13...v1.0.14) (2024-12-23)
 
+### [1.0.13](https://github.com/gycoding/gy-web/compare/v1.0.9...v1.0.13) (2024-12-22)
 
 ### Features
 
-* add deployment to be able to be called from Jenkins ([89108c6](https://github.com/gycoding/gy-web/commit/89108c6de8c09d22beb47a0afcd0eb98edda20aa))
-
+- add deployment to be able to be called from Jenkins ([89108c6](https://github.com/gycoding/gy-web/commit/89108c6de8c09d22beb47a0afcd0eb98edda20aa))
 
 ### Bug Fixes
 
-* fix some errors ([a9ef3d0](https://github.com/gycoding/gy-web/commit/a9ef3d0d096843a22bfb03a6238afafebd4cde52))
-* update footer company name ([144d7b9](https://github.com/gycoding/gy-web/commit/144d7b9d3983e63ba44b2ea1ddb16e9fe9e43a44))
+- fix some errors ([a9ef3d0](https://github.com/gycoding/gy-web/commit/a9ef3d0d096843a22bfb03a6238afafebd4cde52))
+- update footer company name ([144d7b9](https://github.com/gycoding/gy-web/commit/144d7b9d3983e63ba44b2ea1ddb16e9fe9e43a44))
 
 ### [1.0.12](https://github.com/gycoding/gy-web/compare/v1.0.11...v1.0.12) (2024-12-22)
 
