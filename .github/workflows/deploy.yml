@@ -30,7 +30,7 @@ jobs:
       - name: Build
         run: |
           export NODE_ENV=production
-          npm run build
+          npm run build && cp CNAME build/CNAME
         env:
           NEXT_TELEMETRY_DISABLED: 1
           NEXT_IGNORE_PLATFORM_CHECK: 1
