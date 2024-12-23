@@ -30,10 +30,13 @@ jobs:
       - name: Build
         run: |
           export NODE_ENV=production
-          npm run build && cp CNAME build/CNAME
+          npm run build
         env:
           NEXT_TELEMETRY_DISABLED: 1
           NEXT_IGNORE_PLATFORM_CHECK: 1
+
+      - name: Create CNAME file
+        run: echo "v2.gycoding.com" > ./out/CNAME
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
