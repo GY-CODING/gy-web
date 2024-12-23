@@ -17,6 +17,10 @@ interface Point {
   y: number;
 }
 
+interface AnimatedBackgroundProps {
+  color?: string;
+}
+
 const GRID_SIZE = {
   mobile: {
     cols: 8,
@@ -41,6 +45,7 @@ const Particle = ({
   mouseY,
   containerWidth,
   containerHeight,
+  color,
 }: {
   baseX: number;
   baseY: number;
@@ -48,6 +53,7 @@ const Particle = ({
   mouseY: MotionValue<number>;
   containerWidth: number;
   containerHeight: number;
+  color?: string;
 }) => {
   const theme = useTheme();
   const x = useMotionValue(baseX);
@@ -98,8 +104,16 @@ const Particle = ({
     distance,
     [0.2, 0],
     [
-      theme.palette.mode === 'dark' ? 'rgba(99, 102, 241, 0.15)' : 'rgba(99, 102, 241, 0.1)',
-      theme.palette.mode === 'dark' ? 'rgba(99, 102, 241, 0.5)' : 'rgba(99, 102, 241, 0.3)',
+      color
+        ? `${color}26`
+        : theme.palette.mode === 'dark'
+          ? 'rgba(99, 102, 241, 0.15)'
+          : 'rgba(99, 102, 241, 0.1)',
+      color
+        ? `${color}80`
+        : theme.palette.mode === 'dark'
+          ? 'rgba(99, 102, 241, 0.5)'
+          : 'rgba(99, 102, 241, 0.3)',
     ]
   );
 
@@ -121,7 +135,7 @@ const Particle = ({
   );
 };
 
-const AnimatedBackground = () => {
+const AnimatedBackground = ({ color }: AnimatedBackgroundProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -220,6 +234,7 @@ const AnimatedBackground = () => {
           mouseY={mouseY}
           containerWidth={dimensions.x}
           containerHeight={dimensions.y}
+          color={color}
         />
       ))}
       <motion.div

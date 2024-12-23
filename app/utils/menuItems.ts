@@ -161,9 +161,49 @@ const menuItemsES: MenuItem[] = [
   },
 ];
 
-export const getMenuItems = (language: string): MenuItem[] => {
-  return language === 'es' ? menuItemsES : menuItemsEN;
-};
+export function getMenuItems(language: string): MenuItem[] {
+  return [
+    {
+      title: 'Products',
+      path: '/products',
+      children: [
+        {
+          title: 'Heralds of Chaos',
+          path: '/products/heralds-of-chaos',
+          icon: ICON_PATHS.HERALDS_OF_CHAOS,
+          description:
+            language === 'es'
+              ? 'Un videojuego del universo de la mitología nórdica'
+              : 'A unique card game with strategic depth',
+        },
+        {
+          title: 'GY Messages',
+          path: '/products/gy-messages',
+          icon: ICON_PATHS.GY_MESSAGES,
+          description:
+            language === 'es' ? 'Servicio de mensajería integrado' : 'Real-time messaging platform',
+        },
+        {
+          title: 'GY Documents',
+          path: '/products/gy-documents',
+          icon: ICON_PATHS.GY_DOCUMENTS,
+          description:
+            language === 'es' ? 'Editor markdown profesional' : 'Document management and sharing',
+        },
+        {
+          title: 'GY Accounts',
+          path: '/products/gy-accounts',
+          icon: ICON_PATHS.GY_ACCOUNTS,
+          description:
+            language === 'es'
+              ? 'Gestión de cuentas y personalización'
+              : 'Secure account management system',
+        },
+      ],
+    },
+    ...(language === 'es' ? menuItemsES : menuItemsEN),
+  ];
+}
 
 export const getButtonText = (language: string, key: 'login' | 'contact'): string => {
   const buttons = {
