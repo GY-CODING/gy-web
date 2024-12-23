@@ -39,7 +39,6 @@ interface FooterLinkProps {
 }
 
 export default function FooterLink({ href, text, scroll }: FooterLinkProps) {
-
   const handleClick = (e: React.MouseEvent) => {
     if (scroll && href.startsWith('#')) {
       e.preventDefault();

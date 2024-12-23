@@ -3,7 +3,7 @@
 ![version](https://img.shields.io/badge/version-1.0.0-gold?style=for-the-badge)
 [![developer](https://img.shields.io/badge/developed-GYCODING-B833FF?style=for-the-badge)](https://gycoding.com)
 [![website](https://img.shields.io/badge/website-link-lightgrey?style=for-the-badge)](https://gycoding.com)
- 
+
 <br>
 
 ## Introduction
@@ -19,7 +19,7 @@ This is the **GYCODING**'s official website where everything related to GYCODING
 ![MaterialUI](https://img.shields.io/badge/Material%20UI-007FFF?style=for-the-badge&logo=mui&logoColor=white)
 
 This website uses **NextJS** with **TypeScript**, **Auth0** and **MaterialUI** for components.
- 
+
 <br>
 
 ## Creators
