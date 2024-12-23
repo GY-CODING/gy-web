@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.16](https://github.com/gycoding/gy-web/compare/v1.0.15...v1.0.16) (2024-12-23)
+
+
+### Bug Fixes
+
+* rename auto-release ([cce2bc5](https://github.com/gycoding/gy-web/commit/cce2bc50ac63b8a653f62404b069cf5427139442))
+
 ### [1.0.15](https://github.com/gycoding/gy-web/compare/v1.0.14...v1.0.15) (2024-12-23)
 
 ### [1.0.14](https://github.com/gycoding/gy-web/compare/v1.0.13...v1.0.14) (2024-12-23)
