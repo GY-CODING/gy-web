@@ -21,32 +21,32 @@ export interface MenuItem {
 
 const menuItemsEN: MenuItem[] = [
   {
-    title: 'Projects',
-    path: '/projects',
+    title: 'Products',
+    path: '/products',
     children: [
       {
         title: 'Heralds of Chaos',
-        path: '/projects/heralds-of-chaos',
+        path: '/products/heralds-of-chaos',
         icon: ICON_PATHS.HERALDS_OF_CHAOS,
-        description: 'A unique card game with strategic depth',
-      },
-      {
-        title: 'GY Accounts',
-        path: '/projects/gy-accounts',
-        icon: ICON_PATHS.GY_ACCOUNTS,
-        description: 'Secure account management system',
+        description: 'Epic Norse mythology video game',
       },
       {
         title: 'GY Messages',
-        path: '/projects/gy-messages',
+        path: '/products/gy-messages',
         icon: ICON_PATHS.GY_MESSAGES,
-        description: 'Real-time messaging platform',
+        description: 'Integrated messaging service',
       },
       {
         title: 'GY Documents',
-        path: '/projects/gy-documents',
+        path: '/products/gy-documents',
         icon: ICON_PATHS.GY_DOCUMENTS_LIGHT,
-        description: 'Document management and sharing',
+        description: 'Professional markdown editor',
+      },
+      {
+        title: 'GY Accounts',
+        path: '/products/gy-accounts',
+        icon: ICON_PATHS.GY_ACCOUNTS,
+        description: 'Account management and customization',
       },
     ],
   },
@@ -92,32 +92,32 @@ const menuItemsEN: MenuItem[] = [
 
 const menuItemsES: MenuItem[] = [
   {
-    title: 'Proyectos',
-    path: '/projects',
+    title: 'Productos',
+    path: '/products',
     children: [
       {
         title: 'Heralds of Chaos',
-        path: '/projects/heralds-of-chaos',
+        path: '/products/heralds-of-chaos',
         icon: ICON_PATHS.HERALDS_OF_CHAOS,
-        description: 'Un juego de cartas único con profundidad estratégica',
-      },
-      {
-        title: 'GY Accounts',
-        path: '/projects/gy-accounts',
-        icon: ICON_PATHS.GY_ACCOUNTS,
-        description: 'Sistema seguro de gestión de cuentas',
+        description: 'Videojuego épico de mitología nórdica',
       },
       {
         title: 'GY Messages',
-        path: '/projects/gy-messages',
+        path: '/products/gy-messages',
         icon: ICON_PATHS.GY_MESSAGES,
-        description: 'Plataforma de mensajería en tiempo real',
+        description: 'Servicio de mensajería integrado',
       },
       {
         title: 'GY Documents',
-        path: '/projects/gy-documents',
+        path: '/products/gy-documents',
         icon: ICON_PATHS.GY_DOCUMENTS_LIGHT,
-        description: 'Gestión y colaboración de documentos',
+        description: 'Editor profesional de markdown',
+      },
+      {
+        title: 'GY Accounts',
+        path: '/products/gy-accounts',
+        icon: ICON_PATHS.GY_ACCOUNTS,
+        description: 'Gestión de cuentas y personalización',
       },
     ],
   },
@@ -161,36 +161,36 @@ const menuItemsES: MenuItem[] = [
   },
 ];
 
-export const getMenuItems = (language: string): MenuItem[] => {
+export function getMenuItems(language: string): MenuItem[] {
   return language === 'es' ? menuItemsES : menuItemsEN;
-};
+}
 
-export const getButtonText = (language: string, key: 'login' | 'contact'): string => {
-  const buttons = {
-    en: {
-      login: 'Log In',
-      contact: 'Contact',
+export function getButtonText(language: string, key: 'login' | 'contact'): string {
+  const texts = {
+    login: {
+      en: 'Login',
+      es: 'Iniciar Sesión',
     },
-    es: {
-      login: 'Iniciar Sesión',
-      contact: 'Contacto',
+    contact: {
+      en: 'Contact',
+      es: 'Contacto',
     },
   };
-  return buttons[language as keyof typeof buttons][key];
-};
 
-export const userItem = (image: string): any => ({
-  name: '',
-  external: false,
-  link: undefined,
-  childs: [
-    {
-      name: 'Edit Profile',
-      icon: ICON_PATHS.GY_ACCOUNTS,
-      link: '/profile',
-    },
-    { name: 'Logout', icon: ICON_PATHS.GY_ACCOUNTS, link: '/api/auth/logout' },
-  ],
-  isImage: true,
-  image,
-});
+  return texts[key][language as 'en' | 'es'] || texts[key]['en'];
+}
+
+export function userItem(image: string) {
+  return {
+    title: 'Account',
+    path: '/account',
+    icon: image || ICON_PATHS.ACCOUNT,
+    children: [
+      {
+        title: 'Profile',
+        path: '/account/profile',
+        description: 'Manage your account settings',
+      },
+    ],
+  };
+}
