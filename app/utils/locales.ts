@@ -233,7 +233,7 @@ export const locales: Record<'en' | 'es', Locale> = {
         part1:
           'Founded with a vision to revolutionize web development, [company]GyCODING[/company] emerged from the collaboration of two passionate developers who shared a common dream: to create exceptional digital experiences that make a difference.',
         part2:
-          'What started as a shared vision has grown into a dynamic company that pushes the boundaries of what\'s possible in web development. Our journey is marked by continuous learning, innovation, and a relentless pursuit of excellence.',
+          "What started as a shared vision has grown into a dynamic company that pushes the boundaries of what's possible in web development. Our journey is marked by continuous learning, innovation, and a relentless pursuit of excellence.",
       },
       values: {
         title: 'Our Values',
