@@ -5,6 +5,7 @@ export interface Product {
   color: string;
   longDescription: string;
   image: string;
+  icon?: string;
   version: string;
   downloads?: {
     windows?: string;
@@ -30,8 +31,9 @@ export const products: Product[] = [
   {
     id: 'heralds-of-chaos',
     name: 'Heralds of Chaos',
-    description: 'Un épico videojuego basado en la mitología nórdica',
-    color: '#FFD700',
+    description:
+      'Un épico videojuego basado en la mitología nórdica con un nuevo enfoque en la narrativa',
+    color: '#FFC400',
     version: '0.5.2-alpha',
     downloads: {
       windows: 'https://download.example.com/heralds-of-chaos/windows',
@@ -86,8 +88,8 @@ export const products: Product[] = [
   {
     id: 'gy-messages',
     name: 'GY Messages',
-    description: 'Sistema de mensajería moderno y seguro',
-    color: '#4CAF50',
+    description: 'Sistema de mensajería moderno y seguro con cifrado de extremo a extremo',
+    color: '#34C759',
     version: '1.2.0',
     downloads: {
       windows: 'https://download.example.com/gy-messages/windows',
@@ -135,8 +137,8 @@ export const products: Product[] = [
   {
     id: 'gy-documents',
     name: 'GY Documents',
-    description: 'Editor de markdown profesional y moderno',
-    color: '#FF9800',
+    description: 'Editor de markdown profesional y moderno con características avanzadas',
+    color: '#FFA07A',
     version: '1.1.0',
     downloads: {
       windows: 'https://download.example.com/gy-documents/windows',
@@ -184,8 +186,9 @@ export const products: Product[] = [
   {
     id: 'gy-accounts',
     name: 'GY Accounts',
-    description: 'Tu centro de control personal para servicios GY',
-    color: '#9C27B0',
+    description:
+      'Tu centro de control personal para servicios GY con autenticación de dos factores',
+    color: '#7A288A',
     version: '1.0.0',
     downloads: {
       windows: 'https://download.example.com/gy-accounts/windows',

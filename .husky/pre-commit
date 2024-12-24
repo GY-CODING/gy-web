@@ -1,4 +1,5 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
 
-npx prettier --write --ignore-path .gitignore --ignore-path .prettierignore . && npm run lint
+npm run format
+npm run lint

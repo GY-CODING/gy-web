@@ -15,10 +15,7 @@ interface ProductPageProps {
 }
 
 export default function ProductPage({ params }: ProductPageProps) {
-  console.log('Params:', params);
-  console.log('All products:', products);
   const product = products.find((p) => p.id === params.id);
-  console.log('Found product:', product);
 
   if (!product) {
     notFound();
