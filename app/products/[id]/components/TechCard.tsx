@@ -1,117 +1,144 @@
 'use client';
 
 import React from 'react';
-import { Box, Paper, Typography, useTheme, alpha } from '@mui/material';
-import { motion } from 'framer-motion';
+import { Box, Typography, useTheme, alpha } from '@mui/material';
+import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
+import { lexendFont } from '@/app/utils/fonts';
 
 interface TechCardProps {
   name: string;
   description: string;
   icon: React.ReactNode;
-  delay?: number;
+  delay: number;
 }
 
-const TechCard: React.FC<TechCardProps> = ({ name, description, icon, delay = 0 }) => {
+export default function TechCard({ name, description, icon, delay }: TechCardProps) {
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
 
+  // Mouse move effect
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const handleMouseMove = React.useCallback(
+    ({ currentTarget, clientX, clientY }: React.MouseEvent) => {
+      const { left, top } = currentTarget.getBoundingClientRect();
+      mouseX.set(clientX - left);
+      mouseY.set(clientY - top);
+    },
+    [mouseX, mouseY]
+  );
+
+  // Gradient follows mouse
+  const background = useMotionTemplate`radial-gradient(
+    300px circle at \${mouseX}px \${mouseY}px,
+    ${isDark ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.8)'} 0%,
+    ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.4)'} 80%
+  )`;
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
       transition={{
-        duration: 0.5,
+        type: 'spring',
+        stiffness: 50,
+        damping: 20,
         delay,
-        ease: [0.21, 0.47, 0.32, 0.98],
       }}
+      viewport={{ once: true, margin: '-50px' }}
     >
-      <Paper
-        component={motion.div}
-        whileHover={{
-          scale: 1.02,
-          transition: { duration: 0.2 },
-        }}
+      <motion.div
+        onMouseMove={handleMouseMove}
+        whileHover={{ scale: 1.02 }}
+        transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+        style={{ background }}
         sx={{
-          p: 3,
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
           position: 'relative',
+          p: 4,
+          height: '100%',
+          borderRadius: '24px',
           overflow: 'hidden',
-          background: isDark
-            ? `linear-gradient(135deg, ${alpha(theme.palette.background.paper, 0.9)}, ${alpha(theme.palette.background.paper, 0.4)})`
-            : `linear-gradient(135deg, ${alpha(theme.palette.background.paper, 0.95)}, ${alpha(theme.palette.background.paper, 0.7)})`,
-          backdropFilter: 'blur(8px)',
-          border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+          backdropFilter: 'blur(20px)',
+          border: '1px solid',
+          borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)',
+          cursor: 'pointer',
+          WebkitBackfaceVisibility: 'hidden',
           '&:before': {
             content: '""',
             position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            height: '2px',
-            background: `linear-gradient(90deg, transparent, ${alpha(theme.palette.primary.main, 0.6)}, transparent)`,
-            opacity: 0,
-            transition: 'opacity 0.3s ease-in-out',
-          },
-          '&:hover': {
-            '&:before': {
-              opacity: 1,
-            },
+            inset: 0,
+            background: isDark
+              ? 'linear-gradient(169deg, rgba(255,255,255,0.03), rgba(255,255,255,0))'
+              : 'linear-gradient(169deg, rgba(255,255,255,0.9), rgba(255,255,255,0.4))',
+            borderRadius: 'inherit',
+            zIndex: 0,
           },
         }}
       >
-        <Box
-          sx={{
-            mb: 2,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 2,
-          }}
-        >
-          <Box
-            component={motion.div}
-            whileHover={{ rotate: [0, -10, 10, -10, 0] }}
-            transition={{ duration: 0.5 }}
-            sx={{
-              p: 1.5,
-              borderRadius: 2,
-              background: alpha(theme.palette.primary.main, 0.1),
-              color: theme.palette.primary.main,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+        {/* Content Container */}
+        <Box sx={{ position: 'relative', zIndex: 1 }}>
+          {/* Icon Container */}
+          <motion.div
+            initial={{ scale: 1 }}
+            whileHover={{ scale: 1.1, rotate: 5 }}
+            transition={{
+              type: 'spring',
+              stiffness: 400,
+              damping: 25,
             }}
           >
-            {icon}
-          </Box>
-          <Typography
-            variant="h6"
-            component={motion.h6}
-            sx={{
-              fontWeight: 600,
-              background: `linear-gradient(135deg, ${theme.palette.text.primary}, ${alpha(theme.palette.text.primary, 0.7)})`,
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
+            <Box
+              sx={{
+                display: 'inline-flex',
+                p: 2,
+                borderRadius: '16px',
+                background: isDark
+                  ? `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.2)}, ${alpha(theme.palette.primary.main, 0.1)})`
+                  : `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.15)}, ${alpha(theme.palette.primary.main, 0.05)})`,
+                mb: 3,
+                fontSize: '2rem',
+                color: theme.palette.primary.main,
+              }}
+            >
+              {icon}
+            </Box>
+          </motion.div>
+
+          {/* Text Content */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: delay + 0.2 }}
           >
-            {name}
-          </Typography>
+            <Typography
+              variant="h6"
+              sx={{
+                fontFamily: lexendFont.style.fontFamily,
+                fontWeight: 600,
+                mb: 1,
+                fontSize: '1.25rem',
+                background: `linear-gradient(135deg, ${theme.palette.text.primary}, ${alpha(theme.palette.text.primary, 0.8)})`,
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
+              {name}
+            </Typography>
+
+            <Typography
+              variant="body2"
+              sx={{
+                color: alpha(theme.palette.text.secondary, 0.9),
+                lineHeight: 1.6,
+                fontSize: '0.95rem',
+              }}
+            >
+              {description}
+            </Typography>
+          </motion.div>
         </Box>
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          sx={{
-            flex: 1,
-            lineHeight: 1.6,
-          }}
-        >
-          {description}
-        </Typography>
-      </Paper>
+      </motion.div>
     </motion.div>
   );
-};
-
-export default TechCard;
+}
