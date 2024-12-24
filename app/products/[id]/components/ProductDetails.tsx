@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Box, Container, Typography, useTheme } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import { lexendFont } from '@/app/utils/fonts';
 import { useLanguage } from '@/app/utils/languageContext';
@@ -38,7 +38,6 @@ const TECH_ICONS: { [key: string]: JSX.Element } = {
 };
 
 export default function ProductDetails({ productId }: { productId: string }) {
-  const theme = useTheme();
   const { t } = useLanguage();
   const product = products.find((p) => p.id === productId);
 
