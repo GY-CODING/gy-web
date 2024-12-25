@@ -1,45 +1,16 @@
-name: Deploy to GitHub Pages
+name: Release and Deploy to GitHub Pages
 
 on:
   push:
     branches:
       - master
 
-  workflow_dispatch:
-
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Clean install dependencies
-        run: |
-          rm -rf node_modules
-          rm -f package-lock.json
-          npm install --no-optional
-
-      - name: Build
-        run: |
-          export NODE_ENV=production
-          npm run build
-        env:
-          NEXT_TELEMETRY_DISABLED: 1
-          NEXT_IGNORE_PLATFORM_CHECK: 1
-
-      - name: Create CNAME file
-        run: echo "v2.gycoding.com" > ./out/CNAME
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./out
+  release:
+     uses: GY-CODING/.github/.github/workflows/auto-release.yml@master
+     secrets: inherit
+  deploy:
+     uses: GY-CODING/.github/.github/workflows/next-deploy.yml@master
+     secrets: inherit
+     with: 
+       domain: "v2.gycoding.com"
