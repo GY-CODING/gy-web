@@ -75,13 +75,13 @@ const RunicBackground: React.FC<RunicBackgroundProps> = memo(({ color = '#6366f1
     let columns = 0;
 
     const resize = () => {
-      width = Math.min(window.innerWidth, 1920);
-      height = Math.min(window.innerHeight, 1080);
+      width = Math.min(window.innerWidth, 3440);
+      height = Math.min(window.innerHeight, 1440);
       canvas.width = width;
       canvas.height = height;
       columns = Math.floor(width / fontSize);
 
-      const maxDrops = Math.min(columns, 40);
+      const maxDrops = Math.min(columns, 90);
       const characters = CHARACTER_SETS[productId] || ['*']; // Default if product not found
 
       dropsRef.current = Array.from({ length: maxDrops }, (_, i) => ({
@@ -134,9 +134,8 @@ const RunicBackground: React.FC<RunicBackgroundProps> = memo(({ color = '#6366f1
           ctx.fillStyle = `rgba(${parseInt(productColor.slice(1, 3), 16)}, ${parseInt(
             productColor.slice(3, 5),
             16
-          )}, ${parseInt(productColor.slice(5, 7), 16)}, ${
-            isDark ? drop.opacity : drop.opacity * 0.5
-          })`;
+          )}, ${parseInt(productColor.slice(5, 7), 16)}, ${isDark ? drop.opacity : drop.opacity * 0.5
+            })`;
         } else {
           ctx.fillStyle = isDark
             ? `rgba(255, 255, 255, ${drop.opacity})`
