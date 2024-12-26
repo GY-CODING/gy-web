@@ -31,9 +31,10 @@ export default function FAQ({ productId }: { productId: string }) {
       component="section"
       sx={{
         py: { xs: 8, md: 12 },
+        borderRadius: '28px',
         background: (theme) =>
           theme.palette.mode === 'dark'
-            ? 'linear-gradient(180deg, rgba(15,15,20,1) 0%, rgba(20,20,25,1) 100%)'
+            ? ''
             : 'linear-gradient(180deg, rgba(250,250,255,1) 0%, rgba(245,245,250,1) 100%)',
       }}
     >

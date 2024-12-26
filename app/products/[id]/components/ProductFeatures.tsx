@@ -4,16 +4,8 @@ import React from 'react';
 import { Box, Grid, Typography, useTheme, Container } from '@mui/material';
 import { motion } from 'framer-motion';
 import { lexendFont } from '@/app/utils/fonts';
-import {
-  Code as CodeIcon,
-  Speed as SpeedIcon,
-  Security as SecurityIcon,
-  Cloud as CloudIcon,
-  Storage as StorageIcon,
-  Group as GroupIcon,
-  Games as GamesIcon,
-  Devices as DevicesIcon,
-} from '@mui/icons-material';
+import { PRODUCT_THEMES } from '@/app/utils/productConstants';
+import { useLanguage } from '@/app/utils/languageContext';
 
 interface Feature {
   icon: React.ElementType;
@@ -21,113 +13,6 @@ interface Feature {
   description: string;
   color: string;
 }
-
-const features: { [key: string]: Feature[] } = {
-  'heralds-of-chaos': [
-    {
-      icon: GamesIcon,
-      title: 'Jugabilidad Inmersiva',
-      description: 'Experiencia de juego fluida y envolvente con gráficos optimizados',
-      color: '#FF4081',
-    },
-    {
-      icon: SpeedIcon,
-      title: 'Alto Rendimiento',
-      description: 'Motor optimizado para mantener 60+ FPS en la mayoría de sistemas',
-      color: '#7C4DFF',
-    },
-    {
-      icon: CloudIcon,
-      title: 'Multijugador Online',
-      description: 'Servidores dedicados con baja latencia para PvP competitivo',
-      color: '#00BCD4',
-    },
-    {
-      icon: SecurityIcon,
-      title: 'Anti-Cheat Robusto',
-      description: 'Sistema de seguridad para garantizar partidas justas',
-      color: '#4CAF50',
-    },
-  ],
-  'gy-messages': [
-    {
-      icon: SecurityIcon,
-      title: 'Cifrado E2E',
-      description: 'Mensajes protegidos con cifrado de extremo a extremo',
-      color: '#4CAF50',
-    },
-    {
-      icon: SpeedIcon,
-      title: 'Tiempo Real',
-      description: 'Mensajería instantánea con latencia ultrabaja',
-      color: '#00BCD4',
-    },
-    {
-      icon: DevicesIcon,
-      title: 'Multiplataforma',
-      description: 'Disponible en web, iOS y Android con sincronización',
-      color: '#FF4081',
-    },
-    {
-      icon: StorageIcon,
-      title: 'Respaldo Seguro',
-      description: 'Historial de mensajes con backup automático',
-      color: '#7C4DFF',
-    },
-  ],
-  'gy-documents': [
-    {
-      icon: CloudIcon,
-      title: 'Cloud-Native',
-      description: 'Documentos accesibles desde cualquier lugar',
-      color: '#2196F3',
-    },
-    {
-      icon: GroupIcon,
-      title: 'Colaboración',
-      description: 'Edición en tiempo real con múltiples usuarios',
-      color: '#4CAF50',
-    },
-    {
-      icon: SecurityIcon,
-      title: 'Encriptación',
-      description: 'Documentos protegidos con cifrado AES-256',
-      color: '#FF4081',
-    },
-    {
-      icon: StorageIcon,
-      title: 'Versionado',
-      description: 'Control de versiones automático',
-      color: '#9C27B0',
-    },
-  ],
-  'gy-accounts': [
-    {
-      icon: SecurityIcon,
-      title: '2FA Avanzado',
-      description: 'Autenticación de dos factores con múltiples opciones',
-      color: '#4CAF50',
-    },
-    {
-      icon: SpeedIcon,
-      title: 'SSO',
-      description: 'Inicio de sesión único para todas las apps',
-      color: '#2196F3',
-    },
-    {
-      icon: CloudIcon,
-      title: 'OAuth 2.0',
-      description: 'Integración con proveedores de identidad',
-      color: '#FF4081',
-    },
-    {
-      icon: CodeIcon,
-      title: 'API Robusta',
-      description: 'API RESTful con documentación completa',
-      color: '#9C27B0',
-    },
-  ],
-};
 
 const FeatureCard = ({ feature, index }: { feature: Feature; index: number }) => {
   const theme = useTheme();
@@ -215,17 +100,13 @@ interface ProductFeaturesProps {
 }
 
 export default function ProductFeatures({ productId }: ProductFeaturesProps) {
-  const productFeatures = features[productId] || features['heralds-of-chaos'];
+  const { t } = useLanguage();
+  const productTheme = PRODUCT_THEMES[productId as keyof typeof PRODUCT_THEMES];
+
+  const productFeatures = t(`products.items.${productId}.caracteristics.items`);
 
   return (
-    <Box
-      component="section"
-      sx={{
-        py: 12,
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-    >
+    <Box component="section" sx={{ py: 8, bgcolor: 'background.default' }}>
       <Container maxWidth="lg">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -235,21 +116,19 @@ export default function ProductFeatures({ productId }: ProductFeaturesProps) {
         >
           <Typography
             variant="h2"
+            align="center"
             sx={{
               fontSize: { xs: '2rem', md: '2.5rem' },
               fontWeight: 800,
-              mb: 8,
-              textAlign: 'center',
+              mb: 6,
               fontFamily: lexendFont.style.fontFamily,
-              background: (theme) => `linear-gradient(135deg, 
-                ${theme.palette.text.primary}, 
-                ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.5)'}
-              )`,
+              background: productTheme.gradient,
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
             }}
           >
-            Características Principales
+            {t(`products.items.${productId}.caracteristics.title`)}
           </Typography>
         </motion.div>
 
@@ -260,11 +139,12 @@ export default function ProductFeatures({ productId }: ProductFeaturesProps) {
             px: { xs: 2, md: 0 },
           }}
         >
-          {productFeatures.map((feature, index) => (
-            <Grid item xs={12} sm={6} md={6} key={feature.title}>
-              <FeatureCard feature={feature} index={index} />
-            </Grid>
-          ))}
+          {Array.isArray(productFeatures) &&
+            productFeatures.map((feature, index) => (
+              <Grid item xs={12} sm={6} md={6} key={feature.title}>
+                <FeatureCard feature={feature} index={index} />
+              </Grid>
+            ))}
         </Grid>
       </Container>
     </Box>

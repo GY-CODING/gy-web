@@ -17,7 +17,6 @@ const AboutSection = () => {
   const theme = useTheme();
   const { t } = useLanguage();
   const searchParams = useSearchParams();
-  console.log(searchParams.get('coffee'));
   const lottieUrl =
     searchParams.get('coffee') === 'true' ? '/lottie/coffee.json' : '/lottie/lottie.json';
 

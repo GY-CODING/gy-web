@@ -1,215 +1,450 @@
+/* eslint-disable react/no-unknown-property */
+/* eslint-disable indent */
 'use client';
 
 import React from 'react';
-import { Box, Container, Typography } from '@mui/material';
-import { motion } from 'framer-motion';
+import { Box, Container, Typography, useTheme, alpha } from '@mui/material';
+import { SiNextdotjs, SiTypescript, SiPrisma, SiPostgresql } from 'react-icons/si';
+import { FaDocker, FaAws } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
 import { lexendFont } from '@/app/utils/fonts';
-import { useLanguage } from '@/app/utils/languageContext';
 import { products } from '../../data/products';
-import {
-  SiNextdotjs,
-  SiTypescript,
-  SiPostgresql,
-  SiUnity,
-  SiUnity as SiCsharp,
-  SiRedis,
-  SiElasticsearch,
-  SiAmazon,
-  SiJsonwebtokens,
-  SiBlender,
-} from 'react-icons/si';
-import { FaServer } from 'react-icons/fa';
+import { useLanguage } from '@/app/utils/languageContext';
 
-// Mapa de iconos para las tecnologías
-const TECH_ICONS: { [key: string]: JSX.Element } = {
-  'Next.js': <SiNextdotjs />,
-  TypeScript: <SiTypescript />,
-  PostgreSQL: <SiPostgresql />,
-  Unity: <SiUnity />,
-  'C#': <SiCsharp />,
-  Photon: <FaServer />,
-  WebSocket: <FaServer />,
-  Redis: <SiRedis />,
-  'AWS S3': <SiAmazon />,
-  ElasticSearch: <SiElasticsearch />,
-  JWT: <SiJsonwebtokens />,
-  OAuth2: <FaServer />,
-  Blender: <SiBlender />,
+// Constantes para la configuración del sistema solar
+const ORBIT_RADII = [180, 280, 380];
+const ROTATION_DURATION = 20; // Duración base de la rotación en segundos
+
+const TECHNOLOGIES = [
+  {
+    name: 'Next.js 14',
+    icon: <SiNextdotjs size={40} />,
+    description: 'Framework React de última generación',
+    orbit: 0,
+    speed: 1, // Multiplicador de velocidad
+  },
+  {
+    name: 'TypeScript',
+    icon: <SiTypescript size={35} />,
+    description: 'Desarrollo tipado y seguro',
+    orbit: 1,
+    speed: 0.8,
+  },
+  {
+    name: 'Prisma',
+    icon: <SiPrisma size={38} />,
+    description: 'ORM moderno y tipado',
+    orbit: 2,
+    speed: 0.6,
+  },
+  {
+    name: 'PostgreSQL',
+    icon: <SiPostgresql size={36} />,
+    description: 'Base de datos relacional',
+    orbit: 1,
+    speed: 0.7,
+  },
+  {
+    name: 'Docker',
+    icon: <FaDocker size={38} />,
+    description: 'Contenedorización',
+    orbit: 2,
+    speed: 0.5,
+  },
+  {
+    name: 'AWS',
+    icon: <FaAws size={35} />,
+    description: 'Cloud Computing',
+    orbit: 0,
+    speed: 0.9,
+  },
+] as const;
+
+// Componente para el fondo de estrellas
+const StarryBackground = ({ theme }: { theme: any }) => (
+  <Box
+    sx={{
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      overflow: 'hidden',
+      opacity: theme.palette.mode === 'dark' ? 0.5 : 0.3,
+      '&:before': {
+        content: '""',
+        position: 'absolute',
+        width: '200%',
+        height: '200%',
+        top: '-50%',
+        left: '-50%',
+        background: `radial-gradient(1px 1px at ${Array(100)
+          .fill(0)
+          .map(() => `${Math.floor(Math.random() * 100)}% ${Math.floor(Math.random() * 100)}%`)
+          .join(', ')}, ${
+          theme.palette.mode === 'dark'
+            ? alpha(theme.palette.primary.main, 0.4)
+            : alpha(theme.palette.primary.main, 0.6)
+        } 2px, transparent 0)`,
+        animation: 'rotate 200s linear infinite',
+      },
+    }}
+  />
+);
+
+// Componente para una órbita
+const Orbit = ({
+  radius,
+  index,
+  theme,
+  color,
+}: {
+  radius: number;
+  index: number;
+  theme: any;
+  color: string;
+}) => (
+  <Box
+    sx={{
+      position: 'absolute',
+      width: radius * 2,
+      height: radius * 2,
+      borderRadius: '50%',
+      left: '50%',
+      top: '50%',
+      transform: 'translate(-50%, -50%)',
+      '&:before': {
+        content: '""',
+        position: 'absolute',
+        inset: -1,
+        padding: 1,
+        borderRadius: 'inherit',
+        background: `linear-gradient(${45 + index * 30}deg, ${alpha(color, 0.15)}, ${alpha(color, 0.15)})`,
+        WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+        WebkitMaskComposite: 'xor',
+        maskComposite: 'exclude',
+      },
+      '&:after': {
+        content: '""',
+        position: 'absolute',
+        inset: -2,
+        borderRadius: 'inherit',
+        background: `radial-gradient(circle at 50% 50%, 
+          ${
+            theme.palette.mode === 'dark'
+              ? `${alpha(color, 0.2)} 0%,
+               ${alpha(color, 0.2)} 25%,
+               transparent 50%`
+              : `${alpha(color, 0.25)} 0%,
+               ${alpha(color, 0.25)} 25%,
+               transparent 50%`
+          })`,
+        filter: 'blur(8px)',
+        opacity: 0.6,
+      },
+    }}
+  />
+);
+
+// Componente para un planeta tecnológico
+const TechPlanet = ({
+  tech,
+  angle,
+  radius,
+  theme,
+  color,
+  onHover,
+}: {
+  tech: (typeof TECHNOLOGIES)[number];
+  angle: number;
+  radius: number;
+  theme: any;
+  color: string;
+  onHover: (name: string | null) => void;
+}) => {
+  const [currentAngle, setCurrentAngle] = React.useState(angle);
+
+  React.useEffect(() => {
+    const duration = ROTATION_DURATION / tech.speed;
+    const interval = 16; // ~60fps
+    const angleIncrement = (2 * Math.PI) / ((duration * 1000) / interval);
+
+    const timer = setInterval(() => {
+      setCurrentAngle((prev) => (prev + angleIncrement) % (2 * Math.PI));
+    }, interval);
+
+    return () => clearInterval(timer);
+  }, [tech.speed]);
+
+  const x = Math.cos(currentAngle) * radius;
+  const y = Math.sin(currentAngle) * radius;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      style={{
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
+      }}
+    >
+      <Box
+        onMouseEnter={() => onHover(tech.name)}
+        onMouseLeave={() => onHover(null)}
+        sx={{
+          p: 3,
+          borderRadius: '50%',
+          background:
+            theme.palette.mode === 'dark'
+              ? `radial-gradient(circle at 30% 30%, ${alpha(color, 0.25)}, ${alpha(color, 0.1)})`
+              : `radial-gradient(circle at 30% 30%, ${alpha(color, 0.2)}, ${alpha(color, 0.05)})`,
+          backdropFilter: 'blur(10px)',
+          border: '2px solid',
+          borderColor: alpha(color, theme.palette.mode === 'dark' ? 0.4 : 0.3),
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: theme.palette.mode === 'dark' ? alpha(color, 0.7) : alpha(color, 0.6),
+          cursor: 'pointer',
+          transition: 'all 0.3s ease',
+          '&:hover': {
+            transform: 'scale(1.2)',
+            borderColor: color,
+            background:
+              theme.palette.mode === 'dark'
+                ? `radial-gradient(circle at 30% 30%, ${alpha(color, 0.35)}, ${alpha(color, 0.15)})`
+                : `radial-gradient(circle at 30% 30%, ${alpha(color, 0.3)}, ${alpha(color, 0.1)})`,
+          },
+        }}
+      >
+        {tech.icon}
+      </Box>
+    </motion.div>
+  );
 };
 
+// Componente principal
 export default function ProductDetails({ productId }: { productId: string }) {
-  const { t } = useLanguage();
+  const theme = useTheme();
+  const [hoveredTech, setHoveredTech] = React.useState<string | null>(null);
   const product = products.find((p) => p.id === productId);
+  const { t } = useLanguage();
 
   if (!product) return null;
-
-  // Obtener las tecnologías del proyecto actual
-  const technologies = Array.from({ length: 4 }, (_, i) => i + 1).map((index) => ({
-    name: t(`products.items.${productId}.techStack.technologies.tech${index}.name`),
-    description: t(`products.items.${productId}.techStack.technologies.tech${index}.description`),
-  }));
 
   return (
     <Box
       component="section"
       sx={{
-        py: { xs: 6, md: 12 },
-        background: (theme) =>
+        position: 'relative',
+        py: { xs: 15, md: 20 },
+        display: ['none', 'none', 'block'],
+        minHeight: '100vh',
+        overflow: 'hidden',
+        background:
           theme.palette.mode === 'dark'
-            ? 'linear-gradient(180deg, rgba(15,15,20,1) 0%, rgba(20,20,25,1) 100%)'
-            : 'linear-gradient(180deg, rgba(250,250,255,1) 0%, rgba(245,245,250,1) 100%)',
+            ? 'transparent'
+            : 'radial-gradient(circle at 50% 50%, rgba(250,250,255,1) 0%, rgba(240,240,250,1) 100%)',
+        borderRadius: '30px',
       }}
     >
-      <Container maxWidth="lg">
-        <Typography
-          variant="h2"
-          component="h2"
-          align="center"
+      <StarryBackground theme={theme} />
+
+      <Container
+        maxWidth="lg"
+        sx={{
+          position: 'relative',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          borderRadius: '30px',
+        }}
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+        >
+          <Typography
+            variant="h2"
+            align="center"
+            sx={{
+              fontSize: { xs: '2.5rem', md: '3.5rem' },
+              fontWeight: 700,
+              mb: 3,
+              fontFamily: lexendFont.style.fontFamily,
+              color: product.color,
+              letterSpacing: '-0.02em',
+            }}
+          >
+            {t(`products.items.${productId}.techStack.title`)}
+          </Typography>
+        </motion.div>
+
+        {/* Sistema Solar Tecnológico */}
+        <Box
           sx={{
-            mb: { xs: 4, md: 8 },
-            fontFamily: lexendFont.style.fontFamily,
-            fontSize: { xs: '1.75rem', sm: '2rem', md: '2.5rem' },
-            fontWeight: 600,
-            color: product.color,
+            position: 'relative',
+            width: '100%',
+            height: 800,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
-          {t(`products.items.${productId}.techStack.title`)}
-        </Typography>
+          {/* Órbitas */}
+          {ORBIT_RADII.map((radius, index) => (
+            <Orbit key={index} radius={radius} index={index} theme={theme} color={product.color} />
+          ))}
 
-        <Box sx={{ position: 'relative' }}>
-          {/* Línea central - solo visible en desktop */}
+          {/* Centro - Next.js */}
           <Box
             sx={{
               position: 'absolute',
               left: '50%',
-              top: 0,
-              bottom: 0,
-              width: 2,
-              backgroundColor: (theme) =>
-                theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)',
-              display: { xs: 'none', md: 'block' },
+              top: '50%',
+              transform: 'translate(-50%, -50%)',
+              zIndex: 10,
+              '&:after': {
+                content: '""',
+                position: 'absolute',
+                inset: -20,
+                borderRadius: '50%',
+                background: `radial-gradient(circle at 50% 50%, 
+                  ${
+                    theme.palette.mode === 'dark'
+                      ? `${alpha(product.color, 0.4)} 0%,
+                       ${alpha(product.color, 0.2)} 50%,
+                       transparent 70%`
+                      : `${alpha(product.color, 0.5)} 0%,
+                       ${alpha(product.color, 0.3)} 50%,
+                       transparent 70%`
+                  })`,
+                filter: 'blur(10px)',
+                animation: 'pulseCore 4s ease-in-out infinite alternate',
+              },
             }}
-          />
-
-          {technologies.map((tech, index) => (
+          >
             <motion.div
-              key={tech.name}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: 'spring', stiffness: 100, delay: 0.5 }}
             >
               <Box
                 sx={{
+                  p: 4,
+                  borderRadius: '50%',
+                  background:
+                    theme.palette.mode === 'dark'
+                      ? `radial-gradient(circle at 30% 30%, ${alpha(product.color, 0.3)}, ${alpha(product.color, 0.1)})`
+                      : `radial-gradient(circle at 30% 30%, ${alpha(product.color, 0.2)}, ${alpha(product.color, 0.05)})`,
+                  backdropFilter: 'blur(10px)',
+                  border: '2px solid',
+                  borderColor: alpha(product.color, theme.palette.mode === 'dark' ? 0.4 : 0.3),
                   display: 'flex',
-                  flexDirection: { xs: 'column', md: 'row' },
-                  alignItems: { xs: 'center', md: 'center' },
-                  justifyContent: {
-                    xs: 'center',
-                    md: index % 2 === 0 ? 'flex-end' : 'flex-start',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color:
+                    theme.palette.mode === 'dark'
+                      ? alpha(product.color, 0.9)
+                      : alpha(product.color, 0.8),
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    transform: 'scale(1.1)',
+                    borderColor: product.color,
                   },
-                  gap: { xs: 2, md: 3 },
-                  mb: { xs: 4, md: 6 },
-                  px: { xs: 2, md: 4 },
-                  textAlign: { xs: 'center', md: 'left' },
                 }}
               >
-                {index % 2 === 0 && (
-                  <Box
-                    sx={{
-                      flex: { xs: 'none', md: 1 },
-                      textAlign: { xs: 'center', md: 'right' },
-                      maxWidth: '300px',
-                      order: { xs: 2, md: 1 },
-                    }}
-                  >
-                    <Typography
-                      variant="h6"
-                      sx={{
-                        fontFamily: lexendFont.style.fontFamily,
-                        fontWeight: 500,
-                        mb: 1,
-                        fontSize: { xs: '1.1rem', md: '1.25rem' },
-                      }}
-                    >
-                      {tech.name}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      sx={{
-                        lineHeight: 1.6,
-                        fontSize: { xs: '0.875rem', md: '1rem' },
-                      }}
-                    >
-                      {tech.description}
-                    </Typography>
-                  </Box>
-                )}
-
-                <Box
-                  sx={{
-                    width: { xs: 50, md: 60 },
-                    height: { xs: 50, md: 60 },
-                    borderRadius: '50%',
-                    backgroundColor: (theme) =>
-                      theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: { xs: '1.5rem', md: '1.75rem' },
-                    color: product.color,
-                    position: 'relative',
-                    zIndex: 1,
-                    transition: 'all 0.2s',
-                    order: { xs: 1, md: 2 },
-                    '&:hover': {
-                      transform: 'scale(1.1)',
-                      backgroundColor: (theme) =>
-                        theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)',
-                    },
-                  }}
-                >
-                  {TECH_ICONS[tech.name] || <FaServer />}
-                </Box>
-
-                {index % 2 === 1 && (
-                  <Box
-                    sx={{
-                      flex: { xs: 'none', md: 1 },
-                      maxWidth: '300px',
-                      order: { xs: 2, md: 3 },
-                      textAlign: { xs: 'center', md: 'left' },
-                    }}
-                  >
-                    <Typography
-                      variant="h6"
-                      sx={{
-                        fontFamily: lexendFont.style.fontFamily,
-                        fontWeight: 500,
-                        mb: 1,
-                        fontSize: { xs: '1.1rem', md: '1.25rem' },
-                      }}
-                    >
-                      {tech.name}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      sx={{
-                        lineHeight: 1.6,
-                        fontSize: { xs: '0.875rem', md: '1rem' },
-                      }}
-                    >
-                      {tech.description}
-                    </Typography>
-                  </Box>
-                )}
+                <SiNextdotjs size={60} />
               </Box>
             </motion.div>
-          ))}
+          </Box>
+
+          {/* Planetas Tecnológicos */}
+          {TECHNOLOGIES.slice(1).map((tech, index) => {
+            const angleOffset = (Math.PI * 2) / (TECHNOLOGIES.length - 1);
+            const angle = angleOffset * index;
+
+            return (
+              <TechPlanet
+                key={tech.name}
+                tech={tech}
+                angle={angle}
+                radius={ORBIT_RADII[tech.orbit]}
+                theme={theme}
+                color={product.color}
+                onHover={setHoveredTech}
+              />
+            );
+          })}
+
+          {/* Tooltip de información */}
+          <AnimatePresence>
+            {hoveredTech && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                style={{
+                  position: 'absolute',
+                  top: '20%',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  zIndex: 20,
+                }}
+              >
+                <Box
+                  sx={{
+                    p: 2,
+                    borderRadius: 2,
+                    background: alpha(
+                      theme.palette.background.paper,
+                      theme.palette.mode === 'dark' ? 0.95 : 0.9
+                    ),
+                    backdropFilter: 'blur(10px)',
+                    boxShadow: theme.shadows[10],
+                    textAlign: 'center',
+                    border: '1px solid',
+                    borderColor: alpha(theme.palette.divider, 0.1),
+                  }}
+                >
+                  <Typography variant="h6" sx={{ mb: 1, color: product.color }}>
+                    {hoveredTech}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {TECHNOLOGIES.find((t) => t.name === hoveredTech)?.description}
+                  </Typography>
+                </Box>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </Box>
       </Container>
+
+      <style jsx global>{`
+        @keyframes rotate {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+        @keyframes pulseCore {
+          0% {
+            opacity: 0.5;
+            transform: scale(0.8);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1.2);
+          }
+        }
+      `}</style>
     </Box>
   );
 }
