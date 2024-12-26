@@ -1,357 +1,248 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable indent */
+/* eslint-disable react-hooks/rules-of-hooks */
 'use client';
 
-import React, { memo, useRef, useState, useMemo } from 'react';
-import { Box, Container, Stack, Typography, useTheme, alpha, Menu, MenuItem } from '@mui/material';
-import Image from 'next/image';
+import React, { useRef, useState, useMemo, memo } from 'react';
 import { motion } from 'framer-motion';
-import { lexendFont } from '@/app/utils/fonts';
-import { useLanguage } from '@/app/utils/languageContext';
-import { products } from '../../data/products';
-import { FaWindows, FaApple, FaLinux, FaMobileAlt } from 'react-icons/fa';
-import { SiAndroid, SiApple } from 'react-icons/si';
-import { IoLogIn } from 'react-icons/io5';
+import Image from 'next/image';
+import { Box, Container, Typography, Button, Popover, useTheme, Stack, alpha } from '@mui/material';
+import { Download as DownloadIcon } from '@mui/icons-material';
 import { GiCrossedSwords } from 'react-icons/gi';
 import { BiMessageDetail } from 'react-icons/bi';
-import { HiDocument } from 'react-icons/hi';
 import { FaUserCircle } from 'react-icons/fa';
-import dynamic from 'next/dynamic';
+import { HiDocument } from 'react-icons/hi';
+import { lexendFont } from '@/app/utils/fonts';
+import ProductFeatures from './ProductFeatures';
+import ProductDetails from './ProductDetails';
+import FAQ from './FAQ'; // Import the FAQ component
+import { products } from '../../data/products';
+import RunicBackground from '@/app/components/animations/RunicBackground';
+import { useLanguage } from '../../../utils/languageContext';
+import ProductDetailsMobile from './ProductDetailsMobile';
 
 // Constantes y temas
 const PRODUCT_THEMES = {
   'heralds-of-chaos': {
-    primary: '#FF4D4D',
-    secondary: '#FF6B6B',
-    gradient: 'linear-gradient(135deg, #FF4D4D 0%, #FF6B6B 100%)',
-    icon: GiCrossedSwords,
-    accentColor: '#FF4D4D',
+    primary: '#FFC400',
+    secondary: '#FFD740',
+    gradient: 'linear-gradient(135deg, #FFC400 0%, #FFD740 100%)',
+    icon: DownloadIcon,
+    accentColor: '#FFC400',
   },
   'gy-messages': {
     primary: '#34C759',
     secondary: '#4CD964',
     gradient: 'linear-gradient(135deg, #34C759 0%, #4CD964 100%)',
-    icon: BiMessageDetail,
+    icon: DownloadIcon,
     accentColor: '#34C759',
   },
   'gy-documents': {
-    primary: '#1976D2',
-    secondary: '#2196F3',
-    gradient: 'linear-gradient(135deg, #1976D2 0%, #2196F3 100%)',
-    icon: HiDocument,
-    accentColor: '#1976D2',
+    primary: '#1976D2', // Azul
+    secondary: '#2196F3', // Azul más claro
+    gradient: 'linear-gradient(135deg, #1976D2 0%, #2196F3 100%)', // Degradado azul
+    icon: DownloadIcon,
+    accentColor: '#1976D2', // Puede ser el mismo que el color primario
   },
   'gy-accounts': {
     primary: '#7A288A',
     secondary: '#8F2D9E',
     gradient: 'linear-gradient(135deg, #7A288A 0%, #8F2D9E 100%)',
-    icon: FaUserCircle,
-    accentColor: '#7A288A',
+    icon: DownloadIcon,
+    accentColor: '#662376',
   },
 } as const;
 
-// Cargar el fondo de manera dinámica
-const RunicBackground = dynamic(() => import('@/app/components/animations/RunicBackground'), {
-  ssr: false,
-  loading: () => null,
-});
-
-// Componente de fondo del producto
-const ProductBackground = memo(({ product }: { product: any }) => (
-  <Box
-    sx={{
-      position: 'absolute',
-      inset: 0,
-      opacity: 0.03,
-      zIndex: 0,
-      '&::before': {
-        content: '""',
+const ProductBackground = memo(
+  ({ product, opacity = 0.03 }: { product: any; opacity?: number }) => (
+    <Box
+      sx={{
         position: 'absolute',
         inset: 0,
-        background: (theme) =>
-          `linear-gradient(to bottom, ${alpha(theme.palette.background.default, 0)} 0%, ${theme.palette.background.default} 100%)`,
-      },
-    }}
-  >
-    <Image src={product.image} alt="" fill style={{ objectFit: 'cover' }} quality={100} priority />
-  </Box>
-));
+        opacity,
+        zIndex: 0,
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          inset: 0,
+          background: (theme) =>
+            `linear-gradient(to bottom, ${alpha(theme.palette.background.default, 0)} 0%, ${theme.palette.background.default} 100%)`,
+        },
+      }}
+    >
+      <Image
+        src={product.image}
+        alt=""
+        fill
+        style={{ objectFit: 'cover' }}
+        quality={100}
+        priority
+      />
+    </Box>
+  )
+);
 
 ProductBackground.displayName = 'ProductBackground';
 
-// Botón de descarga
 const DownloadButton = memo(
   ({
     productId,
     gradient,
     onClick,
+    t,
   }: {
     productId: string;
     gradient: string;
     onClick: () => void;
-  }) => {
-    const { t } = useLanguage();
-    const theme = useTheme();
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
-
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-      setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
-
-    const handlePlatformClick = (platform: string) => {
-      console.log(`Downloading for ${platform}`);
-      handleClose();
-      onClick();
-    };
-
-    const getPlatformIcon = (platform: string) => {
-      switch (platform) {
-        case 'windows':
-          return <FaWindows style={{ marginRight: 8 }} />;
-        case 'macos':
-          return <FaApple style={{ marginRight: 8 }} />;
-        case 'linux':
-          return <FaLinux style={{ marginRight: 8 }} />;
-        case 'android':
-          return <SiAndroid style={{ marginRight: 8 }} />;
-        case 'ios':
-          return <SiApple style={{ marginRight: 8 }} />;
-        case 'login':
-          return <IoLogIn style={{ marginRight: 8 }} />;
-        default:
-          return <FaMobileAlt style={{ marginRight: 8 }} />;
-      }
-    };
-
-    const renderPlatforms = () => {
-      switch (productId) {
-        case 'heralds-of-chaos':
-          return (
-            <>
-              <MenuItem onClick={() => handlePlatformClick('windows')} sx={menuItemStyle}>
-                {getPlatformIcon('windows')} Windows
-              </MenuItem>
-              <MenuItem onClick={() => handlePlatformClick('macos')} sx={menuItemStyle}>
-                {getPlatformIcon('macos')} macOS
-              </MenuItem>
-              <MenuItem onClick={() => handlePlatformClick('linux')} sx={menuItemStyle}>
-                {getPlatformIcon('linux')} Linux
-              </MenuItem>
-            </>
-          );
-        case 'gy-messages':
-          return (
-            <>
-              <MenuItem onClick={() => handlePlatformClick('android')} sx={menuItemStyle}>
-                {getPlatformIcon('android')} Android
-              </MenuItem>
-              <MenuItem onClick={() => handlePlatformClick('ios')} sx={menuItemStyle}>
-                {getPlatformIcon('ios')} iOS
-              </MenuItem>
-            </>
-          );
-        case 'gy-documents':
-          return (
-            <>
-              <MenuItem onClick={() => handlePlatformClick('windows')} sx={menuItemStyle}>
-                {getPlatformIcon('windows')} Windows
-              </MenuItem>
-              <MenuItem onClick={() => handlePlatformClick('macos')} sx={menuItemStyle}>
-                {getPlatformIcon('macos')} macOS
-              </MenuItem>
-              <MenuItem onClick={() => handlePlatformClick('linux')} sx={menuItemStyle}>
-                {getPlatformIcon('linux')} Linux
-              </MenuItem>
-            </>
-          );
-        case 'gy-accounts':
-          return (
-            <MenuItem onClick={() => handlePlatformClick('login')} sx={menuItemStyle}>
-              {getPlatformIcon('login')} {t('products.download.login')}
-            </MenuItem>
-          );
-        default:
-          return null;
-      }
-    };
-
-    const buttonText =
-      productId === 'heralds-of-chaos'
-        ? t('products.download.demo')
-        : productId === 'gy-accounts'
-          ? t('products.download.login')
-          : t('products.download.now');
-
-    const menuItemStyle = {
-      fontFamily: lexendFont.style.fontFamily,
-      fontSize: '1rem',
-      py: 1.5,
-      display: 'flex',
-      alignItems: 'center',
-      transition: 'all 0.2s ease',
-      '&:hover': {
-        backgroundColor:
-          theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
-        color: gradient.split(' ')[0].replace('linear-gradient(', ''),
-      },
-    };
-
-    return (
-      <>
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          style={{
-            background: gradient,
-            border: 'none',
-            borderRadius: '12px',
-            padding: '16px 32px',
-            color: 'white',
-            fontSize: '1.1rem',
-            fontWeight: 600,
-            cursor: 'pointer',
-            fontFamily: lexendFont.style.fontFamily,
-            boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-          }}
-          onClick={handleClick}
-        >
-          {buttonText}
-          <Box
-            component="span"
-            sx={{
-              display: 'inline-block',
-              width: '24px',
-              height: '24px',
-              ml: 1,
-              position: 'relative',
-              '&::before, &::after': {
-                content: '""',
-                position: 'absolute',
-                width: '8px',
-                height: '2px',
-                backgroundColor: 'white',
-                borderRadius: '1px',
-                transition: 'transform 0.3s ease',
-              },
-              '&::before': {
-                transform: open ? 'rotate(-45deg)' : 'rotate(45deg)',
-                right: '6px',
-                top: '11px',
-              },
-              '&::after': {
-                transform: open ? 'rotate(45deg)' : 'rotate(-45deg)',
-                right: '12px',
-                top: '11px',
-              },
-            }}
-          />
-        </motion.button>
-
-        <Menu
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          sx={{
-            '& .MuiPaper-root': {
-              borderRadius: '12px',
-              mt: 1,
-              minWidth: 180,
-              boxShadow:
-                theme.palette.mode === 'dark'
-                  ? '0 4px 20px rgba(0,0,0,0.3)'
-                  : '0 4px 20px rgba(0,0,0,0.1)',
-              backgroundColor: theme.palette.mode === 'dark' ? '#1a1a1a' : '#ffffff',
-            },
-          }}
-        >
-          {renderPlatforms()}
-        </Menu>
-      </>
-    );
-  }
+    t: any;
+  }) => (
+    <Button
+      variant="contained"
+      size="large"
+      onClick={onClick}
+      startIcon={<DownloadIcon />}
+      sx={{
+        background:
+          productId === 'gy-documents' ? PRODUCT_THEMES['gy-documents'].primary : gradient,
+        px: 4,
+        py: 1.5,
+        fontSize: '1.1rem',
+        fontWeight: 600,
+        borderRadius: 2,
+        textTransform: 'none',
+        '&:hover': {
+          background:
+            productId === 'gy-documents' ? PRODUCT_THEMES['gy-documents'].primary : gradient,
+          transform: 'translateY(-2px)',
+          transition: 'transform 0.2s ease-in-out',
+          boxShadow: (theme) => boxShadow(theme),
+        },
+      }}
+    >
+      {productId === 'gy-accounts' ? t('products.download.button') : t('products.download.login')}
+    </Button>
+  )
 );
 
 DownloadButton.displayName = 'DownloadButton';
 
-// Componente Principal
-export default function ProductContent({ productId }: { productId: string }) {
-  const theme = useTheme();
-  const { t } = useLanguage();
-  const mainRef = useRef(null);
-  const [openPopover, setOpenPopover] = useState(false);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+const DownloadPopover = memo(
+  ({
+    open,
+    anchorEl,
+    onClose,
+    productTheme,
+  }: {
+    open: boolean;
+    anchorEl: HTMLElement | null;
+    onClose: () => void;
+    productTheme: (typeof PRODUCT_THEMES)[keyof typeof PRODUCT_THEMES];
+  }) => (
+    <Popover
+      open={open}
+      anchorEl={anchorEl}
+      onClose={onClose}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'center',
+      }}
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'center',
+      }}
+      sx={{
+        mt: 1,
+        '& .MuiPopover-paper': {
+          borderRadius: 2,
+          boxShadow: (theme) => `0 4px 20px ${alpha(theme.palette.common.black, 0.1)}`,
+        },
+      }}
+    >
+      <Box sx={{ p: 2, width: 200 }}>
+        <Stack spacing={1}>
+          <Button
+            fullWidth
+            variant="contained"
+            sx={{
+              background: productTheme.gradient,
+              '&:hover': {
+                background: productTheme.gradient,
+                filter: 'brightness(1.1)',
+              },
+            }}
+          >
+            Windows
+          </Button>
+          <Button
+            fullWidth
+            variant="contained"
+            sx={{
+              background: productTheme.gradient,
+              '&:hover': {
+                background: productTheme.gradient,
+                filter: 'brightness(1.1)',
+              },
+            }}
+          >
+            macOS
+          </Button>
+          <Button
+            fullWidth
+            variant="contained"
+            sx={{
+              background: productTheme.gradient,
+              '&:hover': {
+                background: productTheme.gradient,
+                filter: 'brightness(1.1)',
+              },
+            }}
+          >
+            Linux
+          </Button>
+        </Stack>
+      </Box>
+    </Popover>
+  )
+);
 
-  // Buscar el producto por ID
-  const product = useMemo(() => {
-    const foundProduct = products.find((p) => p.id === productId);
-    if (!foundProduct) {
-      throw new Error(`Product with id ${productId} not found`);
-    }
-    return foundProduct;
-  }, [productId]);
+DownloadPopover.displayName = 'DownloadPopover';
 
-  // Memoizar el tema del producto
-  const productTheme = useMemo(
-    () => PRODUCT_THEMES[product.id as keyof typeof PRODUCT_THEMES],
-    [product.id]
-  );
+function boxShadow(theme: any) {
+  return `0 4px 14px ${alpha(theme.palette.primary.main, 0.4)}`;
+}
 
-  const handlePopoverOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-    setOpenPopover(true);
-  };
-
-  return (
-    <Box
-      component="section"
-      ref={mainRef}
+const HeroSection = memo(
+  ({
+    product,
+    productTheme,
+    onDownloadClick,
+    theme,
+    t,
+  }: {
+    product: any;
+    productTheme: (typeof PRODUCT_THEMES)[keyof typeof PRODUCT_THEMES];
+    onDownloadClick: () => void;
+    theme: any;
+    t: any;
+  }) => (
+    <Container
+      maxWidth={false}
       sx={{
         position: 'relative',
-        overflow: 'hidden',
-        pt: { xs: 4, md: 8 },
-        pb: { xs: 8, md: 12 },
         minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
-        background:
-          theme.palette.mode === 'dark'
-            ? 'linear-gradient(180deg, rgba(15,15,20,1) 0%, rgba(20,20,25,1) 100%)'
-            : 'linear-gradient(180deg, rgba(250,250,255,1) 0%, rgba(245,245,250,1) 100%)',
+        justifyContent: 'center',
+        pt: { xs: 8, md: 0 },
+        pb: { xs: 8, md: 0 },
+        overflow: 'hidden',
       }}
     >
       <Box sx={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-        <RunicBackground color={product.color} />
+        <RunicBackground color="#6366f1" productId={product.id} />
       </Box>
 
       <ProductBackground product={product} />
 
-      <Container
-        maxWidth="lg"
-        sx={{
-          position: 'relative',
-          zIndex: 1,
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-        }}
-      >
+      <Container maxWidth="lg" sx={{ position: 'relative', textAlign: 'center' }}>
         {/* Icono de fondo según el producto */}
         <Box
           sx={{
@@ -397,7 +288,7 @@ export default function ProductContent({ productId }: { productId: string }) {
                 lineHeight: 1.1,
               }}
             >
-              {t(`products.items.${productId}.name`)}
+              {t(`products.items.${product.id}.name`)}
             </Typography>
           </motion.div>
 
@@ -417,7 +308,7 @@ export default function ProductContent({ productId }: { productId: string }) {
                 lineHeight: 1.5,
               }}
             >
-              {t(`products.items.${productId}.description`)}
+              {t(`products.items.${product.id}.description`)}
             </Typography>
           </motion.div>
 
@@ -429,11 +320,112 @@ export default function ProductContent({ productId }: { productId: string }) {
             <DownloadButton
               productId={product.id}
               gradient={productTheme.gradient}
-              onClick={() => handlePopoverOpen}
+              onClick={onDownloadClick}
+              t={t}
             />
           </motion.div>
         </Stack>
       </Container>
+    </Container>
+  )
+);
+
+HeroSection.displayName = 'HeroSection';
+
+// Componente principal
+interface ProductContentProps {
+  productId: string;
+}
+
+export default function ProductContent({ productId }: ProductContentProps) {
+  const theme = useTheme();
+  const mainRef = useRef(null);
+  const [openPopover, setOpenPopover] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const { t } = useLanguage();
+  // Buscar el producto por ID
+  const product = useMemo(() => {
+    const foundProduct = products.find((p) => p.id === productId);
+    if (!foundProduct) {
+      throw new Error(`Product with id ${productId} not found`);
+    }
+    return foundProduct;
+  }, [productId]);
+
+  // Memoizar el tema del producto
+  const productTheme = useMemo(
+    () =>
+      PRODUCT_THEMES[product.id as keyof typeof PRODUCT_THEMES] ||
+      PRODUCT_THEMES['heralds-of-chaos'],
+    [product.id]
+  );
+
+  const handlePopoverOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+    setOpenPopover(true);
+  };
+
+  const handlePopoverClose = () => {
+    setOpenPopover(false);
+    setAnchorEl(null);
+  };
+
+  return (
+    <Box
+      ref={mainRef}
+      component="main"
+      sx={{
+        minHeight: '100vh',
+        bgcolor: 'background.default',
+        color: theme.palette.text.primary,
+      }}
+    >
+      <HeroSection
+        product={product}
+        productTheme={productTheme}
+        onDownloadClick={handlePopoverOpen as any}
+        theme={theme}
+        t={t}
+      />
+
+      <Container maxWidth="xl" sx={{ py: 8 }}>
+        <Stack spacing={16}>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true, margin: '-100px' }}
+          >
+            <ProductDetails productId={productId} />
+            <ProductDetailsMobile productId={productId} />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true, margin: '-100px' }}
+          >
+            <ProductFeatures productId={productId} />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true, margin: '-100px' }}
+          >
+            <FAQ productId={productId} />
+          </motion.div>
+        </Stack>
+      </Container>
+
+      <DownloadPopover
+        open={openPopover}
+        anchorEl={anchorEl}
+        onClose={handlePopoverClose}
+        productTheme={productTheme}
+      />
     </Box>
   );
 }

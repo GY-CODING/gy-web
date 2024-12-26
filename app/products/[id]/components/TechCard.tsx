@@ -48,41 +48,36 @@ export default function TechCard({ name, description, icon, delay }: TechCardPro
       }}
       viewport={{ once: true, margin: '-50px' }}
     >
-      <Box
-        sx={{
-          position: 'relative',
-          p: 3,
-          height: '100%',
-          borderRadius: '20px',
-          overflow: 'hidden',
-          backdropFilter: 'blur(8px)',
-          border: `1px solid ${alpha(theme.palette.common.white, 0.1)}`,
-          cursor: 'pointer',
-          WebkitBackfaceVisibility: 'hidden',
-          '&:before': {
-            content: '""',
-            position: 'absolute',
-            inset: 0,
-            background: isDark
-              ? 'linear-gradient(169deg, rgba(255,255,255,0.03), rgba(255,255,255,0))'
-              : 'linear-gradient(169deg, rgba(255,255,255,0.9), rgba(255,255,255,0.4))',
-            borderRadius: 'inherit',
-            zIndex: 0,
-          },
+      <motion.div
+        onMouseMove={handleMouseMove}
+        whileHover={{ scale: 1.02 }}
+        transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+        style={{
+          background, // Estilos compatibles con `style`
         }}
       >
-        <motion.div
-          onMouseMove={handleMouseMove}
-          whileHover={{ scale: 1.02 }}
-          transition={{
-            type: 'spring',
-            stiffness: 400,
-            damping: 10,
-          }}
-          style={{
+        <Box
+          sx={{
             position: 'relative',
-            background,
+            p: 4,
             height: '100%',
+            borderRadius: '24px',
+            overflow: 'hidden',
+            backdropFilter: 'blur(20px)',
+            border: '1px solid',
+            borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)',
+            cursor: 'pointer',
+            WebkitBackfaceVisibility: 'hidden',
+            '&:before': {
+              content: '""',
+              position: 'absolute',
+              inset: 0,
+              background: isDark
+                ? 'linear-gradient(169deg, rgba(255,255,255,0.03), rgba(255,255,255,0))'
+                : 'linear-gradient(169deg, rgba(255,255,255,0.9), rgba(255,255,255,0.4))',
+              borderRadius: 'inherit',
+              zIndex: 0,
+            },
           }}
         >
           {/* Content Container */}
@@ -147,8 +142,8 @@ export default function TechCard({ name, description, icon, delay }: TechCardPro
               </Typography>
             </motion.div>
           </Box>
-        </motion.div>
-      </Box>
+        </Box>
+      </motion.div>
     </motion.div>
   );
 }

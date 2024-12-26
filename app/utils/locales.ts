@@ -1,4 +1,14 @@
 import { getAssetPath } from './useImagePath';
+import {
+  Code as CodeIcon,
+  Speed as SpeedIcon,
+  Security as SecurityIcon,
+  Cloud as CloudIcon,
+  Storage as StorageIcon,
+  Group as GroupIcon,
+  Games as GamesIcon,
+  Devices as DevicesIcon,
+} from '@mui/icons-material';
 
 export interface Locale {
   navigation: {
@@ -119,11 +129,11 @@ export interface Locale {
         title: string;
         description: string;
       };
-      mobileDev: {
+      backend: {
         title: string;
         description: string;
       };
-      cloudDev: {
+      gameDev: {
         title: string;
         description: string;
       };
@@ -178,6 +188,15 @@ export interface Locale {
             };
           };
         };
+        caracteristics: {
+          title: string;
+          items: Array<{
+            title: string;
+            description: string;
+            icon: React.ElementType;
+            color: string;
+          }>;
+        };
         faq: {
           title: string;
           items: {
@@ -224,6 +243,15 @@ export interface Locale {
               description: string;
             };
           };
+        };
+        caracteristics: {
+          title: string;
+          items: Array<{
+            title: string;
+            description: string;
+            icon: React.ElementType;
+            color: string;
+          }>;
         };
         faq: {
           title: string;
@@ -272,6 +300,15 @@ export interface Locale {
             };
           };
         };
+        caracteristics: {
+          title: string;
+          items: Array<{
+            title: string;
+            description: string;
+            icon: React.ElementType;
+            color: string;
+          }>;
+        };
         faq: {
           title: string;
           items: {
@@ -317,6 +354,15 @@ export interface Locale {
               description: string;
             };
           };
+        };
+        caracteristics: {
+          title: string;
+          items: Array<{
+            title: string;
+            description: string;
+            icon: React.ElementType;
+            color: string;
+          }>;
         };
         faq: {
           title: string;
@@ -462,7 +508,7 @@ export const locales: Record<'en' | 'es', Locale> = {
         part1:
           'Founded with a vision to revolutionize web development, [company]GyCODING[/company] emerged from the collaboration of two passionate developers who shared a common dream: to create exceptional digital experiences that make a difference.',
         part2:
-          'What started as a shared vision has grown into a dynamic company that pushes the boundaries of what\'s possible in web development. Our journey is marked by continuous learning, innovation, and a relentless pursuit of excellence.',
+          'What started as a shared vision has grown into a dynamic company that pushes the boundaries of whats possible in web development. Our journey is marked by continuous learning, innovation, and a relentless pursuit of excellence.',
       },
       values: {
         title: 'Our Values',
@@ -522,17 +568,15 @@ export const locales: Record<'en' | 'es', Locale> = {
         webDev: {
           title: 'Web Development',
           description:
-            'Modern and responsive web applications using cutting-edge technologies like React, Next.js, and TypeScript. Focus on performance, accessibility, and user experience.',
+            'Modern and responsive web applications built with cutting-edge technologies.',
         },
-        mobileDev: {
-          title: 'Mobile Development',
-          description:
-            'Native and cross-platform mobile applications using React Native, Flutter, and Kotlin. Expertise in mobile-specific features and optimization.',
+        backend: {
+          title: 'Backend Development',
+          description: 'Robust and scalable server solutions powered by Spring Boot and MongoDB.',
         },
-        cloudDev: {
-          title: 'Cloud Development',
-          description:
-            'Scalable and secure cloud infrastructure using AWS, Google Cloud, and Azure. Specialized in cloud architecture, migration, and management.',
+        gameDev: {
+          title: 'Game Development',
+          description: 'Engaging gaming experiences created with Unity and C#.',
         },
       },
     },
@@ -595,6 +639,35 @@ export const locales: Record<'en' | 'es', Locale> = {
               },
             },
           },
+          caracteristics: {
+            title: 'Characteristics',
+            items: [
+              {
+                title: 'Immersive Gameplay',
+                description: 'Seamless and engaging gaming experience with optimized graphics',
+                icon: GamesIcon,
+                color: '#FF4081',
+              },
+              {
+                title: 'High Performance',
+                description: 'Engine optimized to maintain 60+ FPS on most systems',
+                icon: SpeedIcon,
+                color: '#7C4DFF',
+              },
+              {
+                title: 'Online Multiplayer',
+                description: 'Dedicated servers with low latency for competitive PvP',
+                icon: CloudIcon,
+                color: '#00BCD4',
+              },
+              {
+                title: 'Robust Anti-Cheat',
+                description: 'Security system to ensure fair matches',
+                icon: SecurityIcon,
+                color: '#4CAF50',
+              },
+            ],
+          },
           faq: {
             title: 'Frequently Asked Questions',
             items: {
@@ -653,6 +726,35 @@ export const locales: Record<'en' | 'es', Locale> = {
               },
             },
           },
+          caracteristics: {
+            title: 'Characteristics',
+            items: [
+              {
+                title: 'E2E Encryption',
+                description: 'Messages protected with end-to-end encryption',
+                icon: SecurityIcon,
+                color: '#4CAF50',
+              },
+              {
+                title: 'Real-Time',
+                description: 'Instant messaging with ultra-low latency',
+                icon: SpeedIcon,
+                color: '#00BCD4',
+              },
+              {
+                title: 'Cross-Platform',
+                description: 'Available on web, iOS, and Android with synchronization',
+                icon: DevicesIcon,
+                color: '#FF4081',
+              },
+              {
+                title: 'Secure Backup',
+                description: 'Message history with automatic backup',
+                icon: StorageIcon,
+                color: '#7C4DFF',
+              },
+            ],
+          },
           faq: {
             title: 'Frequently Asked Questions',
             items: {
@@ -710,6 +812,35 @@ export const locales: Record<'en' | 'es', Locale> = {
               },
             },
           },
+          caracteristics: {
+            title: 'Characteristics',
+            items: [
+              {
+                title: 'Cloud-Native',
+                description: 'Documents accessible from anywhere',
+                icon: CloudIcon,
+                color: '#2196F3',
+              },
+              {
+                title: 'Collaboration',
+                description: 'Real-time editing with multiple users',
+                icon: GroupIcon,
+                color: '#4CAF50',
+              },
+              {
+                title: 'Encryption',
+                description: 'Documents protected with AES-256 encryption',
+                icon: SecurityIcon,
+                color: '#FF4081',
+              },
+              {
+                title: 'Versioning',
+                description: 'Automatic version control',
+                icon: StorageIcon,
+                color: '#9C27B0',
+              },
+            ],
+          },
           faq: {
             title: 'Frequently Asked Questions',
             items: {
@@ -752,6 +883,35 @@ export const locales: Record<'en' | 'es', Locale> = {
                 description: 'Third-party authentication protocol',
               },
             },
+          },
+          caracteristics: {
+            title: 'Characteristics',
+            items: [
+              {
+                title: 'Advanced 2FA',
+                description: 'Two-factor authentication with multiple options',
+                icon: SecurityIcon,
+                color: '#4CAF50',
+              },
+              {
+                title: 'SSO',
+                description: 'Single sign-on for all apps',
+                icon: SpeedIcon,
+                color: '#2196F3',
+              },
+              {
+                title: 'OAuth 2.0',
+                description: 'Integration with identity providers',
+                icon: CloudIcon,
+                color: '#FF4081',
+              },
+              {
+                title: 'Robust API',
+                description: 'RESTful API with complete documentation',
+                icon: CodeIcon,
+                color: '#9C27B0',
+              },
+            ],
           },
           faq: {
             title: 'Frequently Asked Questions',
@@ -955,17 +1115,16 @@ export const locales: Record<'en' | 'es', Locale> = {
         webDev: {
           title: 'Desarrollo Web',
           description:
-            'Aplicaciones web modernas y responsivas utilizando tecnologías de vanguardia como React, Next.js y TypeScript. Enfoque en rendimiento, accesibilidad y experiencia de usuario.',
+            'Aplicaciones web modernas y responsivas construidas con tecnologías de última generación.',
         },
-        mobileDev: {
-          title: 'Desarrollo Móvil',
+        backend: {
+          title: 'Desarrollo Backend',
           description:
-            'Aplicaciones móviles nativas y multiplataforma utilizando React Native, Flutter y Kotlin. Especialización en características y optimización móviles.',
+            'Soluciones de servidor robustas y escalables impulsadas por Spring Boot y MongoDB.',
         },
-        cloudDev: {
-          title: 'Desarrollo en la Nube',
-          description:
-            'Infraestructura escalable y segura en la nube utilizando AWS, Google Cloud y Azure. Especialización en arquitectura, migración y gestión en la nube.',
+        gameDev: {
+          title: 'Desarrollo de Juegos',
+          description: 'Experiencias de juego envolventes creadas con Unity y C#.',
         },
       },
     },
@@ -1029,6 +1188,35 @@ export const locales: Record<'en' | 'es', Locale> = {
               },
             },
           },
+          caracteristics: {
+            title: 'Características',
+            items: [
+              {
+                title: 'Jugabilidad Inmersiva',
+                description: 'Experiencia de juego fluida y envolvente con gráficos optimizados',
+                icon: GamesIcon,
+                color: '#FF4081',
+              },
+              {
+                title: 'Alto Rendimiento',
+                description: 'Motor optimizado para mantener 60+ FPS en la mayoría de sistemas',
+                icon: SpeedIcon,
+                color: '#7C4DFF',
+              },
+              {
+                title: 'Multijugador Online',
+                description: 'Servidores dedicados con baja latencia para PvP competitivo',
+                icon: CloudIcon,
+                color: '#00BCD4',
+              },
+              {
+                title: 'Anti-Cheat Robusto',
+                description: 'Sistema de seguridad para garantizar partidas justas',
+                icon: SecurityIcon,
+                color: '#4CAF50',
+              },
+            ],
+          },
           faq: {
             title: 'Preguntas Frecuentes',
             items: {
@@ -1088,6 +1276,35 @@ export const locales: Record<'en' | 'es', Locale> = {
               },
             },
           },
+          caracteristics: {
+            title: 'Características',
+            items: [
+              {
+                title: 'Cifrado E2E',
+                description: 'Mensajes protegidos con cifrado de extremo a extremo',
+                icon: SecurityIcon,
+                color: '#4CAF50',
+              },
+              {
+                title: 'Tiempo Real',
+                description: 'Mensajería instantánea con latencia ultrabaja',
+                icon: SpeedIcon,
+                color: '#00BCD4',
+              },
+              {
+                title: 'Multiplataforma',
+                description: 'Disponible en web, iOS y Android con sincronización',
+                icon: DevicesIcon,
+                color: '#FF4081',
+              },
+              {
+                title: 'Respaldo Seguro',
+                description: 'Historial de mensajes con backup automático',
+                icon: StorageIcon,
+                color: '#7C4DFF',
+              },
+            ],
+          },
           faq: {
             title: 'Preguntas Frecuentes',
             items: {
@@ -1145,6 +1362,35 @@ export const locales: Record<'en' | 'es', Locale> = {
               },
             },
           },
+          caracteristics: {
+            title: 'Características',
+            items: [
+              {
+                title: 'Nativo en la Nube',
+                description: 'Documentos accesibles desde cualquier lugar',
+                icon: CloudIcon,
+                color: '#2196F3',
+              },
+              {
+                title: 'Colaboración',
+                description: 'Edición en tiempo real con múltiples usuarios',
+                icon: GroupIcon,
+                color: '#4CAF50',
+              },
+              {
+                title: 'Encriptación',
+                description: 'Documentos protegidos con cifrado AES-256',
+                icon: SecurityIcon,
+                color: '#FF4081',
+              },
+              {
+                title: 'Versionado',
+                description: 'Control de versiones automático',
+                icon: StorageIcon,
+                color: '#9C27B0',
+              },
+            ],
+          },
           faq: {
             title: 'Preguntas Frecuentes',
             items: {
@@ -1187,6 +1433,35 @@ export const locales: Record<'en' | 'es', Locale> = {
                 description: 'Protocolo de autenticación de terceros',
               },
             },
+          },
+          caracteristics: {
+            title: 'Características',
+            items: [
+              {
+                title: '2FA Avanzado',
+                description: 'Autenticación de dos factores con múltiples opciones',
+                icon: SecurityIcon,
+                color: '#4CAF50',
+              },
+              {
+                title: 'SSO',
+                description: 'Inicio de sesión único para todas las apps',
+                icon: SpeedIcon,
+                color: '#2196F3',
+              },
+              {
+                title: 'OAuth 2.0',
+                description: 'Integración con proveedores de identidad',
+                icon: CloudIcon,
+                color: '#FF4081',
+              },
+              {
+                title: 'API Robusta',
+                description: 'API RESTful con documentación completa',
+                icon: CodeIcon,
+                color: '#9C27B0',
+              },
+            ],
           },
           faq: {
             title: 'Preguntas Frecuentes',

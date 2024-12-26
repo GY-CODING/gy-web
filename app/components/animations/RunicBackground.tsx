@@ -1,42 +1,47 @@
+/* eslint-disable indent */
 /* eslint-disable react/prop-types */
-'use client';
-
 import React, { useEffect, useRef, memo } from 'react';
 import { useTheme } from '@mui/material';
+import { products } from '@/app/products/data/products';
 
 interface RunicBackgroundProps {
   color?: string;
+  productId: string; // Nuevo: ID del producto para determinar los caracteres
 }
 
-// Runas nórdicas
-const RUNES = [
-  'ᚠ',
-  'ᚢ',
-  'ᚦ',
-  'ᚨ',
-  'ᚱ',
-  'ᚲ',
-  'ᚷ',
-  'ᚹ',
-  'ᚺ',
-  'ᚾ',
-  'ᛁ',
-  'ᛃ',
-  'ᛇ',
-  'ᛈ',
-  'ᛉ',
-  'ᛊ',
-  'ᛋ',
-  'ᛏ',
-  'ᛒ',
-  'ᛖ',
-  'ᛗ',
-  'ᛚ',
-  'ᛜ',
-  'ᛟ',
-];
+const CHARACTER_SETS: Record<string, string[]> = {
+  'heralds-of-chaos': [
+    'ᚠ',
+    'ᚢ',
+    'ᚦ',
+    'ᚨ',
+    'ᚱ',
+    'ᚲ',
+    'ᚷ',
+    'ᚹ',
+    'ᚺ',
+    'ᚾ',
+    'ᛁ',
+    'ᛃ',
+    'ᛇ',
+    'ᛈ',
+    'ᛉ',
+    'ᛊ',
+    'ᛋ',
+    'ᛏ',
+    'ᛒ',
+    'ᛖ',
+    'ᛗ',
+    'ᛚ',
+    'ᛜ',
+    'ᛟ',
+  ], // Runas nórdicas
+  'gy-messages': ['O', '1'], // Dígitos binarios
+  'gy-documents': ['✎', '✍', '✐', '✏', '📄', '📃'], // Símbolos de documentos
+  'gy-accounts': ['🔒', '🔑', '👤', '🛡', '🔓'], // Iconos de seguridad/cuentas
+};
 
-const RunicBackground: React.FC<RunicBackgroundProps> = memo(({ color = '#6366f1' }) => {
+const RunicBackground: React.FC<RunicBackgroundProps> = memo(({ color = '#6366f1', productId }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const dropsRef = useRef<
     Array<{
@@ -66,7 +71,7 @@ const RunicBackground: React.FC<RunicBackgroundProps> = memo(({ color = '#6366f1
 
     let width = 0;
     let height = 0;
-    const fontSize = 24; // Runas un poco más grandes
+    const fontSize = 24;
     let columns = 0;
 
     const resize = () => {
@@ -76,14 +81,16 @@ const RunicBackground: React.FC<RunicBackgroundProps> = memo(({ color = '#6366f1
       canvas.height = height;
       columns = Math.floor(width / fontSize);
 
-      const maxDrops = Math.min(columns, 40); // Menos runas para que no se vea tan denso
+      const maxDrops = Math.min(columns, 40);
+      const characters = CHARACTER_SETS[productId] || ['*']; // Default if product not found
+
       dropsRef.current = Array.from({ length: maxDrops }, (_, i) => ({
         x: (i * width) / maxDrops + Math.random() * (width / maxDrops - fontSize),
         y: Math.random() * height,
-        speed: 0.8 + Math.random() * 1.2, // Velocidad un poco más rápida
-        char: RUNES[Math.floor(Math.random() * RUNES.length)],
-        opacity: Math.random() * 0.4 + 0.3, // Más opacidad
-        useProductColor: Math.random() < 0.3, // Más runas con el color del producto
+        speed: 0.8 + Math.random() * 1.2,
+        char: characters[Math.floor(Math.random() * characters.length)],
+        opacity: Math.random() * 0.4 + 0.3,
+        useProductColor: Math.random() < 0.3,
       }));
     };
 
@@ -114,11 +121,22 @@ const RunicBackground: React.FC<RunicBackgroundProps> = memo(({ color = '#6366f1
           drop.speed = 0.8 + Math.random() * 1.2;
           drop.opacity = Math.random() * 0.4 + 0.3;
           drop.useProductColor = Math.random() < 0.3;
-          drop.char = RUNES[Math.floor(Math.random() * RUNES.length)];
+
+          const characters = CHARACTER_SETS[productId] || ['*'];
+          drop.char = characters[Math.floor(Math.random() * characters.length)];
         }
 
+        // Get the product color from products array based on productId
+        const productColor = getProductColor(productId);
+
+        // Use product-specific colors for each product
         if (drop.useProductColor) {
-          ctx.fillStyle = `rgba(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}, ${isDark ? drop.opacity : drop.opacity * 0.5})`;
+          ctx.fillStyle = `rgba(${parseInt(productColor.slice(1, 3), 16)}, ${parseInt(
+            productColor.slice(3, 5),
+            16
+          )}, ${parseInt(productColor.slice(5, 7), 16)}, ${
+            isDark ? drop.opacity : drop.opacity * 0.5
+          })`;
         } else {
           ctx.fillStyle = isDark
             ? `rgba(255, 255, 255, ${drop.opacity})`
@@ -161,7 +179,13 @@ const RunicBackground: React.FC<RunicBackgroundProps> = memo(({ color = '#6366f1
       observer.disconnect();
       resizeObserver.disconnect();
     };
-  }, [theme.palette.mode, color, frameInterval]);
+  }, [theme.palette.mode, color, frameInterval, productId]);
+
+  // Helper function to get the color for a given productId
+  const getProductColor = (productId: string) => {
+    const product = products.find((p) => p.id === productId);
+    return product ? product.color : '#6366f1'; // Default color if not found
+  };
 
   return (
     <canvas
