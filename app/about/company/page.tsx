@@ -207,6 +207,7 @@ export default function CompanyPage() {
                 fontFamily: lexendFont.style.fontFamily,
                 fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
                 textAlign: 'center',
+                fontWeight: 600,
                 mb: 6,
                 background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
                 WebkitBackgroundClip: 'text',

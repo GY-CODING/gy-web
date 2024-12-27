@@ -1,3 +1,5 @@
+import { getAssetPath } from '@/app/utils/useImagePath';
+
 export interface Product {
   id: string;
   name: string;
@@ -242,3 +244,182 @@ export const products: Product[] = [
     ],
   },
 ];
+
+export const TECHNOLOGIES: any = {
+  'heralds-of-chaos': [
+    {
+      name: 'HERALDS OF CHAOS',
+      icon: getAssetPath('icons/solar_system/heralds/heralds_of_chaos.svg'),
+      description: 'Desarrollo tipado y seguro',
+      orbit: 2,
+      speed: 0.8,
+    },
+    {
+      name: 'C#',
+      icon: getAssetPath('icons/solar_system/heralds/csharp.svg'),
+      description: 'ORM moderno y tipado',
+      orbit: 0,
+      speed: 0.6,
+    },
+    {
+      name: 'Unity',
+      icon: getAssetPath('icons/solar_system/heralds/unity.svg'),
+      description: 'Base de datos relacional',
+      orbit: 0,
+      speed: 0.7,
+    },
+    {
+      name: 'C++',
+      icon: getAssetPath('icons/solar_system/heralds/cplusplus.svg'),
+      description: 'ORM moderno y tipado',
+      orbit: 1,
+      speed: 0.6,
+    },
+    {
+      name: 'Unreal Engine',
+      icon: getAssetPath('icons/solar_system/heralds/unreal.svg'),
+      description: 'Base de datos relacional',
+      orbit: 1,
+      speed: 0.7,
+    },
+    {
+      name: 'Blender',
+      icon: getAssetPath('icons/solar_system/heralds/blender.svg'),
+      description: 'Base de datos relacional',
+      orbit: 2,
+      speed: 0.7,
+    },
+  ],
+  'gy-documents': [
+    {
+      name: 'GY DOCUMENTS',
+      icon: getAssetPath('icons/solar_system/documents/gy_documents.svg'),
+      description: 'Cloud Computing',
+      orbit: 2,
+      speed: 0.9,
+    },
+    {
+      name: 'TypeScript',
+      icon: getAssetPath('icons/solar_system/documents/typescript.svg'),
+      description: 'Contenedorización',
+      orbit: 0,
+      speed: 0.5,
+    },
+    {
+      name: 'Next.js',
+      icon: getAssetPath('icons/solar_system/documents/nextjs.svg'),
+      description: 'Framework React de última generación',
+      orbit: 0,
+      speed: 1,
+    },
+    {
+      name: 'Electron',
+      icon: getAssetPath('icons/solar_system/documents/electron.svg'),
+      description: 'Contenedorización',
+      orbit: 1,
+      speed: 0.5,
+    },
+    {
+      name: 'Node',
+      icon: getAssetPath('icons/solar_system/documents/node.svg'),
+      description: 'Framework React de última generación',
+      orbit: 1,
+      speed: 1,
+    },
+    {
+      name: 'GitHub',
+      icon: getAssetPath('icons/solar_system/documents/github.svg'),
+      description: 'Framework React de última generación',
+      orbit: 2,
+      speed: 1,
+    },
+  ],
+  'gy-accounts': [
+    {
+      name: 'GY ACCOUNTS',
+      icon: getAssetPath('icons/solar_system/accounts/gy_accounts.svg'),
+      description: 'Cloud Computing',
+      orbit: 2,
+      speed: 0.9,
+    },
+    {
+      name: 'Java',
+      icon: getAssetPath('icons/solar_system/accounts/java.svg'),
+      description: 'Contenedorización',
+      orbit: 0,
+      speed: 0.5,
+    },
+    {
+      name: 'Spring Boot',
+      icon: getAssetPath('icons/solar_system/accounts/springboot.svg'),
+      description: 'Framework React de última generación',
+      orbit: 0,
+      speed: 1,
+    },
+    {
+      name: 'Typescript',
+      icon: getAssetPath('icons/solar_system/accounts/typescript.svg'),
+      description: 'Contenedorización',
+      orbit: 1,
+      speed: 0.5,
+    },
+    {
+      name: 'NextJS',
+      icon: getAssetPath('icons/solar_system/accounts/nextjs.svg'),
+      description: 'Framework React de última generación',
+      orbit: 1,
+      speed: 1,
+    },
+    {
+      name: 'Cloudflare',
+      icon: getAssetPath('icons/solar_system/accounts/cloudflare.svg'),
+      description: 'Framework React de última generación',
+      orbit: 2,
+      speed: 1,
+    },
+  ],
+  'gy-messages': [
+    {
+      name: 'GY MESSAGES',
+      icon: getAssetPath('icons/solar_system/messages/gy_messages.svg'),
+      description: 'Cloud Computing',
+      orbit: 2,
+      speed: 0.9,
+    },
+    {
+      name: 'Typescript',
+      icon: getAssetPath('icons/solar_system/messages/typescript.svg'),
+      description: 'Contenedorización',
+      orbit: 0,
+      speed: 0.5,
+    },
+    {
+      name: 'React Native',
+      icon: getAssetPath('icons/solar_system/messages/react.svg'),
+      description: 'Framework React de última generación',
+      orbit: 0,
+      speed: 1,
+    },
+    {
+      name: 'Java',
+      icon: getAssetPath('icons/solar_system/messages/java.svg'),
+      description: 'Contenedorización',
+      orbit: 1,
+      speed: 0.5,
+    },
+    {
+      name: 'Spring Boot',
+      icon: getAssetPath('icons/solar_system/messages/springboot.svg'),
+      description: 'Framework React de última generación',
+      orbit: 1,
+      speed: 1,
+    },
+    {
+      name: 'Cloudflare',
+      icon: getAssetPath('icons/solar_system/messages/cloudflare.svg'),
+      description: 'Framework React de última generación',
+      orbit: 2,
+      speed: 1,
+    },
+  ],
+};

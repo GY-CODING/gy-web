@@ -1,98 +1,26 @@
-/* eslint-disable react/no-unknown-property */
 /* eslint-disable indent */
 'use client';
 
 import React from 'react';
 import { Box, Container, Typography, useTheme, alpha } from '@mui/material';
-import { SiNextdotjs, SiTypescript, SiPrisma, SiPostgresql } from 'react-icons/si';
-import { FaDocker, FaAws } from 'react-icons/fa';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { lexendFont } from '@/app/utils/fonts';
-import { products } from '../../data/products';
 import { useLanguage } from '@/app/utils/languageContext';
+import Image from 'next/image';
+import { TECHNOLOGIES } from '../../data/products';
 
 // Constantes para la configuración del sistema solar
 const ORBIT_RADII = [180, 280, 380];
 const ROTATION_DURATION = 20; // Duración base de la rotación en segundos
 
-const TECHNOLOGIES = [
-  {
-    name: 'Next.js 14',
-    icon: <SiNextdotjs size={40} />,
-    description: 'Framework React de última generación',
-    orbit: 0,
-    speed: 1, // Multiplicador de velocidad
-  },
-  {
-    name: 'TypeScript',
-    icon: <SiTypescript size={35} />,
-    description: 'Desarrollo tipado y seguro',
-    orbit: 1,
-    speed: 0.8,
-  },
-  {
-    name: 'Prisma',
-    icon: <SiPrisma size={38} />,
-    description: 'ORM moderno y tipado',
-    orbit: 2,
-    speed: 0.6,
-  },
-  {
-    name: 'PostgreSQL',
-    icon: <SiPostgresql size={36} />,
-    description: 'Base de datos relacional',
-    orbit: 1,
-    speed: 0.7,
-  },
-  {
-    name: 'Docker',
-    icon: <FaDocker size={38} />,
-    description: 'Contenedorización',
-    orbit: 2,
-    speed: 0.5,
-  },
-  {
-    name: 'AWS',
-    icon: <FaAws size={35} />,
-    description: 'Cloud Computing',
-    orbit: 0,
-    speed: 0.9,
-  },
-] as const;
+const PRODUCT_COLORS: any = {
+  'heralds-of-chaos': '#FFB300',
+  'gy-accounts': '#7B1FA2',
+  'gy-documents': '#2196F3',
+  'gy-messages': '#00C853',
+};
 
-// Componente para el fondo de estrellas
-const StarryBackground = ({ theme }: { theme: any }) => (
-  <Box
-    sx={{
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      overflow: 'hidden',
-      opacity: theme.palette.mode === 'dark' ? 0.5 : 0.3,
-      '&:before': {
-        content: '""',
-        position: 'absolute',
-        width: '200%',
-        height: '200%',
-        top: '-50%',
-        left: '-50%',
-        background: `radial-gradient(1px 1px at ${Array(100)
-          .fill(0)
-          .map(() => `${Math.floor(Math.random() * 100)}% ${Math.floor(Math.random() * 100)}%`)
-          .join(', ')}, ${
-          theme.palette.mode === 'dark'
-            ? alpha(theme.palette.primary.main, 0.4)
-            : alpha(theme.palette.primary.main, 0.6)
-        } 2px, transparent 0)`,
-        animation: 'rotate 200s linear infinite',
-      },
-    }}
-  />
-);
-
-// Componente para una órbita
+// Componente para la órbita
 const Orbit = ({
   radius,
   index,
@@ -154,12 +82,14 @@ const TechPlanet = ({
   theme,
   color,
   onHover,
+  productId,
 }: {
-  tech: (typeof TECHNOLOGIES)[number];
+  tech: { name: string; icon: string; orbit: number; speed: number };
   angle: number;
   radius: number;
   theme: any;
   color: string;
+  productId: string;
   onHover: (name: string | null) => void;
 }) => {
   const [currentAngle, setCurrentAngle] = React.useState(angle);
@@ -178,6 +108,8 @@ const TechPlanet = ({
 
   const x = Math.cos(currentAngle) * radius;
   const y = Math.sin(currentAngle) * radius;
+
+  const productColor = PRODUCT_COLORS[productId];
 
   return (
     <motion.div
@@ -219,7 +151,15 @@ const TechPlanet = ({
           },
         }}
       >
-        {tech.icon}
+        <Image
+          src={tech.icon}
+          alt={tech.name}
+          width={40}
+          height={40}
+          style={{
+            filter: `invert(0%) sepia(100%) saturate(500%) hue-rotate(${productColor}deg)`,
+          }}
+        />
       </Box>
     </motion.div>
   );
@@ -229,10 +169,12 @@ const TechPlanet = ({
 export default function ProductDetails({ productId }: { productId: string }) {
   const theme = useTheme();
   const [hoveredTech, setHoveredTech] = React.useState<string | null>(null);
-  const product = products.find((p) => p.id === productId);
   const { t } = useLanguage();
+  const technologies = TECHNOLOGIES[productId] || [];
 
-  if (!product) return null;
+  if (technologies.length === 0) return null;
+
+  const productColor = PRODUCT_COLORS[productId];
 
   return (
     <Box
@@ -250,8 +192,6 @@ export default function ProductDetails({ productId }: { productId: string }) {
         borderRadius: '30px',
       }}
     >
-      <StarryBackground theme={theme} />
-
       <Container
         maxWidth="lg"
         sx={{
@@ -276,7 +216,7 @@ export default function ProductDetails({ productId }: { productId: string }) {
               fontWeight: 700,
               mb: 3,
               fontFamily: lexendFont.style.fontFamily,
-              color: product.color,
+              color: productColor,
               letterSpacing: '-0.02em',
             }}
           >
@@ -297,10 +237,10 @@ export default function ProductDetails({ productId }: { productId: string }) {
         >
           {/* Órbitas */}
           {ORBIT_RADII.map((radius, index) => (
-            <Orbit key={index} radius={radius} index={index} theme={theme} color={product.color} />
+            <Orbit key={index} radius={radius} index={index} theme={theme} color={productColor} />
           ))}
 
-          {/* Centro - Next.js */}
+          {/* Planeta Central - Orbit 3 */}
           <Box
             sx={{
               position: 'absolute',
@@ -316,12 +256,12 @@ export default function ProductDetails({ productId }: { productId: string }) {
                 background: `radial-gradient(circle at 50% 50%, 
                   ${
                     theme.palette.mode === 'dark'
-                      ? `${alpha(product.color, 0.4)} 0%,
-                       ${alpha(product.color, 0.2)} 50%,
-                       transparent 70%`
-                      : `${alpha(product.color, 0.5)} 0%,
-                       ${alpha(product.color, 0.3)} 50%,
-                       transparent 70%`
+                      ? `${alpha(productColor, 0.4)} 0%,
+                         ${alpha(productColor, 0.2)} 50%,
+                         transparent 70%`
+                      : `${alpha(productColor, 0.5)} 0%,
+                         ${alpha(productColor, 0.3)} 50%,
+                         transparent 70%`
                   })`,
                 filter: 'blur(10px)',
                 animation: 'pulseCore 4s ease-in-out infinite alternate',
@@ -339,34 +279,34 @@ export default function ProductDetails({ productId }: { productId: string }) {
                   borderRadius: '50%',
                   background:
                     theme.palette.mode === 'dark'
-                      ? `radial-gradient(circle at 30% 30%, ${alpha(product.color, 0.3)}, ${alpha(product.color, 0.1)})`
-                      : `radial-gradient(circle at 30% 30%, ${alpha(product.color, 0.2)}, ${alpha(product.color, 0.05)})`,
+                      ? `radial-gradient(circle at 30% 30%, ${alpha(productColor, 0.3)}, ${alpha(productColor, 0.1)})`
+                      : `radial-gradient(circle at 30% 30%, ${alpha(productColor, 0.2)}, ${alpha(productColor, 0.05)})`,
                   backdropFilter: 'blur(10px)',
                   border: '2px solid',
-                  borderColor: alpha(product.color, theme.palette.mode === 'dark' ? 0.4 : 0.3),
+                  borderColor: alpha(productColor, theme.palette.mode === 'dark' ? 0.4 : 0.3),
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   color:
                     theme.palette.mode === 'dark'
-                      ? alpha(product.color, 0.9)
-                      : alpha(product.color, 0.8),
+                      ? alpha(productColor, 0.9)
+                      : alpha(productColor, 0.8),
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
                   '&:hover': {
                     transform: 'scale(1.1)',
-                    borderColor: product.color,
+                    borderColor: productColor,
                   },
                 }}
               >
-                <SiNextdotjs size={60} />
+                <Image src={technologies[0].icon} alt="Next.js" width={60} height={60} />
               </Box>
             </motion.div>
           </Box>
 
           {/* Planetas Tecnológicos */}
-          {TECHNOLOGIES.slice(1).map((tech, index) => {
-            const angleOffset = (Math.PI * 2) / (TECHNOLOGIES.length - 1);
+          {technologies.slice(1).map((tech: any, index: any) => {
+            const angleOffset = (Math.PI * 2) / technologies.length;
             const angle = angleOffset * index;
 
             return (
@@ -376,75 +316,14 @@ export default function ProductDetails({ productId }: { productId: string }) {
                 angle={angle}
                 radius={ORBIT_RADII[tech.orbit]}
                 theme={theme}
-                color={product.color}
+                color={productColor}
                 onHover={setHoveredTech}
+                productId={productId}
               />
             );
           })}
-
-          {/* Tooltip de información */}
-          <AnimatePresence>
-            {hoveredTech && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
-                style={{
-                  position: 'absolute',
-                  top: '20%',
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  zIndex: 20,
-                }}
-              >
-                <Box
-                  sx={{
-                    p: 2,
-                    borderRadius: 2,
-                    background: alpha(
-                      theme.palette.background.paper,
-                      theme.palette.mode === 'dark' ? 0.95 : 0.9
-                    ),
-                    backdropFilter: 'blur(10px)',
-                    boxShadow: theme.shadows[10],
-                    textAlign: 'center',
-                    border: '1px solid',
-                    borderColor: alpha(theme.palette.divider, 0.1),
-                  }}
-                >
-                  <Typography variant="h6" sx={{ mb: 1, color: product.color }}>
-                    {hoveredTech}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {TECHNOLOGIES.find((t) => t.name === hoveredTech)?.description}
-                  </Typography>
-                </Box>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </Box>
       </Container>
-
-      <style jsx global>{`
-        @keyframes rotate {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-        @keyframes pulseCore {
-          0% {
-            opacity: 0.5;
-            transform: scale(0.8);
-          }
-          100% {
-            opacity: 1;
-            transform: scale(1.2);
-          }
-        }
-      `}</style>
     </Box>
   );
 }
