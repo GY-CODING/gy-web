@@ -100,27 +100,6 @@ export interface Locale {
       }>;
     };
   };
-  techStack: {
-    title: string;
-    nextjs: {
-      description: string;
-    };
-    typescript: {
-      description: string;
-    };
-    prisma: {
-      description: string;
-    };
-    postgresql: {
-      description: string;
-    };
-    docker: {
-      description: string;
-    };
-    aws: {
-      description: string;
-    };
-  };
   services: {
     title: string;
     description: string;
@@ -160,13 +139,6 @@ export interface Locale {
       'heralds-of-chaos': {
         name: string;
         description: string;
-        features: {
-          title: string;
-          items: Array<{
-            title: string;
-            description: string;
-          }>;
-        };
         techStack: {
           title: string;
           technologies: {
@@ -188,7 +160,7 @@ export interface Locale {
             };
           };
         };
-        caracteristics: {
+        characteristics: {
           title: string;
           items: Array<{
             title: string;
@@ -208,21 +180,12 @@ export interface Locale {
             a3: string;
             q4: string;
             a4: string;
-            q5: string;
-            a5: string;
           };
         };
       };
       'gy-messages': {
         name: string;
         description: string;
-        features: {
-          title: string;
-          items: Array<{
-            title: string;
-            description: string;
-          }>;
-        };
         techStack: {
           title: string;
           technologies: {
@@ -244,7 +207,7 @@ export interface Locale {
             };
           };
         };
-        caracteristics: {
+        characteristics: {
           title: string;
           items: Array<{
             title: string;
@@ -260,25 +223,12 @@ export interface Locale {
             a1: string;
             q2: string;
             a2: string;
-            q3: string;
-            a3: string;
-            q4: string;
-            a4: string;
-            q5: string;
-            a5: string;
           };
         };
       };
       'gy-documents': {
         name: string;
         description: string;
-        features: {
-          title: string;
-          items: Array<{
-            title: string;
-            description: string;
-          }>;
-        };
         techStack: {
           title: string;
           technologies: {
@@ -300,7 +250,7 @@ export interface Locale {
             };
           };
         };
-        caracteristics: {
+        characteristics: {
           title: string;
           items: Array<{
             title: string;
@@ -328,12 +278,6 @@ export interface Locale {
       'gy-accounts': {
         name: string;
         description: string;
-        features: {
-          [key: string]: {
-            title: string;
-            description: string;
-          };
-        };
         techStack: {
           title: string;
           technologies: {
@@ -355,7 +299,7 @@ export interface Locale {
             };
           };
         };
-        caracteristics: {
+        characteristics: {
           title: string;
           items: Array<{
             title: string;
@@ -375,8 +319,6 @@ export interface Locale {
             a3: string;
             q4: string;
             a4: string;
-            q5: string;
-            a5: string;
           };
         };
       };
@@ -427,15 +369,15 @@ export const locales: Record<'en' | 'es', Locale> = {
       ],
     },
     team: {
-      title: 'Meet Our Team',
+      title: 'Our Team',
       description:
-        'A passionate duo of developers dedicated to transforming ideas into exceptional digital experiences',
+        'A passionate team dedicated to development and learning, committed to listening to new trends, comments and contributions, focusing on continuous growth.',
       members: [
         {
           name: 'Guillermo Figueras',
           role: 'CEO & Frontend Developer',
           description:
-            'Passionate about creating elegant and efficient solutions. Specialized in modern web technologies and cloud architecture.',
+            'Proficient in developing responsive and intuitive user interfaces with modern and attractive styles, coupled with a constant technological cutting edge.',
           image: getAssetPath('/images/gfigueras.png'),
           skills: ['React', 'NextJS', 'TypeScript', 'Unity', 'Material UI'],
           social: {
@@ -448,7 +390,7 @@ export const locales: Record<'en' | 'es', Locale> = {
           name: 'Ivan Vicente',
           role: 'CEO & Backend Developer',
           description:
-            'Expert in building scalable applications and optimizing performance. Focused on delivering exceptional user experiences.',
+            'Expert in building scalable applications and efficient solutions through modern and secure architectures and infrastructures.',
           image: getAssetPath('/images/toxyc.png'),
           skills: ['Java', 'Spring Boot', 'C#', 'NodeJS', 'MongoDB'],
           social: {
@@ -466,12 +408,12 @@ export const locales: Record<'en' | 'es', Locale> = {
         title: 'Home',
         items: {
           home: 'Home',
-          services: 'Services',
+          services: 'Our Scopes',
           techstack: 'Tech Stack',
         },
       },
       projects: {
-        title: 'Projects',
+        title: 'Products',
       },
       about: {
         title: 'About',
@@ -490,25 +432,25 @@ export const locales: Record<'en' | 'es', Locale> = {
       },
     },
     about: {
-      title: 'Building Digital Dreams',
+      title: 'BUILDING DIGITAL DREAMS',
       description1:
-        'At [company]GyCODING[/company], we merge passion with technology. We are a team of developers specialized in creating innovative digital solutions, covering both frontend and backend development.',
+        'In [company]GyCODING[/company], we merge passion and technology. We are a team of developers specialized in creating innovative, versatile, and scalable digital solutions. ',
       description2:
-        'Our commitment to continuous learning and innovation keeps us at the forefront of the latest web development technologies and trends.',
+        'Passionate about continuous learning and constant innovation, we always stay at the forefront of new technologies and digital trends.',
       companyName: 'GyCODING',
       buttons: {
-        button1: 'Get Started',
+        button1: 'Getting started',
         button2: 'Learn More',
       },
     },
     company: {
-      title: 'Our Story',
-      description: 'Discover how we started and where we are heading',
+      title: 'Our History',
+      description: 'How we started and where we are going.',
       story: {
         part1:
-          'Founded with a vision to revolutionize web development, [company]GyCODING[/company] emerged from the collaboration of two passionate developers who shared a common dream: to create exceptional digital experiences that make a difference.',
+          'Founded by Guillermo Figueras and Iván Vicente in 2021, our initial purpose was to develop an appropriate environment for both of us to develop what we wanted. As we were eager to learn more and more, this environment was the perfect way for us to experiment, learn and investigate about programming. After a year, [company]GyCODING[/company] evolved, with the goal of building a community interested in development, systems, video games or even design, while both founders continue working on their projects.',
         part2:
-          'What started as a shared vision has grown into a dynamic company that pushes the boundaries of whats possible in web development. Our journey is marked by continuous learning, innovation, and a relentless pursuit of excellence.',
+          'Now, the main objective is to develop useful products for our own environment, with the goal of making our future projects work properly within our ecosystem.',
       },
       values: {
         title: 'Our Values',
@@ -516,67 +458,46 @@ export const locales: Record<'en' | 'es', Locale> = {
           {
             title: 'Innovation',
             description:
-              'We constantly push boundaries and embrace new technologies to deliver cutting-edge solutions.',
+              'Growth is our passion, surpassing our limits and adapting to new trends, offering innovative solutions.',
             icon: '💡',
           },
           {
             title: 'Quality',
             description:
-              'We maintain the highest standards in our code and design, ensuring robust and scalable applications.',
+              'Always maintaining a high level of professionalism and commitment in our work, with integrity and dedication.',
             icon: '✨',
           },
           {
             title: 'Collaboration',
             description:
-              'We work closely with our clients, fostering transparent communication and shared success.',
+              'Collaboration with our community and feedback from our users are the pillars on which we build our solutions.',
             icon: '🤝',
           },
           {
             title: 'Growth',
             description:
-              'We are committed to continuous learning and improvement, both for ourselves and our clients.',
+              'All of our work is always aimed at the future. Scalability and future adaptations are an essential part of our approach.',
             icon: '🚀',
           },
         ],
       },
     },
-    techStack: {
-      title: 'Tech Stack',
-      nextjs: {
-        description: 'React framework for production with SSR and static generation',
-      },
-      typescript: {
-        description: 'JavaScript superset with static typing',
-      },
-      prisma: {
-        description: 'Next-generation ORM for Node.js and TypeScript',
-      },
-      postgresql: {
-        description: 'Relational database management system',
-      },
-      docker: {
-        description: 'Container platform for development and deployment',
-      },
-      aws: {
-        description: 'Cloud infrastructure for hosting and services',
-      },
-    },
     services: {
-      title: 'Our Services',
-      description: 'Discover our comprehensive range of development services',
+      title: 'Our Scopes',
+      description: 'Discover our comprehensive range of development scopes.',
       modules: {
         webDev: {
           title: 'Web Development',
-          description:
-            'Modern and responsive web applications built with cutting-edge technologies.',
+          description: 'Modern web applications built with the latest technologies.',
         },
         backend: {
           title: 'Backend Development',
-          description: 'Robust and scalable server solutions powered by Spring Boot and MongoDB.',
+          description:
+            'Robust and scalable microservices powered by modern tools and architectures.',
         },
         gameDev: {
           title: 'Game Development',
-          description: 'Engaging gaming experiences created with Unity and C#.',
+          description: 'Creative and scalable video game experiences. For and by players.',
         },
       },
     },
@@ -600,69 +521,55 @@ export const locales: Record<'en' | 'es', Locale> = {
       items: {
         'heralds-of-chaos': {
           name: 'Heralds of Chaos',
-          description: 'Multiplayer card game with unique mechanics',
-          features: {
-            title: 'Features',
-            items: [
-              {
-                title: 'Strategic Combat',
-                description: 'Deep turn-based combat system with unique character abilities',
-              },
-              {
-                title: 'Rich Story',
-                description: 'Immersive narrative with branching storylines and multiple endings',
-              },
-              {
-                title: 'Character Customization',
-                description: 'Extensive character creation and progression system',
-              },
-            ],
-          },
+          description: 'A universe based in Norse mythology',
           techStack: {
-            title: 'Technologies Used',
+            title: 'Technologies Involved',
             technologies: {
               tech1: {
-                name: 'Unity',
+                name: 'Next.js',
                 description: 'Game development engine with powerful 3D capabilities',
               },
               tech2: {
-                name: 'C#',
+                name: 'TypeScript',
                 description: 'Primary programming language for game logic',
               },
               tech3: {
-                name: 'Photon',
+                name: 'GitHub',
                 description: 'Multiplayer networking framework',
               },
               tech4: {
-                name: 'Blender',
+                name: 'Cloudflare',
                 description: '3D modeling and animation software',
               },
+              //add five technologie, modify all, and add icon of heralds of chaos
             },
           },
-          caracteristics: {
+          characteristics: {
             title: 'Characteristics',
             items: [
               {
-                title: 'Immersive Gameplay',
-                description: 'Seamless and engaging gaming experience with optimized graphics',
+                title: 'Varying Universe',
+                description:
+                  'Heralds of Chaos presents a varied universe of characters, worlds and interconnected elements in a common story.',
                 icon: GamesIcon,
                 color: '#FF4081',
               },
               {
-                title: 'High Performance',
-                description: 'Engine optimized to maintain 60+ FPS on most systems',
+                title: 'Varying Playability',
+                description:
+                  'Whether you seek casual matches to pass time, or if you want to compete. This is your home.',
                 icon: SpeedIcon,
                 color: '#7C4DFF',
               },
               {
                 title: 'Online Multiplayer',
-                description: 'Dedicated servers with low latency for competitive PvP',
+                description: 'Dedicated servers for players from around the world.',
                 icon: CloudIcon,
                 color: '#00BCD4',
               },
               {
-                title: 'Robust Anti-Cheat',
-                description: 'Security system to ensure fair matches',
+                title: 'High Performance',
+                description: 'Lightweight and optimized for performance.',
                 icon: SecurityIcon,
                 color: '#4CAF50',
               },
@@ -672,84 +579,65 @@ export const locales: Record<'en' | 'es', Locale> = {
             title: 'Frequently Asked Questions',
             items: {
               q1: 'What are the system requirements?',
-              a1: 'The game runs on most modern PCs with at least 4GB RAM and a dedicated graphics card',
-              q2: 'Is there multiplayer?',
-              a2: 'Yes, both local and online multiplayer modes are available',
-              q3: 'Are there microtransactions?',
-              a3: 'No, the game is a one-time purchase with all content included',
-              q4: 'How often are updates released?',
-              a4: 'Monthly updates with new content',
-              q5: 'Is there a tutorial?',
-              a5: 'Yes, comprehensive tutorial included',
+              a1: 'Heralds of Chaos could be played with at least 4GB of RAM and 8GB of disk space.',
+              q2: 'Are there microtransactions?',
+              a2: 'No, the game is a one-time purchase with all content included.',
+              q3: 'Do you have downloadable content?',
+              a3: 'For the moment no, but we are working on future DLCs that expand the experience.',
+              q4: 'Are there frequent updates?',
+              a4: 'Of course, we strive for frequent updates, both to include new content and to adjust balance or bugs.',
             },
           },
         },
         'gy-messages': {
           name: 'GY Messages',
-          description: 'Real-time messaging and communication platform',
-          features: {
-            title: 'Features',
-            items: [
-              {
-                title: 'End-to-End Encryption',
-                description: 'All messages are encrypted using state-of-the-art cryptography',
-              },
-              {
-                title: 'Team Collaboration',
-                description:
-                  'Create channels, groups, and direct messages for effective communication',
-              },
-              {
-                title: 'File Sharing',
-                description: 'Securely share files of any type with your team',
-              },
-            ],
-          },
+          description: 'Real-time messaging and communication platform.',
           techStack: {
-            title: 'Technologies Used',
+            title: 'Technologies Involved',
             technologies: {
               tech1: {
-                name: 'Next.js',
+                name: 'Spring Boot',
                 description: 'React framework for production with SSR',
               },
               tech2: {
-                name: 'WebSocket',
+                name: 'Java',
                 description: 'Real-time bidirectional communication',
               },
               tech3: {
-                name: 'PostgreSQL',
+                name: 'Github',
                 description: 'Relational database for message storage',
               },
               tech4: {
-                name: 'Redis',
+                name: 'Cloudflare',
                 description: 'In-memory data store for real-time features',
               },
+              //add five technologie: react Native
             },
           },
-          caracteristics: {
+          characteristics: {
             title: 'Characteristics',
             items: [
               {
-                title: 'E2E Encryption',
-                description: 'Messages protected with end-to-end encryption',
+                title: 'End-to-End Encryption',
+                description: 'Messages protected with end-to-end encryption.',
                 icon: SecurityIcon,
                 color: '#4CAF50',
               },
               {
                 title: 'Real-Time',
-                description: 'Instant messaging with ultra-low latency',
+                description: 'Instant messaging with ultra-low latency through WebSockets.',
                 icon: SpeedIcon,
                 color: '#00BCD4',
               },
               {
-                title: 'Cross-Platform',
-                description: 'Available on web, iOS, and Android with synchronization',
+                title: 'Multiplatform',
+                description: 'Available on Android, iOS, Windows, MacOS, Linux and Web.',
                 icon: DevicesIcon,
                 color: '#FF4081',
               },
               {
-                title: 'Secure Backup',
-                description: 'Message history with automatic backup',
+                title: 'Backup Secure',
+                description: 'Messages history with automatic backup.',
                 icon: StorageIcon,
                 color: '#7C4DFF',
               },
@@ -758,84 +646,62 @@ export const locales: Record<'en' | 'es', Locale> = {
           faq: {
             title: 'Frequently Asked Questions',
             items: {
-              q1: 'How secure is the platform?',
-              a1: 'We use military-grade encryption and regular security audits',
-              q2: 'Can I integrate with other tools?',
-              a2: 'Yes, we offer APIs and integrations with popular workplace tools',
-              q3: 'What is the pricing model?',
-              a3: 'We offer flexible per-user pricing with enterprise options available',
-              q4: 'Is there a free trial?',
-              a4: 'Yes, 30-day free trial available',
-              q5: 'Is there customer support?',
-              a5: 'Yes, 24/7 support via email and chat',
+              q1: 'What is the multiplatform availability?',
+              a1: 'Currently, we only offer downloads for mobile devices with Android or iOS, but we are working on incorporating other platforms.',
+              q2: 'Does real-time apply between different platforms?',
+              a2: 'Yes, real-time applies to communication between different platforms as well.',
             },
           },
         },
         'gy-documents': {
           name: 'GY Documents',
-          description: 'Document management and collaboration system',
-          features: {
-            title: 'Features',
-            items: [
-              {
-                title: 'Real-time Collaboration',
-                description: 'Edit documents simultaneously with your team members',
-              },
-              {
-                title: 'Version Control',
-                description: 'Track changes and revert to previous versions easily',
-              },
-              {
-                title: 'Smart Organization',
-                description: 'AI-powered document organization and search',
-              },
-            ],
-          },
+          description: 'Highly customizable Markdown editor.',
           techStack: {
-            title: 'Technologies Used',
+            title: 'Technologies Involved',
             technologies: {
               tech1: {
                 name: 'Next.js',
                 description: 'React framework for the web interface',
               },
               tech2: {
-                name: 'AWS S3',
+                name: 'TypeScript',
                 description: 'Cloud storage for documents',
               },
               tech3: {
-                name: 'PostgreSQL',
+                name: 'Electron',
                 description: 'Document metadata and user data storage',
               },
               tech4: {
-                name: 'ElasticSearch',
+                name: 'GitHUb',
                 description: 'Full-text search engine',
               },
             },
           },
-          caracteristics: {
+          characteristics: {
             title: 'Characteristics',
             items: [
               {
-                title: 'Cloud-Native',
-                description: 'Documents accessible from anywhere',
+                title: 'High Customization',
+                description:
+                  'With an advanced customization system you can customize each Markdown file to your liking.',
                 icon: CloudIcon,
                 color: '#2196F3',
               },
               {
-                title: 'Collaboration',
-                description: 'Real-time editing with multiple users',
+                title: 'Cloud Sync',
+                description: 'Synchronize your styles in the cloud through GY Accounts.',
                 icon: GroupIcon,
                 color: '#4CAF50',
               },
               {
-                title: 'Encryption',
-                description: 'Documents protected with AES-256 encryption',
+                title: 'Version Control',
+                description: 'Simple version control through GIT.',
                 icon: SecurityIcon,
                 color: '#FF4081',
               },
               {
-                title: 'Versioning',
-                description: 'Automatic version control',
+                title: '???',
+                description: '???',
                 icon: StorageIcon,
                 color: '#9C27B0',
               },
@@ -845,69 +711,69 @@ export const locales: Record<'en' | 'es', Locale> = {
             title: 'Frequently Asked Questions',
             items: {
               q1: 'Can I work offline?',
-              a1: 'Yes, documents sync automatically when you reconnect',
-              q2: 'What file formats are supported?',
-              a2: 'We support all major document formats including DOC, PDF, and more',
-              q3: 'Is there a storage limit?',
-              a3: 'Storage limits vary by plan, starting at 100GB for basic users',
-              q4: 'Is there a free trial?',
-              a4: 'Yes, 30-day free trial available',
-              q5: 'Is there customer support?',
-              a5: 'Yes, 24/7 support via email and chat',
+              a1: 'Yes, all GY Documents functionality is based on local work, with cloud synchronization as a complement.',
+              q2: 'What file formats are compatible?',
+              a2: 'Currently only Markdown (.md) and plain text (.txt), but our plans include incorporating other formats for the editor such as HTML and DOCX.',
+              q3: 'What is a "vault"?',
+              a3: 'A vault is the workspace, a parent container of files and folders on which the editor takes the root.',
+              q4: 'Can I customize an individual file without affecting the rest of my "vault"?',
+              a4: 'Of course, each file has the possibility of using a specific style preset.',
+              q5: 'Can I customize all files in a folder at the same time?',
+              a5: 'At the moment no, but it`s part of our plans for future updates to implement that functionality.',
             },
           },
         },
         'gy-accounts': {
           name: 'GY Accounts',
-          description: 'Centralized authentication and user management system',
-          features: {
-            // ... features
-          },
+          description: 'Authentication and user management system.',
           techStack: {
-            title: 'Technologies Used',
+            title: 'Technologies Involved',
             technologies: {
               tech1: {
-                name: 'Next.js',
+                name: 'Spring Boot',
                 description: 'React framework for the authentication UI',
               },
               tech2: {
-                name: 'JWT',
+                name: 'Java',
                 description: 'Secure token-based authentication',
               },
               tech3: {
-                name: 'PostgreSQL',
+                name: 'GitHub',
                 description: 'User data and session management',
               },
               tech4: {
-                name: 'OAuth2',
+                name: 'CloudFlare',
                 description: 'Third-party authentication protocol',
               },
+              //add five tech item // auth0
             },
           },
-          caracteristics: {
+          characteristics: {
             title: 'Characteristics',
             items: [
               {
-                title: 'Advanced 2FA',
-                description: 'Two-factor authentication with multiple options',
+                title: 'Single Sign-On',
+                description: 'Single Sign-On for all our products.',
                 icon: SecurityIcon,
                 color: '#4CAF50',
               },
               {
-                title: 'SSO',
-                description: 'Single sign-on for all apps',
+                title: 'Robust Integration',
+                description:
+                  'Secure and reliable integration, with extensive and up-to-date documentation.',
                 icon: SpeedIcon,
                 color: '#2196F3',
               },
               {
-                title: 'OAuth 2.0',
-                description: 'Integration with identity providers',
+                title: 'Variety of Authentications',
+                description:
+                  'Support for common authentications (Username / Email + Password), Google or through a mobile device.',
                 icon: CloudIcon,
                 color: '#FF4081',
               },
               {
-                title: 'Robust API',
-                description: 'RESTful API with complete documentation',
+                title: 'Wide Personalization',
+                description: 'Account information management is totally customizable and private.',
                 icon: CodeIcon,
                 color: '#9C27B0',
               },
@@ -916,16 +782,14 @@ export const locales: Record<'en' | 'es', Locale> = {
           faq: {
             title: 'Frequently Asked Questions',
             items: {
-              q1: 'How do I reset my password?',
-              a1: 'Use our self-service password reset or contact support',
-              q2: 'Is biometric authentication supported?',
-              a2: 'Yes, on devices with compatible hardware',
-              q3: 'Can I use third-party authenticators?',
-              a3: 'We support popular authenticator apps like Google and Microsoft',
-              q4: 'Is there a free trial?',
-              a4: 'Yes, 30-day free trial available',
-              q5: 'Is there customer support?',
-              a5: 'Yes, 24/7 support via email and chat',
+              q1: 'How can I reset my password?',
+              a1: 'In accounts.gycoding.com, you can access the user account portal and reset your password.',
+              q2: 'I forgot my password, what can I do?',
+              a2: 'In the login form on accounts.gycoding.com, you can reset your password using the email associated with the user account.',
+              q3: 'Is biometric authentication supported?',
+              a3: 'For now, no, but we are working hard to incorporate it.',
+              q4: '¿Mis datos se almacenan de manera segura?',
+              a4: 'Of course, our authentication service uses modern and robust encryption technologies and privacy policies.',
             },
           },
         },
@@ -976,13 +840,13 @@ export const locales: Record<'en' | 'es', Locale> = {
     team: {
       title: 'Nuestro Equipo',
       description:
-        'Un dúo apasionado de desarrolladores dedicados a transformar ideas en experiencias digitales excepcionales',
+        'Un equipo apasionado por el desarrollo y el aprendizaje, decidido a transformar ideas en experiencias.',
       members: [
         {
           name: 'Guillermo Figueras',
           role: 'CEO y Desarrollador Frontend',
           description:
-            'Apasionado por crear soluciones elegantes y eficientes. Especializado en tecnologías web modernas y arquitectura en la nube.',
+            'Proficiente en el desarrollo de interfaces de usuario responsivas, intuitivas y con estilos modernos y atractivos, sumado a una constante vanguardia tecnológica.',
           image: getAssetPath('/images/gfigueras.png'),
           skills: ['React', 'NextJS', 'TypeScript', 'Unity', 'Material UI'],
           social: {
@@ -995,7 +859,7 @@ export const locales: Record<'en' | 'es', Locale> = {
           name: 'Ivan Vicente',
           role: 'CEO y Desarrollador Backend',
           description:
-            'Experto en construir aplicaciones escalables y optimizar el rendimiento. Enfocado en ofrecer experiencias de usuario excepcionales.',
+            'Experto en construir aplicaciones escalables y soluciones eficientes a través de arquitecturas e infraestructuras modernas y seguras.',
           image: getAssetPath('/images/toxyc.png'),
           skills: ['Java', 'Spring Boot', 'C#', 'NodeJS', 'MongoDB'],
           social: {
@@ -1018,7 +882,7 @@ export const locales: Record<'en' | 'es', Locale> = {
         },
       },
       projects: {
-        title: 'Proyectos',
+        title: 'Productosz',
       },
       about: {
         title: 'Acerca de',
@@ -1037,25 +901,25 @@ export const locales: Record<'en' | 'es', Locale> = {
       },
     },
     about: {
-      title: 'Creando sueños digitales',
+      title: 'CREANDO SUEÑOS DIGITALES',
       description1:
-        'En [company]GyCODING[/company], fusionamos pasión con tecnología. Somos un equipo de desarrolladores especializados en crear soluciones digitales innovadoras, abarcando tanto desarrollo frontend como backend.',
+        'En [company]GyCODING[/company], fusionamos pasión y tecnología. Somos un equipo de desarrolladores especializados en crean soluciones digitales innovadoras, versátiles y escalables. ',
       description2:
-        'Nuestro compromiso con el aprendizaje continuo y la innovación nos mantiene a la vanguardia de las últimas tecnologías y tendencias en desarrollo web.',
+        'Apasionados con un aprendizaje continuo y una innovación constante, nos mantenemos siempre a la vanguardia de nuevas tecnologías y tendencias digitales.',
       companyName: 'GyCODING',
       buttons: {
-        button1: 'Empezar',
-        button2: 'Aprender Más',
+        button1: 'Comenzar',
+        button2: 'Aprender más',
       },
     },
     company: {
       title: 'Nuestra Historia',
-      description: 'Descubre cómo empezamos y hacia dónde vamos',
+      description: 'Cómo empezamos y hacia dónde vamos.',
       story: {
         part1:
-          'Fundada con una visión de revolucionar el desarrollo web, [company]GyCODING[/company] surgió de la colaboración de dos desarrolladores apasionados que compartían un sueño común: crear experiencias digitales excepcionales que marquen la diferencia.',
+          'Fundado por Guillermo Figueras e Iván Vicente en 2021, su propósito inicial era elaborar un entorno de desarrollo adecuado para que ambos amigos pudieran desarrollar lo que quisieran. Como estaban ansiosos por aprender cada vez más, este entorno era la forma perfecta para que experimentaran, aprendieran e investigaran sobre programación. Después de un año, [company]GyCODING[/company] evolucionó, con el objetivo de construir una comunidad  interesada en el desarrollo, sistemas, videojuegos o incluso diseño, al mismo tiempo que ambos fundadores seguían trabajando en sus proyectos..',
         part2:
-          'Lo que comenzó como una visión compartida ha crecido hasta convertirse en una empresa dinámica que empuja los límites de lo que es posible en el desarrollo web. Nuestro viaje está marcado por el aprendizaje continuo, la innovación y la búsqueda incansable de la excelencia.',
+          'Ahora, el mayor objetivo reside en desarrollar productos útiles para su propio entorno, con el fin de que los futuros proyectos puedan funcionar adecuadamente dentro de su ecosistema.',
       },
       values: {
         title: 'Nuestros Valores',
@@ -1063,54 +927,33 @@ export const locales: Record<'en' | 'es', Locale> = {
           {
             title: 'Innovación',
             description:
-              'Constantemente superamos límites y adoptamos nuevas tecnologías para ofrecer soluciones de vanguardia.',
+              'El crecimiento es el motor de nuestra pasión, superando nuestros límites y adaptándonos a nuevas tendencias, ofreciendo soluciones de vanguardia.',
             icon: '💡',
           },
           {
             title: 'Calidad',
             description:
-              'Mantenemos los más altos estándares en nuestro código y diseño, asegurando aplicaciones robustas y escalables.',
+              'Siempre manteniendo un alto nivel de pulcritud y calidad en nuestros productos y en nuestro modo de trabajo, con profesionalidad y compromiso.',
             icon: '✨',
           },
           {
             title: 'Colaboración',
             description:
-              'Trabajamos estrechamente con nuestros clientes, fomentando la comunicación transparente y el éxito compartido.',
+              'La colaboración con nuestra comunidad y la retroalimentación con nuestros usuarios son los pilares sobre los que construimos nuestras soluciones.',
             icon: '🤝',
           },
           {
             title: 'Crecimiento',
             description:
-              'Estamos comprometidos con el aprendizaje y la mejora continua, tanto para nosotros como para nuestros clientes.',
+              'Todo nuestro trabajo tiene siempre los ojos puestos en el futuro. La escalabilidad y las posibilidades de futuras adaptaciones son una parte esencial de nuestro enfoque.',
             icon: '🚀',
           },
         ],
       },
     },
-    techStack: {
-      title: 'Stack Tecnológico',
-      nextjs: {
-        description: 'Framework de React para producción con SSR y generación estática',
-      },
-      typescript: {
-        description: 'Superset de JavaScript con tipado estático',
-      },
-      prisma: {
-        description: 'ORM de próxima generación para Node.js y TypeScript',
-      },
-      postgresql: {
-        description: 'Sistema de gestión de bases de datos relacional',
-      },
-      docker: {
-        description: 'Plataforma de contenedores para desarrollo y despliegue',
-      },
-      aws: {
-        description: 'Infraestructura cloud para hosting y servicios',
-      },
-    },
     services: {
-      title: 'Nuestros Servicios',
-      description: 'Descubre nuestra amplia gama de servicios de desarrollo',
+      title: 'Nuestros Campos',
+      description: 'Descubre nuestra amplia gama de campos de desarrollo',
       modules: {
         webDev: {
           title: 'Desarrollo Web',
@@ -1120,11 +963,12 @@ export const locales: Record<'en' | 'es', Locale> = {
         backend: {
           title: 'Desarrollo Backend',
           description:
-            'Soluciones de servidor robustas y escalables impulsadas por Spring Boot y MongoDB.',
+            'Microservicios robustos, flexibles y escalables impulsados por herramientas y arquitecturas modernas.',
         },
         gameDev: {
-          title: 'Desarrollo de Juegos',
-          description: 'Experiencias de juego envolventes creadas con Unity y C#.',
+          title: 'Desarrollo de Videojuegos',
+          description:
+            'Experiencias de videojuegos creativas y con desarrollos escalables. Por y para jugadores.',
         },
       },
     },
@@ -1147,71 +991,56 @@ export const locales: Record<'en' | 'es', Locale> = {
       },
       items: {
         'heralds-of-chaos': {
-          name: 'Heralds of Chaos',
-          description: 'Juego de cartas multijugador con mecánicas únicas',
-          features: {
-            title: 'Características',
-            items: [
-              {
-                title: 'Combate Estratégico',
-                description:
-                  'Sistema de combate por turnos profundo con habilidades únicas de personajes',
-              },
-              {
-                title: 'Historia Rica',
-                description: 'Narrativa inmersiva con historias ramificadas y múltiples finales',
-              },
-              {
-                title: 'Personalización de Personajes',
-                description: 'Sistema extenso de creación y progresión de personajes',
-              },
-            ],
-          },
+          name: 'Heraldos del Caos',
+          description: 'Universo basado en la mitología nórdica.',
           techStack: {
-            title: 'Tecnologías Utilizadas',
+            title: 'Tecnologías Involucradas',
             technologies: {
               tech1: {
-                name: 'Unity',
+                name: 'Next.JS',
                 description: 'Motor de desarrollo de juegos con potentes capacidades 3D',
               },
               tech2: {
-                name: 'C#',
+                name: 'TypeScript',
                 description: 'Lenguaje de programación principal para la lógica del juego',
               },
               tech3: {
-                name: 'Photon',
+                name: 'GitHub',
                 description: 'Framework de red para multijugador',
               },
               tech4: {
-                name: 'Blender',
+                name: 'Cloudflare',
                 description: 'Software de modelado y animación 3D',
               },
             },
           },
-          caracteristics: {
+          characteristics: {
             title: 'Características',
             items: [
               {
-                title: 'Jugabilidad Inmersiva',
-                description: 'Experiencia de juego fluida y envolvente con gráficos optimizados',
+                title: 'Universo Variado',
+                description:
+                  'Heraldos del Caos presenta un universo variado de personajes, mundos y elementos entrelazados en una historia común.',
                 icon: GamesIcon,
                 color: '#FF4081',
               },
               {
-                title: 'Alto Rendimiento',
-                description: 'Motor optimizado para mantener 60+ FPS en la mayoría de sistemas',
+                title: 'Jugabilidad Variada',
+                description:
+                  'Tanto si buscas partidas casuales para divertirte, como si pretendes competir. Este es tu sitio.',
                 icon: SpeedIcon,
                 color: '#7C4DFF',
               },
               {
                 title: 'Multijugador Online',
-                description: 'Servidores dedicados con baja latencia para PvP competitivo',
+                description: 'Servidores dedicados para jugadores de todo el mundo.',
                 icon: CloudIcon,
                 color: '#00BCD4',
               },
               {
-                title: 'Anti-Cheat Robusto',
-                description: 'Sistema de seguridad para garantizar partidas justas',
+                title: 'Alto Rendimiento',
+                description:
+                  'El bajo peso y la optimización son una de las marcas distintivas de Heraldos del Caos.',
                 icon: SecurityIcon,
                 color: '#4CAF50',
               },
@@ -1220,86 +1049,67 @@ export const locales: Record<'en' | 'es', Locale> = {
           faq: {
             title: 'Preguntas Frecuentes',
             items: {
-              q1: '¿Cuáles son los requisitos del sistema?',
-              a1: 'El juego funciona en la mayoría de PCs modernos con al menos 4GB RAM y una tarjeta gráfica dedicada',
-              q2: '¿Hay multijugador?',
-              a2: 'Sí, están disponibles modos multijugador local y en línea',
-              q3: '¿Hay microtransacciones?',
-              a3: 'No, el juego es una compra única con todo el contenido incluido',
-              q4: '¿Con qué frecuencia hay actualizaciones?',
-              a4: 'Actualizaciones mensuales con nuevo contenido',
-              q5: '¿Hay tutorial?',
-              a5: 'Sí, incluye un tutorial completo',
+              q1: '¿Cuál son los requisitos mínimos del sistema?',
+              a1: 'Heraldos del Caos podrá jugarse con al menos 4GB de RAM y 8GB de espacio en disco.',
+              q2: '¿Hay microtransacciones?',
+              a2: 'No, el videojuego es de compra única.',
+              q3: '¿Hay contenido descargable?',
+              a3: 'Por el momento no, pero estamos en desarrollo de futuros DLCs que expandan la experiencia.',
+              q4: '¿Las actualizaciones son frecuentes?',
+              a4: 'Por supuesto, abogamos por actualizaciones frecuentes tanto para incluir nuevo contenido como para ajustes de equilibrio o bugs.',
             },
           },
         },
         'gy-messages': {
           name: 'GY Messages',
-          description: 'Plataforma de mensajería y comunicación en tiempo real',
-          features: {
-            title: 'Características',
-            items: [
-              {
-                title: 'Cifrado de Extremo a Extremo',
-                description:
-                  'Todos los mensajes están cifrados usando criptografía de última generación',
-              },
-              {
-                title: 'Colaboración en Equipo',
-                description:
-                  'Crea canales, grupos y mensajes directos para una comunicación efectiva',
-              },
-              {
-                title: 'Compartir Archivos',
-                description: 'Comparte archivos de cualquier tipo con tu equipo de forma segura',
-              },
-            ],
-          },
+          description: 'Plataforma de mensajería y comunicación en tiempo real.',
           techStack: {
-            title: 'Tecnologías Utilizadas',
+            title: 'Tecnologías Involucradas',
             technologies: {
               tech1: {
-                name: 'Next.js',
+                name: 'Spring Boot',
                 description: 'Framework de React para producción con SSR',
               },
               tech2: {
-                name: 'WebSocket',
+                name: 'Java',
                 description: 'Comunicación bidireccional en tiempo real',
               },
               tech3: {
-                name: 'PostgreSQL',
+                name: 'GitHub',
                 description: 'Base de datos relacional para almacenamiento de mensajes',
               },
               tech4: {
-                name: 'Redis',
+                name: 'React Native',
                 description: 'Almacén de datos en memoria para funciones en tiempo real',
               },
             },
           },
-          caracteristics: {
+          characteristics: {
             title: 'Características',
             items: [
               {
                 title: 'Cifrado E2E',
-                description: 'Mensajes protegidos con cifrado de extremo a extremo',
+                description: 'Mensajes protegidos con cifrado de extremo a extremo.',
                 icon: SecurityIcon,
                 color: '#4CAF50',
               },
               {
                 title: 'Tiempo Real',
-                description: 'Mensajería instantánea con latencia ultrabaja',
+                description:
+                  'Mensajería instantánea con latencia ultrabaja a través de WebSockets.',
                 icon: SpeedIcon,
                 color: '#00BCD4',
               },
               {
                 title: 'Multiplataforma',
-                description: 'Disponible en web, iOS y Android con sincronización',
+                description:
+                  'Disponible en Android e iOS y, en un futuro, en Windows, MacOS, Linux y Web.',
                 icon: DevicesIcon,
                 color: '#FF4081',
               },
               {
                 title: 'Respaldo Seguro',
-                description: 'Historial de mensajes con backup automático',
+                description: 'Historial de mensajes con backup automático.',
                 icon: StorageIcon,
                 color: '#7C4DFF',
               },
@@ -1308,86 +1118,64 @@ export const locales: Record<'en' | 'es', Locale> = {
           faq: {
             title: 'Preguntas Frecuentes',
             items: {
-              q1: '¿Qué tan segura es la plataforma?',
-              a1: 'Usamos cifrado de grado militar y auditorías de seguridad regulares',
-              q2: '¿Puedo integrar con otras herramientas?',
-              a2: 'Sí, ofrecemos APIs e integraciones con herramientas populares de trabajo',
-              q3: '¿Cuál es el modelo de precios?',
-              a3: 'Ofrecemos precios flexibles por usuario con opciones empresariales disponibles',
-              q4: '¿Hay una versión de prueba gratuita?',
-              a4: 'Sí, disponible una versión de prueba gratuita de 30 días',
-              q5: '¿Hay soporte al cliente?',
-              a5: 'Sí, soporte 24/7 vía correo electrónico y chat',
+              q1: '¿Cuál es la disponibilidad de la multiplataforma?',
+              a1: 'Actualmente solo ofrecemos descarga para dispositivos móviles con Android o iOS, pero estamos trabajando en la incorporación de otras plataformas.',
+              q2: '¿El tiempo real también aplica entre distintas plataformas?',
+              a2: 'Sí, el tiempo real aplica en la comunicación entre distintas plataformas por igual.',
             },
           },
         },
         'gy-documents': {
           name: 'GY Documents',
-          description: 'Sistema de gestión y colaboración de documentos',
-          features: {
-            title: 'Características',
-            items: [
-              {
-                title: 'Colaboración en Tiempo Real',
-                description: 'Edita documentos simultáneamente con los miembros de tu equipo',
-              },
-              {
-                title: 'Control de Versiones',
-                description: 'Rastrea cambios y vuelve a versiones anteriores fácilmente',
-              },
-              {
-                title: 'Organización Inteligente',
-                description: 'Organización y búsqueda de documentos potenciada por IA',
-              },
-            ],
-          },
+          description: 'Editor de Markdown altamente personalizable.',
           techStack: {
-            title: 'Tecnologías Utilizadas',
+            title: 'Tecnologías Involucradas',
             technologies: {
               tech1: {
                 name: 'Next.js',
                 description: 'Framework de React para la interfaz web',
               },
               tech2: {
-                name: 'AWS S3',
+                name: 'TypeScript',
                 description: 'Almacenamiento en la nube para documentos',
               },
               tech3: {
-                name: 'PostgreSQL',
+                name: 'Electron',
                 description: 'Almacenamiento de metadatos y datos de usuario',
               },
               tech4: {
-                name: 'ElasticSearch',
+                name: 'GitHub',
                 description: 'Motor de búsqueda de texto completo',
               },
             },
           },
-          caracteristics: {
+          characteristics: {
             title: 'Características',
             items: [
               {
-                title: 'Nativo en la Nube',
-                description: 'Documentos accesibles desde cualquier lugar',
-                icon: CloudIcon,
-                color: '#2196F3',
-              },
-              {
-                title: 'Colaboración',
-                description: 'Edición en tiempo real con múltiples usuarios',
-                icon: GroupIcon,
+                title: 'Alta Personalización',
+                description:
+                  'Con un sistema de personalización avanzado podrás estilizar cada fichero Markdown a tu gusto.',
+                icon: SecurityIcon,
                 color: '#4CAF50',
               },
               {
-                title: 'Encriptación',
-                description: 'Documentos protegidos con cifrado AES-256',
-                icon: SecurityIcon,
+                title: 'Sincronización en la Nube',
+                description: 'Sincroniza tus estilos en la nube a través de GY Accounts.',
+                icon: SpeedIcon,
+                color: '#00BCD4',
+              },
+              {
+                title: 'Control de Versiones',
+                description: 'Sistema sencillo de control de versiones a través de GIT.',
+                icon: DevicesIcon,
                 color: '#FF4081',
               },
               {
-                title: 'Versionado',
-                description: 'Control de versiones automático',
+                title: '???',
+                description: '???',
                 icon: StorageIcon,
-                color: '#9C27B0',
+                color: '#7C4DFF',
               },
             ],
           },
@@ -1395,71 +1183,70 @@ export const locales: Record<'en' | 'es', Locale> = {
             title: 'Preguntas Frecuentes',
             items: {
               q1: '¿Puedo trabajar sin conexión?',
-              a1: 'Sí, los documentos se sincronizan automáticamente cuando te reconectas',
-              q2: '¿Qué formatos de archivo son compatibles?',
-              a2: 'Soportamos todos los formatos principales de documentos incluyendo DOC, PDF y más',
-              q3: '¿Hay un límite de almacenamiento?',
-              a3: 'Los límites de almacenamiento varían según el plan, comenzando en 100GB para usuarios básicos',
-              q4: '¿Hay una versión de prueba gratuita?',
-              a4: 'Sí, disponible una versión de prueba gratuita de 30 días',
-              q5: '¿Hay soporte al cliente?',
-              a5: 'Sí, soporte 24/7 vía correo electrónico y chat',
+              a1: 'Sí, todo el funcionamiento de GY Documents se basa en el trabajo local, con la sincronización en la nube como un complemento.',
+              q2: '¿Qué formatos de archivos son compatibles?',
+              a2: 'Actualmente solo Markdown (.md) y texto plano (.txt), pero entra dentro de nuestros planes la incorporación de otros formatos para el editor como HTML y DOCX.',
+              q3: '¿Qué es un \u0027vault\u0027?',
+              a3: 'Un vault es el espacio de trabajo, un contenedor padre de ficheros y carpetas sobre el que el editor toma la raíz.',
+              q4: '¿Puedo personalizar individualmente un fichero sin afectar al resto de mi \u0027vault\u0027?',
+              a4: 'Por supuesto, cada fichero tiene la posibilidad de utilizar un preset de estilos concreto.',
+              q5: '¿Puedo personalizar todos los ficheros de una carpeta al mismo tiempo?',
+              a5: 'Por el momento no, pero entra en nuestros planes de futuras actualizaciones implementar esa funcionalidad.',
             },
           },
         },
         'gy-accounts': {
           name: 'GY Accounts',
-          description: 'Sistema centralizado de autenticación y gestión de usuarios',
-          features: {
-            // ... features
-          },
+          description: 'Sistema de autenticación y gestión de usuarios.',
           techStack: {
-            title: 'Tecnologías Utilizadas',
+            title: 'Tecnologías Involucradas',
             technologies: {
               tech1: {
-                name: 'Next.js',
+                name: 'Spring Boot',
                 description: 'Framework de React para la UI de autenticación',
               },
               tech2: {
-                name: 'JWT',
+                name: 'Java',
                 description: 'Autenticación segura basada en tokens',
               },
               tech3: {
-                name: 'PostgreSQL',
+                name: 'GitHub',
                 description: 'Gestión de datos de usuario y sesiones',
               },
               tech4: {
-                name: 'OAuth2',
+                name: 'Auth0',
                 description: 'Protocolo de autenticación de terceros',
               },
             },
           },
-          caracteristics: {
+          characteristics: {
             title: 'Características',
             items: [
               {
-                title: '2FA Avanzado',
-                description: 'Autenticación de dos factores con múltiples opciones',
+                title: 'Single Sign-On',
+                description: 'Un único inicio de sesión para todos nuestros productos.',
                 icon: SecurityIcon,
                 color: '#4CAF50',
               },
               {
-                title: 'SSO',
-                description: 'Inicio de sesión único para todas las apps',
-                icon: SpeedIcon,
-                color: '#2196F3',
+                title: 'Integración Robusta',
+                description: 'Integración segura y fiable, con amplia y actualizada documentación.',
+                icon: CodeIcon,
+                color: '#9C27B0',
               },
               {
-                title: 'OAuth 2.0',
-                description: 'Integración con proveedores de identidad',
+                title: 'Variedad de Autenticaciones',
+                description:
+                  'Soporte para autenticación común (Usuario / Email + Contraseña), Google o a través de un dispositivo móvil.',
                 icon: CloudIcon,
                 color: '#FF4081',
               },
               {
-                title: 'API Robusta',
-                description: 'API RESTful con documentación completa',
-                icon: CodeIcon,
-                color: '#9C27B0',
+                title: 'Amplia Personalización',
+                description:
+                  'La gestión de la información de la cuenta es totalmente personalizable y privada.',
+                icon: StorageIcon,
+                color: '#2196F3',
               },
             ],
           },
@@ -1467,15 +1254,13 @@ export const locales: Record<'en' | 'es', Locale> = {
             title: 'Preguntas Frecuentes',
             items: {
               q1: '¿Cómo restablezco mi contraseña?',
-              a1: 'Usa nuestro autoservicio de restablecimiento de contraseña o contacta con soporte',
-              q2: '¿Se admite la autenticación biométrica?',
-              a2: 'Sí, en dispositivos con hardware compatible',
-              q3: '¿Puedo usar autenticadores de terceros?',
-              a3: 'Sí, admitimos aplicaciones populares de autenticación como Google y Microsoft',
-              q4: '¿Hay una versión de prueba gratuita?',
-              a4: 'Sí, disponible una versión de prueba gratuita de 30 días',
-              q5: '¿Hay soporte al cliente?',
-              a5: 'Sí, soporte 24/7 vía correo electrónico y chat',
+              a1: 'En accounts.gycoding.com, puedes acceder al portal de tu cuenta de usuario y reestablecerla.',
+              q2: 'Se me ha olvidado mi contraseña, ¿que puedo hacer?',
+              a2: 'En el formulario de inicio de sesión al acceder a accounts.gycoding.com, puedes restablecer tu contraseña utilizando el correo electrónico asociado a la cuenta de usuario.',
+              q3: '¿Se admite autenticación biométrica?',
+              a3: 'Por el momento no, pero estamos en arduo trabajo de incorporarla.',
+              q4: '¿Mis datos se almacenan de manera segura?',
+              a4: 'Por supuesto, nuestro servicio de autenticación utiliza tecnologías de cifrado y políticas de privacidad modernas y robustas.',
             },
           },
         },

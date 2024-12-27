@@ -103,7 +103,7 @@ export default function ProductFeatures({ productId }: ProductFeaturesProps) {
   const { t } = useLanguage();
   const productTheme = PRODUCT_THEMES[productId as keyof typeof PRODUCT_THEMES];
 
-  const productFeatures = t(`products.items.${productId}.caracteristics.items`);
+  const productFeatures = t(`products.items.${productId}.characteristics.items`);
 
   return (
     <Box component="section" sx={{ py: 8, bgcolor: 'background.default' }}>
@@ -128,7 +128,7 @@ export default function ProductFeatures({ productId }: ProductFeaturesProps) {
               backgroundClip: 'text',
             }}
           >
-            {t(`products.items.${productId}.caracteristics.title`)}
+            {t(`products.items.${productId}.characteristics.title`)}
           </Typography>
         </motion.div>
 

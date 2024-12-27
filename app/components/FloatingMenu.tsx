@@ -114,7 +114,16 @@ export default function FloatingMenu({ items, activeIndex, onHover }: FloatingMe
                       flexShrink: 0,
                     }}
                   >
-                    <Image src={theme.palette.mode === 'dark' ? useAssetPath(item.icon as string) : useAssetPath(item.icon_light as string)} alt={item.title} width={24} height={24} />
+                    <Image
+                      src={
+                        theme.palette.mode === 'dark'
+                          ? useAssetPath(item.icon as string)
+                          : useAssetPath(item.icon_light as string)
+                      }
+                      alt={item.title}
+                      width={24}
+                      height={24}
+                    />
                   </Box>
                 )}
                 <Box>

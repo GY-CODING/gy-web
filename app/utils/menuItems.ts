@@ -15,6 +15,10 @@ const ICON_PATHS = {
   API_REFERENCE_LIGHT: getAssetPath('/icons/api_reference_light.svg'),
   DOCS: getAssetPath('/icons/docs.svg'),
   DOCS_LIGHT: getAssetPath('/icons/docs_light.svg'),
+  TEAM: getAssetPath('/icons/team.svg'),
+  TEAM_LIGHT: getAssetPath('/icons/team_light.svg'),
+  COMPANY: getAssetPath('/icons/company.svg'),
+  COMPANY_LIGHT: getAssetPath('/icons/company_light.svg'),
 } as const;
 
 export interface MenuItem {
@@ -91,13 +95,15 @@ const menuItemsEN: MenuItem[] = [
       {
         title: 'Team',
         path: '/about/team',
-        icon: ICON_PATHS.GY_ACCOUNTS,
+        icon: ICON_PATHS.TEAM,
+        icon_light: ICON_PATHS.TEAM_LIGHT,
         description: 'Meet our team',
       },
       {
         title: 'Company',
         path: '/about/company',
-        icon: ICON_PATHS.GY_ACCOUNTS,
+        icon: ICON_PATHS.COMPANY,
+        icon_light: ICON_PATHS.COMPANY_LIGHT,
         description: 'Learn more about our company',
       },
     ],
@@ -168,13 +174,15 @@ const menuItemsES: MenuItem[] = [
       {
         title: 'Equipo',
         path: '/about/team',
-        icon: ICON_PATHS.GY_ACCOUNTS,
+        icon: ICON_PATHS.TEAM,
+        icon_light: ICON_PATHS.TEAM_LIGHT,
         description: 'Conoce a nuestro equipo.',
       },
       {
         title: 'Compañía',
         path: '/about/company',
-        icon: ICON_PATHS.GY_ACCOUNTS,
+        icon: ICON_PATHS.COMPANY,
+        icon_light: ICON_PATHS.COMPANY_LIGHT,
         description: 'Aprende más sobre nuestra compañía.',
       },
     ],
