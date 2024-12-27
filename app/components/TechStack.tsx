@@ -49,7 +49,7 @@ export default function TechStack() {
               mb: { xs: 4, sm: 6, md: 8 },
             }}
           >
-            {t('techStack.title')}
+            {t('footer.home.items.techstack')}
           </Typography>
         </FadeIn>
 
