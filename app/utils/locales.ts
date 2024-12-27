@@ -403,7 +403,7 @@ export const locales: Record<'en' | 'es', Locale> = {
     },
     footer: {
       rights: 'All rights reserved.',
-      company: 'GyCODING',
+      company: 'GYCODING',
       home: {
         title: 'Home',
         items: {
@@ -872,7 +872,7 @@ export const locales: Record<'en' | 'es', Locale> = {
     },
     footer: {
       rights: 'Todos los derechos reservados.',
-      company: 'GyCODING',
+      company: 'GYCODING',
       home: {
         title: 'Inicio',
         items: {
@@ -882,7 +882,7 @@ export const locales: Record<'en' | 'es', Locale> = {
         },
       },
       projects: {
-        title: 'Productosz',
+        title: 'Productos',
       },
       about: {
         title: 'Acerca de',

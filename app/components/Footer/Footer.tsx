@@ -106,9 +106,8 @@ export default function Footer() {
           backgroundColor:
             theme.palette.mode === 'dark' ? 'rgba(0, 0, 0, 0.85)' : 'rgba(255, 255, 255, 0.85)',
           backdropFilter: 'blur(20px)',
-          borderTop: `1px solid ${
-            theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
-          }`,
+          borderTop: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
+            }`,
           boxShadow:
             theme.palette.mode === 'dark'
               ? '0 -10px 30px -10px rgba(0, 0, 0, 0.3)'
@@ -328,14 +327,9 @@ export default function Footer() {
               sx={{
                 mt: 6,
                 pt: 3,
-                borderTop: `1px solid ${
-                  theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
-                }`,
+                borderTop: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
+                  }`,
                 textAlign: 'center',
-                background:
-                  theme.palette.mode === 'dark'
-                    ? 'linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent)'
-                    : 'linear-gradient(to top, rgba(255, 255, 255, 0.2), transparent)',
               }}
             >
               <Typography
@@ -345,7 +339,7 @@ export default function Footer() {
                   fontFamily: lexendFont.style.fontFamily,
                 }}
               >
-                {new Date().getFullYear()} @{t('footer.company')}. {t('footer.rights')}
+                {new Date().getFullYear()} @{t('footer.company')} - {t('footer.rights')}
               </Typography>
             </Box>
           </motion.div>
