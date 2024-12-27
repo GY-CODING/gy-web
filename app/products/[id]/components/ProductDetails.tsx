@@ -58,11 +58,12 @@ const Orbit = ({
         inset: -2,
         borderRadius: 'inherit',
         background: `radial-gradient(circle at 50% 50%, 
-          ${theme.palette.mode === 'dark'
-            ? `${alpha(color, 0.2)} 0%,
+          ${
+            theme.palette.mode === 'dark'
+              ? `${alpha(color, 0.2)} 0%,
                ${alpha(color, 0.2)} 25%,
                transparent 50%`
-            : `${alpha(color, 0.25)} 0%,
+              : `${alpha(color, 0.25)} 0%,
                ${alpha(color, 0.25)} 25%,
                transparent 50%`
           })`,
@@ -109,7 +110,6 @@ const TechPlanet = ({
   const y = Math.sin(currentAngle) * radius;
 
   const productColor = PRODUCT_COLORS[productId];
-
 
   return (
     <motion.div
@@ -254,11 +254,12 @@ export default function ProductDetails({ productId }: { productId: string }) {
                 inset: -20,
                 borderRadius: '50%',
                 background: `radial-gradient(circle at 50% 50%, 
-                  ${theme.palette.mode === 'dark'
-                    ? `${alpha(productColor, 0.4)} 0%,
+                  ${
+                    theme.palette.mode === 'dark'
+                      ? `${alpha(productColor, 0.4)} 0%,
                          ${alpha(productColor, 0.2)} 50%,
                          transparent 70%`
-                    : `${alpha(productColor, 0.5)} 0%,
+                      : `${alpha(productColor, 0.5)} 0%,
                          ${alpha(productColor, 0.3)} 50%,
                          transparent 70%`
                   })`,
@@ -321,7 +322,6 @@ export default function ProductDetails({ productId }: { productId: string }) {
               />
             );
           })}
-
         </Box>
       </Container>
     </Box>
