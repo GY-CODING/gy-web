@@ -15,7 +15,7 @@ export function getAssetPath(path: string): string {
 
   // En producción, usar el dominio completo
   if (process.env.NODE_ENV === 'production') {
-    const fullPath = `https://v2.gycoding.com${normalizedPath}`;
+    const fullPath = `https://www.gycoding.com${normalizedPath}`;
     return fullPath;
   }
 

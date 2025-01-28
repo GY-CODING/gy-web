@@ -21,7 +21,7 @@ This is the **GYCODING**'s official website where everything related to GYCODING
 This website uses **NextJS** with **TypeScript**, **Auth0** and **MaterialUI** for components.
 
 <br>
-
+ 
 ## Creators
 
 |                                                                                       Product Owner                                                                                        |                                                                               Collaborators                                                                                |

@@ -13,4 +13,4 @@ jobs:
      uses: GY-CODING/.github/.github/workflows/next-deploy.yml@master
      secrets: inherit
      with: 
-       domain: "v2.gycoding.com"
+       domain: "www.gycoding.com"
