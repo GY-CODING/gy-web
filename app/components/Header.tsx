@@ -126,7 +126,7 @@ export default function Header({ onThemeToggle }: HeaderProps) {
           ) : (
             <CustomButton
               text={getButtonText(language, 'login')}
-              link=""
+              link="https://accounts.gycoding.com"
               sx={{
                 background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
                 border: 'none',

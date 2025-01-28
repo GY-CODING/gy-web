@@ -99,6 +99,7 @@ const DownloadButton = memo(
       size="large"
       onClick={onClick}
       startIcon={<DownloadIcon />}
+      href={productId === 'gy-accounts' ? 'https://accounts.gycoding.com' : '#'}
       sx={{
         background:
           productId === 'gy-documents' ? PRODUCT_THEMES['gy-documents'].primary : gradient,
@@ -117,7 +118,7 @@ const DownloadButton = memo(
         },
       }}
     >
-      {productId === 'gy-accounts' ? t('products.download.button') : t('products.download.login')}
+      {productId === 'gy-accounts' ? t('products.download.login') : t('products.download.button')}
     </Button>
   )
 );

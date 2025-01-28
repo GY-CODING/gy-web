@@ -163,7 +163,7 @@ export const products: Product[] = [
     longDescription:
       'Sistema centralizado de gestión de cuentas y autenticación para todas las aplicaciones de GY Coding. Proporciona una experiencia de inicio de sesión única y segura.',
     image: '/images/products/gy-accounts.jpg',
-    version: '2.0.0',
+    version: '1.0.0',
     status: 'released',
     category: 'enterprise',
     price: 'enterprise',
