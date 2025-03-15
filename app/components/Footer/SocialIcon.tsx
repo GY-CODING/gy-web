@@ -39,15 +39,20 @@ export default function SocialIcon({ name, href }: SocialIconProps) {
           },
         }}
       >
-        {
-          name === 'Discord' ? (
-            <Image src={'/icons/discord.svg'} alt={name} width={24} height={24} style={{
-              filter: theme.palette.mode === 'dark' ? 'invert(0)' : 'invert(1)', opacity: '.7',
-            }} />
-          ) : (
-            <Icon />
-          )
-        }
+        {name === 'Discord' ? (
+          <Image
+            src={'/icons/discord.svg'}
+            alt={name}
+            width={24}
+            height={24}
+            style={{
+              filter: theme.palette.mode === 'dark' ? 'invert(0)' : 'invert(1)',
+              opacity: '.7',
+            }}
+          />
+        ) : (
+          <Icon />
+        )}
       </IconButton>
     </Link>
   );
