@@ -94,6 +94,8 @@ export default function Footer() {
     { name: 'Contact', href: 'mailto:it@gycoding.com' },
     { name: 'GitHub', href: 'https://github.com/GY-CODING' },
     { name: 'X', href: 'https://x.com/GYCODING' },
+    { name: 'Discord', href: 'https://discord.com/invite/YpEZtsXf6c' },
+    { name: 'Support', href: 'https://github.com/orgs/GY-CODING/discussions/new?category=support' },
   ];
 
   return (
@@ -107,9 +109,8 @@ export default function Footer() {
           backgroundColor:
             theme.palette.mode === 'dark' ? 'rgba(0, 0, 0, 0.85)' : 'rgba(255, 255, 255, 0.85)',
           backdropFilter: 'blur(20px)',
-          borderTop: `1px solid ${
-            theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
-          }`,
+          borderTop: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
+            }`,
           boxShadow:
             theme.palette.mode === 'dark'
               ? '0 -10px 30px -10px rgba(0, 0, 0, 0.3)'
@@ -332,9 +333,8 @@ export default function Footer() {
               sx={{
                 mt: 6,
                 pt: 3,
-                borderTop: `1px solid ${
-                  theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
-                }`,
+                borderTop: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
+                  }`,
                 textAlign: 'center',
               }}
             >

@@ -5,7 +5,7 @@ import React, { useRef, useState, useMemo, memo } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Box, Container, Typography, Button, Popover, useTheme, Stack, alpha } from '@mui/material';
-import { Download as DownloadIcon } from '@mui/icons-material';
+import { Download as DownloadIcon, AccountCircle as LoginIcon } from '@mui/icons-material';
 import { GiCrossedSwords } from 'react-icons/gi';
 import { BiMessageDetail } from 'react-icons/bi';
 import { FaUserCircle } from 'react-icons/fa';
@@ -98,7 +98,7 @@ const DownloadButton = memo(
       variant="contained"
       size="large"
       onClick={productId === 'gy-accounts' ? undefined : onClick}
-      startIcon={<DownloadIcon />}
+      startIcon={productId === 'gy-accounts' ? <LoginIcon /> : <DownloadIcon />}
       href={productId === 'gy-accounts' ? 'https://accounts.gycoding.com' : '#'}
       sx={{
         background:

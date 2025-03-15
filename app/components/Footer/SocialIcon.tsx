@@ -5,6 +5,8 @@ import { IconButton, useTheme } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import XIcon from '@mui/icons-material/X';
 import EmailIcon from '@mui/icons-material/Email';
+import Image from 'next/image';
+import QuestionMarkSharpIcon from '@mui/icons-material/QuestionMarkSharp';
 
 interface SocialIconProps {
   name: string;
@@ -15,6 +17,7 @@ const iconMap = {
   GitHub: GitHubIcon,
   X: XIcon,
   Contact: EmailIcon,
+  Support: QuestionMarkSharpIcon,
 };
 
 export default function SocialIcon({ name, href }: SocialIconProps) {
@@ -36,7 +39,15 @@ export default function SocialIcon({ name, href }: SocialIconProps) {
           },
         }}
       >
-        <Icon />
+        {
+          name === 'Discord' ? (
+            <Image src={'/icons/discord.svg'} alt={name} width={24} height={24} style={{
+              filter: theme.palette.mode === 'dark' ? 'invert(0)' : 'invert(1)', opacity: '.7',
+            }} />
+          ) : (
+            <Icon />
+          )
+        }
       </IconButton>
     </Link>
   );
