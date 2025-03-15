@@ -97,7 +97,7 @@ const DownloadButton = memo(
     <Button
       variant="contained"
       size="large"
-      onClick={onClick}
+      onClick={productId === 'gy-accounts' ? undefined : onClick}
       startIcon={<DownloadIcon />}
       href={productId === 'gy-accounts' ? 'https://accounts.gycoding.com' : '#'}
       sx={{

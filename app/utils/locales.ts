@@ -387,7 +387,7 @@ export const locales: Record<'en' | 'es', Locale> = {
           },
         },
         {
-          name: 'Ivan Vicente',
+          name: 'Iván Vicente',
           role: 'CEO & Backend Developer',
           description:
             'Expert in building scalable applications and efficient solutions through modern and secure architectures and infrastructures.',
@@ -846,7 +846,7 @@ export const locales: Record<'en' | 'es', Locale> = {
           name: 'Guillermo Figueras',
           role: 'CEO y Desarrollador Frontend',
           description:
-            'Proficiente en el desarrollo de interfaces de usuario responsivas, intuitivas y con estilos modernos y atractivos, sumado a una constante vanguardia tecnológica.',
+            'Proficiente en el desarrollo de interfaces responsivas, intuitivas y con estilos modernos y atractivos, sumado a una constante vanguardia tecnológica.',
           image: getAssetPath('/images/gfigueras.png'),
           skills: ['React', 'NextJS', 'TypeScript', 'Unity', 'Material UI'],
           social: {
@@ -856,12 +856,12 @@ export const locales: Record<'en' | 'es', Locale> = {
           },
         },
         {
-          name: 'Ivan Vicente',
+          name: 'Iván Vicente',
           role: 'CEO y Desarrollador Backend',
           description:
             'Experto en construir aplicaciones escalables y soluciones eficientes a través de arquitecturas e infraestructuras modernas y seguras.',
           image: getAssetPath('/images/toxyc.png'),
-          skills: ['Java', 'Spring Boot', 'C#', 'NodeJS', 'MongoDB'],
+          skills: ['Java', 'Spring Boot', 'C#', 'Node', 'MongoDB'],
           social: {
             github: 'https://github.com/gy-toxyc',
             linkedin: 'https://www.linkedin.com/in/srtoxyc/',

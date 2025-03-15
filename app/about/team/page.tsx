@@ -72,11 +72,12 @@ const TeamMemberCard = ({ member, index }: { member: TeamMember; index: number }
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: index * 0.2 }}
       viewport={{ once: true }}
-      style={{ height: '100%' }}
+      style={{ height: '100%', width: '50%' }}
     >
       <Box
         sx={{
           height: '100%',
+          width: '100%',
           p: { xs: 3, sm: 4 },
           borderRadius: '24px',
           backgroundColor:

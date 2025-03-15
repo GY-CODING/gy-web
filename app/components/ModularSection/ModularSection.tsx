@@ -31,7 +31,7 @@ const getLocalizedServices = (t: (key: string) => string) => [
     description: t('services.modules.gameDev.description'),
     gradient: 'linear-gradient(135deg, #ec4899 0%, #d946ef 100%)',
     icon: 'unity',
-    techIcons: ['Unity', 'csharp', 'Blender'],
+    techIcons: ['Unity', 'CSharp', 'Blender'],
   },
 ];
 
