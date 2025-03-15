@@ -17,7 +17,7 @@ const technologies = [
   { name: 'Cloudflare', icon: '/icons/cloudflare.svg', color: '#F38020' },
   { name: 'Koyeb', icon: '/icons/koyeb.svg', color: '#121212' },
   { name: 'Spring Boot', icon: '/icons/springboot.svg', color: '#6DB33F' },
-  { name: 'Postman', icon: '/icons/postman.svg', color: '#FF6C37' },
+  { name: 'Apidog', icon: '/icons/apidog.svg', color: '#0255FA' },
   { name: 'GitHub', icon: '/icons/github.svg', color: '#181717' },
   { name: 'Git', icon: '/icons/git.svg', color: '#F05032' },
   { name: 'Figma', icon: '/icons/figma.svg', color: '#F24E1E' },
