@@ -1,7 +1,7 @@
 'use client';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ReactNode, useRef } from 'react';
-
+//* THIS COMPONENT IS USED IN SOME COMPONENTS IN ABOUT SECTION
 interface ParallaxScrollProps {
   children: ReactNode;
   offset?: number;

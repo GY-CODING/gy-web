@@ -3,10 +3,10 @@
 import React, { useEffect, useRef, memo } from 'react';
 import { useTheme } from '@mui/material';
 import { products } from '@/app/products/data/products';
-
+//* THIS COMPONENT IS USED IN ALL PRODUCT PAGES
 interface RunicBackgroundProps {
   color?: string;
-  productId: string; // Nuevo: ID del producto para determinar los caracteres
+  productId: string;
 }
 
 const CHARACTER_SETS: Record<string, string[]> = {
@@ -134,9 +134,8 @@ const RunicBackground: React.FC<RunicBackgroundProps> = memo(({ color = '#6366f1
           ctx.fillStyle = `rgba(${parseInt(productColor.slice(1, 3), 16)}, ${parseInt(
             productColor.slice(3, 5),
             16
-          )}, ${parseInt(productColor.slice(5, 7), 16)}, ${
-            isDark ? drop.opacity : drop.opacity * 0.5
-          })`;
+          )}, ${parseInt(productColor.slice(5, 7), 16)}, ${isDark ? drop.opacity : drop.opacity * 0.5
+            })`;
         } else {
           ctx.fillStyle = isDark
             ? `rgba(255, 255, 255, ${drop.opacity})`

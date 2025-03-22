@@ -1,6 +1,6 @@
 /* eslint-disable no-constant-condition */
 'use client';
-
+//*THIS COMPONENT IS USED IN THE ABOUT - TEAM PAGE
 import { useTheme } from '@mui/material';
 import {
   motion,

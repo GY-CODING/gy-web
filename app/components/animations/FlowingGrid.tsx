@@ -3,7 +3,7 @@
 import { useTheme } from '@mui/material';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import React, { useEffect, useRef } from 'react';
-
+//*THIS COMPONENT IS USED IN ABOUT-COMPANY PAGE
 const GRID_SIZE = {
   COLS: 10,
   ROWS: 6,

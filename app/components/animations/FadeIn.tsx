@@ -1,7 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
 import { ReactNode } from 'react';
-
+//*THIS COMPONENT IS USED IN SOME FILES TO DO ANIMATED COMPONENTS
 interface FadeInProps {
   children: ReactNode;
   direction?: 'up' | 'down' | 'left' | 'right';
