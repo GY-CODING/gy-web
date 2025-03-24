@@ -18,6 +18,7 @@ import { products } from '../../data/products';
 import RunicBackground from '@/app/components/animations/RunicBackground';
 import { useLanguage } from '../../../utils/languageContext';
 import ProductDetailsMobile from './ProductDetailsMobile';
+import { EStatus } from '@/app/utils/constants/status.enum';
 
 // Constantes y temas
 const PRODUCT_THEMES = {
@@ -244,7 +245,6 @@ const HeroSection = memo(
       <ProductBackground product={product} />
 
       <Container maxWidth="lg" sx={{ position: 'relative', textAlign: 'center' }}>
-        {/* Icono de fondo según el producto */}
         <Box
           sx={{
             position: 'absolute',
@@ -312,19 +312,41 @@ const HeroSection = memo(
               {t(`products.items.${product.id}.description`)}
             </Typography>
           </motion.div>
-
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <DownloadButton
-              productId={product.id}
-              gradient={productTheme.gradient}
-              onClick={onDownloadClick}
-              t={t}
-            />
+            {
+              product.status == EStatus.BETA ? (
+                <motion.div
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                >
+                  <DownloadButton
+                    productId={product.id}
+                    gradient={productTheme.gradient}
+                    onClick={onDownloadClick}
+                    t={t}
+                  />
+
+                </motion.div>
+              ) :
+                (<Button sx={{
+                  color: product.color,
+                  fontSize: { xs: '1.2rem', md: '1.5rem' },
+                  maxWidth: '800px',
+                  padding: '10px 20px',
+                  mx: 'auto',
+                  mb: 4,
+                  border: '2px solid',
+                  borderColor: product.color,
+                  lineHeight: 1.5,
+                }}>{EStatus.COMING_SOON}</Button>)
+            }
           </motion.div>
+
         </Stack>
       </Container>
     </Container>

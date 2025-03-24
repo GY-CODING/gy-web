@@ -1,3 +1,4 @@
+import { EStatus } from '@/app/utils/constants/status.enum';
 import { getAssetPath } from '@/app/utils/useImagePath';
 
 export interface Product {
@@ -10,7 +11,7 @@ export interface Product {
   image: string;
   icon?: string;
   version: string;
-  status: 'beta' | 'released' | 'comingSoon';
+  status: EStatus;
   category: 'games' | 'tools' | 'enterprise';
   price: 'free' | 'premium' | 'enterprise';
   downloads?: {
@@ -48,7 +49,7 @@ export const products: Product[] = [
       'Embárcate en un viaje épico a través de los nueve reinos de la mitología nórdica. Lucha junto a los dioses, enfrenta criaturas míticas y da forma al destino de Midgard en este revolucionario RPG de acción.',
     image: '/images/products/heralds-of-chaos.jpg',
     version: '0.5.2-alpha',
-    status: 'beta',
+    status: EStatus.COMING_SOON,
     category: 'games',
     price: 'premium',
     downloads: {
@@ -107,7 +108,7 @@ export const products: Product[] = [
       'Una plataforma de mensajería versátil y segura diseñada para integrarse perfectamente con otros servicios de GY Coding.',
     image: '/images/products/gy-messages.jpg',
     version: '1.2.0',
-    status: 'released',
+    status: EStatus.COMING_SOON,
     category: 'tools',
     price: 'free',
     downloads: {
@@ -164,7 +165,7 @@ export const products: Product[] = [
       'Sistema centralizado de gestión de cuentas y autenticación para todas las aplicaciones de GY Coding. Proporciona una experiencia de inicio de sesión única y segura.',
     image: '/images/products/gy-accounts.jpg',
     version: '1.0.0',
-    status: 'released',
+    status: EStatus.BETA,
     category: 'enterprise',
     price: 'enterprise',
     features: [
@@ -207,7 +208,7 @@ export const products: Product[] = [
       'Plataforma avanzada de gestión documental que permite a las organizaciones almacenar, organizar y colaborar en documentos de manera segura y eficiente.',
     image: '/images/products/gy-documents.jpg',
     version: '1.5.0',
-    status: 'released',
+    status: EStatus.COMING_SOON,
     category: 'enterprise',
     price: 'enterprise',
     primary: '#1976D2',
