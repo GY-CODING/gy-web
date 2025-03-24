@@ -317,23 +317,22 @@ const HeroSection = memo(
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            {
-              product.status == EStatus.BETA ? (
-                <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                >
-                  <DownloadButton
-                    productId={product.id}
-                    gradient={productTheme.gradient}
-                    onClick={onDownloadClick}
-                    t={t}
-                  />
-
-                </motion.div>
-              ) :
-                (<Button sx={{
+            {product.status == EStatus.BETA ? (
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
+                <DownloadButton
+                  productId={product.id}
+                  gradient={productTheme.gradient}
+                  onClick={onDownloadClick}
+                  t={t}
+                />
+              </motion.div>
+            ) : (
+              <Button
+                sx={{
                   color: product.color,
                   fontSize: { xs: '1.2rem', md: '1.5rem' },
                   maxWidth: '800px',
@@ -343,10 +342,12 @@ const HeroSection = memo(
                   border: '2px solid',
                   borderColor: product.color,
                   lineHeight: 1.5,
-                }}>{EStatus.COMING_SOON}</Button>)
-            }
+                }}
+              >
+                {EStatus.COMING_SOON}
+              </Button>
+            )}
           </motion.div>
-
         </Stack>
       </Container>
     </Container>
