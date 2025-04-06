@@ -109,9 +109,8 @@ export default function Footer() {
           backgroundColor:
             theme.palette.mode === 'dark' ? 'rgba(0, 0, 0, 0.85)' : 'rgba(255, 255, 255, 0.85)',
           backdropFilter: 'blur(20px)',
-          borderTop: `1px solid ${
-            theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
-          }`,
+          borderTop: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
+            }`,
           boxShadow:
             theme.palette.mode === 'dark'
               ? '0 -10px 30px -10px rgba(0, 0, 0, 0.3)'
@@ -149,7 +148,7 @@ export default function Footer() {
                     >
                       <Box sx={{ position: 'relative', width: 40, height: 40, mr: 1 }}>
                         <Image
-                          src={useAssetPath('/icons/gy_icon.svg')}
+                          src={useAssetPath('/gy-logo.png')}
                           alt="GYCoding Logo"
                           fill
                           style={{ objectFit: 'contain' }}
@@ -334,9 +333,8 @@ export default function Footer() {
               sx={{
                 mt: 6,
                 pt: 3,
-                borderTop: `1px solid ${
-                  theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
-                }`,
+                borderTop: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
+                  }`,
                 textAlign: 'center',
               }}
             >

@@ -12,8 +12,6 @@ export interface Product {
   icon?: string;
   version: string;
   status: EStatus;
-  category: 'games' | 'tools' | 'enterprise';
-  price: 'free' | 'premium' | 'enterprise';
   downloads?: {
     windows?: string;
     mac?: string;
@@ -50,8 +48,6 @@ export const products: Product[] = [
     image: '/images/products/heralds-of-chaos.jpg',
     version: '0.5.2-alpha',
     status: EStatus.COMING_SOON,
-    category: 'games',
-    price: 'premium',
     downloads: {
       windows: 'https://download.example.com/heralds-of-chaos/windows',
       mac: 'https://download.example.com/heralds-of-chaos/mac',
@@ -109,8 +105,6 @@ export const products: Product[] = [
     image: '/images/products/gy-messages.jpg',
     version: '1.2.0',
     status: EStatus.COMING_SOON,
-    category: 'tools',
-    price: 'free',
     downloads: {
       windows: 'https://download.example.com/gy-messages/windows',
       mac: 'https://download.example.com/gy-messages/mac',
@@ -166,8 +160,6 @@ export const products: Product[] = [
     image: '/images/products/gy-accounts.jpg',
     version: '1.0.0',
     status: EStatus.BETA,
-    category: 'enterprise',
-    price: 'enterprise',
     features: [
       {
         title: 'Inicio de Sesión Único',
@@ -209,8 +201,6 @@ export const products: Product[] = [
     image: '/images/products/gy-documents.jpg',
     version: '1.5.0',
     status: EStatus.COMING_SOON,
-    category: 'enterprise',
-    price: 'enterprise',
     primary: '#1976D2',
     secondary: '#2196F3',
     gradient: 'linear-gradient(135deg, #1976D2 0%, #2196F3 100%)',

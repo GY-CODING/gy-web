@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: 'GYCODING',
   description: 'Desarrollo web profesional',
   icons: {
-    icon: '/gy-icon-small.ico',
+    icon: '/gy-icon.ico',
   },
 };
 

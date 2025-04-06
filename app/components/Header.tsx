@@ -79,7 +79,7 @@ export default function Header({ onThemeToggle }: HeaderProps) {
               }}
             >
               <Image
-                src={useAssetPath('/icons/gycoding.svg')}
+                src={useAssetPath('/gy-logo.png')}
                 alt="GYCODING"
                 fill
                 style={{ objectFit: 'contain' }}
