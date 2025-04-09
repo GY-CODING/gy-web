@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         NVM_DIR = "${WORKSPACE}/.nvm"
-		GITHUB_TOKEN = credentials("GITHUB_TOKEN")
+		FRONT_GITHUB_TOKEN = credentials("FRONT_GITHUB_TOKEN")
 		DOMAIN = "www.gycoding.com"
     }
 
@@ -58,7 +58,7 @@ pipeline {
 
         stage('Deploy to GitHub Pages') {
             steps {
-                withCredentials([string(credentialsId: 'GITHUB_TOKEN', variable: 'GITHUB_TOKEN')]) {
+                withCredentials([string(credentialsId: 'FRONT_GITHUB_TOKEN', variable: 'FRONT_GITHUB_TOKEN')]) {
                     sh '''
                         rm -rf gh-pages
                         git config --global user.email "willstar111YT@gmail.com"
