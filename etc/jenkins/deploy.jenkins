@@ -5,10 +5,6 @@ pipeline {
         NODE_VERSION = '20'
     }
 
-    parameters {
-        string(name: 'DOMAIN', defaultValue: '', description: 'Domain where the website will be deployed.')
-    }
-
     stages {
 		stage('Install Node') {
 			steps {
