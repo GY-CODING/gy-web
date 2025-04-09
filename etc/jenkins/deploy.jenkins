@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         NODE_VERSION = '20'
+        NVM_DIR = "${WORKSPACE}/.nvm"
     }
 
     stages {
