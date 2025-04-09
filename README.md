@@ -18,7 +18,7 @@ This is the **GYCODING**'s official website where everything related to GYCODING
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![MaterialUI](https://img.shields.io/badge/Material%20UI-007FFF?style=for-the-badge&logo=mui&logoColor=white)
 
-This website uses **NextJS** with **TypeScript**, **Auth0** and **MaterialUI** for components.
+This website uses **NextJS** with **TypeScript**, **Auth0**, and **MaterialUI** for components.
 
 <br>
  
