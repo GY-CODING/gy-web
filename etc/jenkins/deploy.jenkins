@@ -67,7 +67,7 @@ pipeline {
                         cd gh-pages
                         git add .
                         git commit -m "Deploy to GitHub Pages"
-                        git push https://github.com/GY-CODING/gy-web.git gh-pages
+                        git push "https://github.com/GY-CODING/gy-web.git" gh-pages
                     """
                 }
             }
