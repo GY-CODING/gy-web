@@ -61,7 +61,7 @@ pipeline {
                 withCredentials([string(credentialsId: 'GITHUB_TOKEN', variable: 'GITHUB_TOKEN')]) {
                     sh '''
                         rm -rf gh-pages
-                        git config --global user.email "gfiigueras05@gmail.com"
+                        git config --global user.email "willstar111YT@gmail.com"
                         git config --global user.name "gy-gfigueras"
 
                         git clone --branch gh-pages https://x-access-token:${FRONT_GITHUB_TOKEN}@github.com/GY-CODING/gy-web.git gh-pages
