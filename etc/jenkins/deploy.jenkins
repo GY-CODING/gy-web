@@ -1,0 +1,79 @@
+pipeline {
+    agent any
+
+    environment {
+        NODE_VERSION = '20'
+    }
+
+    parameters {
+        string(name: 'DOMAIN', defaultValue: '', description: 'Domain where the website will be deployed.')
+    }
+
+    stages {
+		stage('Install Node') {
+			steps {
+				sh '''
+					mkdir -p "$NVM_DIR"
+					curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+					export NVM_DIR="$NVM_DIR"
+					[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+					nvm install 18
+					
+					echo '#!/bin/bash' > with-node.sh
+					echo 'export NVM_DIR="$WORKSPACE/.nvm"' >> with-node.sh
+					echo '[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"' >> with-node.sh
+					echo 'nvm use 18' >> with-node.sh
+					echo '"$@"' >> with-node.sh
+					chmod +x with-node.sh
+				'''
+			}
+		}
+
+        stage('Install dependencies') {
+            steps {
+                script {
+                    sh 'rm -rf node_modules'
+                    sh 'rm -f package-lock.json'
+                    sh './with-node.sh npm install --no-optional'
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    withEnv(["NODE_ENV=production", "NEXT_TELEMETRY_DISABLED=1", "NEXT_IGNORE_PLATFORM_CHECK=1"]) {
+                        sh './with-node.sh npm run build'
+                    }
+                }
+            }
+        }
+
+        stage('Create CNAME file') {
+            steps {
+                script {
+                    writeFile file: './out/CNAME', text: "${params.DOMAIN}"
+                }
+            }
+        }
+
+        stage('Deploy to GitHub Pages') {
+            steps {
+                script {
+                    def githubToken = credentials('FRONT_GITHUB_TOKEN')
+
+                    sh """
+                        git config --global user.email "gfiigueras05@gmail.com"
+                        git config --global user.name "gy-gfigueras"
+                        git clone --branch gh-pages https://github.com/GY-CODING/gy-web.git gh-pages
+                        cp -r ./out/* gh-pages/
+                        cd gh-pages
+                        git add .
+                        git commit -m "Deploy to GitHub Pages"
+                        git push https://github.com/GY-CODING/gy-web.git gh-pages
+                    """
+                }
+            }
+        }
+    }
+}
