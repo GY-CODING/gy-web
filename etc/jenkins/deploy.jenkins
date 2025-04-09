@@ -60,13 +60,14 @@ pipeline {
             steps {
                 script {
                     sh """
-                        docker run --rm \
-                            -e GITHUB_TOKEN=${GITHUB_TOKEN} \
-                            -v \$(pwd):/github/workspace \
-                            peaceiris/actions-gh-pages:v3 \
-                            --publish-dir ./out \
-                            --github-token ${GITHUB_TOKEN}
-                    """
+						docker run --rm \
+							-e GITHUB_TOKEN="${GITHUB_TOKEN}" \
+							-v "${WORKSPACE}:/github/workspace" \
+							peaceiris/actions-gh-pages:v3 \
+							--publish-dir ./out \
+							--github-token "${GITHUB_TOKEN}"
+					"""
+
                 }
             }
         }
