@@ -56,18 +56,21 @@ pipeline {
         }
 
         stage('Deploy to GitHub Pages') {
-            steps {
-                script {
-                    sh """
-                        docker run --rm \
-                            -e GITHUB_TOKEN=${GITHUB_TOKEN} \
-                            -v \$(pwd):/github/workspace \
-                            peaceiris/actions-gh-pages:v3 \
-                            --publish-dir ./out \
-                            --github-token \${GITHUB_TOKEN}
-                    """
-                }
-            }
-        }
+			steps {
+				withCredentials([string(credentialsId: 'GITHUB_TOKEN', variable: 'GITHUB_TOKEN')]) {
+					script {
+						// Usar comillas dobles para toda la ruta y variables
+						sh """
+							docker run --rm \
+								-e GITHUB_TOKEN="${GITHUB_TOKEN}" \
+								-v "$(pwd)":/github/workspace \
+								peaceiris/actions-gh-pages:v3 \
+								--publish-dir ./out \
+								--github-token "${GITHUB_TOKEN}"
+						"""
+					}
+				}
+			}
+		}
     }
 }
