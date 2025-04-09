@@ -61,10 +61,10 @@ pipeline {
                 withCredentials([string(credentialsId: 'GITHUB_TOKEN', variable: 'GITHUB_TOKEN')]) {
                     sh '''
                         rm -rf gh-pages
-                        git config --global user.email "you@example.com"
-                        git config --global user.name "jenkins"
+                        git config --global user.email "gfiigueras05@gmail.com"
+                        git config --global user.name "gy-gfigueras"
 
-                        git clone --branch gh-pages https://x-access-token:${GITHUB_TOKEN}@github.com/TU_ORG/TU_REPO.git gh-pages
+                        git clone --branch gh-pages https://x-access-token:${FRONT_GITHUB_TOKEN}@github.com/TU_ORG/TU_REPO.git gh-pages
 
                         rm -rf gh-pages/*
                         cp -r out/* gh-pages/
