@@ -3,7 +3,7 @@ import RootLayoutClient from './RootLayoutClient';
 
 export const metadata: Metadata = {
   title: 'GYCODING',
-  description: 'Desarrollo web profesional',
+  description: 'Equipo de desarrollo de Software.',
   icons: {
     icon: '/gy-icon.ico',
   },
