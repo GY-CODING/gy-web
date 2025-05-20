@@ -12,10 +12,11 @@ import {
   Divider,
 } from '@mui/material';
 import { useLanguage } from '../utils/languageContext';
+import { Locale } from '../utils/locales';
 
 export default function PrivacyPolicy() {
   const { t } = useLanguage();
-  const content = t('privacy');
+  const content = t('privacy') as unknown as Locale['privacy'];
 
   return (
     <Container maxWidth="md" sx={{ py: 6 }}>
@@ -37,7 +38,7 @@ export default function PrivacyPolicy() {
               {content.sections.responsible.title}
             </Typography>
             <List>
-              {content.sections.responsible.items.map((item, index) => (
+              {content.sections.responsible.items.map((item: string, index: number) => (
                 <ListItem key={index}>
                   <ListItemText primary={item} />
                 </ListItem>
@@ -55,7 +56,7 @@ export default function PrivacyPolicy() {
               {content.sections.dataCollected.intro}
             </Typography>
             <List>
-              {content.sections.dataCollected.items.map((item, index) => (
+              {content.sections.dataCollected.items.map((item: string, index: number) => (
                 <ListItem key={index}>
                   <ListItemText primary={item} />
                 </ListItem>
@@ -73,7 +74,7 @@ export default function PrivacyPolicy() {
               {content.sections.howWeCollect.intro}
             </Typography>
             <List>
-              {content.sections.howWeCollect.items.map((item, index) => (
+              {content.sections.howWeCollect.items.map((item: string, index: number) => (
                 <ListItem key={index}>
                   <ListItemText primary={item} />
                 </ListItem>
@@ -91,7 +92,7 @@ export default function PrivacyPolicy() {
               {content.sections.dataUsage.intro}
             </Typography>
             <List>
-              {content.sections.dataUsage.items.map((item, index) => (
+              {content.sections.dataUsage.items.map((item: string, index: number) => (
                 <ListItem key={index}>
                   <ListItemText primary={item} />
                 </ListItem>
@@ -105,9 +106,7 @@ export default function PrivacyPolicy() {
             <Typography variant="h5" component="h2" gutterBottom fontWeight="medium">
               {content.sections.thirdParty.title}
             </Typography>
-            <Typography variant="body1">
-              {content.sections.thirdParty.content}
-            </Typography>
+            <Typography variant="body1">{content.sections.thirdParty.content}</Typography>
           </Box>
 
           <Divider sx={{ my: 3 }} />
@@ -116,9 +115,7 @@ export default function PrivacyPolicy() {
             <Typography variant="h5" component="h2" gutterBottom fontWeight="medium">
               {content.sections.dataRetention.title}
             </Typography>
-            <Typography variant="body1">
-              {content.sections.dataRetention.content}
-            </Typography>
+            <Typography variant="body1">{content.sections.dataRetention.content}</Typography>
           </Box>
 
           <Divider sx={{ my: 3 }} />
@@ -127,9 +124,7 @@ export default function PrivacyPolicy() {
             <Typography variant="h5" component="h2" gutterBottom fontWeight="medium">
               {content.sections.minors.title}
             </Typography>
-            <Typography variant="body1">
-              {content.sections.minors.content}
-            </Typography>
+            <Typography variant="body1">{content.sections.minors.content}</Typography>
           </Box>
 
           <Divider sx={{ my: 3 }} />
@@ -142,7 +137,7 @@ export default function PrivacyPolicy() {
               {content.sections.rights.intro}
             </Typography>
             <List>
-              {content.sections.rights.items.map((item, index) => (
+              {content.sections.rights.items.map((item: string, index: number) => (
                 <ListItem key={index}>
                   <ListItemText primary={item} />
                 </ListItem>
@@ -156,4 +151,4 @@ export default function PrivacyPolicy() {
       </Paper>
     </Container>
   );
-} 
+}

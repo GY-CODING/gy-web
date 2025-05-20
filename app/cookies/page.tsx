@@ -12,10 +12,11 @@ import {
   Divider,
 } from '@mui/material';
 import { useLanguage } from '../utils/languageContext';
+import { Locale } from '../utils/locales';
 
 export default function CookiePolicy() {
   const { t } = useLanguage();
-  const content = t('cookies');
+  const content = t('cookies') as unknown as Locale['cookies'];
 
   return (
     <Container maxWidth="md" sx={{ py: 6 }}>
@@ -36,9 +37,7 @@ export default function CookiePolicy() {
             <Typography variant="h5" component="h2" gutterBottom fontWeight="medium">
               {content.sections.whatAre.title}
             </Typography>
-            <Typography variant="body1">
-              {content.sections.whatAre.content}
-            </Typography>
+            <Typography variant="body1">{content.sections.whatAre.content}</Typography>
           </Box>
 
           <Divider sx={{ my: 3 }} />
@@ -48,12 +47,9 @@ export default function CookiePolicy() {
               {content.sections.types.title}
             </Typography>
             <List>
-              {content.sections.types.items.map((item, index) => (
+              {content.sections.types.items.map((item, index: number) => (
                 <ListItem key={index}>
-                  <ListItemText
-                    primary={item.primary}
-                    secondary={item.secondary}
-                  />
+                  <ListItemText primary={item.primary} secondary={item.secondary} />
                 </ListItem>
               ))}
             </List>
@@ -65,9 +61,7 @@ export default function CookiePolicy() {
             <Typography variant="h5" component="h2" gutterBottom fontWeight="medium">
               {content.sections.noThirdParty.title}
             </Typography>
-            <Typography variant="body1">
-              {content.sections.noThirdParty.content}
-            </Typography>
+            <Typography variant="body1">{content.sections.noThirdParty.content}</Typography>
           </Box>
 
           <Divider sx={{ my: 3 }} />
@@ -76,12 +70,10 @@ export default function CookiePolicy() {
             <Typography variant="h5" component="h2" gutterBottom fontWeight="medium">
               {content.sections.consent.title}
             </Typography>
-            <Typography variant="body1">
-              {content.sections.consent.content}
-            </Typography>
+            <Typography variant="body1">{content.sections.consent.content}</Typography>
           </Box>
         </Box>
       </Paper>
     </Container>
   );
-} 
+}
