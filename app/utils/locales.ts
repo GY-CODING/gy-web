@@ -128,6 +128,7 @@ export interface Locale {
       demo: string;
       now: string;
       login: string;
+      link: string;
       platformSelect: string;
       platforms: {
         windows: string;
@@ -180,6 +181,8 @@ export interface Locale {
             a3: string;
             q4: string;
             a4: string;
+            q5: string;
+            a5: string;
           };
         };
       };
@@ -511,6 +514,7 @@ export const locales: Record<'en' | 'es', Locale> = {
         demo: 'Demo',
         now: 'Now',
         login: 'Login',
+        link: 'Dashboard',
         platformSelect: 'Select your platform',
         platforms: {
           windows: 'Windows',
@@ -545,31 +549,33 @@ export const locales: Record<'en' | 'es', Locale> = {
             },
           },
           characteristics: {
-            title: 'Characteristics',
+            title: 'Features',
             items: [
               {
                 title: 'Varying Universe',
                 description:
-                  'Heralds of Chaos presents a varied universe of characters, worlds and interconnected elements in a common story.',
+                  'Heralds of Chaos presents a diverse universe of characters, worlds, and elements intertwined in a common storyline.',
                 icon: GamesIcon,
                 color: '#FF4081',
               },
               {
-                title: 'Varying Playability',
+                title: 'Accurate Data',
                 description:
-                  'Whether you seek casual matches to pass time, or if you want to compete. This is your home.',
+                  'All data about the characters, worlds, and elements is accurate and reliable.',
                 icon: SpeedIcon,
                 color: '#7C4DFF',
               },
               {
-                title: 'Online Multiplayer',
-                description: 'Dedicated servers for players from around the world.',
+                title: 'Synchronization with the Heralds of Chaos API',
+                description:
+                  'Character, world, and element data is synchronized with the Heralds of Chaos API quickly and efficiently.',
                 icon: CloudIcon,
                 color: '#00BCD4',
               },
               {
-                title: 'High Performance',
-                description: 'Lightweight and optimized for performance.',
+                title: 'Integration with GY Accounts',
+                description:
+                  'The API includes a role and permissions system that ensures the website and API requests are secure.',
                 icon: SecurityIcon,
                 color: '#4CAF50',
               },
@@ -578,14 +584,20 @@ export const locales: Record<'en' | 'es', Locale> = {
           faq: {
             title: 'Frequently Asked Questions',
             items: {
-              q1: 'What are the system requirements?',
-              a1: 'Heralds of Chaos could be played with at least 4GB of RAM and 8GB of disk space.',
-              q2: 'Are there microtransactions?',
-              a2: 'No, the game is a one-time purchase with all content included.',
-              q3: 'Do you have downloadable content?',
-              a3: 'For the moment no, but we are working on future DLCs that expand the experience.',
-              q4: 'Are there frequent updates?',
-              a4: 'Of course, we strive for frequent updates, both to include new content and to adjust balance or bugs.',
+              q1: 'What can I do in this dashboard?',
+              a1: 'You can explore detailed information about characters, worlds, places, creatures, and items from the Heralds of Chaos universe, all synced with its official API.',
+
+              q2: 'Can I modify the information shown?',
+              a2: 'No. The dashboard content is read-only for regular users. Only authorized administrators can make changes through internal tools.',
+
+              q3: 'How often is the content updated?',
+              a3: 'The content is automatically updated in real time from the official API as soon as administrators make any changes.',
+
+              q4: 'Do I need an account to access the dashboard?',
+              a4: 'Yes, you must log in with a GY Accounts account to access the dashboard content, even in read-only mode.',
+
+              q5: 'Is the dashboard mobile-friendly?',
+              a5: 'Yes, the interface is fully responsive and works well on all types of devices, including smartphones and tablets.',
             },
           },
         },
@@ -982,6 +994,7 @@ export const locales: Record<'en' | 'es', Locale> = {
         demo: 'Demo',
         now: 'Ahora',
         login: 'Iniciar Sesión',
+        link: 'Dashboard',
         platformSelect: 'Selecciona tu plataforma',
         platforms: {
           windows: 'Windows',
@@ -1025,22 +1038,23 @@ export const locales: Record<'en' | 'es', Locale> = {
                 color: '#FF4081',
               },
               {
-                title: 'Jugabilidad Variada',
+                title: 'Datos precisos',
                 description:
-                  'Tanto si buscas partidas casuales para divertirte, como si pretendes competir. Este es tu sitio.',
+                  'Todos los datos de los personajes, mundos y elementos son precisos y verídicos.',
                 icon: SpeedIcon,
                 color: '#7C4DFF',
               },
               {
-                title: 'Multijugador Online',
-                description: 'Servidores dedicados para jugadores de todo el mundo.',
+                title: 'Sincronía con la API de Heraldos del Caos',
+                description:
+                  'Los datos de los personajes, mundos y elementos se sincronizan con la API de Heraldos del Caos de manera rapida y eficaz.',
                 icon: CloudIcon,
                 color: '#00BCD4',
               },
               {
-                title: 'Alto Rendimiento',
+                title: 'Integración con GY Accounts',
                 description:
-                  'El bajo peso y la optimización son una de las marcas distintivas de Heraldos del Caos.',
+                  'El API tiene un sistema de roles y permisos que aseguran que la pagina web y las peticiones api sean seguras.',
                 icon: SecurityIcon,
                 color: '#4CAF50',
               },
@@ -1049,14 +1063,20 @@ export const locales: Record<'en' | 'es', Locale> = {
           faq: {
             title: 'Preguntas Frecuentes',
             items: {
-              q1: '¿Cuál son los requisitos mínimos del sistema?',
-              a1: 'Heraldos del Caos podrá jugarse con al menos 4GB de RAM y 8GB de espacio en disco.',
-              q2: '¿Hay microtransacciones?',
-              a2: 'No, el videojuego es de compra única.',
-              q3: '¿Hay contenido descargable?',
-              a3: 'Por el momento no, pero estamos en desarrollo de futuros DLCs que expandan la experiencia.',
-              q4: '¿Las actualizaciones son frecuentes?',
-              a4: 'Por supuesto, abogamos por actualizaciones frecuentes tanto para incluir nuevo contenido como para ajustes de equilibrio o bugs.',
+              q1: '¿Qué puedo hacer en este dashboard?',
+              a1: 'Puedes explorar información detallada sobre personajes, mundos, lugares, criaturas e ítems del universo de Heraldos del Caos, todo sincronizado con su API oficial.',
+
+              q2: '¿Puedo modificar la información que aparece?',
+              a2: 'No. El contenido del dashboard es solo de lectura para los usuarios. Solo los administradores autorizados pueden realizar modificaciones a través de herramientas internas.',
+
+              q3: '¿Con qué frecuencia se actualiza el contenido?',
+              a3: 'El contenido se actualiza automáticamente en tiempo real desde la API oficial, tan pronto como los administradores hacen cambios.',
+
+              q4: '¿Necesito una cuenta para acceder al dashboard?',
+              a4: 'Sí, necesitas iniciar sesión con una cuenta de GY Accounts para acceder al contenido del dashboard, incluso en modo de solo lectura.',
+
+              q5: '¿El dashboard funciona en dispositivos móviles?',
+              a5: 'Sí, la interfaz está diseñada para adaptarse correctamente a todo tipo de dispositivos, incluidos móviles y tablets.',
             },
           },
         },

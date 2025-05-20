@@ -17,6 +17,7 @@ export interface Product {
     mac?: string;
     linux?: string;
   };
+  link?: string;
   changelog?: {
     type: 'feature' | 'fix' | 'improvement';
     description: string;
@@ -47,12 +48,8 @@ export const products: Product[] = [
       'Embárcate en un viaje épico a través de los nueve reinos de la mitología nórdica. Lucha junto a los dioses, enfrenta criaturas míticas y da forma al destino de Midgard en este revolucionario RPG de acción.',
     image: '/images/products/heralds-of-chaos.jpg',
     version: '0.5.2-alpha',
-    status: EStatus.COMING_SOON,
-    downloads: {
-      windows: 'https://download.example.com/heralds-of-chaos/windows',
-      mac: 'https://download.example.com/heralds-of-chaos/mac',
-      linux: 'https://download.example.com/heralds-of-chaos/linux',
-    },
+    status: EStatus.BETA,
+    link: 'https://heraldsofchaos.gycoding.com',
     changelog: [
       {
         type: 'feature',
@@ -246,39 +243,39 @@ export const TECHNOLOGIES: any = {
       speed: 0.8,
     },
     {
-      name: 'C#',
-      icon: getAssetPath('icons/solar_system/heralds/csharp.svg'),
-      description: 'ORM moderno y tipado',
+      name: 'Java',
+      icon: getAssetPath('icons/solar_system/heralds/java.svg'),
+      description: 'Contenedorización',
       orbit: 0,
-      speed: 0.6,
+      speed: 0.5,
     },
     {
-      name: 'Unity',
-      icon: getAssetPath('icons/solar_system/heralds/unity.svg'),
-      description: 'Base de datos relacional',
+      name: 'Spring Boot',
+      icon: getAssetPath('icons/solar_system/heralds/springboot.svg'),
+      description: 'Framework React de última generación',
       orbit: 0,
-      speed: 0.7,
+      speed: 1,
     },
     {
-      name: 'C++',
-      icon: getAssetPath('icons/solar_system/heralds/cplusplus.svg'),
-      description: 'ORM moderno y tipado',
+      name: 'Typescript',
+      icon: getAssetPath('icons/solar_system/heralds/typescript.svg'),
+      description: 'Contenedorización',
       orbit: 1,
-      speed: 0.6,
+      speed: 0.5,
     },
     {
-      name: 'Unreal Engine',
-      icon: getAssetPath('icons/solar_system/heralds/unreal.svg'),
-      description: 'Base de datos relacional',
+      name: 'NextJS',
+      icon: getAssetPath('icons/solar_system/heralds/nextjs.svg'),
+      description: 'Framework React de última generación',
       orbit: 1,
-      speed: 0.7,
+      speed: 1,
     },
     {
-      name: 'Blender',
-      icon: getAssetPath('icons/solar_system/heralds/blender.svg'),
-      description: 'Base de datos relacional',
+      name: 'Cloudflare',
+      icon: getAssetPath('icons/solar_system/heralds/cloudflare.svg'),
+      description: 'Framework React de última generación',
       orbit: 2,
-      speed: 0.7,
+      speed: 1,
     },
   ],
   'gy-documents': [

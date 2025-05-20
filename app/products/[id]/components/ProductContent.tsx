@@ -19,6 +19,7 @@ import RunicBackground from '@/app/components/animations/RunicBackground';
 import { useLanguage } from '../../../utils/languageContext';
 import ProductDetailsMobile from './ProductDetailsMobile';
 import { EStatus } from '@/app/utils/constants/status.enum';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 // Constantes y temas
 const PRODUCT_THEMES = {
@@ -98,9 +99,15 @@ const DownloadButton = memo(
     <Button
       variant="contained"
       size="large"
-      onClick={productId === 'gy-accounts' ? undefined : onClick}
-      startIcon={productId === 'gy-accounts' ? <LoginIcon /> : <DownloadIcon />}
-      href={productId === 'gy-accounts' ? 'https://accounts.gycoding.com' : '#'}
+      onClick={
+        productId === 'gy-accounts' || productId === 'heralds-of-chaos'
+          ? undefined
+          : onClick
+      }
+      startIcon={
+        productId === 'gy-accounts' ? <LoginIcon /> : productId === 'heralds-of-chaos' ? <ArrowForwardIosIcon /> : <DownloadIcon />
+      }
+      href={productId === 'gy-accounts' ? 'https://accounts.gycoding.com' : productId === 'heralds-of-chaos' ? 'https://heraldsofchaos.gycoding.com' : '#'}
       sx={{
         background:
           productId === 'gy-documents' ? PRODUCT_THEMES['gy-documents'].primary : gradient,
@@ -119,7 +126,7 @@ const DownloadButton = memo(
         },
       }}
     >
-      {productId === 'gy-accounts' ? t('products.download.login') : t('products.download.button')}
+      {productId === 'gy-accounts' ? t('products.download.login') : productId === 'heralds-of-chaos' ? t('products.download.link') : t('products.download.button')}
     </Button>
   )
 );
