@@ -332,6 +332,107 @@ export interface Locale {
     };
   };
   flag: string;
+  privacy: {
+    title: string;
+    lastUpdate: string;
+    intro: string;
+    sections: {
+      responsible: {
+        title: string;
+        items: Array<string>;
+      };
+      dataCollected: {
+        title: string;
+        intro: string;
+        items: Array<string>;
+      };
+      howWeCollect: {
+        title: string;
+        intro: string;
+        items: Array<string>;
+      };
+      dataUsage: {
+        title: string;
+        intro: string;
+        items: Array<string>;
+      };
+      thirdParty: {
+        title: string;
+        content: string;
+      };
+      dataRetention: {
+        title: string;
+        content: string;
+      };
+      minors: {
+        title: string;
+        content: string;
+      };
+      rights: {
+        title: string;
+        intro: string;
+        items: Array<string>;
+        contact: string;
+      };
+    };
+  };
+  terms: {
+    title: string;
+    lastUpdate: string;
+    intro: string;
+    sections: {
+      object: {
+        title: string;
+        content: string;
+      };
+      permittedUse: {
+        title: string;
+        content: string;
+      };
+      registration: {
+        title: string;
+        content: string;
+      };
+      responsibility: {
+        title: string;
+        content: string;
+      };
+      modifications: {
+        title: string;
+        content: string;
+      };
+      jurisdiction: {
+        title: string;
+        content: string;
+      };
+    };
+  };
+  cookies: {
+    title: string;
+    lastUpdate: string;
+    intro: string;
+    sections: {
+      whatAre: {
+        title: string;
+        content: string;
+      };
+      types: {
+        title: string;
+        items: Array<{
+          primary: string;
+          secondary: string;
+        }>;
+      };
+      noThirdParty: {
+        title: string;
+        content: string;
+      };
+      consent: {
+        title: string;
+        content: string;
+      };
+    };
+  };
 }
 
 export const locales: Record<'en' | 'es', Locale> = {
@@ -812,6 +913,139 @@ export const locales: Record<'en' | 'es', Locale> = {
       },
     },
     flag: getAssetPath('/icons/flags/en.svg'),
+    privacy: {
+      title: 'Privacy Policy',
+      lastUpdate: 'Last updated: May 20, 2025',
+      intro:
+        'At GYCODING (www.gycoding.com) we take the privacy of our users very seriously, including minors. This policy describes how we collect, use, and protect your personal data in accordance with the General Data Protection Regulation (GDPR) and other applicable regulations in Spain.',
+      sections: {
+        responsible: {
+          title: '1. Data Controller',
+          items: ['Website name: GYCODING', 'Contact email: it@gycoding.com', 'Country: Spain'],
+        },
+        dataCollected: {
+          title: '2. Data We Collect',
+          intro: 'We collect the following personal data:',
+          items: ['Name', 'Email', 'IP Address'],
+        },
+        howWeCollect: {
+          title: '3. How We Collect Your Data',
+          intro: 'Through:',
+          items: [
+            'Cookies (functional)',
+            'External authentication services (Auth0)',
+            'Contact and registration forms',
+          ],
+        },
+        dataUsage: {
+          title: '4. Data Usage',
+          intro: 'We use your data to:',
+          items: [
+            'Manage user accounts',
+            'Administer access to personalized services',
+            'Ensure security and proper site functioning',
+          ],
+        },
+        thirdParty: {
+          title: '5. Third Parties We Share Data With',
+          content:
+            'We share data with Auth0 for authentication and identity management. The processing of your data by Auth0 is governed by their own privacy policies.',
+        },
+        dataRetention: {
+          title: '6. Data Retention',
+          content:
+            'Your data will be kept indefinitely until deletion is requested, as long as it is necessary for the purposes mentioned.',
+        },
+        minors: {
+          title: '7. Minors',
+          content:
+            'Since our website may be directed at minors, we recommend that minors have parental or guardian authorization before providing personal data.',
+        },
+        rights: {
+          title: '8. Your Rights',
+          intro: 'You have the right to:',
+          items: [
+            'Access your data',
+            'Rectify incorrect data',
+            'Request deletion',
+            'Object to processing',
+            'Data portability',
+          ],
+          contact: 'You can exercise these rights by writing to: it@gycoding.com@privacy',
+        },
+      },
+    },
+    terms: {
+      title: 'Terms of Service',
+      lastUpdate: 'Last updated: May 20, 2025',
+      intro: 'By accessing and using this website, you accept the following terms:',
+      sections: {
+        object: {
+          title: '1. Object',
+          content: 'GYCODING offers services related to user account management and websites.',
+        },
+        permittedUse: {
+          title: '2. Permitted Use',
+          content:
+            'The user agrees to use the site legally, without infringing third-party rights, or engaging in illegal, offensive, or abusive activities.',
+        },
+        registration: {
+          title: '3. Registration',
+          content:
+            'By registering, you agree to provide truthful information. We reserve the right to suspend accounts that violate this rule.',
+        },
+        responsibility: {
+          title: '4. Responsibility',
+          content:
+            'GYCODING is not responsible for interruptions, errors, or data loss resulting from misuse of the service or force majeure.',
+        },
+        modifications: {
+          title: '5. Modifications',
+          content:
+            'We reserve the right to modify these terms at any time. Users will be notified through the website.',
+        },
+        jurisdiction: {
+          title: '6. Jurisdiction',
+          content:
+            'This site operates under Spanish legislation. In case of conflict, the parties submit to the courts of Spain.',
+        },
+      },
+    },
+    cookies: {
+      title: 'Cookie Policy',
+      lastUpdate: 'Last updated: May 20, 2025',
+      intro: 'This website uses essential cookies for its operation.',
+      sections: {
+        whatAre: {
+          title: '1. What are cookies?',
+          content:
+            'A cookie is a small file that is stored in your browser when you visit a website.',
+        },
+        types: {
+          title: '2. Types of cookies used',
+          items: [
+            {
+              primary: 'Session cookies',
+              secondary: 'Necessary for authentication and session maintenance.',
+            },
+            {
+              primary: 'Preference cookies',
+              secondary: 'To remember user settings, such as page color or theme.',
+            },
+          ],
+        },
+        noThirdParty: {
+          title: '3. No third-party cookies',
+          content:
+            'We do not use analytics, advertising, or external service cookies such as Google Analytics or Facebook.',
+        },
+        consent: {
+          title: '4. Consent',
+          content:
+            'Currently, we do not display a cookie consent banner, as we only use strictly necessary cookies. However, you can configure your browser to restrict or delete cookies.',
+        },
+      },
+    },
   },
   es: {
     navigation: {
@@ -1291,5 +1525,144 @@ export const locales: Record<'en' | 'es', Locale> = {
       },
     },
     flag: getAssetPath('/icons/flags/es.svg'),
+    privacy: {
+      title: 'Política de Privacidad',
+      lastUpdate: 'Última actualización: 20 de mayo de 2025',
+      intro:
+        'En GYCODING (www.gycoding.com) nos tomamos muy en serio la privacidad de nuestros usuarios, incluidos menores de edad. Esta política describe cómo recopilamos, usamos y protegemos tus datos personales conforme al Reglamento General de Protección de Datos (RGPD) y demás normativa aplicable en España.',
+      sections: {
+        responsible: {
+          title: '1. Responsable del tratamiento',
+          items: [
+            'Nombre del sitio web: GYCODING',
+            'Correo de contacto: it@gycoding.com',
+            'País: España',
+          ],
+        },
+        dataCollected: {
+          title: '2. Datos que recopilamos',
+          intro: 'Recopilamos los siguientes datos personales:',
+          items: ['Nombre', 'Correo electrónico', 'Dirección IP'],
+        },
+        howWeCollect: {
+          title: '3. Cómo recopilamos tus datos',
+          intro: 'A través de:',
+          items: [
+            'Cookies (funcionales)',
+            'Servicios de autenticación externa (Auth0)',
+            'Formularios de contacto y registro',
+          ],
+        },
+        dataUsage: {
+          title: '4. Uso de los datos',
+          intro: 'Utilizamos tus datos para:',
+          items: [
+            'Gestionar cuentas de usuario',
+            'Administrar el acceso a servicios personalizados',
+            'Garantizar la seguridad y el correcto funcionamiento del sitio',
+          ],
+        },
+        thirdParty: {
+          title: '5. Terceros con los que compartimos datos',
+          content:
+            'Compartimos datos con Auth0 para la autenticación y gestión de identidades. El tratamiento de tus datos por parte de Auth0 se rige por sus propias políticas de privacidad.',
+        },
+        dataRetention: {
+          title: '6. Conservación de datos',
+          content:
+            'Tus datos se conservarán de forma indefinida mientras no se solicite su supresión, siempre y cuando sea necesario para los fines mencionados.',
+        },
+        minors: {
+          title: '7. Menores de edad',
+          content:
+            'Dado que nuestra web puede estar dirigida a menores, recomendamos que los menores cuenten con la autorización de sus padres o tutores antes de facilitar datos personales.',
+        },
+        rights: {
+          title: '8. Tus derechos',
+          intro: 'Tienes derecho a:',
+          items: [
+            'Acceder a tus datos',
+            'Rectificar datos incorrectos',
+            'Solicitar la supresión',
+            'Oponerte al tratamiento',
+            'Portar tus datos',
+          ],
+          contact: 'Puedes ejercer estos derechos escribiendo a: it@gycoding.com@privacy',
+        },
+      },
+    },
+    terms: {
+      title: 'Términos de Servicio',
+      lastUpdate: 'Última actualización: 20 de mayo de 2025',
+      intro: 'Al acceder y utilizar este sitio web, aceptas los siguientes términos:',
+      sections: {
+        object: {
+          title: '1. Objeto',
+          content:
+            'GYCODING ofrece servicios relacionados con la gestión de cuentas de usuario y páginas web.',
+        },
+        permittedUse: {
+          title: '2. Uso permitido',
+          content:
+            'El usuario se compromete a utilizar el sitio de forma legal, sin infringir derechos de terceros, ni realizar actividades ilegales, ofensivas o abusivas.',
+        },
+        registration: {
+          title: '3. Registro',
+          content:
+            'Al registrarte, aceptas proporcionar información veraz. Nos reservamos el derecho de suspender cuentas que incumplan esta norma.',
+        },
+        responsibility: {
+          title: '4. Responsabilidad',
+          content:
+            'GYCODING no se hace responsable de interrupciones, errores o pérdidas de datos derivadas del mal uso del servicio o causas de fuerza mayor.',
+        },
+        modifications: {
+          title: '5. Modificaciones',
+          content:
+            'Nos reservamos el derecho de modificar estos términos en cualquier momento. Se notificará a los usuarios mediante la web.',
+        },
+        jurisdiction: {
+          title: '6. Jurisdicción',
+          content:
+            'Este sitio opera conforme a la legislación española. En caso de conflicto, las partes se someten a los tribunales de España.',
+        },
+      },
+    },
+    cookies: {
+      title: 'Política de Cookies',
+      lastUpdate: 'Última actualización: 20 de mayo de 2025',
+      intro: 'Este sitio web utiliza cookies esenciales para su funcionamiento.',
+      sections: {
+        whatAre: {
+          title: '1. ¿Qué son las cookies?',
+          content:
+            'Una cookie es un pequeño archivo que se almacena en tu navegador cuando visitas una web.',
+        },
+        types: {
+          title: '2. Tipos de cookies utilizadas',
+          items: [
+            {
+              primary: 'Cookies de sesión',
+              secondary: 'Necesarias para la autenticación y mantenimiento de sesiones.',
+            },
+            {
+              primary: 'Cookies de preferencias',
+              secondary:
+                'Para recordar configuraciones del usuario, como el color de la página o el tema.',
+            },
+          ],
+        },
+        noThirdParty: {
+          title: '3. No uso de cookies de terceros',
+          content:
+            'No utilizamos cookies de analítica, publicidad ni servicios externos como Google Analytics o Facebook.',
+        },
+        consent: {
+          title: '4. Consentimiento',
+          content:
+            'Actualmente, no mostramos un banner de consentimiento de cookies, dado que solo se utilizan cookies estrictamente necesarias. Aun así, puedes configurar tu navegador para restringir o eliminar cookies.',
+        },
+      },
+    },
   },
 };

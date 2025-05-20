@@ -100,14 +100,24 @@ const DownloadButton = memo(
       variant="contained"
       size="large"
       onClick={
-        productId === 'gy-accounts' || productId === 'heralds-of-chaos'
-          ? undefined
-          : onClick
+        productId === 'gy-accounts' || productId === 'heralds-of-chaos' ? undefined : onClick
       }
       startIcon={
-        productId === 'gy-accounts' ? <LoginIcon /> : productId === 'heralds-of-chaos' ? <ArrowForwardIosIcon /> : <DownloadIcon />
+        productId === 'gy-accounts' ? (
+          <LoginIcon />
+        ) : productId === 'heralds-of-chaos' ? (
+          <ArrowForwardIosIcon />
+        ) : (
+          <DownloadIcon />
+        )
       }
-      href={productId === 'gy-accounts' ? 'https://accounts.gycoding.com' : productId === 'heralds-of-chaos' ? 'https://heraldsofchaos.gycoding.com' : '#'}
+      href={
+        productId === 'gy-accounts'
+          ? 'https://accounts.gycoding.com'
+          : productId === 'heralds-of-chaos'
+            ? 'https://heraldsofchaos.gycoding.com'
+            : '#'
+      }
       sx={{
         background:
           productId === 'gy-documents' ? PRODUCT_THEMES['gy-documents'].primary : gradient,
@@ -126,7 +136,11 @@ const DownloadButton = memo(
         },
       }}
     >
-      {productId === 'gy-accounts' ? t('products.download.login') : productId === 'heralds-of-chaos' ? t('products.download.link') : t('products.download.button')}
+      {productId === 'gy-accounts'
+        ? t('products.download.login')
+        : productId === 'heralds-of-chaos'
+          ? t('products.download.link')
+          : t('products.download.button')}
     </Button>
   )
 );
