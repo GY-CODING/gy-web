@@ -9,6 +9,7 @@ import { motion } from 'framer-motion';
 import { GitHub, LinkedIn, Email } from '@mui/icons-material';
 import { useLanguage } from '../../utils/languageContext';
 import { fadeInUpVariants } from '../../utils/animations';
+import LanguageIcon from '@mui/icons-material/Language';
 
 interface TeamMember {
   name: string;
@@ -20,6 +21,7 @@ interface TeamMember {
     github: string;
     linkedin: string;
     email: string;
+    portfolio: string;
   };
 }
 
@@ -34,6 +36,8 @@ const SocialIcon = ({ type, url }: { type: string; url: string }) => {
         return <LinkedIn />;
       case 'email':
         return <Email />;
+      case 'portfolio':
+        return <LanguageIcon />;
       default:
         return null;
     }
@@ -219,6 +223,7 @@ const TeamMemberCard = ({ member, index }: { member: TeamMember; index: number }
               <SocialIcon type="github" url={member.social.github} />
               <SocialIcon type="linkedin" url={member.social.linkedin} />
               <SocialIcon type="email" url={member.social.email} />
+              <SocialIcon type="portfolio" url={member.social.portfolio} />
             </Box>
           </Box>
         </Box>

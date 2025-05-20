@@ -41,6 +41,7 @@ export interface Locale {
         github: string;
         linkedin: string;
         email: string;
+        portfolio: string;
       };
     }>;
   };
@@ -488,6 +489,7 @@ export const locales: Record<'en' | 'es', Locale> = {
             github: 'https://github.com/gy-gfigueras',
             linkedin: 'https://www.linkedin.com/in/gfigueras/',
             email: 'gfigueras@gycoding.com',
+            portfolio: 'https://gfigueras.com',
           },
         },
         {
@@ -501,6 +503,7 @@ export const locales: Record<'en' | 'es', Locale> = {
             github: 'https://github.com/gy-toxyc',
             linkedin: 'https://www.linkedin.com/in/srtoxyc/',
             email: 'toxyc@gycoding.com',
+            portfolio: 'https://srtoxyc.com',
           },
         },
       ],
@@ -1099,6 +1102,7 @@ export const locales: Record<'en' | 'es', Locale> = {
             github: 'https://github.com/gy-gfigueras',
             linkedin: 'https://www.linkedin.com/in/gfigueras/',
             email: 'gfigueras@gycoding.com',
+            portfolio: 'https://gfigueras.com',
           },
         },
         {
@@ -1112,6 +1116,7 @@ export const locales: Record<'en' | 'es', Locale> = {
             github: 'https://github.com/gy-toxyc',
             linkedin: 'https://www.linkedin.com/in/srtoxyc/',
             email: 'toxyc@gycoding.com',
+            portfolio: 'https://srtoxyc.com',
           },
         },
       ],
