@@ -347,7 +347,8 @@ export default function Footer() {
                   fontFamily: lexendFont.style.fontFamily,
                 }}
               >
-                {new Date().getFullYear()} @{t('footer.company').toUpperCase()} - {t('footer.rights')}
+                {new Date().getFullYear()} @{t('footer.company').toUpperCase()} -{' '}
+                {t('footer.rights')}
               </Typography>
             </Box>
           </motion.div>
