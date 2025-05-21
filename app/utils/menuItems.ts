@@ -107,14 +107,14 @@ const menuItemsEN: MenuItem[] = [
         path: '/about/team',
         icon: ICON_PATHS.TEAM,
         icon_light: ICON_PATHS.TEAM_LIGHT,
-        description: 'Meet our team',
+        description: 'Meet our team.',
       },
       {
         title: 'Company',
         path: '/about/company',
         icon: ICON_PATHS.COMPANY,
         icon_light: ICON_PATHS.COMPANY_LIGHT,
-        description: 'Learn more about our company',
+        description: 'Learn more about our company.',
       },
     ],
   },
@@ -235,7 +235,7 @@ export function userItem(image: string) {
       {
         title: 'Profile',
         path: '/account/profile',
-        description: 'Manage your account settings',
+        description: 'Manage your account settings.',
       },
     ],
   };
