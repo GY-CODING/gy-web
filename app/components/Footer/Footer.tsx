@@ -75,8 +75,7 @@ export default function Footer() {
   const projectLinks = [
     { name: 'Heralds of Chaos', href: '/products/heralds-of-chaos' },
     { name: 'GY Accounts', href: '/products/gy-accounts' },
-    { name: 'GY Messages', href: '/products/gy-messages' },
-    { name: 'GY Documents', href: '/products/gy-documents' },
+    { name: 'WingWords', href: '/products/wingwords' },
   ];
 
   const aboutLinks = [

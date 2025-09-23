@@ -16,8 +16,7 @@ const ROTATION_DURATION = 20; // Duración base de la rotación en segundos
 const PRODUCT_COLORS: any = {
   'heralds-of-chaos': '#FFB300',
   'gy-accounts': '#7B1FA2',
-  'gy-documents': '#2196F3',
-  'gy-messages': '#00C853',
+  wingwords: '#8E44AD',
 };
 
 // Componente para la órbita
@@ -57,7 +56,7 @@ const Orbit = ({
         position: 'absolute',
         inset: -2,
         borderRadius: 'inherit',
-        background: `radial-gradient(circle at 50% 50%, 
+        background: `radial-gradient(circle at 50% 50%,
           ${
             theme.palette.mode === 'dark'
               ? `${alpha(color, 0.2)} 0%,
@@ -109,7 +108,7 @@ const TechPlanet = ({
   const x = Math.cos(currentAngle) * radius;
   const y = Math.sin(currentAngle) * radius;
 
-  const productColor = PRODUCT_COLORS[productId];
+  const productColor = PRODUCT_COLORS[productId] || '#8E44AD';
 
   return (
     <motion.div
@@ -174,7 +173,7 @@ export default function ProductDetails({ productId }: { productId: string }) {
 
   if (technologies.length === 0) return null;
 
-  const productColor = PRODUCT_COLORS[productId];
+  const productColor = PRODUCT_COLORS[productId] || '#8E44AD';
 
   return (
     <Box
@@ -253,7 +252,7 @@ export default function ProductDetails({ productId }: { productId: string }) {
                 position: 'absolute',
                 inset: -20,
                 borderRadius: '50%',
-                background: `radial-gradient(circle at 50% 50%, 
+                background: `radial-gradient(circle at 50% 50%,
                   ${
                     theme.palette.mode === 'dark'
                       ? `${alpha(productColor, 0.4)} 0%,

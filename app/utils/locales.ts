@@ -187,98 +187,6 @@ export interface Locale {
           };
         };
       };
-      'gy-messages': {
-        name: string;
-        description: string;
-        techStack: {
-          title: string;
-          technologies: {
-            tech1: {
-              name: string;
-              description: string;
-            };
-            tech2: {
-              name: string;
-              description: string;
-            };
-            tech3: {
-              name: string;
-              description: string;
-            };
-            tech4: {
-              name: string;
-              description: string;
-            };
-          };
-        };
-        characteristics: {
-          title: string;
-          items: Array<{
-            title: string;
-            description: string;
-            icon: React.ElementType;
-            color: string;
-          }>;
-        };
-        faq: {
-          title: string;
-          items: {
-            q1: string;
-            a1: string;
-            q2: string;
-            a2: string;
-          };
-        };
-      };
-      'gy-documents': {
-        name: string;
-        description: string;
-        techStack: {
-          title: string;
-          technologies: {
-            tech1: {
-              name: string;
-              description: string;
-            };
-            tech2: {
-              name: string;
-              description: string;
-            };
-            tech3: {
-              name: string;
-              description: string;
-            };
-            tech4: {
-              name: string;
-              description: string;
-            };
-          };
-        };
-        characteristics: {
-          title: string;
-          items: Array<{
-            title: string;
-            description: string;
-            icon: React.ElementType;
-            color: string;
-          }>;
-        };
-        faq: {
-          title: string;
-          items: {
-            q1: string;
-            a1: string;
-            q2: string;
-            a2: string;
-            q3: string;
-            a3: string;
-            q4: string;
-            a4: string;
-            q5: string;
-            a5: string;
-          };
-        };
-      };
       'gy-accounts': {
         name: string;
         description: string;
@@ -323,6 +231,59 @@ export interface Locale {
             a3: string;
             q4: string;
             a4: string;
+          };
+        };
+      };
+      wingwords: {
+        name: string;
+        description: string;
+        techStack: {
+          title: string;
+          technologies: {
+            tech1: {
+              name: string;
+              description: string;
+            };
+            tech2: {
+              name: string;
+              description: string;
+            };
+            tech3: {
+              name: string;
+              description: string;
+            };
+            tech4: {
+              name: string;
+              description: string;
+            };
+            tech5: {
+              name: string;
+              description: string;
+            };
+            tech6: {
+              name: string;
+              description: string;
+            };
+          };
+        };
+        characteristics: {
+          title: string;
+          items: Array<{
+            title: string;
+            description: string;
+            icon: React.ElementType;
+            color: string;
+          }>;
+        };
+        faq: {
+          title: string;
+          items: {
+            q1: string;
+            a1: string;
+            q2: string;
+            a2: string;
+            q3: string;
+            a3: string;
           };
         };
       };
@@ -463,14 +424,7 @@ export const locales: Record<'en' | 'es', Locale> = {
           title: 'GY Accounts',
           description: 'Secure account management system',
         },
-        {
-          title: 'GY Messages',
-          description: 'Real-time messaging platform',
-        },
-        {
-          title: 'GY Documents',
-          description: 'Document management and collaboration',
-        },
+        { title: 'WingWords', description: 'Connect with readers and share literary experiences' },
       ],
     },
     team: {
@@ -618,7 +572,7 @@ export const locales: Record<'en' | 'es', Locale> = {
         demo: 'Demo',
         now: 'Now',
         login: 'Login',
-        link: 'Dashboard',
+        link: 'Website',
         platformSelect: 'Select your platform',
         platforms: {
           windows: 'Windows',
@@ -705,140 +659,6 @@ export const locales: Record<'en' | 'es', Locale> = {
             },
           },
         },
-        'gy-messages': {
-          name: 'GY Messages',
-          description: 'Real-time messaging and communication platform.',
-          techStack: {
-            title: 'Technologies Involved',
-            technologies: {
-              tech1: {
-                name: 'Spring Boot',
-                description: 'React framework for production with SSR',
-              },
-              tech2: {
-                name: 'Java',
-                description: 'Real-time bidirectional communication',
-              },
-              tech3: {
-                name: 'Github',
-                description: 'Relational database for message storage',
-              },
-              tech4: {
-                name: 'Cloudflare',
-                description: 'In-memory data store for real-time features',
-              },
-              //add five technologie: react Native
-            },
-          },
-          characteristics: {
-            title: 'Characteristics',
-            items: [
-              {
-                title: 'End-to-End Encryption',
-                description: 'Messages protected with end-to-end encryption.',
-                icon: SecurityIcon,
-                color: '#4CAF50',
-              },
-              {
-                title: 'Real-Time',
-                description: 'Instant messaging with ultra-low latency through WebSockets.',
-                icon: SpeedIcon,
-                color: '#00BCD4',
-              },
-              {
-                title: 'Multiplatform',
-                description: 'Available on Android, iOS, Windows, MacOS, Linux and Web.',
-                icon: DevicesIcon,
-                color: '#FF4081',
-              },
-              {
-                title: 'Backup Secure',
-                description: 'Messages history with automatic backup.',
-                icon: StorageIcon,
-                color: '#7C4DFF',
-              },
-            ],
-          },
-          faq: {
-            title: 'Frequently Asked Questions',
-            items: {
-              q1: 'What is the multiplatform availability?',
-              a1: 'Currently, we only offer downloads for mobile devices with Android or iOS, but we are working on incorporating other platforms.',
-              q2: 'Does real-time apply between different platforms?',
-              a2: 'Yes, real-time applies to communication between different platforms as well.',
-            },
-          },
-        },
-        'gy-documents': {
-          name: 'GY Documents',
-          description: 'Highly customizable Markdown editor.',
-          techStack: {
-            title: 'Technologies Involved',
-            technologies: {
-              tech1: {
-                name: 'Next.js',
-                description: 'React framework for the web interface',
-              },
-              tech2: {
-                name: 'TypeScript',
-                description: 'Cloud storage for documents',
-              },
-              tech3: {
-                name: 'Electron',
-                description: 'Document metadata and user data storage',
-              },
-              tech4: {
-                name: 'GitHUb',
-                description: 'Full-text search engine',
-              },
-            },
-          },
-          characteristics: {
-            title: 'Characteristics',
-            items: [
-              {
-                title: 'High Customization',
-                description:
-                  'With an advanced customization system you can customize each Markdown file to your liking.',
-                icon: CloudIcon,
-                color: '#2196F3',
-              },
-              {
-                title: 'Cloud Sync',
-                description: 'Synchronize your styles in the cloud through GY Accounts.',
-                icon: GroupIcon,
-                color: '#4CAF50',
-              },
-              {
-                title: 'Version Control',
-                description: 'Simple version control through GIT.',
-                icon: SecurityIcon,
-                color: '#FF4081',
-              },
-              {
-                title: '???',
-                description: '???',
-                icon: StorageIcon,
-                color: '#9C27B0',
-              },
-            ],
-          },
-          faq: {
-            title: 'Frequently Asked Questions',
-            items: {
-              q1: 'Can I work offline?',
-              a1: 'Yes, all GY Documents functionality is based on local work, with cloud synchronization as a complement.',
-              q2: 'What file formats are compatible?',
-              a2: 'Currently only Markdown (.md) and plain text (.txt), but our plans include incorporating other formats for the editor such as HTML and DOCX.',
-              q3: 'What is a "vault"?',
-              a3: 'A vault is the workspace, a parent container of files and folders on which the editor takes the root.',
-              q4: 'Can I customize an individual file without affecting the rest of my "vault"?',
-              a4: 'Of course, each file has the possibility of using a specific style preset.',
-              q5: 'Can I customize all files in a folder at the same time?',
-              a5: 'At the moment no, but it`s part of our plans for future updates to implement that functionality.',
-            },
-          },
-        },
         'gy-accounts': {
           name: 'GY Accounts',
           description: 'Authentication and user management system.',
@@ -906,6 +726,80 @@ export const locales: Record<'en' | 'es', Locale> = {
               a3: 'For now, no, but we are working hard to incorporate it.',
               q4: '¿Mis datos se almacenan de manera segura?',
               a4: 'Of course, our authentication service uses modern and robust encryption technologies and privacy policies.',
+            },
+          },
+        },
+        wingwords: {
+          name: 'WingWords',
+          description: 'Discover readers with similar tastes and share your literary experiences',
+          techStack: {
+            title: 'Technologies Involved',
+            technologies: {
+              tech1: {
+                name: 'WingWords',
+                description: 'Social Reading Platform',
+              },
+              tech2: {
+                name: 'Java',
+                description: 'Backend Development',
+              },
+              tech3: {
+                name: 'Spring Boot',
+                description: 'Backend development framework',
+              },
+              tech4: {
+                name: 'TypeScript',
+                description: 'Type-safe development',
+              },
+              tech5: {
+                name: 'NextJS',
+                description: 'Next-generation React framework',
+              },
+              tech6: {
+                name: 'Cloudflare',
+                description: 'Cloud Computing and CDN',
+              },
+            },
+          },
+          characteristics: {
+            title: 'Features',
+            items: [
+              {
+                title: 'Reader Connection',
+                description: 'Connect with readers who share your literary tastes and preferences',
+                icon: GroupIcon,
+                color: '#8E44AD',
+              },
+              {
+                title: 'View Statistics',
+                description: 'View your reading statistics and compare them with your friends.',
+                icon: SpeedIcon,
+                color: '#9B59B6',
+              },
+              {
+                title: 'Cross-Device Sync',
+                description: 'Access your reading data from any device.',
+                icon: CloudIcon,
+                color: '#E91E63',
+              },
+              {
+                title: 'GY Accounts Integration',
+                description:
+                  'GY Accounts system provides secure authentication and user management for WingWords.',
+                icon: SecurityIcon,
+                color: '#4CAF50',
+              },
+            ],
+          },
+          faq: {
+            title: 'Frequently Asked Questions',
+            items: {
+              q1: 'Can I connect with readers worldwide?',
+              a1: 'Yes, WingWords is a global platform that allows you to connect with readers from any country and in multiple languages.',
+              q2: 'Is WingWords free to use?',
+              a2: 'Yes, WingWords offers all basic features for free. We also have planned premium plans for the future with additional features.',
+              q3: 'How do you protect my privacy?',
+              a3: 'We respect your privacy and only share the necessary information for the application using our GY Accounts system.',
             },
           },
         },
@@ -1076,14 +970,6 @@ export const locales: Record<'en' | 'es', Locale> = {
           title: 'GY Accounts',
           description: 'Sistema seguro de gestión de cuentas',
         },
-        {
-          title: 'GY Messages',
-          description: 'Plataforma de mensajería en tiempo real',
-        },
-        {
-          title: 'GY Documents',
-          description: 'Gestión y colaboración de documentos',
-        },
       ],
     },
     team: {
@@ -1233,7 +1119,7 @@ export const locales: Record<'en' | 'es', Locale> = {
         demo: 'Demo',
         now: 'Ahora',
         login: 'Iniciar Sesión',
-        link: 'Dashboard',
+        link: 'Página Web',
         platformSelect: 'Selecciona tu plataforma',
         platforms: {
           windows: 'Windows',
@@ -1319,141 +1205,6 @@ export const locales: Record<'en' | 'es', Locale> = {
             },
           },
         },
-        'gy-messages': {
-          name: 'GY Messages',
-          description: 'Plataforma de mensajería y comunicación en tiempo real.',
-          techStack: {
-            title: 'Tecnologías Involucradas',
-            technologies: {
-              tech1: {
-                name: 'Spring Boot',
-                description: 'Framework de React para producción con SSR',
-              },
-              tech2: {
-                name: 'Java',
-                description: 'Comunicación bidireccional en tiempo real',
-              },
-              tech3: {
-                name: 'GitHub',
-                description: 'Base de datos relacional para almacenamiento de mensajes',
-              },
-              tech4: {
-                name: 'React Native',
-                description: 'Almacén de datos en memoria para funciones en tiempo real',
-              },
-            },
-          },
-          characteristics: {
-            title: 'Características',
-            items: [
-              {
-                title: 'Cifrado E2E',
-                description: 'Mensajes protegidos con cifrado de extremo a extremo.',
-                icon: SecurityIcon,
-                color: '#4CAF50',
-              },
-              {
-                title: 'Tiempo Real',
-                description:
-                  'Mensajería instantánea con latencia ultrabaja a través de WebSockets.',
-                icon: SpeedIcon,
-                color: '#00BCD4',
-              },
-              {
-                title: 'Multiplataforma',
-                description:
-                  'Disponible en Android e iOS y, en un futuro, en Windows, MacOS, Linux y Web.',
-                icon: DevicesIcon,
-                color: '#FF4081',
-              },
-              {
-                title: 'Respaldo Seguro',
-                description: 'Historial de mensajes con backup automático.',
-                icon: StorageIcon,
-                color: '#7C4DFF',
-              },
-            ],
-          },
-          faq: {
-            title: 'Preguntas Frecuentes',
-            items: {
-              q1: '¿Cuál es la disponibilidad de la multiplataforma?',
-              a1: 'Actualmente solo ofrecemos descarga para dispositivos móviles con Android o iOS, pero estamos trabajando en la incorporación de otras plataformas.',
-              q2: '¿El tiempo real también aplica entre distintas plataformas?',
-              a2: 'Sí, el tiempo real aplica en la comunicación entre distintas plataformas por igual.',
-            },
-          },
-        },
-        'gy-documents': {
-          name: 'GY Documents',
-          description: 'Editor de Markdown altamente personalizable.',
-          techStack: {
-            title: 'Tecnologías Involucradas',
-            technologies: {
-              tech1: {
-                name: 'Next.js',
-                description: 'Framework de React para la interfaz web',
-              },
-              tech2: {
-                name: 'TypeScript',
-                description: 'Almacenamiento en la nube para documentos',
-              },
-              tech3: {
-                name: 'Electron',
-                description: 'Almacenamiento de metadatos y datos de usuario',
-              },
-              tech4: {
-                name: 'GitHub',
-                description: 'Motor de búsqueda de texto completo',
-              },
-            },
-          },
-          characteristics: {
-            title: 'Características',
-            items: [
-              {
-                title: 'Alta Personalización',
-                description:
-                  'Con un sistema de personalización avanzado podrás estilizar cada fichero Markdown a tu gusto.',
-                icon: SecurityIcon,
-                color: '#4CAF50',
-              },
-              {
-                title: 'Sincronización en la Nube',
-                description: 'Sincroniza tus estilos en la nube a través de GY Accounts.',
-                icon: SpeedIcon,
-                color: '#00BCD4',
-              },
-              {
-                title: 'Control de Versiones',
-                description: 'Sistema sencillo de control de versiones a través de GIT.',
-                icon: DevicesIcon,
-                color: '#FF4081',
-              },
-              {
-                title: '???',
-                description: '???',
-                icon: StorageIcon,
-                color: '#7C4DFF',
-              },
-            ],
-          },
-          faq: {
-            title: 'Preguntas Frecuentes',
-            items: {
-              q1: '¿Puedo trabajar sin conexión?',
-              a1: 'Sí, todo el funcionamiento de GY Documents se basa en el trabajo local, con la sincronización en la nube como un complemento.',
-              q2: '¿Qué formatos de archivos son compatibles?',
-              a2: 'Actualmente solo Markdown (.md) y texto plano (.txt), pero entra dentro de nuestros planes la incorporación de otros formatos para el editor como HTML y DOCX.',
-              q3: '¿Qué es un \u0027vault\u0027?',
-              a3: 'Un vault es el espacio de trabajo, un contenedor padre de ficheros y carpetas sobre el que el editor toma la raíz.',
-              q4: '¿Puedo personalizar individualmente un fichero sin afectar al resto de mi \u0027vault\u0027?',
-              a4: 'Por supuesto, cada fichero tiene la posibilidad de utilizar un preset de estilos concreto.',
-              q5: '¿Puedo personalizar todos los ficheros de una carpeta al mismo tiempo?',
-              a5: 'Por el momento no, pero entra en nuestros planes de futuras actualizaciones implementar esa funcionalidad.',
-            },
-          },
-        },
         'gy-accounts': {
           name: 'GY Accounts',
           description: 'Sistema de autenticación y gestión de usuarios.',
@@ -1520,6 +1271,83 @@ export const locales: Record<'en' | 'es', Locale> = {
               a3: 'Por el momento no, pero estamos en arduo trabajo de incorporarla.',
               q4: '¿Mis datos se almacenan de manera segura?',
               a4: 'Por supuesto, nuestro servicio de autenticación utiliza tecnologías de cifrado y políticas de privacidad modernas y robustas.',
+            },
+          },
+        },
+        wingwords: {
+          name: 'WingWords',
+          description:
+            'Descubre lectores con gustos similares y comparte tus experiencias literarias',
+          techStack: {
+            title: 'Tecnologías Involucradas',
+            technologies: {
+              tech1: {
+                name: 'WingWords',
+                description: 'Plataforma Social de Lectura',
+              },
+              tech2: {
+                name: 'Java',
+                description: 'Desarrollo Backend',
+              },
+              tech3: {
+                name: 'Spring Boot',
+                description: 'Framework de desarrollo backend',
+              },
+              tech4: {
+                name: 'TypeScript',
+                description: 'Desarrollo tipado y seguro',
+              },
+              tech5: {
+                name: 'NextJS',
+                description: 'Framework React de última generación',
+              },
+              tech6: {
+                name: 'Cloudflare',
+                description: 'Cloud Computing y CDN',
+              },
+            },
+          },
+          characteristics: {
+            title: 'Características',
+            items: [
+              {
+                title: 'Conexión de Lectores',
+                description:
+                  'Conecta con lectores que comparten tus gustos y preferencias literarias',
+                icon: GroupIcon,
+                color: '#8E44AD',
+              },
+              {
+                title: 'Visualiza estádisticas',
+                description:
+                  'Visualiza las estádisticas de tus lecturas, y compáralas con tus amigos.',
+                icon: SpeedIcon,
+                color: '#9B59B6',
+              },
+              {
+                title: 'Sincronizacion entre dispositivos',
+                description: 'Accede a todos tus datos de lectura desde cualquier dispositivo.',
+                icon: CloudIcon,
+                color: '#E91E63',
+              },
+              {
+                title: 'Integracion con GY Accounts',
+                description:
+                  'El sistema de cuentas de GY Accounts proporciona autenticación segura y gestión de usuarios para WingWords.',
+                icon: SecurityIcon,
+                color: '#4CAF50',
+              },
+            ],
+          },
+          faq: {
+            title: 'Preguntas Frecuentes',
+            items: {
+              q1: '¿Puedo conectar con lectores de todo el mundo?',
+              a1: 'Sí, WingWords es una plataforma global que te permite conectar con lectores de cualquier país y en múltiples idiomas.',
+              q2: '¿Es gratuito usar WingWords?',
+              a2: 'Sí, WingWords ofrece todas las funciones básicas de forma gratuita. También tenemos planeados planes premium a futuro con características adicionales.',
+              q3: '¿Cómo protegen mi privacidad?',
+              a3: 'Respetamos tu privacidad y solo compartimos la información necesaria para la aplicación utilizando nuestro sistema de GY Accounts.',
             },
           },
         },

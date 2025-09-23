@@ -36,8 +36,7 @@ const CHARACTER_SETS: Record<string, string[]> = {
     'ᛜ',
     'ᛟ',
   ], // Runas nórdicas
-  'gy-messages': ['O', '1'], // Dígitos binarios
-  'gy-documents': ['✎', '✍', '✐', '✏', '📄', '📃'], // Símbolos de documentos
+  wingwords: ['✒', '📜', '🖋', '📖', '📝'], // Iconos de escritura/lectura
   'gy-accounts': ['🔒', '🔑', '👤', '🛡', '🔓'], // Iconos de seguridad/cuentas
 };
 

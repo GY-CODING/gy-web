@@ -52,64 +52,6 @@ const requirements: { [key: string]: { title: string; items: Requirement[] } } =
       },
     ],
   },
-  'gy-messages': {
-    title: 'Compatibilidad',
-    items: [
-      {
-        icon: WebIcon,
-        title: 'Web',
-        value: 'Chrome, Firefox, Safari',
-        color: '#2196F3',
-      },
-      {
-        icon: MobileIcon,
-        title: 'Móvil',
-        value: 'iOS 12+, Android 8+',
-        color: '#FF4081',
-      },
-      {
-        icon: SecurityIcon,
-        title: 'Seguridad',
-        value: 'Cifrado de extremo a extremo',
-        color: '#4CAF50',
-      },
-      {
-        icon: SpeedIcon,
-        title: 'Red',
-        value: 'Conexión estable a Internet',
-        color: '#FFC107',
-      },
-    ],
-  },
-  'gy-documents': {
-    title: 'Especificaciones',
-    items: [
-      {
-        icon: WebIcon,
-        title: 'Navegador',
-        value: 'Cualquier navegador moderno',
-        color: '#2196F3',
-      },
-      {
-        icon: StorageIcon,
-        title: 'Almacenamiento',
-        value: 'Espacio en la nube',
-        color: '#9C27B0',
-      },
-      {
-        icon: SecurityIcon,
-        title: 'Privacidad',
-        value: 'Documentos encriptados',
-        color: '#4CAF50',
-      },
-      {
-        icon: SpeedIcon,
-        title: 'Sincronización',
-        value: 'Tiempo real',
-        color: '#FF4081',
-      },
-    ],
-  },
   'gy-accounts': {
     title: 'Características',
     items: [
@@ -252,8 +194,8 @@ export default function SystemRequirements({ productId }: SystemRequirementsProp
             mb: 8,
             textAlign: 'center',
             fontFamily: lexendFont.style.fontFamily,
-            background: (theme) => `linear-gradient(135deg, 
-              ${theme.palette.text.primary}, 
+            background: (theme) => `linear-gradient(135deg,
+              ${theme.palette.text.primary},
               ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.5)'}
             )`,
             WebkitBackgroundClip: 'text',

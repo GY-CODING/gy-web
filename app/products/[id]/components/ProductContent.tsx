@@ -7,7 +7,6 @@ import Image from 'next/image';
 import { Box, Container, Typography, Button, Popover, useTheme, Stack, alpha } from '@mui/material';
 import { Download as DownloadIcon, AccountCircle as LoginIcon } from '@mui/icons-material';
 import { GiCrossedSwords } from 'react-icons/gi';
-import { BiMessageDetail } from 'react-icons/bi';
 import { FaUserCircle } from 'react-icons/fa';
 import { HiDocument } from 'react-icons/hi';
 import { lexendFont } from '@/app/utils/fonts';
@@ -30,26 +29,19 @@ const PRODUCT_THEMES = {
     icon: DownloadIcon,
     accentColor: '#FFC400',
   },
-  'gy-messages': {
-    primary: '#34C759',
-    secondary: '#4CD964',
-    gradient: 'linear-gradient(135deg, #34C759 0%, #4CD964 100%)',
-    icon: DownloadIcon,
-    accentColor: '#34C759',
-  },
-  'gy-documents': {
-    primary: '#1976D2', // Azul
-    secondary: '#2196F3', // Azul más claro
-    gradient: 'linear-gradient(135deg, #1976D2 0%, #2196F3 100%)', // Degradado azul
-    icon: DownloadIcon,
-    accentColor: '#1976D2', // Puede ser el mismo que el color primario
-  },
   'gy-accounts': {
     primary: '#7A288A',
     secondary: '#8F2D9E',
     gradient: 'linear-gradient(135deg, #7A288A 0%, #8F2D9E 100%)',
     icon: DownloadIcon,
     accentColor: '#662376',
+  },
+  wingwords: {
+    primary: '#8E44AD',
+    secondary: '#9B59B6',
+    gradient: 'linear-gradient(135deg, #8E44AD 0%, #9B59B6 100%)',
+    icon: DownloadIcon,
+    accentColor: '#8E44AD',
   },
 } as const;
 
@@ -100,12 +92,16 @@ const DownloadButton = memo(
       variant="contained"
       size="large"
       onClick={
-        productId === 'gy-accounts' || productId === 'heralds-of-chaos' ? undefined : onClick
+        productId === 'gy-accounts' || productId === 'heralds-of-chaos' || productId === 'wingwords'
+          ? undefined
+          : onClick
       }
       startIcon={
         productId === 'gy-accounts' ? (
           <LoginIcon />
         ) : productId === 'heralds-of-chaos' ? (
+          <ArrowForwardIosIcon />
+        ) : productId === 'wingwords' ? (
           <ArrowForwardIosIcon />
         ) : (
           <DownloadIcon />
@@ -116,11 +112,12 @@ const DownloadButton = memo(
           ? 'https://accounts.gycoding.com'
           : productId === 'heralds-of-chaos'
             ? 'https://heraldsofchaos.gycoding.com'
-            : '#'
+            : productId === 'wingwords'
+              ? 'https://wingwords.gycoding.com'
+              : '#'
       }
       sx={{
-        background:
-          productId === 'gy-documents' ? PRODUCT_THEMES['gy-documents'].primary : gradient,
+        background: gradient,
         px: 4,
         py: 1.5,
         fontSize: '1.1rem',
@@ -128,8 +125,7 @@ const DownloadButton = memo(
         borderRadius: 2,
         textTransform: 'none',
         '&:hover': {
-          background:
-            productId === 'gy-documents' ? PRODUCT_THEMES['gy-documents'].primary : gradient,
+          background: gradient,
           transform: 'translateY(-2px)',
           transition: 'transform 0.2s ease-in-out',
           boxShadow: (theme) => boxShadow(theme),
@@ -138,7 +134,7 @@ const DownloadButton = memo(
     >
       {productId === 'gy-accounts'
         ? t('products.download.login')
-        : productId === 'heralds-of-chaos'
+        : productId === 'heralds-of-chaos' || productId === 'wingwords'
           ? t('products.download.link')
           : t('products.download.button')}
     </Button>
@@ -279,9 +275,7 @@ const HeroSection = memo(
           }}
         >
           {product.id === 'heralds-of-chaos' && <GiCrossedSwords />}
-          {product.id === 'gy-messages' && <BiMessageDetail />}
           {product.id === 'gy-accounts' && <FaUserCircle />}
-          {product.id === 'gy-documents' && <HiDocument />}
         </Box>
 
         <Stack

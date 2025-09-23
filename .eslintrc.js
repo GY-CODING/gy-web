@@ -10,7 +10,7 @@ module.exports = {
   rules: {
     quotes: ['warn', 'single'],
     semi: ['warn', 'always'],
-    indent: ['warn', 2],
+    // indent: ['warn', 2], // Disabled to prevent conflicts with Prettier
     '@typescript-eslint/explicit-function-return-type': 'off',
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/no-unused-vars': [

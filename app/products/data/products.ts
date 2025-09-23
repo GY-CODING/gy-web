@@ -92,61 +92,6 @@ export const products: Product[] = [
     ],
   },
   {
-    id: 'gy-messages',
-    name: 'GY Messages',
-    description: 'Sistema de mensajería moderno y seguro con cifrado de extremo a extremo',
-    shortDescription: 'Mensajería segura y privada',
-    color: '#00C853',
-    longDescription:
-      'Una plataforma de mensajería versátil y segura diseñada para integrarse perfectamente con otros servicios de GY Coding.',
-    image: '/images/products/gy-messages.jpg',
-    version: '1.2.0',
-    status: EStatus.COMING_SOON,
-    downloads: {
-      windows: 'https://download.example.com/gy-messages/windows',
-      mac: 'https://download.example.com/gy-messages/mac',
-      linux: 'https://download.example.com/gy-messages/linux',
-    },
-    changelog: [
-      {
-        type: 'feature',
-        description: 'Añadido soporte para mensajes cifrados de extremo a extremo',
-      },
-      {
-        type: 'fix',
-        description: 'Corregidos problemas de sincronización con mensajes',
-      },
-    ],
-    features: [
-      {
-        title: 'Mensajería en Tiempo Real',
-        description: 'Comunicación instantánea con cifrado de extremo a extremo',
-        icon: 'message',
-      },
-      {
-        title: 'Integración Perfecta',
-        description: 'Se integra sin problemas con otros servicios de GY Coding',
-        icon: 'link',
-      },
-      {
-        title: 'Personalización Completa',
-        description: 'Personaliza la interfaz y las funcionalidades según tus necesidades',
-        icon: 'settings',
-      },
-    ],
-    faqs: [
-      {
-        question: '¿Es seguro GY Messages?',
-        answer:
-          'Sí, utilizamos cifrado de extremo a extremo y seguimos las mejores prácticas de seguridad.',
-      },
-      {
-        question: '¿Puedo usar GY Messages en mi aplicación?',
-        answer: 'Sí, ofrecemos una API completa para integrar GY Messages en cualquier aplicación.',
-      },
-    ],
-  },
-  {
     id: 'gy-accounts',
     name: 'GY Accounts',
     description: 'Sistema de gestión de cuentas y autenticación centralizado',
@@ -188,46 +133,67 @@ export const products: Product[] = [
     ],
   },
   {
-    id: 'gy-documents',
-    name: 'GY Documents',
-    description: 'Sistema de gestión documental colaborativo y seguro',
-    shortDescription: 'Gestión documental empresarial',
-    color: '#2196F3',
+    id: 'wingwords',
+    name: 'WingWords',
+    description: 'Discover readers with similar tastes and share your literary experiences',
+    shortDescription: 'Connect with readers and share literary experiences',
+    color: '#8E44AD',
     longDescription:
-      'Plataforma avanzada de gestión documental que permite a las organizaciones almacenar, organizar y colaborar en documentos de manera segura y eficiente.',
-    image: '/images/products/gy-documents.jpg',
-    version: '1.5.0',
-    status: EStatus.COMING_SOON,
-    primary: '#1976D2',
-    secondary: '#2196F3',
-    gradient: 'linear-gradient(135deg, #1976D2 0%, #2196F3 100%)',
+      'WingWords is a social platform designed for book lovers to discover new reads, connect with readers who share similar tastes, and create meaningful literary discussions. Share your reading journey, get personalized recommendations, and build a community around your favorite books.',
+    image: '/images/products/wingwords.png',
+    version: '1.0.0-beta',
+    status: EStatus.BETA,
+    link: 'https://wingwords.gycoding.com',
+    primary: '#8E44AD',
+    secondary: '#9B59B6',
+    gradient: 'linear-gradient(135deg, #8E44AD 0%, #9B59B6 100%)',
     features: [
       {
-        title: 'Colaboración en Tiempo Real',
-        description: 'Trabaja en documentos simultáneamente con tu equipo',
+        title: 'Reader Matching',
+        description: 'Connect with readers who share your literary tastes and preferences',
         icon: 'users',
       },
       {
-        title: 'Versionado Automático',
-        description: 'Mantén un historial completo de cambios en los documentos',
-        icon: 'history',
+        title: 'Book Recommendations',
+        description: 'Get personalized book suggestions based on your reading history',
+        icon: 'star',
       },
       {
-        title: 'Búsqueda Avanzada',
-        description: 'Encuentra cualquier documento con búsqueda de texto completo',
-        icon: 'search',
+        title: 'Literary Discussions',
+        description: 'Join meaningful conversations about your favorite books and authors',
+        icon: 'chat',
+      },
+      {
+        title: 'Reading Progress',
+        description: 'Track your reading journey and set personal reading goals',
+        icon: 'progress',
       },
     ],
     faqs: [
       {
-        question: '¿Qué tipos de documentos puedo gestionar?',
+        question: '¿Cómo funciona el sistema de recomendaciones?',
         answer:
-          'GY Documents soporta todos los formatos comunes de documentos, incluyendo PDF, Office, imágenes y más.',
+          'Nuestro algoritmo analiza tus libros favoritos, géneros preferidos y calificaciones para sugerir nuevas lecturas que se adapten a tu gusto.',
       },
       {
-        question: '¿Cómo se manejan los permisos de acceso?',
+        question: '¿Puedo conectar con lectores de todo el mundo?',
         answer:
-          'Ofrecemos un sistema granular de permisos que permite controlar el acceso a nivel de carpeta y documento.',
+          'Sí, WingWords es una plataforma global que te permite conectar con lectores de cualquier país y en múltiples idiomas.',
+      },
+      {
+        question: '¿Es gratuito usar WingWords?',
+        answer:
+          'Sí, WingWords ofrece todas las funciones básicas de forma gratuita. También tenemos planes premium con características adicionales.',
+      },
+      {
+        question: '¿Cómo protegen mi privacidad?',
+        answer:
+          'Respetamos tu privacidad y solo compartimos la información que tú elijas hacer pública en tu perfil de lector.',
+      },
+      {
+        question: '¿Puedo crear clubs de lectura?',
+        answer:
+          'Sí, puedes crear y unirte a clubs de lectura temáticos, organizar discusiones grupales y participar en desafíos de lectura.',
       },
     ],
   },
@@ -237,7 +203,7 @@ export const TECHNOLOGIES: any = {
   'heralds-of-chaos': [
     {
       name: 'HERALDS OF CHAOS',
-      icon: getAssetPath('icons/solar_system/heralds/heralds_of_chaos.svg'),
+      icon: getAssetPath('icons/solar_system/heralds/heralds_of_chaos.png'),
       description: 'Desarrollo tipado y seguro',
       orbit: 2,
       speed: 0.8,
@@ -273,50 +239,6 @@ export const TECHNOLOGIES: any = {
     {
       name: 'Cloudflare',
       icon: getAssetPath('icons/solar_system/heralds/cloudflare.svg'),
-      description: 'Framework React de última generación',
-      orbit: 2,
-      speed: 1,
-    },
-  ],
-  'gy-documents': [
-    {
-      name: 'GY DOCUMENTS',
-      icon: getAssetPath('icons/solar_system/documents/gy_documents.svg'),
-      description: 'Cloud Computing',
-      orbit: 2,
-      speed: 0.9,
-    },
-    {
-      name: 'TypeScript',
-      icon: getAssetPath('icons/solar_system/documents/typescript.svg'),
-      description: 'Contenedorización',
-      orbit: 0,
-      speed: 0.5,
-    },
-    {
-      name: 'Next.js',
-      icon: getAssetPath('icons/solar_system/documents/nextjs.svg'),
-      description: 'Framework React de última generación',
-      orbit: 0,
-      speed: 1,
-    },
-    {
-      name: 'Electron',
-      icon: getAssetPath('icons/solar_system/documents/electron.svg'),
-      description: 'Contenedorización',
-      orbit: 1,
-      speed: 0.5,
-    },
-    {
-      name: 'Node',
-      icon: getAssetPath('icons/solar_system/documents/node.svg'),
-      description: 'Framework React de última generación',
-      orbit: 1,
-      speed: 1,
-    },
-    {
-      name: 'GitHub',
-      icon: getAssetPath('icons/solar_system/documents/github.svg'),
       description: 'Framework React de última generación',
       orbit: 2,
       speed: 1,
@@ -366,46 +288,46 @@ export const TECHNOLOGIES: any = {
       speed: 1,
     },
   ],
-  'gy-messages': [
+  wingwords: [
     {
-      name: 'GY MESSAGES',
-      icon: getAssetPath('icons/solar_system/messages/gy_messages.svg'),
-      description: 'Cloud Computing',
+      name: 'WINGWORDS',
+      icon: getAssetPath('icons/solar_system/wingwords/wingwords.png'),
+      description: 'Social Reading Platform',
       orbit: 2,
       speed: 0.9,
     },
     {
-      name: 'Typescript',
-      icon: getAssetPath('icons/solar_system/messages/typescript.svg'),
-      description: 'Contenedorización',
-      orbit: 0,
-      speed: 0.5,
-    },
-    {
-      name: 'React Native',
-      icon: getAssetPath('icons/solar_system/messages/react.svg'),
-      description: 'Framework React de última generación',
-      orbit: 0,
-      speed: 1,
-    },
-    {
       name: 'Java',
-      icon: getAssetPath('icons/solar_system/messages/java.svg'),
-      description: 'Contenedorización',
-      orbit: 1,
+      icon: getAssetPath('icons/solar_system/wingwords/java.svg'),
+      description: 'Backend Development',
+      orbit: 0,
       speed: 0.5,
     },
     {
       name: 'Spring Boot',
-      icon: getAssetPath('icons/solar_system/messages/springboot.svg'),
+      icon: getAssetPath('icons/solar_system/wingwords/springboot.svg'),
+      description: 'Framework de desarrollo backend',
+      orbit: 0,
+      speed: 1,
+    },
+    {
+      name: 'Typescript',
+      icon: getAssetPath('icons/solar_system/wingwords/typescript.svg'),
+      description: 'Desarrollo tipado y seguro',
+      orbit: 1,
+      speed: 0.5,
+    },
+    {
+      name: 'NextJS',
+      icon: getAssetPath('icons/solar_system/wingwords/nextjs.svg'),
       description: 'Framework React de última generación',
       orbit: 1,
       speed: 1,
     },
     {
       name: 'Cloudflare',
-      icon: getAssetPath('icons/solar_system/messages/cloudflare.svg'),
-      description: 'Framework React de última generación',
+      icon: getAssetPath('icons/solar_system/wingwords/cloudflare.svg'),
+      description: 'Cloud Computing y CDN',
       orbit: 2,
       speed: 1,
     },
