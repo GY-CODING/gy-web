@@ -474,7 +474,8 @@ function ProductPreview({
               >
                 {lang === 'es'
                   ? (product.ctaLabel?.es ?? 'Visitar aplicación')
-                  : (product.ctaLabel?.en ?? 'Visit application')} →
+                  : (product.ctaLabel?.en ?? 'Visit application')}{' '}
+                →
               </Button>
             </motion.div>
           </Box>
@@ -489,12 +490,12 @@ function ProductPreview({
                 transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
               >
                 <Image
-                    src={imageSrc!}
-                    alt={`${product.name} screenshot`}
-                    width={900}
-                    height={560}
-                    style={{ width: '100%', height: 'auto', display: 'block' }}
-                  />
+                  src={imageSrc!}
+                  alt={`${product.name} screenshot`}
+                  width={900}
+                  height={560}
+                  style={{ width: '100%', height: 'auto', display: 'block' }}
+                />
               </motion.div>
             </Box>
           )}
@@ -672,13 +673,13 @@ function ProductProfileSection({
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
           >
-              <Image
-                src={profileSection.image}
-                alt={`${product.name} profile`}
-                width={1200}
-                height={700}
-                style={{ width: '100%', height: 'auto', display: 'block' }}
-              />
+            <Image
+              src={profileSection.image}
+              alt={`${product.name} profile`}
+              width={1200}
+              height={700}
+              style={{ width: '100%', height: 'auto', display: 'block' }}
+            />
           </motion.div>
         )}
       </Container>
