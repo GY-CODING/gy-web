@@ -1,335 +1,374 @@
-import { EStatus } from '@/app/utils/constants/status.enum';
-import { getAssetPath } from '@/app/utils/useImagePath';
+import { SiTypescript, SiNextdotjs, SiMongodb, SiSpringboot } from 'react-icons/si';
+import { FaJava } from 'react-icons/fa';
+import { IconType } from 'react-icons';
 
-export interface Product {
-  id: string;
+export type ProductId = 'wingwords' | 'gy-accounts' | 'heralds-of-chaos';
+
+export interface TechBadge {
   name: string;
-  description: string;
-  shortDescription: string;
+  icon: IconType;
   color: string;
-  longDescription: string;
-  image: string;
-  icon?: string;
-  version: string;
-  status: EStatus;
-  downloads?: {
-    windows?: string;
-    mac?: string;
-    linux?: string;
-  };
-  link?: string;
-  changelog?: {
-    type: 'feature' | 'fix' | 'improvement';
-    description: string;
-  }[];
-  features: {
-    title: string;
-    description: string;
-    icon?: string;
-  }[];
-  faqs: {
-    question: string;
-    answer: string;
-  }[];
-  primary?: string;
-  secondary?: string;
-  gradient?: string;
 }
 
-export const products: Product[] = [
-  {
-    id: 'heralds-of-chaos',
-    name: 'Heralds of Chaos',
+export interface Feature {
+  icon: string;
+  title: string;
+  titleEs: string;
+  description: string;
+  descriptionEs: string;
+}
+
+export interface ProfileHighlight {
+  icon: string;
+  text: string;
+  textEs: string;
+}
+
+export interface ProfileSection {
+  title: string;
+  titleEs: string;
+  description: string;
+  descriptionEs: string;
+  image: string | null;
+  highlights: ProfileHighlight[];
+}
+
+export interface ProductData {
+  id: ProductId;
+  name: string;
+  tagline: string;
+  taglineEs: string;
+  description: string;
+  descriptionEs: string;
+  logo: string;
+  image: string | null;
+  imageDark?: string;
+  appUrl: string;
+  theme: {
+    primary: string;
+    secondary: string;
+    accent: string;
+    gradient: string;
+    heroBg: string;
+    textGradient: string;
+    lightBg: string;
+    lightGradient: string;
+    lightSectionBg: string;
+  };
+  features: Feature[];
+  techStack: TechBadge[];
+  profileSection?: ProfileSection;
+  ctaLabel?: { en: string; es: string };
+}
+
+export const PRODUCTS: Record<ProductId, ProductData> = {
+  wingwords: {
+    id: 'wingwords',
+    name: 'Wingwords',
+    tagline: 'Your reading journey, elevated.',
+    taglineEs: 'Tu viaje de lectura, elevado.',
     description:
-      'Un épico videojuego basado en la mitología nórdica con un nuevo enfoque en la narrativa',
-    shortDescription: 'Épico juego de acción de mitología nórdica',
-    color: '#FFB300',
-    longDescription:
-      'Embárcate en un viaje épico a través de los nueve reinos de la mitología nórdica. Lucha junto a los dioses, enfrenta criaturas míticas y da forma al destino de Midgard en este revolucionario RPG de acción.',
-    image: '/images/products/heralds-of-chaos.jpg',
-    version: '0.5.2-alpha',
-    status: EStatus.BETA,
-    link: 'https://heraldsofchaos.gycoding.com',
-    changelog: [
-      {
-        type: 'feature',
-        description: 'Añadido nuevo sistema de combate con mecánicas de mitología nórdica',
-      },
-      {
-        type: 'fix',
-        description: 'Corregidos errores de renderizado en entornos de alta resolución',
-      },
-    ],
+      'Track your reading journey, discover new books, curate your personal Hall of Fame, and connect with fellow readers worldwide. WingWords is your all-in-one reading companion.',
+    descriptionEs:
+      'Registra tu progreso de lectura, descubre nuevos libros, crea tu Hall of Fame personal y conecta con lectores de todo el mundo.',
+    logo: '/icons/wingwords.png',
+    image: '/images/products/wingwords.png',
+    appUrl: 'https://wingwords.gycoding.com/',
+    theme: {
+      primary: '#9c5fe5',
+      secondary: '#6d28d9',
+      accent: '#c084fc',
+      gradient: 'linear-gradient(160deg, #0d0019 0%, #1a0533 40%, #0a001a 100%)',
+      heroBg:
+        'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(139,92,246,0.22) 0%, transparent 70%)',
+      textGradient: 'linear-gradient(135deg, #e879f9 0%, #818cf8 100%)',
+      lightBg: '#ffffff',
+      lightGradient: 'linear-gradient(160deg, #ffffff 0%, #fdf4ff 50%, #f0e8ff 100%)',
+      lightSectionBg: '#f6f0ff',
+    },
     features: [
       {
-        title: 'Combate Nórdico Épico',
+        icon: '📚',
+        title: 'Smart Library',
+        titleEs: 'Biblioteca Inteligente',
         description:
-          'Experimenta intensas batallas con un sistema de combate único inspirado en la mitología nórdica',
-        icon: 'sword',
+          'Organize books with custom filters: Want to Read, Reading, Read. Track progress effortlessly.',
+        descriptionEs:
+          'Organiza libros con filtros personalizados: Quiero leer, Leyendo, Leído. Sigue tu progreso.',
       },
       {
-        title: 'Rica Narrativa',
-        description: 'Sumérgete en una narrativa profunda que entrelaza mitos y leyendas nórdicas',
-        icon: 'book',
+        icon: '🔍',
+        title: 'Discover & Explore',
+        titleEs: 'Descubre y Explora',
+        description:
+          'Search through thousands of books, find detailed information, and browse multiple editions to pick your perfect cover.',
+        descriptionEs:
+          'Busca entre miles de libros, encuentra información detallada y navega por múltiples ediciones.',
       },
       {
-        title: 'Gráficos Impresionantes',
-        description: 'Explora entornos bellamente diseñados a través de los nueve reinos',
-        icon: 'eye',
+        icon: '🏆',
+        title: 'Hall of Fame',
+        titleEs: 'Hall of Fame',
+        description:
+          'Curate your all-time favorite books and preserve your most cherished quotes from every masterpiece.',
+        descriptionEs:
+          'Crea tu colección de favoritos de todos los tiempos y preserva tus citas más memorables.',
+      },
+      {
+        icon: '👥',
+        title: 'Social Reading',
+        titleEs: 'Lectura Social',
+        description:
+          'Search for readers, add friends, and follow their reading activities. See what your friends are reading in real-time.',
+        descriptionEs:
+          'Añade amigos y sigue su actividad lectora. Ve qué están leyendo en tiempo real.',
+      },
+      {
+        icon: '📖',
+        title: 'Multiple Editions',
+        titleEs: 'Múltiples Ediciones',
+        description:
+          'Choose from different book editions to customize your library with the cover art you love most.',
+        descriptionEs:
+          'Elige entre diferentes ediciones para personalizar tu biblioteca con la portada que más te guste.',
+      },
+      {
+        icon: '📊',
+        title: 'Activity Feed',
+        titleEs: 'Feed de Actividad',
+        description:
+          'Stay connected with your reading community. View your activity and your friends\' reading progress and updates.',
+        descriptionEs:
+          'Mantente conectado con tu comunidad lectora y consulta el progreso de tus amigos en tiempo real.',
       },
     ],
-    faqs: [
-      {
-        question: '¿Cuáles son los requisitos del sistema?',
-        answer:
-          'El juego requiere un PC gaming moderno con al menos 8GB de RAM y una tarjeta gráfica dedicada.',
-      },
-      {
-        question: '¿Está disponible el multijugador?',
-        answer:
-          'Las características multijugador están actualmente en desarrollo y estarán disponibles en la versión completa.',
-      },
+    profileSection: {
+      title: 'Your Profile',
+      titleEs: 'Tu Perfil',
+      description:
+        'Your Wingwords profile is your reading identity. Personalize it, explore your stats, and let our AI guide your next read.',
+      descriptionEs:
+        'Tu perfil de Wingwords es tu identidad lectora. Personalízalo, explora tus estadísticas y deja que la IA te guíe hacia tu próxima lectura.',
+      image: '/images/products/wingwords-2.png',
+      highlights: [
+        {
+          icon: '✏️',
+          text: 'Edit your biography and set your favorite quote',
+          textEs: 'Edita tu biografía y establece tu cita favorita',
+        },
+        {
+          icon: '🔍',
+          text: 'Filter your library by authors and ratings',
+          textEs: 'Filtra tu biblioteca por autores y valoraciones',
+        },
+        {
+          icon: '📊',
+          text: 'View your reading statistics and milestones',
+          textEs: 'Consulta tus estadísticas de lectura y logros',
+        },
+        {
+          icon: '📰',
+          text: 'Browse your personal activity feed',
+          textEs: 'Explora tu feed de actividad personal',
+        },
+        {
+          icon: '🤖',
+          text: 'AI recommendations tailored to your reading taste',
+          textEs: 'Recomendaciones de IA adaptadas a tus gustos lectores',
+        },
+        {
+          icon: '📅',
+          text: 'Browse your reading history in timeline or calendar view',
+          textEs: 'Explora tu historial de lecturas en vista de línea de tiempo o calendario',
+        },
+      ],
+    },
+    techStack: [
+      { name: 'Next.js', icon: SiNextdotjs, color: '#ffffff' },
+      { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
+      { name: 'Java', icon: FaJava, color: '#f89820' },
+      { name: 'Spring Boot', icon: SiSpringboot, color: '#6DB33F' },
+      { name: 'MongoDB', icon: SiMongodb, color: '#47A248' },
     ],
   },
-  {
+  'gy-accounts': {
     id: 'gy-accounts',
     name: 'GY Accounts',
-    description: 'Sistema de gestión de cuentas y autenticación centralizado',
-    shortDescription: 'Gestión de cuentas segura y centralizada',
-    color: '#7B1FA2',
-    longDescription:
-      'Sistema centralizado de gestión de cuentas y autenticación para todas las aplicaciones de GY Coding. Proporciona una experiencia de inicio de sesión única y segura.',
-    image: '/images/products/gy-accounts.jpg',
-    version: '1.0.0',
-    status: EStatus.BETA,
+    tagline: 'One identity across the entire ecosystem.',
+    taglineEs: 'Una identidad en todo el ecosistema.',
+    description:
+      'The central authentication and identity platform for all GYCODING products. Manage your profile, roles, and API keys from a single dashboard with enterprise-grade security.',
+    descriptionEs:
+      'La plataforma central de autenticación e identidad para todos los productos de GYCODING. Gestiona tu perfil, roles y claves API desde un único panel.',
+    logo: '/icons/gy_accounts.svg',
+    image: null,
+    appUrl: 'https://accounts.gycoding.com/',
+    ctaLabel: { en: 'Open Dashboard', es: 'Abrir Dashboard' },
+    theme: {
+      primary: '#8C54FF',
+      secondary: '#6d28d9',
+      accent: '#a855f7',
+      gradient: 'linear-gradient(160deg, #0a0020 0%, #1a0045 40%, #050010 100%)',
+      heroBg:
+        'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(140,84,255,0.25) 0%, transparent 70%)',
+      textGradient: 'linear-gradient(135deg, #a855f7 0%, #6366f1 100%)',
+      lightBg: '#ffffff',
+      lightGradient: 'linear-gradient(160deg, #ffffff 0%, #f8f4ff 50%, #ede7ff 100%)',
+      lightSectionBg: '#f3eeff',
+    },
     features: [
       {
-        title: 'Inicio de Sesión Único',
-        description: 'Accede a todas las aplicaciones de GY Coding con una sola cuenta',
-        icon: 'key',
+        icon: '🔐',
+        title: 'Single Sign-On',
+        titleEs: 'Inicio de Sesión Único',
+        description:
+          'One account for all GYCODING products. Sign in once and access everything seamlessly.',
+        descriptionEs:
+          'Una cuenta para todos los productos de GYCODING. Accede a todo con un solo inicio de sesión.',
       },
       {
-        title: 'Autenticación Multifactor',
-        description: 'Seguridad adicional con autenticación de dos factores',
-        icon: 'shield',
+        icon: '🛡️',
+        title: 'Role Management',
+        titleEs: 'Gestión de Roles',
+        description:
+          'Fine-grained role-based access control. Admins, developers, and users each have clearly defined permissions.',
+        descriptionEs:
+          'Control de acceso granular por roles. Administradores, desarrolladores y usuarios con permisos claramente definidos.',
       },
       {
-        title: 'Gestión Centralizada',
-        description: 'Administra todas las cuentas desde un único panel',
-        icon: 'users',
+        icon: '🔑',
+        title: 'API Key System',
+        titleEs: 'Sistema de API Keys',
+        description:
+          'Generate and manage API keys to integrate GYCODING services into your own projects and workflows.',
+        descriptionEs:
+          'Genera y gestiona claves API para integrar los servicios de GYCODING en tus propios proyectos.',
+      },
+      {
+        icon: '👤',
+        title: 'Profile Management',
+        titleEs: 'Gestión de Perfil',
+        description:
+          'Customize your avatar, personal info, and preferences from a sleek and intuitive profile editor.',
+        descriptionEs:
+          'Personaliza tu avatar, información personal y preferencias desde un editor de perfil intuitivo.',
+      },
+      {
+        icon: '⚡',
+        title: 'Instant Auth',
+        titleEs: 'Autenticación Instantánea',
+        description:
+          'JWT-based authentication ensures fast and secure access across all platforms and services.',
+        descriptionEs:
+          'La autenticación basada en JWT garantiza un acceso rápido y seguro en todas las plataformas.',
+      },
+      {
+        icon: '🌐',
+        title: 'Unified Ecosystem',
+        titleEs: 'Ecosistema Unificado',
+        description:
+          'The backbone connecting all GYCODING products with a consistent and reliable identity layer.',
+        descriptionEs:
+          'La columna vertebral que conecta todos los productos de GYCODING con una capa de identidad coherente.',
       },
     ],
-    faqs: [
-      {
-        question: '¿Cómo funciona el inicio de sesión único?',
-        answer:
-          'Una vez autenticado, podrás acceder a todas las aplicaciones de GY Coding sin necesidad de volver a iniciar sesión.',
-      },
-      {
-        question: '¿Es compatible con otros sistemas de autenticación?',
-        answer:
-          'Sí, GY Accounts se integra con los principales proveedores de identidad y soporta protocolos estándar como OAuth2 y SAML.',
-      },
+    techStack: [
+      { name: 'Next.js', icon: SiNextdotjs, color: '#ffffff' },
+      { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
+      { name: 'Java', icon: FaJava, color: '#f89820' },
+      { name: 'Spring Boot', icon: SiSpringboot, color: '#6DB33F' },
+      { name: 'MongoDB', icon: SiMongodb, color: '#47A248' },
     ],
   },
-  {
-    id: 'wingwords',
-    name: 'WingWords',
-    description: 'Discover readers with similar tastes and share your literary experiences',
-    shortDescription: 'Connect with readers and share literary experiences',
-    color: '#8E44AD',
-    longDescription:
-      'WingWords is a social platform designed for book lovers to discover new reads, connect with readers who share similar tastes, and create meaningful literary discussions. Share your reading journey, get personalized recommendations, and build a community around your favorite books.',
-    image: '/images/products/wingwords.png',
-    version: '1.0.0-beta',
-    status: EStatus.BETA,
-    link: 'https://wingwords.gycoding.com',
-    primary: '#8E44AD',
-    secondary: '#9B59B6',
-    gradient: 'linear-gradient(135deg, #8E44AD 0%, #9B59B6 100%)',
+  'heralds-of-chaos': {
+    id: 'heralds-of-chaos',
+    name: 'Heralds of Chaos',
+    tagline: 'Embark on a journey through Norse mythology.',
+    taglineEs: 'Embárcate en un viaje a través de la mitología nórdica.',
+    description:
+      'Explore the rich tapestry of Norse mythology through our curated collections. Discover characters, creatures, artifacts, worlds, and places that shaped ancient legends.',
+    descriptionEs:
+      'Explora el rico tapiz de la mitología nórdica a través de nuestras colecciones curadas. Descubre personajes, criaturas, artefactos, mundos y lugares de las leyendas antiguas.',
+    logo: '/icons/heralds_of_chaos.png',
+    image: '/images/products/heralds-light.png',
+    imageDark: '/images/products/heralds-dark.png',
+    appUrl: 'https://heraldsofchaos.gycoding.com/',
+    ctaLabel: { en: 'Open Website', es: 'Abrir Web' },
+    theme: {
+      primary: '#D4AF37',
+      secondary: '#8B6914',
+      accent: '#FFD700',
+      gradient: 'linear-gradient(160deg, #050400 0%, #12100a 40%, #000000 100%)',
+      heroBg:
+        'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(212,175,55,0.18) 0%, transparent 70%)',
+      textGradient: 'linear-gradient(135deg, #FFD700 0%, #D4AF37 50%, #c49a10 100%)',
+      lightBg: '#ffffff',
+      lightGradient: 'linear-gradient(160deg, #fffef8 0%, #fffcec 50%, #fef6cc 100%)',
+      lightSectionBg: '#fdf8e7',
+    },
     features: [
       {
-        title: 'Reader Matching',
-        description: 'Connect with readers who share your literary tastes and preferences',
-        icon: 'users',
+        icon: '⚔️',
+        title: 'Characters',
+        titleEs: 'Personajes',
+        description:
+          'Explore gods, warriors, and legends from the Norse pantheon. Discover Thor, Odin, Loki and hundreds of mythical figures.',
+        descriptionEs:
+          'Explora dioses, guerreros y leyendas del panteón nórdico. Descubre a Thor, Odín, Loki y cientos de figuras míticas.',
       },
       {
-        title: 'Book Recommendations',
-        description: 'Get personalized book suggestions based on your reading history',
-        icon: 'star',
+        icon: '🐉',
+        title: 'Creatures',
+        titleEs: 'Criaturas',
+        description:
+          'Encounter the mythical beasts of Norse lore, from the mighty Jörmungandr to the fearsome Fenrir.',
+        descriptionEs:
+          'Encuentra las bestias míticas de la mitología nórdica, desde el poderoso Jörmungandr hasta el temible Fenrir.',
       },
       {
-        title: 'Literary Discussions',
-        description: 'Join meaningful conversations about your favorite books and authors',
-        icon: 'chat',
+        icon: '🗡️',
+        title: 'Items & Artifacts',
+        titleEs: 'Items y Artefactos',
+        description:
+          'Browse legendary weapons and magical artifacts: Mjölnir, Gungnir, the Brisingamen necklace and more.',
+        descriptionEs:
+          'Navega por armas legendarias y artefactos mágicos: Mjölnir, Gungnir, el collar Brisingamen y mucho más.',
       },
       {
-        title: 'Reading Progress',
-        description: 'Track your reading journey and set personal reading goals',
-        icon: 'progress',
+        icon: '🌍',
+        title: 'The Nine Worlds',
+        titleEs: 'Los Nueve Mundos',
+        description:
+          'Journey through the Nine Realms connected by Yggdrasil, the eternal World Tree that holds all of existence.',
+        descriptionEs:
+          'Viaja por los Nueve Reinos conectados por Yggdrasil, el eterno Árbol del Mundo que sostiene toda la existencia.',
+      },
+      {
+        icon: '🏛️',
+        title: 'Places',
+        titleEs: 'Lugares',
+        description:
+          'Discover mythical locations from the golden halls of Asgard to the icy depths of Niflheim.',
+        descriptionEs:
+          'Descubre ubicaciones míticas desde los salones dorados de Asgard hasta las heladas profundidades de Niflheim.',
+      },
+      {
+        icon: '📜',
+        title: 'Ancient Lore',
+        titleEs: 'Sabiduría Antigua',
+        description:
+          'Immerse yourself in the stories, myths, and legends that shaped an entire civilization for centuries.',
+        descriptionEs:
+          'Sumérgete en las historias, mitos y leyendas que dieron forma a toda una civilización durante siglos.',
       },
     ],
-    faqs: [
-      {
-        question: '¿Cómo funciona el sistema de recomendaciones?',
-        answer:
-          'Nuestro algoritmo analiza tus libros favoritos, géneros preferidos y calificaciones para sugerir nuevas lecturas que se adapten a tu gusto.',
-      },
-      {
-        question: '¿Puedo conectar con lectores de todo el mundo?',
-        answer:
-          'Sí, WingWords es una plataforma global que te permite conectar con lectores de cualquier país y en múltiples idiomas.',
-      },
-      {
-        question: '¿Es gratuito usar WingWords?',
-        answer:
-          'Sí, WingWords ofrece todas las funciones básicas de forma gratuita. También tenemos planes premium con características adicionales.',
-      },
-      {
-        question: '¿Cómo protegen mi privacidad?',
-        answer:
-          'Respetamos tu privacidad y solo compartimos la información que tú elijas hacer pública en tu perfil de lector.',
-      },
-      {
-        question: '¿Puedo crear clubs de lectura?',
-        answer:
-          'Sí, puedes crear y unirte a clubs de lectura temáticos, organizar discusiones grupales y participar en desafíos de lectura.',
-      },
+    techStack: [
+      { name: 'Next.js', icon: SiNextdotjs, color: '#ffffff' },
+      { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
+      { name: 'Java', icon: FaJava, color: '#f89820' },
+      { name: 'Spring Boot', icon: SiSpringboot, color: '#6DB33F' },
     ],
   },
-];
-
-export const TECHNOLOGIES: any = {
-  'heralds-of-chaos': [
-    {
-      name: 'HERALDS OF CHAOS',
-      icon: getAssetPath('icons/solar_system/heralds/heralds_of_chaos.png'),
-      description: 'Desarrollo tipado y seguro',
-      orbit: 2,
-      speed: 0.8,
-    },
-    {
-      name: 'Java',
-      icon: getAssetPath('icons/solar_system/heralds/java.svg'),
-      description: 'Contenedorización',
-      orbit: 0,
-      speed: 0.5,
-    },
-    {
-      name: 'Spring Boot',
-      icon: getAssetPath('icons/solar_system/heralds/springboot.svg'),
-      description: 'Framework React de última generación',
-      orbit: 0,
-      speed: 1,
-    },
-    {
-      name: 'Typescript',
-      icon: getAssetPath('icons/solar_system/heralds/typescript.svg'),
-      description: 'Contenedorización',
-      orbit: 1,
-      speed: 0.5,
-    },
-    {
-      name: 'NextJS',
-      icon: getAssetPath('icons/solar_system/heralds/nextjs.svg'),
-      description: 'Framework React de última generación',
-      orbit: 1,
-      speed: 1,
-    },
-    {
-      name: 'Cloudflare',
-      icon: getAssetPath('icons/solar_system/heralds/cloudflare.svg'),
-      description: 'Framework React de última generación',
-      orbit: 2,
-      speed: 1,
-    },
-  ],
-  'gy-accounts': [
-    {
-      name: 'GY ACCOUNTS',
-      icon: getAssetPath('icons/solar_system/accounts/gy_accounts.svg'),
-      description: 'Cloud Computing',
-      orbit: 2,
-      speed: 0.9,
-    },
-    {
-      name: 'Java',
-      icon: getAssetPath('icons/solar_system/accounts/java.svg'),
-      description: 'Contenedorización',
-      orbit: 0,
-      speed: 0.5,
-    },
-    {
-      name: 'Spring Boot',
-      icon: getAssetPath('icons/solar_system/accounts/springboot.svg'),
-      description: 'Framework React de última generación',
-      orbit: 0,
-      speed: 1,
-    },
-    {
-      name: 'Typescript',
-      icon: getAssetPath('icons/solar_system/accounts/typescript.svg'),
-      description: 'Contenedorización',
-      orbit: 1,
-      speed: 0.5,
-    },
-    {
-      name: 'NextJS',
-      icon: getAssetPath('icons/solar_system/accounts/nextjs.svg'),
-      description: 'Framework React de última generación',
-      orbit: 1,
-      speed: 1,
-    },
-    {
-      name: 'Cloudflare',
-      icon: getAssetPath('icons/solar_system/accounts/cloudflare.svg'),
-      description: 'Framework React de última generación',
-      orbit: 2,
-      speed: 1,
-    },
-  ],
-  wingwords: [
-    {
-      name: 'WINGWORDS',
-      icon: getAssetPath('icons/solar_system/wingwords/wingwords.png'),
-      description: 'Social Reading Platform',
-      orbit: 2,
-      speed: 0.9,
-    },
-    {
-      name: 'Java',
-      icon: getAssetPath('icons/solar_system/wingwords/java.svg'),
-      description: 'Backend Development',
-      orbit: 0,
-      speed: 0.5,
-    },
-    {
-      name: 'Spring Boot',
-      icon: getAssetPath('icons/solar_system/wingwords/springboot.svg'),
-      description: 'Framework de desarrollo backend',
-      orbit: 0,
-      speed: 1,
-    },
-    {
-      name: 'Typescript',
-      icon: getAssetPath('icons/solar_system/wingwords/typescript.svg'),
-      description: 'Desarrollo tipado y seguro',
-      orbit: 1,
-      speed: 0.5,
-    },
-    {
-      name: 'NextJS',
-      icon: getAssetPath('icons/solar_system/wingwords/nextjs.svg'),
-      description: 'Framework React de última generación',
-      orbit: 1,
-      speed: 1,
-    },
-    {
-      name: 'Cloudflare',
-      icon: getAssetPath('icons/solar_system/wingwords/cloudflare.svg'),
-      description: 'Cloud Computing y CDN',
-      orbit: 2,
-      speed: 1,
-    },
-  ],
 };
+
+export const PRODUCT_ORDER: ProductId[] = ['wingwords', 'gy-accounts', 'heralds-of-chaos'];

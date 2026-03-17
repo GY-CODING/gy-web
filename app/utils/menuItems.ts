@@ -117,6 +117,13 @@ const menuItemsES: MenuItem[] = [
     path: '/products',
     children: [
       {
+        title: 'WingWords',
+        path: '/products/wingwords',
+        icon: ICON_PATHS.WINGWORDS,
+        icon_light: ICON_PATHS.WINGWORDS_LIGHT,
+        description: 'Conecta con lectores y comparte tus experiencias.',
+      },
+      {
         title: 'Heraldos del Caos',
         path: '/products/heralds-of-chaos',
         icon: ICON_PATHS.HERALDS_OF_CHAOS,
@@ -129,13 +136,6 @@ const menuItemsES: MenuItem[] = [
         icon: ICON_PATHS.GY_ACCOUNTS,
         icon_light: ICON_PATHS.GY_ACCOUNTS_LIGHT,
         description: 'Servicio de autenticación.',
-      },
-      {
-        title: 'WingWords',
-        path: '/products/wingwords',
-        icon: ICON_PATHS.WINGWORDS,
-        icon_light: ICON_PATHS.WINGWORDS_LIGHT,
-        description: 'Conecta con lectores y comparte tus experiencias.',
       },
     ],
   },

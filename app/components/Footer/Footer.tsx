@@ -93,7 +93,7 @@ export default function Footer() {
     { name: 'Contact', href: 'mailto:it@gycoding.com' },
     { name: 'GitHub', href: 'https://github.com/GY-CODING' },
     { name: 'X', href: 'https://x.com/GYCODING' },
-    { name: 'Discord', href: 'https://discord.com/invite/YpEZtsXf6c' },
+    { name: 'Discord', href: 'https://discord.gg/AGYhzD53qg' },
     { name: 'Support', href: 'https://github.com/orgs/GY-CODING/discussions/new?category=support' },
   ];
 

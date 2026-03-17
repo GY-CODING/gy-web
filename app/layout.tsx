@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   description: 'Equipo de desarrollo de Software.',
   icons: {
     icon: '/gy-icon.ico',
+    apple: '/gy-logo-small.png',
   },
 };
 

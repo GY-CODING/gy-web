@@ -1,26 +1,10 @@
-import React from 'react';
-import { notFound } from 'next/navigation';
-import ProductContent from './components/ProductContent';
-import { products } from '../data/products';
+import { PRODUCT_ORDER } from '../data/products';
+import ProductPageClient from './components/ProductPageClient';
 
-export async function generateStaticParams() {
-  return products.map((product) => ({
-    id: product.id,
-  }));
+export function generateStaticParams() {
+  return PRODUCT_ORDER.map((id) => ({ id }));
 }
 
-interface ProductPageProps {
-  params: {
-    id: string;
-  };
-}
-
-export default function ProductPage({ params }: ProductPageProps) {
-  const product = products.find((p) => p.id === params.id);
-
-  if (!product) {
-    notFound();
-  }
-
-  return <ProductContent productId={params.id} />;
+export default function ProductPage({ params }: { params: { id: string } }) {
+  return <ProductPageClient id={params.id} />;
 }

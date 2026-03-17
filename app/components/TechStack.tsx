@@ -15,7 +15,7 @@ const technologies = [
   { name: 'Vercel', icon: '/icons/vercel.svg', color: '#000000' },
   { name: 'MongoDB', icon: '/icons/mongodb.svg', color: '#47A248' },
   { name: 'Cloudflare', icon: '/icons/cloudflare.svg', color: '#F38020' },
-  { name: 'Koyeb', icon: '/icons/koyeb.svg', color: '#121212' },
+  { name: 'Dokploy', icon: '/icons/dokploy.svg', color: '#121212' },
   { name: 'Spring Boot', icon: '/icons/springboot.svg', color: '#6DB33F' },
   { name: 'Apidog', icon: '/icons/apidog.svg', color: '#0255FA' },
   { name: 'GitHub', icon: '/icons/github.svg', color: '#181717' },
