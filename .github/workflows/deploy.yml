@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-     uses: GY-CODING/.github/.github/workflows/next-deploy.yml@master
-     secrets: inherit
-     with: 
-       domain: "www.gycoding.com"
+    uses: GY-CODING/.github/.github/workflows/next-deploy.yml@main
+    secrets: inherit
+    with:
+      domain: 'www.gycoding.com'
