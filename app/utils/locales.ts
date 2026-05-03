@@ -424,7 +424,7 @@ export const locales: Record<'en' | 'es', Locale> = {
           title: 'GY Accounts',
           description: 'Secure account management system',
         },
-        { title: 'WingWords', description: 'Connect with readers and share literary experiences' },
+        { title: 'Wingwords', description: 'Connect with readers and share literary experiences' },
       ],
     },
     team: {
@@ -730,13 +730,13 @@ export const locales: Record<'en' | 'es', Locale> = {
           },
         },
         wingwords: {
-          name: 'WingWords',
+          name: 'Wingwords',
           description: 'Discover readers with similar tastes and share your literary experiences',
           techStack: {
             title: 'Technologies Involved',
             technologies: {
               tech1: {
-                name: 'WingWords',
+                name: 'Wingwords',
                 description: 'Social Reading Platform',
               },
               tech2: {
@@ -785,7 +785,7 @@ export const locales: Record<'en' | 'es', Locale> = {
               {
                 title: 'GY Accounts Integration',
                 description:
-                  'GY Accounts system provides secure authentication and user management for WingWords.',
+                  'GY Accounts system provides secure authentication and user management for Wingwords.',
                 icon: SecurityIcon,
                 color: '#4CAF50',
               },
@@ -795,9 +795,9 @@ export const locales: Record<'en' | 'es', Locale> = {
             title: 'Frequently Asked Questions',
             items: {
               q1: 'Can I connect with readers worldwide?',
-              a1: 'Yes, WingWords is a global platform that allows you to connect with readers from any country and in multiple languages.',
-              q2: 'Is WingWords free to use?',
-              a2: 'Yes, WingWords offers all basic features for free. We also have planned premium plans for the future with additional features.',
+              a1: 'Yes, Wingwords is a global platform that allows you to connect with readers from any country and in multiple languages.',
+              q2: 'Is Wingwords free to use?',
+              a2: 'Yes, Wingwords offers all basic features for free. We also have planned premium plans for the future with additional features.',
               q3: 'How do you protect my privacy?',
               a3: 'We respect your privacy and only share the necessary information for the application using our GY Accounts system.',
             },
@@ -1275,14 +1275,14 @@ export const locales: Record<'en' | 'es', Locale> = {
           },
         },
         wingwords: {
-          name: 'WingWords',
+          name: 'Wingwords',
           description:
             'Descubre lectores con gustos similares y comparte tus experiencias literarias',
           techStack: {
             title: 'Tecnologías Involucradas',
             technologies: {
               tech1: {
-                name: 'WingWords',
+                name: 'Wingwords',
                 description: 'Plataforma Social de Lectura',
               },
               tech2: {
@@ -1333,7 +1333,7 @@ export const locales: Record<'en' | 'es', Locale> = {
               {
                 title: 'Integracion con GY Accounts',
                 description:
-                  'El sistema de cuentas de GY Accounts proporciona autenticación segura y gestión de usuarios para WingWords.',
+                  'El sistema de cuentas de GY Accounts proporciona autenticación segura y gestión de usuarios para Wingwords.',
                 icon: SecurityIcon,
                 color: '#4CAF50',
               },
@@ -1343,9 +1343,9 @@ export const locales: Record<'en' | 'es', Locale> = {
             title: 'Preguntas Frecuentes',
             items: {
               q1: '¿Puedo conectar con lectores de todo el mundo?',
-              a1: 'Sí, WingWords es una plataforma global que te permite conectar con lectores de cualquier país y en múltiples idiomas.',
-              q2: '¿Es gratuito usar WingWords?',
-              a2: 'Sí, WingWords ofrece todas las funciones básicas de forma gratuita. También tenemos planeados planes premium a futuro con características adicionales.',
+              a1: 'Sí, Wingwords es una plataforma global que te permite conectar con lectores de cualquier país y en múltiples idiomas.',
+              q2: '¿Es gratuito usar Wingwords?',
+              a2: 'Sí, Wingwords ofrece todas las funciones básicas de forma gratuita. También tenemos planeados planes premium a futuro con características adicionales.',
               q3: '¿Cómo protegen mi privacidad?',
               a3: 'Respetamos tu privacidad y solo compartimos la información necesaria para la aplicación utilizando nuestro sistema de GY Accounts.',
             },
