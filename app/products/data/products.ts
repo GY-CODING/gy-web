@@ -68,7 +68,7 @@ export const PRODUCTS: Record<ProductId, ProductData> = {
     tagline: 'Your reading journey, elevated.',
     taglineEs: 'Tu viaje de lectura, elevado.',
     description:
-      'Track your reading journey, discover new books, curate your personal Hall of Fame, and connect with fellow readers worldwide. WingWords is your all-in-one reading companion.',
+      'Track your reading journey, discover new books, curate your personal Hall of Fame, and connect with fellow readers worldwide. Wingwords is your all-in-one reading companion.',
     descriptionEs:
       'Registra tu progreso de lectura, descubre nuevos libros, crea tu Hall of Fame personal y conecta con lectores de todo el mundo.',
     logo: '/icons/wingwords.png',

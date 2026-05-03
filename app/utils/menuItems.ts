@@ -9,8 +9,6 @@ const ICON_PATHS = {
   WINGWORDS: getAssetPath('/icons/wingwords.png'),
   WINGWORDS_LIGHT: getAssetPath('/icons/wingwords.png'),
   ACCOUNT: getAssetPath('/icons/cards/account.svg'),
-  API_REFERENCE: getAssetPath('/icons/api_reference.svg'),
-  API_REFERENCE_LIGHT: getAssetPath('/icons/api_reference_light.svg'),
   STATUS_LIGHT: getAssetPath('/icons/status_light.svg'),
   STATUS: getAssetPath('/icons/status_dark.svg'),
   DOCS: getAssetPath('/icons/docs.svg'),
@@ -37,7 +35,7 @@ const menuItemsEN: MenuItem[] = [
     path: '/products',
     children: [
       {
-        title: 'WingWords',
+        title: 'Wingwords',
         path: '/products/wingwords',
         icon: ICON_PATHS.WINGWORDS,
         icon_light: ICON_PATHS.WINGWORDS_LIGHT,
@@ -64,20 +62,12 @@ const menuItemsEN: MenuItem[] = [
     path: '/docs',
     children: [
       {
-        title: 'Getting Started',
+        title: 'Documentation',
         path: 'https://docs.gycoding.com',
         icon: ICON_PATHS.DOCS,
         icon_light: ICON_PATHS.DOCS_LIGHT,
         external: true,
-        description: 'General documentation of GYCODING.',
-      },
-      {
-        title: 'API Reference',
-        path: 'https://gycoding.stoplight.io/docs/api-docs/5b949c346e2dc-fall-of-the-gods-api',
-        icon: ICON_PATHS.API_REFERENCE,
-        icon_light: ICON_PATHS.API_REFERENCE_LIGHT,
-        description: 'Detailed documentation of our API.',
-        external: true,
+        description: 'Unified documentation and API Reference.',
       },
       {
         title: 'Services Status',
@@ -117,7 +107,7 @@ const menuItemsES: MenuItem[] = [
     path: '/products',
     children: [
       {
-        title: 'WingWords',
+        title: 'Wingwords',
         path: '/products/wingwords',
         icon: ICON_PATHS.WINGWORDS,
         icon_light: ICON_PATHS.WINGWORDS_LIGHT,
@@ -144,20 +134,12 @@ const menuItemsES: MenuItem[] = [
     path: '/docs',
     children: [
       {
-        title: 'Guía de Inicio',
-        path: 'https://docs.gycoding.com/es',
+        title: 'Documentación',
+        path: 'https://docs.gycoding.com',
         icon: ICON_PATHS.DOCS,
         icon_light: ICON_PATHS.DOCS_LIGHT,
         external: true,
-        description: 'Documentación general de GYCODING.',
-      },
-      {
-        title: 'Referencia de la API',
-        path: 'https://gycoding.stoplight.io/docs/api-docs/5b949c346e2dc-fall-of-the-gods-api',
-        icon: ICON_PATHS.API_REFERENCE,
-        icon_light: ICON_PATHS.API_REFERENCE_LIGHT,
-        description: 'Documentación detallada de nuestra API.',
-        external: true,
+        description: 'Documentación y referencia de la API unificados.',
       },
       {
         title: 'Estado de los Servicios',
