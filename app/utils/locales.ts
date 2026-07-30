@@ -41,7 +41,7 @@ export interface Locale {
         github: string;
         linkedin: string;
         email: string;
-        portfolio: string;
+        portfolio?: string;
       };
     }>;
   };
@@ -458,6 +458,19 @@ export const locales: Record<'en' | 'es', Locale> = {
             linkedin: 'https://www.linkedin.com/in/srtoxyc/',
             email: 'toxyc@gycoding.com',
             portfolio: 'https://srtoxyc.com',
+          },
+        },
+        {
+          name: 'Xián Vázquez',
+          role: 'Infrastructure & DevOps Engineer',
+          description:
+            'Specialized in designing and managing scalable and secure infrastructures, with a focus on automation and continuous integration.',
+          image: getAssetPath('/images/xian.png'),
+          skills: ['VPS', 'Docker', 'DevOps', 'Immich', 'Python'],
+          social: {
+            github: 'https://github.com/gy-config',
+            linkedin: 'https://www.linkedin.com/in/xi%C3%A1n-v%C3%A1zquez-luna-b7645729b/',
+            email: 'xian@gycoding.com',
           },
         },
       ],
@@ -1003,6 +1016,19 @@ export const locales: Record<'en' | 'es', Locale> = {
             linkedin: 'https://www.linkedin.com/in/srtoxyc/',
             email: 'toxyc@gycoding.com',
             portfolio: 'https://srtoxyc.com',
+          },
+        },
+        {
+          name: 'Xián Vázquez',
+          role: 'Ingeniero de Infraestructura y DevOps',
+          description:
+            'Especializado en el diseño y gestión de infraestructuras escalables y seguras, con un enfoque en la automatización y la integración continua.',
+          image: getAssetPath('/images/xian.png'),
+          skills: ['VPS', 'Docker', 'DevOps', 'Immich', 'Python'],
+          social: {
+            github: 'https://github.com/gy-config',
+            linkedin: 'https://www.linkedin.com/in/xi%C3%A1n-v%C3%A1zquez-luna-b7645729b/',
+            email: 'xian@gycoding.com',
           },
         },
       ],
