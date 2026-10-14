@@ -1,10 +1,10 @@
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import { motion } from 'framer-motion';
-import { lexendFont } from '../../../../../utils/fonts';
+import EyebrowBadge from '../../../../../components/home/EyebrowBadge';
 import TechBadgeItem from './TechBadgeItem';
 import type { ProductSectionProps } from '../../../types';
 
-export default function ProductTechStack({ product, mode }: ProductSectionProps) {
+export default function ProductTechStack({ product, lang, mode }: ProductSectionProps) {
   const isDark = mode === 'dark';
 
   return (
@@ -26,20 +26,11 @@ export default function ProductTechStack({ product, mode }: ProductSectionProps)
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6 }}
         >
-          <Typography
-            sx={{
-              fontFamily: lexendFont.style.fontFamily,
-              fontSize: '0.75rem',
-              fontWeight: 500,
-              color: isDark ? 'rgba(255,255,255,0.35)' : 'rgba(0,0,0,0.4)',
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              textAlign: 'center',
-              mb: 4,
-            }}
-          >
-            Built with
-          </Typography>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
+            <EyebrowBadge accent={product.theme.textGradient}>
+              {lang === 'es' ? 'Construido con' : 'Built with'}
+            </EyebrowBadge>
+          </Box>
 
           <Box
             sx={{

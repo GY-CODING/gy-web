@@ -4,9 +4,12 @@ import React from 'react';
 import { IconButton, Menu, MenuItem, useTheme } from '@mui/material';
 import { useLanguage } from '../utils/languageContext';
 import Image from 'next/image';
+import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
+import { glassIconButtonSx } from './headerStyles';
 
 export default function LanguageSelector() {
   const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
   const { language, setLanguage } = useLanguage();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -27,20 +30,13 @@ export default function LanguageSelector() {
     <>
       <IconButton
         onClick={handleClick}
-        sx={{
-          padding: 1,
-          backgroundColor: 'transparent',
-          transition: 'all 0.2s ease-in-out',
-          '&:hover': {
-            backgroundColor:
-              theme.palette.mode === 'light' ? 'rgba(0, 0, 0, 0.04)' : 'rgba(255, 255, 255, 0.08)',
-          },
-        }}
+        aria-label={language === 'en' ? 'Change language' : 'Cambiar idioma'}
+        sx={glassIconButtonSx(isDark)}
       >
         <div
           style={{
-            width: 24,
-            height: 24,
+            width: 22,
+            height: 22,
             borderRadius: '50%',
             overflow: 'hidden',
             position: 'relative',
@@ -70,15 +66,18 @@ export default function LanguageSelector() {
         slotProps={{
           paper: {
             sx: {
-              mt: 1,
-              minWidth: '120px',
-              backgroundColor: theme.palette.background.paper,
-              boxShadow:
-                theme.palette.mode === 'light'
-                  ? '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
-                  : '0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.12)',
+              mt: 1.5,
+              minWidth: '160px',
+              borderRadius: '16px',
+              backgroundImage: 'none',
+              backgroundColor: isDark ? 'rgba(14,14,20,0.9)' : 'rgba(255,255,255,0.95)',
+              backdropFilter: 'blur(20px) saturate(160%)',
+              border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)'}`,
+              boxShadow: isDark
+                ? '0 30px 60px -20px rgba(0,0,0,0.7)'
+                : '0 30px 60px -20px rgba(0,0,0,0.2)',
               '& .MuiList-root': {
-                padding: '4px',
+                padding: '6px',
               },
             },
           },
@@ -92,7 +91,7 @@ export default function LanguageSelector() {
             gap: 1,
             py: 0.75,
             px: 1.5,
-            borderRadius: '4px',
+            borderRadius: '10px',
             minHeight: '36px',
             transition: 'all 0.2s ease-in-out',
             '&:hover': {
@@ -115,6 +114,9 @@ export default function LanguageSelector() {
             <Image src="/icons/flags/en.svg" alt="English" fill style={{ objectFit: 'cover' }} />
           </div>
           English
+          {language === 'en' && (
+            <CheckRoundedIcon sx={{ ml: 'auto', fontSize: '1rem', color: '#8C54FF' }} />
+          )}
         </MenuItem>
         <MenuItem
           onClick={() => handleLanguageChange('es')}
@@ -124,7 +126,7 @@ export default function LanguageSelector() {
             gap: 1,
             py: 0.75,
             px: 1.5,
-            borderRadius: '4px',
+            borderRadius: '10px',
             minHeight: '36px',
             transition: 'all 0.2s ease-in-out',
             '&:hover': {
@@ -147,6 +149,9 @@ export default function LanguageSelector() {
             <Image src="/icons/flags/es.svg" alt="Español" fill style={{ objectFit: 'cover' }} />
           </div>
           Español
+          {language === 'es' && (
+            <CheckRoundedIcon sx={{ ml: 'auto', fontSize: '1rem', color: '#8C54FF' }} />
+          )}
         </MenuItem>
       </Menu>
     </>

@@ -1,18 +1,33 @@
-import { Box, Container, Typography, Button } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { lexendFont, valorantFont } from '../../../../utils/fonts';
+import { getLenis } from '../../../../hooks/useSmoothScroll';
+import AuroraBackground from '../../../../components/home/AuroraBackground';
+import AnimatedGradientHeadline from '../../../../components/home/AnimatedGradientHeadline';
+import TiltCard from '../../../../components/home/TiltCard';
 import { useHeroScroll } from '../../hooks/useHeroScroll';
-import FloatingOrb from '../shared/FloatingOrb';
 import type { ProductSectionProps } from '../../types';
 
 export default function ProductHero({ product, lang, mode }: ProductSectionProps) {
-  const { heroRef, yTitle, opacity } = useHeroScroll();
+  const { heroRef, yTitle, opacity, scale, cueOpacity } = useHeroScroll();
+  const reduceMotion = useReducedMotion();
   const isDark = mode === 'dark';
   const taglineText = lang === 'es' ? product.taglineEs : product.tagline;
   const heroGradient = isDark ? product.theme.gradient : product.theme.lightGradient;
+
+  const scrollToFeatures = () => {
+    const el = document.getElementById('features');
+    if (!el) return;
+    const lenis = getLenis();
+    if (lenis) {
+      lenis.scrollTo(el, { offset: -90, duration: 1.2 });
+    } else {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <Box
@@ -26,6 +41,9 @@ export default function ProductHero({ product, lang, mode }: ProductSectionProps
         justifyContent: 'center',
         background: heroGradient,
         overflow: 'hidden',
+        // Same clearance as the home hero: the section starts behind the fixed header.
+        pt: { xs: '112px', sm: '120px', md: '128px' },
+        pb: { xs: 10, md: 8 },
       }}
     >
       {/* Background glow */}
@@ -44,11 +62,12 @@ export default function ProductHero({ product, lang, mode }: ProductSectionProps
         }}
       />
 
-      <FloatingOrb size={400} color={product.theme.primary} top="-10%" left="-5%" delay={0} />
-      <FloatingOrb size={300} color={product.theme.accent} top="60%" left="75%" delay={2} />
-      <FloatingOrb size={200} color={product.theme.primary} top="30%" left="60%" delay={1} />
+      <AuroraBackground
+        colors={[product.theme.primary, product.theme.accent, product.theme.secondary]}
+        intensity={0.45}
+      />
 
-      {/* Animated grid lines */}
+      {/* Grid lines */}
       <Box
         sx={{
           position: 'absolute',
@@ -64,8 +83,8 @@ export default function ProductHero({ product, lang, mode }: ProductSectionProps
         }}
       />
 
-      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, py: { xs: 12, md: 0 } }}>
-        <motion.div style={{ y: yTitle, opacity }}>
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+        <motion.div style={{ y: yTitle, opacity, scale }}>
           <Box
             sx={{
               display: 'flex',
@@ -81,54 +100,55 @@ export default function ProductHero({ product, lang, mode }: ProductSectionProps
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.7, ease: [0.34, 1.56, 0.64, 1] }}
             >
-              <Box
-                sx={{
-                  position: 'relative',
-                  width: { xs: 80, md: 110 },
-                  height: { xs: 80, md: 110 },
-                  borderRadius: '24px',
-                  overflow: 'hidden',
-                  boxShadow: `0 0 60px ${product.theme.primary}66, 0 0 120px ${product.theme.primary}33`,
-                  border: `1px solid ${product.theme.primary}44`,
-                }}
+              <motion.div
+                animate={reduceMotion ? undefined : { y: [0, -10, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
               >
-                <Image
-                  src={product.logo}
-                  alt={`${product.name} logo`}
-                  fill
-                  style={{ objectFit: 'contain', padding: '10px' }}
-                />
-              </Box>
+                <TiltCard maxTilt={14}>
+                  <Box
+                    sx={{
+                      position: 'relative',
+                      width: { xs: 96, md: 128 },
+                      height: { xs: 96, md: 128 },
+                      borderRadius: '30px',
+                      overflow: 'hidden',
+                      background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.9)',
+                      backdropFilter: 'blur(14px)',
+                      border: `1px solid ${product.theme.primary}55`,
+                      boxShadow: `0 0 40px ${product.theme.primary}33, 0 30px 60px -15px ${product.theme.primary}44`,
+                    }}
+                  >
+                    <Image
+                      src={product.logo}
+                      alt={`${product.name} logo`}
+                      fill
+                      style={{ objectFit: 'contain', padding: '14px' }}
+                    />
+                  </Box>
+                </TiltCard>
+              </motion.div>
             </motion.div>
 
             {/* Product name */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <Typography
-                variant="h1"
-                sx={{
-                  fontFamily: valorantFont.style.fontFamily,
-                  fontSize: { xs: '3rem', sm: '4.5rem', md: '6rem' },
-                  fontWeight: 700,
-                  letterSpacing: '0.04em',
-                  background: product.theme.textGradient,
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  lineHeight: 1.05,
-                }}
-              >
-                {product.name}
-              </Typography>
-            </motion.div>
+            <AnimatedGradientHeadline
+              text={product.name}
+              component="h1"
+              gradient={product.theme.textGradient}
+              delayStart={0.2}
+              sx={{
+                fontFamily: valorantFont.style.fontFamily,
+                fontSize: { xs: '3rem', sm: '4.5rem', md: '6rem' },
+                letterSpacing: '0.04em',
+                lineHeight: 1.05,
+                textAlign: 'center',
+              }}
+            />
 
             {/* Tagline */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
             >
               <Typography
                 sx={{
@@ -149,114 +169,105 @@ export default function ProductHero({ product, lang, mode }: ProductSectionProps
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
+              transition={{ duration: 0.6, delay: 0.65 }}
+              style={{ display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center' }}
             >
-              <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', justifyContent: 'center' }}>
-                <Button
-                  component={Link}
-                  href={product.appUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  endIcon={<OpenInNewIcon />}
+              <Link
+                href={product.appUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: 'none' }}
+              >
+                <Box
+                  component={motion.button}
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.97 }}
                   sx={{
-                    fontFamily: lexendFont.style.fontFamily,
-                    fontWeight: 600,
-                    fontSize: '0.95rem',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 1,
+                    border: 'none',
+                    cursor: 'pointer',
+                    borderRadius: '14px',
                     px: 4,
-                    py: 1.5,
-                    borderRadius: '50px',
-                    background: product.theme.textGradient,
+                    py: 1.8,
+                    fontSize: { xs: '1rem', md: '1.05rem' },
+                    fontWeight: 600,
+                    fontFamily: lexendFont.style.fontFamily,
                     color: '#fff',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.08em',
-                    boxShadow: `0 0 30px ${product.theme.primary}66`,
-                    transition: 'all 0.3s ease',
-                    '&:hover': {
-                      transform: 'translateY(-2px)',
-                      boxShadow: `0 0 50px ${product.theme.primary}99`,
-                    },
+                    background: product.theme.textGradient,
+                    boxShadow: `0 10px 30px -8px ${product.theme.primary}99`,
                   }}
                 >
                   {lang === 'es'
                     ? (product.ctaLabel?.es ?? 'Abrir App')
                     : (product.ctaLabel?.en ?? 'Open App')}
-                </Button>
+                  <OpenInNewIcon sx={{ fontSize: '1.1rem' }} />
+                </Box>
+              </Link>
 
-                <Button
-                  onClick={() => {
-                    const el = document.getElementById('features');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  sx={{
-                    fontFamily: lexendFont.style.fontFamily,
-                    fontWeight: 500,
-                    fontSize: '0.95rem',
-                    px: 4,
-                    py: 1.5,
-                    borderRadius: '50px',
-                    background: 'transparent',
-                    color: isDark ? 'rgba(255,255,255,0.8)' : 'rgba(0,0,0,0.7)',
-                    border: isDark
-                      ? '1px solid rgba(255,255,255,0.25)'
-                      : '1px solid rgba(0,0,0,0.2)',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.08em',
-                    transition: 'all 0.3s ease',
-                    '&:hover': {
-                      background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.05)',
-                      borderColor: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.4)',
-                    },
-                  }}
-                >
-                  {lang === 'es' ? 'Ver más' : 'Learn More'}
-                </Button>
+              <Box
+                component={motion.button}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={scrollToFeatures}
+                sx={{
+                  cursor: 'pointer',
+                  border: `1.5px solid ${isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.12)'}`,
+                  background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.7)',
+                  backdropFilter: 'blur(10px)',
+                  borderRadius: '14px',
+                  px: 4,
+                  py: 1.8,
+                  fontSize: { xs: '1rem', md: '1.05rem' },
+                  fontWeight: 600,
+                  fontFamily: lexendFont.style.fontFamily,
+                  color: isDark ? '#fff' : '#000',
+                }}
+              >
+                {lang === 'es' ? 'Ver más' : 'Learn More'}
               </Box>
             </motion.div>
           </Box>
         </motion.div>
       </Container>
 
-      {/* Scroll indicator — outside Container, positioned at hero bottom */}
+      {/* Scroll indicator */}
       <motion.div
-        style={{ opacity, position: 'absolute', bottom: 0, left: 0, right: 0 }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
+        style={{
+          opacity: cueOpacity,
+          position: 'absolute',
+          bottom: 28,
+          left: '50%',
+          x: '-50%',
+          zIndex: 1,
+        }}
       >
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            pb: { xs: 3, md: 5 },
-          }}
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
         >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+          <Box
+            sx={{
+              width: 22,
+              height: 36,
+              borderRadius: '12px',
+              border: `2px solid ${isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.25)'}`,
+              display: 'flex',
+              justifyContent: 'center',
+              pt: '6px',
+            }}
           >
             <Box
               sx={{
-                width: 24,
-                height: 38,
-                borderRadius: '12px',
-                border: isDark ? '2px solid rgba(255,255,255,0.3)' : '2px solid rgba(0,0,0,0.25)',
-                display: 'flex',
-                justifyContent: 'center',
-                pt: '6px',
+                width: 3,
+                height: 8,
+                borderRadius: '2px',
+                background: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.4)',
               }}
-            >
-              <Box
-                sx={{
-                  width: 4,
-                  height: 8,
-                  borderRadius: '2px',
-                  background: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.4)',
-                }}
-              />
-            </Box>
-          </motion.div>
-        </Box>
+            />
+          </Box>
+        </motion.div>
       </motion.div>
     </Box>
   );

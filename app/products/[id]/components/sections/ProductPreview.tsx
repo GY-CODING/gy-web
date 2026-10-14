@@ -1,10 +1,11 @@
-import { Box, Container, Typography, Button } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { lexendFont } from '../../../../utils/fonts';
-import SectionBadge from '../shared/SectionBadge';
+import EyebrowBadge from '../../../../components/home/EyebrowBadge';
+import TiltCard from '../../../../components/home/TiltCard';
 import type { ProductSectionProps } from '../../types';
 
 export default function ProductPreview({ product, lang, mode }: ProductSectionProps) {
@@ -48,11 +49,11 @@ export default function ProductPreview({ product, lang, mode }: ProductSectionPr
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
             >
-              <SectionBadge
-                label={lang === 'es' ? 'Sobre la app' : 'About the app'}
-                primaryColor={product.theme.primary}
-                labelColor={isDark ? product.theme.accent : product.theme.secondary}
-              />
+              <Box sx={{ mb: 3 }}>
+                <EyebrowBadge accent={product.theme.textGradient}>
+                  {lang === 'es' ? 'Sobre la app' : 'About the app'}
+                </EyebrowBadge>
+              </Box>
 
               <Typography
                 variant="h2"
@@ -91,54 +92,76 @@ export default function ProductPreview({ product, lang, mode }: ProductSectionPr
                 {desc}
               </Typography>
 
-              <Button
-                component={Link}
+              <Link
                 href={product.appUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                endIcon={<OpenInNewIcon fontSize="small" />}
-                sx={{
-                  fontFamily: lexendFont.style.fontFamily,
-                  fontWeight: 600,
-                  fontSize: '0.9rem',
-                  px: 3.5,
-                  py: 1.25,
-                  borderRadius: '50px',
-                  border: `2px solid ${product.theme.primary}`,
-                  color: isDark ? product.theme.accent : product.theme.secondary,
-                  background: `${product.theme.primary}18`,
-                  textTransform: 'none',
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    background: `${product.theme.primary}35`,
-                    transform: 'translateY(-2px)',
-                  },
-                }}
+                style={{ textDecoration: 'none' }}
               >
-                {lang === 'es'
-                  ? (product.ctaLabel?.es ?? 'Visitar aplicación')
-                  : (product.ctaLabel?.en ?? 'Visit application')}{' '}
-                →
-              </Button>
+                <Box
+                  component={motion.button}
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  sx={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 1,
+                    cursor: 'pointer',
+                    borderRadius: '14px',
+                    px: 3.5,
+                    py: 1.5,
+                    fontSize: '0.95rem',
+                    fontWeight: 600,
+                    fontFamily: lexendFont.style.fontFamily,
+                    border: `1.5px solid ${product.theme.primary}66`,
+                    color: isDark ? product.theme.accent : product.theme.secondary,
+                    background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.7)',
+                    backdropFilter: 'blur(10px)',
+                    transition: 'background 0.3s ease, border-color 0.3s ease',
+                    '&:hover': {
+                      background: `${product.theme.primary}22`,
+                      borderColor: product.theme.primary,
+                    },
+                  }}
+                >
+                  {lang === 'es'
+                    ? (product.ctaLabel?.es ?? 'Visitar aplicación')
+                    : (product.ctaLabel?.en ?? 'Visit application')}
+                  <OpenInNewIcon sx={{ fontSize: '1rem' }} />
+                </Box>
+              </Link>
             </motion.div>
           </Box>
 
           {/* Screenshot */}
           {hasImage && (
-            <Box sx={{ flex: '0 0 55%', width: '100%' }}>
+            <Box sx={{ flex: '0 0 55%', width: '100%', position: 'relative' }}>
+              {/* Product-tinted glow behind the mockup */}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  inset: '10%',
+                  borderRadius: '50%',
+                  background: `radial-gradient(circle, ${product.theme.primary}${isDark ? '44' : '2e'}, transparent 70%)`,
+                  filter: 'blur(50px)',
+                  pointerEvents: 'none',
+                }}
+              />
               <motion.div
                 initial={{ opacity: 0, x: 60, scale: 0.95 }}
                 whileInView={{ opacity: 1, x: 0, scale: 1 }}
                 viewport={{ once: true, margin: '-80px' }}
                 transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
               >
-                <Image
-                  src={imageSrc!}
-                  alt={`${product.name} screenshot`}
-                  width={900}
-                  height={560}
-                  style={{ width: '100%', height: 'auto', display: 'block' }}
-                />
+                <TiltCard maxTilt={5}>
+                  <Image
+                    src={imageSrc!}
+                    alt={`${product.name} screenshot`}
+                    width={900}
+                    height={560}
+                    style={{ width: '100%', height: 'auto', display: 'block' }}
+                  />
+                </TiltCard>
               </motion.div>
             </Box>
           )}

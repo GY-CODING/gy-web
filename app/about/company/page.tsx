@@ -1,72 +1,27 @@
 'use client';
 
-import { Box, Container, Typography, useTheme, Grid } from '@mui/material';
+import { Box, Container, Typography, useTheme } from '@mui/material';
 import { lexendFont, valorantFont } from '../../utils/fonts';
-import FadeIn from '../../components/animations/FadeIn';
-import FlowingGrid from '../../components/animations/FlowingGrid';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../../utils/languageContext';
+import AuroraBackground from '../../components/home/AuroraBackground';
+import EyebrowBadge from '../../components/home/EyebrowBadge';
+import AnimatedGradientHeadline from '../../components/home/AnimatedGradientHeadline';
+import TiltCard from '../../components/home/TiltCard';
+import GlassTile from '../../components/home/GlassTile';
 
-interface ValueCard {
+interface ValueItem {
   title: string;
   description: string;
   icon: string;
 }
 
-const ValueCard = ({ value, index }: { value: ValueCard; index: number }) => {
-  const theme = useTheme();
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      viewport={{ once: true }}
-    >
-      <Box
-        sx={{
-          p: { xs: 3, sm: 4 },
-          height: '100%',
-          borderRadius: '20px',
-          backgroundColor:
-            theme.palette.mode === 'dark' ? 'rgba(17,17,17,0.8)' : 'rgba(255,255,255,0.9)',
-          backdropFilter: 'blur(10px)',
-          border: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
-          transition: 'transform 0.2s ease-in-out',
-          '&:hover': {
-            transform: 'translateY(-5px)',
-          },
-        }}
-      >
-        <Typography variant="h1" sx={{ fontSize: '2.5rem', mb: 2 }}>
-          {value.icon}
-        </Typography>
-        <Typography
-          variant="h5"
-          sx={{
-            fontFamily: lexendFont.style.fontFamily,
-            fontWeight: 600,
-            mb: 2,
-            background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-          }}
-        >
-          {value.title}
-        </Typography>
-        <Typography
-          sx={{
-            color: theme.palette.mode === 'dark' ? 'grey.400' : 'grey.600',
-            lineHeight: 1.7,
-            fontSize: { xs: '0.875rem', sm: '1rem' },
-          }}
-        >
-          {value.description}
-        </Typography>
-      </Box>
-    </motion.div>
-  );
-};
+const VALUE_GRADIENTS = [
+  'linear-gradient(135deg, #6366f1 0%, #8C54FF 100%)',
+  'linear-gradient(135deg, #ec4899 0%, #8C54FF 100%)',
+  'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
+  'linear-gradient(135deg, #8C54FF 0%, #ec4899 100%)',
+];
 
 const renderStyledText = (text: string) => {
   const parts = text.split(/(\[company\].*?\[\/company\])/g);
@@ -94,93 +49,149 @@ const renderStyledText = (text: string) => {
   });
 };
 
+const ValueCard = ({ value, index }: { value: ValueItem; index: number }) => {
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      viewport={{ once: true }}
+      style={{ height: '100%' }}
+    >
+      <TiltCard maxTilt={6}>
+        <Box
+          sx={{
+            p: { xs: 3, sm: 4 },
+            height: '100%',
+            borderRadius: '24px',
+            backgroundColor: isDark ? 'rgba(17,17,17,0.8)' : 'rgba(255,255,255,0.9)',
+            backdropFilter: 'blur(10px)',
+            border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+            boxShadow: isDark ? '0 8px 32px rgba(0,0,0,0.4)' : '0 8px 32px rgba(0,0,0,0.08)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2.5,
+          }}
+        >
+          <GlassTile
+            icon={<span>{value.icon}</span>}
+            gradient={VALUE_GRADIENTS[index % VALUE_GRADIENTS.length]}
+            size={60}
+          />
+          <Typography
+            variant="h5"
+            sx={{
+              fontFamily: lexendFont.style.fontFamily,
+              fontWeight: 600,
+              background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            {value.title}
+          </Typography>
+          <Typography
+            sx={{
+              color: isDark ? 'grey.400' : 'grey.600',
+              lineHeight: 1.7,
+              fontSize: { xs: '0.875rem', sm: '1rem' },
+            }}
+          >
+            {value.description}
+          </Typography>
+        </Box>
+      </TiltCard>
+    </motion.div>
+  );
+};
+
 export default function CompanyPage() {
   const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
   const { t } = useLanguage();
 
-  const values = t('company.values.items');
+  const values = t('company.values.items') as unknown as ValueItem[];
 
   return (
     <Box
       component="main"
       sx={{
         minHeight: '100vh',
-        pt: { xs: '80px', sm: '100px', md: '120px' },
-        pb: { xs: 8, md: 12 },
-        backgroundColor: theme.palette.mode === 'dark' ? 'grey.900' : 'grey.50',
         position: 'relative',
-        overflow: 'hidden',
+        overflowX: 'hidden',
+        pt: { xs: '112px', sm: '120px', md: '128px' },
+        pb: { xs: 10, md: 14 },
       }}
     >
-      <FlowingGrid />
+      <AuroraBackground />
 
-      <Container
-        maxWidth="lg"
-        sx={{
-          position: 'relative',
-          zIndex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <FadeIn direction="up">
-          <Box
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+        <Box sx={{ textAlign: 'center', maxWidth: 760, mx: 'auto', mb: { xs: 8, md: 12 } }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
+            <EyebrowBadge>{t('company.eyebrow')}</EyebrowBadge>
+          </Box>
+
+          <AnimatedGradientHeadline
+            text={t('company.title')}
+            component="h1"
             sx={{
+              fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4.2rem' },
+              lineHeight: 1.08,
+              mb: 3,
               textAlign: 'center',
-              mb: { xs: 8, md: 12 },
-              maxWidth: '800px',
-              mx: 'auto',
-              px: { xs: 2, sm: 4 },
+            }}
+          />
+
+          <Typography
+            sx={{
+              fontSize: { xs: '1.125rem', sm: '1.25rem' },
+              color: isDark ? 'grey.300' : 'grey.700',
+              lineHeight: 1.6,
             }}
           >
-            <Typography
-              variant="h1"
-              sx={{
-                fontFamily: lexendFont.style.fontFamily,
-                fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4.5rem', lg: '5rem' },
-                fontWeight: 600,
-                mb: 3,
-                background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                letterSpacing: '-0.02em',
-              }}
-            >
-              {t('company.title')}
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: { xs: '1.125rem', sm: '1.25rem', md: '1.5rem' },
-                color: theme.palette.mode === 'dark' ? 'grey.300' : 'grey.700',
-                lineHeight: 1.6,
-                maxWidth: '600px',
-                mx: 'auto',
-              }}
-            >
-              {t('company.description')}
-            </Typography>
-          </Box>
-        </FadeIn>
+            {t('company.description')}
+          </Typography>
+        </Box>
 
-        <FadeIn direction="up">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.7 }}
+          style={{ display: 'flex', justifyContent: 'center' }}
+        >
           <Box
             sx={{
               p: { xs: 3, sm: 4, md: 6 },
-              borderRadius: '24px',
-              backgroundColor:
-                theme.palette.mode === 'dark' ? 'rgba(17,17,17,0.8)' : 'rgba(255,255,255,0.9)',
+              borderRadius: '28px',
+              backgroundColor: isDark ? 'rgba(17,17,17,0.8)' : 'rgba(255,255,255,0.9)',
               backdropFilter: 'blur(10px)',
-              border: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+              border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+              boxShadow: isDark ? '0 20px 60px rgba(0,0,0,0.4)' : '0 20px 60px rgba(0,0,0,0.08)',
               mb: { xs: 8, md: 12 },
-              maxWidth: '800px',
+              maxWidth: 820,
               width: '100%',
             }}
           >
             <Typography
               sx={{
+                fontSize: { xs: '0.8rem', md: '0.85rem' },
+                fontWeight: 600,
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                color: isDark ? 'rgba(236,72,153,0.9)' : 'rgba(140,84,255,0.9)',
+                mb: 2,
+              }}
+            >
+              {t('company.story.eyebrow')}
+            </Typography>
+            <Typography
+              sx={{
                 fontSize: { xs: '1rem', sm: '1.125rem', md: '1.25rem' },
-                color: theme.palette.mode === 'dark' ? 'grey.300' : 'grey.700',
+                color: isDark ? 'grey.300' : 'grey.700',
                 lineHeight: 1.8,
                 mb: 4,
               }}
@@ -190,42 +201,42 @@ export default function CompanyPage() {
             <Typography
               sx={{
                 fontSize: { xs: '1rem', sm: '1.125rem', md: '1.25rem' },
-                color: theme.palette.mode === 'dark' ? 'grey.300' : 'grey.700',
+                color: isDark ? 'grey.300' : 'grey.700',
                 lineHeight: 1.8,
               }}
             >
               {renderStyledText(t('company.story.part2'))}
             </Typography>
           </Box>
-        </FadeIn>
+        </motion.div>
 
-        <Box sx={{ mb: { xs: 8, md: 12 }, width: '100%' }}>
-          <FadeIn direction="up">
-            <Typography
-              variant="h2"
+        <Box sx={{ width: '100%' }}>
+          <Box sx={{ textAlign: 'center', mb: { xs: 6, md: 8 } }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
+              <EyebrowBadge>{t('company.values.eyebrow')}</EyebrowBadge>
+            </Box>
+            <AnimatedGradientHeadline
+              text={t('company.values.title')}
+              component="h2"
               sx={{
-                fontFamily: lexendFont.style.fontFamily,
                 fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
                 textAlign: 'center',
-                fontWeight: 600,
-                mb: 6,
-                background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
               }}
-            >
-              {t('company.values.title')}
-            </Typography>
-          </FadeIn>
+            />
+          </Box>
 
-          <Grid container spacing={{ xs: 3, sm: 4 }}>
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' },
+              gap: { xs: 3, sm: 4 },
+            }}
+          >
             {Array.isArray(values) &&
-              values.map((value: ValueCard, index: number) => (
-                <Grid item xs={12} md={6} key={value.title}>
-                  <ValueCard value={value} index={index} />
-                </Grid>
+              values.map((value, index) => (
+                <ValueCard key={value.title} value={value} index={index} />
               ))}
-          </Grid>
+          </Box>
         </Box>
       </Container>
     </Box>

@@ -1,18 +1,19 @@
-/* eslint-disable indent */
 'use client';
 
 import React from 'react';
-import { Box, Container, Typography, useTheme, Grid } from '@mui/material';
+import { Box, Container, Typography, useTheme } from '@mui/material';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
+import ArrowUpwardRoundedIcon from '@mui/icons-material/ArrowUpwardRounded';
 import { useLanguage } from '@/app/utils/languageContext';
 import { lexendFont, valorantFont } from '../../utils/fonts';
+import { getAssetPath } from '../../utils/useImagePath';
+import { getLenis } from '../../hooks/useSmoothScroll';
 import SmartLink from '../SmartLink';
 import SocialIcon from './SocialIcon';
-import { useAssetPath } from '@/app/utils/useImagePath';
+import { BRAND_GRADIENT, glassIconButtonSx } from '../headerStyles';
 
-const MotionBox = motion(Box);
-const MotionContainer = motion(Container);
+const CONTACT_EMAIL = 'it@gycoding.com';
 
 const renderStyledText = (text: string) => {
   const parts = text.split(/(\[company\].*?\[\/company\])/g);
@@ -26,7 +27,7 @@ const renderStyledText = (text: string) => {
           sx={{
             fontFamily: valorantFont.style.fontFamily,
             fontWeight: 600,
-            background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
+            background: BRAND_GRADIENT,
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             px: 0.5,
@@ -40,36 +41,70 @@ const renderStyledText = (text: string) => {
   });
 };
 
-const FooterLinkBox = ({ children }: { children: React.ReactNode }) => {
-  const theme = useTheme();
-
-  return (
-    <Box
-      component={motion.div}
-      whileHover={{ x: 8 }}
-      sx={{
-        color: theme.palette.text.secondary,
-        fontSize: '0.875rem',
-        transition: 'color 0.2s ease',
-        display: 'inline-block',
-        '&:hover': {
-          color: theme.palette.text.primary,
-        },
-      }}
-    >
-      {children}
-    </Box>
-  );
+const scrollToTop = () => {
+  const lenis = getLenis();
+  if (lenis) {
+    lenis.scrollTo(0, { duration: 1.4 });
+  } else {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 };
+
+// Entrance animations run when the footer scrolls into view; with `animate` they would play
+// on page load, far below the fold, and never be seen.
+const reveal = (delay = 0) => ({
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-40px' },
+  transition: { duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] as const },
+});
+
+function LinkColumn({
+  title,
+  links,
+  delay,
+  isDark,
+}: {
+  title: string;
+  links: { name: string; href: string }[];
+  delay: number;
+  isDark: boolean;
+}) {
+  return (
+    <motion.div {...reveal(delay)}>
+      <Typography
+        sx={{
+          fontFamily: lexendFont.style.fontFamily,
+          fontSize: '0.75rem',
+          fontWeight: 600,
+          letterSpacing: '0.08em',
+          textTransform: 'uppercase',
+          color: isDark ? 'grey.500' : 'grey.600',
+          mb: 2,
+        }}
+      >
+        {title}
+      </Typography>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.75 }}>
+        {links.map((link) => (
+          <SmartLink key={link.href} href={link.href}>
+            {link.name}
+          </SmartLink>
+        ))}
+      </Box>
+    </motion.div>
+  );
+}
 
 export default function Footer() {
   const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
   const { t } = useLanguage();
 
   const homeLinks = [
     { name: t('footer.home.items.home'), href: '/' },
-    { name: t('footer.home.items.services'), href: '/#modular-section', scroll: true },
-    { name: t('footer.home.items.techstack'), href: '/#tech-stack', scroll: true },
+    { name: t('footer.home.items.services'), href: '/#modular-section' },
+    { name: t('footer.home.items.techstack'), href: '/#tech-stack' },
   ];
 
   const projectLinks = [
@@ -90,7 +125,7 @@ export default function Footer() {
   ];
 
   const socialLinks = [
-    { name: 'Contact', href: 'mailto:it@gycoding.com' },
+    { name: 'Contact', href: `mailto:${CONTACT_EMAIL}` },
     { name: 'GitHub', href: 'https://github.com/GY-CODING' },
     { name: 'X', href: 'https://x.com/GYCODING' },
     { name: 'Discord', href: 'https://discord.gg/AGYhzD53qg' },
@@ -98,261 +133,191 @@ export default function Footer() {
   ];
 
   return (
-    <AnimatePresence>
-      <MotionBox
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: 'easeOut' }}
+    <Box
+      component="footer"
+      sx={{
+        position: 'relative',
+        overflow: 'hidden',
+        pt: 6,
+        backgroundColor: isDark ? 'rgba(0,0,0,0.6)' : 'rgba(250,250,252,0.85)',
+        backdropFilter: 'blur(20px)',
+        // Gradient hairline on top instead of a flat grey border.
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '1px',
+          background:
+            'linear-gradient(90deg, transparent 0%, rgba(99,102,241,0.6) 30%, rgba(236,72,153,0.6) 70%, transparent 100%)',
+        },
+      }}
+    >
+      {/* Soft glow spilling down from the hairline */}
+      <Box
         sx={{
-          position: 'relative',
-          backgroundColor:
-            theme.palette.mode === 'dark' ? 'rgba(0, 0, 0, 0.85)' : 'rgba(255, 255, 255, 0.85)',
-          backdropFilter: 'blur(20px)',
-          borderTop: `1px solid ${
-            theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
-          }`,
-          boxShadow:
-            theme.palette.mode === 'dark'
-              ? '0 -10px 30px -10px rgba(0, 0, 0, 0.3)'
-              : '0 -10px 30px -10px rgba(0, 0, 0, 0.1)',
-          py: 6,
+          position: 'absolute',
+          top: 0,
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '70%',
+          height: 300,
+          borderRadius: '50%',
+          background: `radial-gradient(ellipse, rgba(140,84,255,${isDark ? 0.18 : 0.1}) 0%, transparent 70%)`,
+          pointerEvents: 'none',
         }}
-      >
-        <MotionContainer maxWidth="lg">
-          <Grid container spacing={4}>
-            {/* Logo y descripción */}
-            <Grid item xs={12} md={4}>
-              <MotionBox
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                <Box sx={{ mb: 4 }}>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      mb: 2,
-                      background:
-                        theme.palette.mode === 'dark'
-                          ? 'linear-gradient(45deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%)'
-                          : 'linear-gradient(45deg, rgba(99, 102, 241, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%)',
-                      p: 2,
-                      borderRadius: 2,
-                      backdropFilter: 'blur(10px)',
-                    }}
-                  >
-                    <motion.div
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      transition={{ type: 'spring', stiffness: 300 }}
-                    >
-                      <Box sx={{ position: 'relative', width: 40, height: 40, mr: 1 }}>
-                        <Image
-                          src={useAssetPath('/gy-logo.png')}
-                          alt="GYCoding Logo"
-                          fill
-                          style={{ objectFit: 'contain' }}
-                        />
-                      </Box>
-                    </motion.div>
-                    <motion.div
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ type: 'spring', stiffness: 400 }}
-                    >
-                      <Typography
-                        variant="h6"
-                        sx={{
-                          fontFamily: valorantFont.style.fontFamily,
-                          fontWeight: 600,
-                          background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
-                          WebkitBackgroundClip: 'text',
-                          WebkitTextFillColor: 'transparent',
-                          letterSpacing: '0.1em',
-                          fontSize: '1.5rem',
-                          textShadow:
-                            theme.palette.mode === 'dark'
-                              ? '0 0 20px rgba(236, 72, 153, 0.3)'
-                              : '0 0 20px rgba(236, 72, 153, 0.2)',
-                          '&:hover': {
-                            cursor: 'pointer',
-                          },
-                        }}
-                      >
-                        {t('footer.company')}
-                      </Typography>
-                    </motion.div>
-                  </Box>
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
-                  >
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        color: theme.palette.mode === 'dark' ? 'grey.400' : 'grey.600',
-                        maxWidth: '300px',
-                        lineHeight: 1.6,
-                        textShadow:
-                          theme.palette.mode === 'dark' ? '0 0 10px rgba(0, 0, 0, 0.3)' : 'none',
-                      }}
-                    >
-                      {renderStyledText(t('about.description1'))}
-                    </Typography>
-                  </motion.div>
-                </Box>
+      />
 
-                {/* Social Icons */}
-                <Box sx={{ display: 'flex', gap: 2, mb: { xs: 4, md: 0 } }}>
-                  {socialLinks.map((link) => (
-                    <motion.div
-                      key={link.name}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.6 }}
-                      whileHover={{
-                        y: -5,
-                        scale: 1.1,
-                        transition: { type: 'spring', stiffness: 400 },
-                      }}
-                    >
-                      <SocialIcon name={link.name} href={link.href} />
-                    </motion.div>
-                  ))}
-                </Box>
-              </MotionBox>
-            </Grid>
-
-            {/* Links de home */}
-            <Grid item xs={12} sm={6} md={2}>
-              <Typography
-                variant="h6"
-                sx={{
-                  fontFamily: lexendFont.style.fontFamily,
-                  fontWeight: 600,
-                  mb: 2,
-                }}
-              >
-                {t('footer.home.title')}
-              </Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                {homeLinks.map((item: any) => (
-                  <motion.div
-                    key={item.name}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.4 }}
-                  >
-                    <SmartLink href={item.href}>{item.name}</SmartLink>
-                  </motion.div>
-                ))}
-              </Box>
-            </Grid>
-
-            {/* Projects */}
-            <Grid item xs={12} sm={6} md={2}>
-              <Typography
-                variant="h6"
-                sx={{
-                  fontFamily: lexendFont.style.fontFamily,
-                  fontWeight: 600,
-                  mb: 2,
-                }}
-              >
-                {t('footer.projects.title')}
-              </Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                {projectLinks.map((item: any) => (
-                  <motion.div
-                    key={item.name}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.4 }}
-                  >
-                    <SmartLink href={item.href}>{item.name}</SmartLink>
-                  </motion.div>
-                ))}
-              </Box>
-            </Grid>
-
-            {/* Links de About */}
-            <Grid item xs={12} sm={6} md={2}>
-              <Typography
-                variant="h6"
-                sx={{
-                  fontFamily: lexendFont.style.fontFamily,
-                  fontWeight: 600,
-                  mb: 2,
-                }}
-              >
-                {t('footer.about.title')}
-              </Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                {aboutLinks.map((link) => (
-                  <SmartLink key={link.name} href={link.href} className="footer-link">
-                    <FooterLinkBox>{link.name}</FooterLinkBox>
-                  </SmartLink>
-                ))}
-              </Box>
-            </Grid>
-
-            {/* Links legales */}
-            <Grid item xs={12} sm={6} md={2}>
-              <Typography
-                variant="h6"
-                sx={{
-                  fontFamily: lexendFont.style.fontFamily,
-                  fontWeight: 600,
-                  mb: 2,
-                }}
-              >
-                {t('footer.legal.title')}
-              </Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                {legalLinks.map((item: any) => (
-                  <motion.div
-                    key={item.name}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.4 }}
-                  >
-                    <SmartLink href={item.href}>{item.name}</SmartLink>
-                  </motion.div>
-                ))}
-              </Box>
-            </Grid>
-          </Grid>
-
-          {/* Copyright */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8 }}
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: {
+              xs: '1fr 1fr',
+              md: '1.6fr repeat(4, 1fr)',
+            },
+            gap: { xs: 4, md: 5 },
+          }}
+        >
+          {/* Brand */}
+          <Box
+            component={motion.div}
+            {...reveal()}
+            sx={{ gridColumn: { xs: '1 / -1', md: 'auto' } }}
           >
             <Box
               sx={{
-                mt: 6,
-                pt: 3,
-                borderTop: `1px solid ${
-                  theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
-                }`,
-                textAlign: 'center',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 1.5,
+                mb: 2,
+                p: 1.5,
+                pr: 2.5,
+                borderRadius: '16px',
+                background: isDark
+                  ? 'linear-gradient(45deg, rgba(99,102,241,0.1) 0%, rgba(236,72,153,0.1) 100%)'
+                  : 'linear-gradient(45deg, rgba(99,102,241,0.05) 0%, rgba(236,72,153,0.05) 100%)',
+                border: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)'}`,
               }}
             >
+              <Box
+                component={motion.div}
+                whileHover={{ scale: 1.08, rotate: -6 }}
+                sx={{ position: 'relative', width: 40, height: 40 }}
+              >
+                <Image
+                  src={getAssetPath('/gy-logo.png')}
+                  alt="GYCODING"
+                  fill
+                  style={{ objectFit: 'contain' }}
+                />
+              </Box>
               <Typography
-                variant="body2"
                 sx={{
-                  color: theme.palette.mode === 'dark' ? 'grey.400' : 'grey.600',
-                  fontFamily: lexendFont.style.fontFamily,
+                  fontFamily: valorantFont.style.fontFamily,
+                  fontSize: '1.5rem',
+                  letterSpacing: '0.1em',
+                  background: BRAND_GRADIENT,
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
                 }}
               >
-                {new Date().getFullYear()} @{t('footer.company').toUpperCase()} -{' '}
-                {t('footer.rights')}
+                {t('footer.company')}
               </Typography>
             </Box>
-          </motion.div>
-        </MotionContainer>
-      </MotionBox>
-    </AnimatePresence>
+            <Typography
+              sx={{
+                color: isDark ? 'grey.400' : 'grey.600',
+                fontSize: '0.9rem',
+                lineHeight: 1.7,
+                maxWidth: 320,
+                mb: 3,
+              }}
+            >
+              {renderStyledText(t('about.description1'))}
+            </Typography>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+              {socialLinks.map((link) => (
+                <SocialIcon key={link.name} name={link.name} href={link.href} />
+              ))}
+            </Box>
+          </Box>
+
+          <LinkColumn
+            title={t('footer.home.title')}
+            links={homeLinks}
+            delay={0.05}
+            isDark={isDark}
+          />
+          <LinkColumn
+            title={t('footer.projects.title')}
+            links={projectLinks}
+            delay={0.1}
+            isDark={isDark}
+          />
+          <LinkColumn
+            title={t('footer.about.title')}
+            links={aboutLinks}
+            delay={0.15}
+            isDark={isDark}
+          />
+          <LinkColumn
+            title={t('footer.legal.title')}
+            links={legalLinks}
+            delay={0.2}
+            isDark={isDark}
+          />
+        </Box>
+
+        {/* Bottom bar */}
+        <Box
+          sx={{
+            mt: 6,
+            py: 3,
+            borderTop: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'}`,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 2,
+          }}
+        >
+          <Typography
+            sx={{
+              color: isDark ? 'grey.500' : 'grey.600',
+              fontFamily: lexendFont.style.fontFamily,
+              fontSize: '0.85rem',
+            }}
+          >
+            © {new Date().getFullYear()} {t('footer.company').toUpperCase()} · {t('footer.rights')}
+          </Typography>
+
+          <Box
+            component={motion.button}
+            onClick={scrollToTop}
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            aria-label={t('footer.backToTop')}
+            sx={{
+              ...glassIconButtonSx(isDark),
+              width: 'auto',
+              px: 1.5,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 0.75,
+              cursor: 'pointer',
+              fontFamily: lexendFont.style.fontFamily,
+              fontSize: '0.85rem',
+              fontWeight: 500,
+            }}
+          >
+            <Box component="span" sx={{ display: { xs: 'none', sm: 'inline' } }}>
+              {t('footer.backToTop')}
+            </Box>
+            <ArrowUpwardRoundedIcon sx={{ fontSize: '1.05rem' }} />
+          </Box>
+        </Box>
+      </Container>
+    </Box>
   );
 }

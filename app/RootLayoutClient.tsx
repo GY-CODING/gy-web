@@ -8,10 +8,13 @@ import { AnimatePresence } from 'framer-motion';
 import { lexendFont, valorantFont } from './utils/fonts';
 import Footer from './components/Footer/Footer';
 import { LanguageProvider } from './utils/languageContext';
+import { useSmoothScroll } from './hooks/useSmoothScroll';
 
 export default function RootLayoutClient({ children }: { children: React.ReactNode }) {
   const [mode, setMode] = useState<'light' | 'dark'>('light');
   const [isLoading, setIsLoading] = useState(true);
+
+  useSmoothScroll();
 
   useEffect(() => {
     const initializeApp = async () => {

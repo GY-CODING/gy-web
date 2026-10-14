@@ -29,6 +29,7 @@ export interface Locale {
     }>;
   };
   team: {
+    eyebrow: string;
     title: string;
     description: string;
     members: Array<{
@@ -48,6 +49,7 @@ export interface Locale {
   footer: {
     rights: string;
     company: string;
+    backToTop: string;
     home: {
       title: string;
       items: {
@@ -76,6 +78,7 @@ export interface Locale {
     };
   };
   about: {
+    eyebrow: string;
     title: string;
     description1: string;
     description2: string;
@@ -86,13 +89,16 @@ export interface Locale {
     };
   };
   company: {
+    eyebrow: string;
     title: string;
     description: string;
     story: {
+      eyebrow: string;
       part1: string;
       part2: string;
     };
     values: {
+      eyebrow: string;
       title: string;
       items: Array<{
         title: string;
@@ -102,6 +108,7 @@ export interface Locale {
     };
   };
   services: {
+    eyebrow: string;
     title: string;
     description: string;
     modules: {
@@ -118,6 +125,11 @@ export interface Locale {
         description: string;
       };
     };
+  };
+  techStack: {
+    eyebrow: string;
+    title: string;
+    description: string;
   };
   products: {
     notFound: {
@@ -294,6 +306,12 @@ export interface Locale {
     };
   };
   flag: string;
+  legalPage: {
+    onThisPage: string;
+    questionsTitle: string;
+    questionsDescription: string;
+    contactButton: string;
+  };
   privacy: {
     title: string;
     lastUpdate: string;
@@ -428,6 +446,7 @@ export const locales: Record<'en' | 'es', Locale> = {
       ],
     },
     team: {
+      eyebrow: 'The people behind it',
       title: 'Our Team',
       description:
         'A passionate team dedicated to development and learning, committed to listening to new trends, comments and contributions, focusing on continuous growth.',
@@ -477,6 +496,7 @@ export const locales: Record<'en' | 'es', Locale> = {
     },
     footer: {
       rights: 'All rights reserved.',
+      backToTop: 'Back to top',
       company: 'GyCODING',
       home: {
         title: 'Home',
@@ -506,6 +526,7 @@ export const locales: Record<'en' | 'es', Locale> = {
       },
     },
     about: {
+      eyebrow: 'Software Studio',
       title: 'BUILDING DIGITAL DREAMS',
       description1:
         'In [company]GyCODING[/company], we merge passion and technology. We are a team of developers specialized in creating innovative, versatile, and scalable digital solutions. ',
@@ -518,15 +539,18 @@ export const locales: Record<'en' | 'es', Locale> = {
       },
     },
     company: {
+      eyebrow: 'Our Story',
       title: 'Our History',
       description: 'How we started and where we are going.',
       story: {
+        eyebrow: 'From the beginning',
         part1:
           'Founded by Guillermo Figueras and Iván Vicente in 2021, our initial purpose was to develop an appropriate environment for both of us to develop what we wanted. As we were eager to learn more and more, this environment was the perfect way for us to experiment, learn and investigate about programming. After a year, [company]GyCODING[/company] evolved, with the goal of building a community interested in development, systems, video games or even design, while both founders continue working on their projects.',
         part2:
           'Now, the main objective is to develop useful products for our own environment, with the goal of making our future projects work properly within our ecosystem.',
       },
       values: {
+        eyebrow: 'What drives us',
         title: 'Our Values',
         items: [
           {
@@ -557,6 +581,7 @@ export const locales: Record<'en' | 'es', Locale> = {
       },
     },
     services: {
+      eyebrow: 'What we build',
       title: 'Our Scopes',
       description: 'Discover our comprehensive range of development scopes.',
       modules: {
@@ -574,6 +599,12 @@ export const locales: Record<'en' | 'es', Locale> = {
           description: 'Creative and scalable video game experiences. For and by players.',
         },
       },
+    },
+    techStack: {
+      eyebrow: 'Our toolkit',
+      title: 'Built with the best tools',
+      description:
+        'The technologies and platforms we rely on to ship fast, scalable, and reliable products.',
     },
     products: {
       notFound: {
@@ -823,6 +854,12 @@ export const locales: Record<'en' | 'es', Locale> = {
       },
     },
     flag: getAssetPath('/icons/flags/en.svg'),
+    legalPage: {
+      onThisPage: 'On this page',
+      questionsTitle: 'Questions about this document?',
+      questionsDescription: 'Write to us and we will get back to you as soon as possible.',
+      contactButton: 'Contact us',
+    },
     privacy: {
       title: 'Privacy Policy',
       lastUpdate: 'Last updated: May 20, 2025',
@@ -986,6 +1023,7 @@ export const locales: Record<'en' | 'es', Locale> = {
       ],
     },
     team: {
+      eyebrow: 'Las personas detrás',
       title: 'Nuestro Equipo',
       description:
         'Un equipo apasionado por el desarrollo y el aprendizaje, decidido a transformar ideas en experiencias.',
@@ -1035,6 +1073,7 @@ export const locales: Record<'en' | 'es', Locale> = {
     },
     footer: {
       rights: 'Todos los derechos reservados.',
+      backToTop: 'Volver arriba',
       company: 'GyCODING',
       home: {
         title: 'Inicio',
@@ -1064,6 +1103,7 @@ export const locales: Record<'en' | 'es', Locale> = {
       },
     },
     about: {
+      eyebrow: 'Estudio de Software',
       title: 'CREANDO SUEÑOS DIGITALES',
       description1:
         'En [company]GyCODING[/company], fusionamos pasión y tecnología. Somos un equipo de desarrolladores especializados en crean soluciones digitales innovadoras, versátiles y escalables. ',
@@ -1076,15 +1116,18 @@ export const locales: Record<'en' | 'es', Locale> = {
       },
     },
     company: {
+      eyebrow: 'Sobre Nosotros',
       title: 'Nuestra Historia',
       description: 'Cómo empezamos y hacia dónde vamos.',
       story: {
+        eyebrow: 'Desde el principio',
         part1:
           'Fundado por Guillermo Figueras e Iván Vicente en 2021, su propósito inicial era elaborar un entorno de desarrollo adecuado para que ambos amigos pudieran desarrollar lo que quisieran. Como estaban ansiosos por aprender cada vez más, este entorno era la forma perfecta para que experimentaran, aprendieran e investigaran sobre programación. Después de un año, [company]GyCODING[/company] evolucionó, con el objetivo de construir una comunidad  interesada en el desarrollo, sistemas, videojuegos o incluso diseño, al mismo tiempo que ambos fundadores seguían trabajando en sus proyectos..',
         part2:
           'Ahora, el mayor objetivo reside en desarrollar productos útiles para su propio entorno, con el fin de que los futuros proyectos puedan funcionar adecuadamente dentro de su ecosistema.',
       },
       values: {
+        eyebrow: 'Qué nos mueve',
         title: 'Nuestros Valores',
         items: [
           {
@@ -1115,6 +1158,7 @@ export const locales: Record<'en' | 'es', Locale> = {
       },
     },
     services: {
+      eyebrow: 'Qué construimos',
       title: 'Nuestros Campos',
       description: 'Descubre nuestra amplia gama de campos de desarrollo',
       modules: {
@@ -1134,6 +1178,12 @@ export const locales: Record<'en' | 'es', Locale> = {
             'Experiencias de videojuegos creativas y con desarrollos escalables. Por y para jugadores.',
         },
       },
+    },
+    techStack: {
+      eyebrow: 'Nuestras herramientas',
+      title: 'Construido con las mejores herramientas',
+      description:
+        'Las tecnologías y plataformas en las que confiamos para lanzar productos rápidos, escalables y fiables.',
     },
     products: {
       notFound: {
@@ -1384,6 +1434,12 @@ export const locales: Record<'en' | 'es', Locale> = {
       },
     },
     flag: getAssetPath('/icons/flags/es.svg'),
+    legalPage: {
+      onThisPage: 'En esta página',
+      questionsTitle: '¿Tienes dudas sobre este documento?',
+      questionsDescription: 'Escríbenos y te responderemos lo antes posible.',
+      contactButton: 'Contáctanos',
+    },
     privacy: {
       title: 'Política de Privacidad',
       lastUpdate: 'Última actualización: 20 de mayo de 2025',

@@ -1,6 +1,8 @@
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import { lexendFont } from '../../../../../utils/fonts';
+import TiltCard from '../../../../../components/home/TiltCard';
+import GlassTile from '../../../../../components/home/GlassTile';
 import type { Feature } from '../../../../data/products';
 
 interface FeatureCardProps {
@@ -28,20 +30,16 @@ export default function FeatureCard({
       transition={{ duration: 0.5, delay: (index % 3) * 0.12 }}
       style={{ height: '100%' }}
     >
-      <motion.div
-        whileHover={{ y: -6, scale: 1.02 }}
-        transition={{ duration: 0.25, ease: 'easeOut' }}
-        style={{ height: '100%' }}
-      >
+      <TiltCard maxTilt={6} fullHeight>
         <Box
           sx={{
             height: '100%',
             p: { xs: 3, md: 3.5 },
-            borderRadius: '20px',
-            background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.9)',
-            border: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(0,0,0,0.07)',
+            borderRadius: '24px',
+            background: isDark ? 'rgba(17,17,17,0.6)' : 'rgba(255,255,255,0.9)',
+            border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.08)',
             backdropFilter: 'blur(10px)',
-            boxShadow: isDark ? 'none' : '0 2px 16px rgba(0,0,0,0.06)',
+            boxShadow: isDark ? '0 20px 60px rgba(0,0,0,0.35)' : '0 20px 60px rgba(0,0,0,0.06)',
             position: 'relative',
             overflow: 'hidden',
             transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
@@ -65,7 +63,9 @@ export default function FeatureCard({
             },
           }}
         >
-          <Typography sx={{ fontSize: '2.2rem', mb: 2, lineHeight: 1 }}>{feature.icon}</Typography>
+          <Box sx={{ mb: 2.5 }}>
+            <GlassTile icon={<span>{feature.icon}</span>} gradient={textGradient} size={60} />
+          </Box>
           <Typography
             sx={{
               fontFamily: lexendFont.style.fontFamily,
@@ -88,7 +88,7 @@ export default function FeatureCard({
             {lang === 'es' ? feature.descriptionEs : feature.description}
           </Typography>
         </Box>
-      </motion.div>
+      </TiltCard>
     </motion.div>
   );
 }

@@ -15,10 +15,11 @@ export default function TechBadgeItem({ tech, isDark, index }: TechBadgeItemProp
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.7 }}
-      whileInView={{ opacity: 1, scale: 1 }}
+      // The stagger delay lives inside the entrance target only: on the shared `transition`
+      // prop it would also delay the hover, making later badges react slower.
+      whileInView={{ opacity: 1, scale: 1, transition: { duration: 0.4, delay: index * 0.08 } }}
       viewport={{ once: true }}
-      transition={{ duration: 0.4, delay: index * 0.08 }}
-      whileHover={{ scale: 1.1, y: -4 }}
+      whileHover={{ scale: 1.08, y: -4, transition: { duration: 0.2 } }}
     >
       <Box
         sx={{
@@ -27,7 +28,7 @@ export default function TechBadgeItem({ tech, isDark, index }: TechBadgeItemProp
           gap: 1.5,
           px: { xs: 2.5, md: 3 },
           py: { xs: 1.25, md: 1.5 },
-          borderRadius: '50px',
+          borderRadius: '14px',
           background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.85)',
           border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)',
           boxShadow: isDark ? 'none' : '0 2px 8px rgba(0,0,0,0.06)',
@@ -37,7 +38,7 @@ export default function TechBadgeItem({ tech, isDark, index }: TechBadgeItemProp
           '&:hover': {
             borderColor: `${tech.color}55`,
             background: isDark ? `${tech.color}11` : `${tech.color}18`,
-            boxShadow: `0 4px 20px ${tech.color}22`,
+            boxShadow: `0 20px 50px -15px ${tech.color}66`,
           },
         }}
       >
