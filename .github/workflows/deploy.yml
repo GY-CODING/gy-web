@@ -1,13 +1,46 @@
-name: Release and Deploy to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
-  push:
-    branches:
-      - master
+  workflow_call:
+    inputs:
+      domain:
+        description: 'Domain where the website will be deployed.'
+        required: true
+        type: string
 
 jobs:
   deploy:
-    uses: GY-CODING/devops/.github/workflows/next-deploy.yml@main
-    secrets: inherit
-    with:
-      domain: 'www.gycoding.com'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          rm -rf node_modules
+          rm -f package-lock.json
+          npm install --no-optional
+
+      - name: Build
+        run: |
+          export NODE_ENV=production
+          npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
+          NEXT_IGNORE_PLATFORM_CHECK: 1
+
+      - name: Create CNAME file
+        run: echo ${{ inputs.domain }} > ./out/CNAME
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out
