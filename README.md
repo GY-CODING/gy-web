@@ -46,19 +46,25 @@ Este es el sitio web oficial de **GYCODING**: una landing corporativa con presen
 ## Páginas (rutas)
 
 ### `/` — Home (`app/page.tsx`)
+
 Página principal, compuesta por tres secciones:
+
 1. **`AboutSection`** (`app/components/AboutSection.tsx`): hero principal con título/descripción de la empresa (con fragmentos de texto resaltados vía la etiqueta `[company]...[/company]` en las traducciones), una animación Lottie, y dos CTAs: "Documentación" (enlace externo a `docs.gycoding.com`) y "Sobre la compañía" (`/about/company`). Soporta un easter egg: si la URL lleva `?coffee=true`, cambia la animación Lottie a `coffee.json`.
 2. **`TechStack`** (`app/components/TechStack.tsx`): grid animado con los logos de las tecnologías que usa GYCODING internamente (Next.js, Vercel, MongoDB, Cloudflare, Dokploy, Spring Boot, Apidog, GitHub, Git, Figma).
 3. **`ModularSection`** (`app/components/ModularSection/ModularSection.tsx`): tarjetas de los **servicios** que ofrece GYCODING (Desarrollo Web, Backend, Desarrollo de videojuegos), cada una con su stack asociado. En móvil cambia a un carrusel (`MobileServices`); en desktop usa `ModuleCard` con animación ligada al scroll (`useScroll` de Framer Motion).
 
 ### `/about/company` (`app/about/company/page.tsx`)
+
 Página "Sobre la empresa": hero con título/descripción, un bloque narrativo ("historia" de la compañía en dos párrafos) y una grid de **valores** (`company.values.items` en las traducciones), cada uno con icono, título y descripción, animados al entrar en viewport.
 
 ### `/about/team` (`app/about/team/page.tsx`)
+
 Página de equipo: lista los miembros (`team.members` en las traducciones) en tarjetas con foto, rol, descripción, skills (chips) y enlaces sociales (GitHub, LinkedIn, email, portfolio) vía `SocialIcon`.
 
 ### `/products/[id]` (`app/products/[id]/page.tsx` + `ProductPageClient`)
+
 Ruta **dinámica** compartida por los tres productos (`wingwords`, `gy-accounts`, `heralds-of-chaos`). `generateStaticParams` pre-genera las tres páginas en build time a partir de `PRODUCT_ORDER` (`app/products/data/products.ts`). Toda la info de cada producto (nombre, tagline, descripción, logo, colores/gradientes del tema, features, tech stack, sección de perfil, URL de la app externa) vive en ese fichero de datos; el resto de la página es solo renderizado:
+
 - **`ProductHero`**: logo, nombre, tagline y CTA que lleva a la app real del producto (`appUrl`, p. ej. `wingwords.gycoding.com`).
 - **`ProductPreview`**: captura/imagen de la app.
 - **`ProductProfileSection`**: sección opcional (`profileSection`) con highlights (solo Wingwords la usa).
@@ -69,9 +75,11 @@ Ruta **dinámica** compartida por los tres productos (`wingwords`, `gy-accounts`
 Cada producto tiene su propia paleta/gradiente (`theme.gradient`, etc.) aplicada al fondo cuando el tema global está en modo oscuro; en modo claro se usa fondo blanco. No existe un `/products` índice: el único acceso es vía el menú desplegable del header o enlaces directos.
 
 ### `/privacy`, `/terms`, `/cookies`
+
 Tres páginas legales con estructura idéntica (`Container` + `Paper` de MUI, con secciones y listas), cuyo contenido completo (título, fecha de última actualización, secciones) proviene íntegramente de `locales.ts` bajo las claves `privacy`, `terms` y `cookies`. No hay lógica más allá de renderizar el texto traducido.
 
 ### `not-found` (404) (`app/not-found.tsx`)
+
 Página de error 404 con una animación Lottie (`not_found.json`), mensaje y botón para volver al inicio.
 
 <br>
@@ -89,13 +97,13 @@ Página de error 404 con una animación Lottie (`not_found.json`), mensaje y bot
 
 ## Scripts disponibles
 
-| Script | Descripción |
-| --- | --- |
-| `npm run dev` | Levanta el servidor de desarrollo de Next.js |
-| `npm run build` | Genera el export estático en `/out` |
-| `npm run start` | Sirve el build (modo Next server, uso puntual) |
-| `npm run lint` | ESLint con `--fix` |
-| `npm run format` | Prettier sobre todo el repo |
+| Script                                                                  | Descripción                                                                                 |
+| ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `npm run dev`                                                           | Levanta el servidor de desarrollo de Next.js                                                |
+| `npm run build`                                                         | Genera el export estático en `/out`                                                         |
+| `npm run start`                                                         | Sirve el build (modo Next server, uso puntual)                                              |
+| `npm run lint`                                                          | ESLint con `--fix`                                                                          |
+| `npm run format`                                                        | Prettier sobre todo el repo                                                                 |
 | `npm run release` / `release:minor` / `release:major` / `release:patch` | Versionado con `standard-version` (actualiza `CHANGELOG.md` y la versión en `package.json`) |
 
 <br>

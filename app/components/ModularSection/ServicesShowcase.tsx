@@ -170,7 +170,14 @@ function SlideVisual({ slide, isDark }: { slide: Slide; isDark: boolean }) {
         >
           {slide.description}
         </Typography>
-        <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap', justifyContent: { xs: 'center', md: 'flex-start' } }}>
+        <Box
+          sx={{
+            display: 'flex',
+            gap: 1.5,
+            flexWrap: 'wrap',
+            justifyContent: { xs: 'center', md: 'flex-start' },
+          }}
+        >
           {slide.techIcons.map((tech) => (
             <Box
               key={tech}

@@ -127,7 +127,9 @@ const TeamMemberCard = ({ member, index }: { member: TeamMember; index: number }
                   transform: isEven ? 'scale(1.02) rotate(1deg)' : 'scale(1.02) rotate(-1deg)',
                   width: '100%',
                   height: '100%',
-                  filter: isDark ? 'brightness(1.1) contrast(0.95)' : 'brightness(1.05) contrast(0.98)',
+                  filter: isDark
+                    ? 'brightness(1.1) contrast(0.95)'
+                    : 'brightness(1.05) contrast(0.98)',
                 }}
               />
             </Box>
@@ -185,7 +187,9 @@ const TeamMemberCard = ({ member, index }: { member: TeamMember; index: number }
                         px: { xs: 1.5, sm: 2 },
                         py: { xs: 0.5, sm: 1 },
                         borderRadius: '8px',
-                        backgroundColor: isDark ? 'rgba(99, 102, 241, 0.2)' : 'rgba(99, 102, 241, 0.1)',
+                        backgroundColor: isDark
+                          ? 'rgba(99, 102, 241, 0.2)'
+                          : 'rgba(99, 102, 241, 0.1)',
                         color: isDark ? 'rgba(99, 102, 241, 0.9)' : 'rgba(99, 102, 241, 1)',
                         fontSize: { xs: '0.75rem', sm: '0.875rem' },
                         fontFamily: lexendFont.style.fontFamily,

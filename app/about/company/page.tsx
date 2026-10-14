@@ -76,7 +76,11 @@ const ValueCard = ({ value, index }: { value: ValueItem; index: number }) => {
             gap: 2.5,
           }}
         >
-          <GlassTile icon={<span>{value.icon}</span>} gradient={VALUE_GRADIENTS[index % VALUE_GRADIENTS.length]} size={60} />
+          <GlassTile
+            icon={<span>{value.icon}</span>}
+            gradient={VALUE_GRADIENTS[index % VALUE_GRADIENTS.length]}
+            size={60}
+          />
           <Typography
             variant="h5"
             sx={{
@@ -229,7 +233,9 @@ export default function CompanyPage() {
             }}
           >
             {Array.isArray(values) &&
-              values.map((value, index) => <ValueCard key={value.title} value={value} index={index} />)}
+              values.map((value, index) => (
+                <ValueCard key={value.title} value={value} index={index} />
+              ))}
           </Box>
         </Box>
       </Container>
