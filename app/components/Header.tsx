@@ -1,21 +1,22 @@
 'use client';
 
-import { useState } from 'react';
-import { useTheme, useMediaQuery } from '@mui/material';
-import Box from '@mui/material/Box';
-import IconButton from '@mui/icons-material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
+import { useEffect, useState } from 'react';
+import { Box, IconButton, useMediaQuery, useTheme } from '@mui/material';
+import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion';
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useAssetPath } from '../utils/useImagePath';
+import { getAssetPath } from '../utils/useImagePath';
+import { lexendFont } from '../utils/fonts';
 import ThemeToggle from './ThemeToggle';
-import CustomButton from './CustomButton';
 import CustomMenuItem from './menuItem';
 import FloatingMenu from './FloatingMenu';
 import MobileMenu from './MobileMenu';
 import LanguageSelector from './LanguageSelector';
 import { getMenuItems, getButtonText } from '../utils/menuItems';
 import { useLanguage } from '../utils/languageContext';
+import { LOGIN_URL, BRAND_GRADIENT, glassIconButtonSx } from './headerStyles';
 
 interface HeaderProps {
   onThemeToggle: () => void;
@@ -23,26 +24,68 @@ interface HeaderProps {
 
 export default function Header({ onThemeToggle }: HeaderProps) {
   const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { language } = useLanguage();
 
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 200, damping: 30 });
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile) setMobileMenuOpen(false);
+  }, [isMobile]);
+
   const currentMenuItems = getMenuItems(language);
+  // Stay solid while a menu is open so the panel never floats over a see-through bar.
+  const solid = scrolled || mobileMenuOpen || hoveredIndex !== null;
 
   return (
     <Box
       component="header"
+      // The dropdown panel is a DOM child of the header, so leaving the header is the one
+      // reliable "pointer is gone" signal for closing it.
+      onMouseLeave={() => setHoveredIndex(null)}
       sx={{
         position: 'fixed',
         top: 0,
         left: 0,
         right: 0,
         height: '64px',
-        backgroundColor: theme.palette.background.paper,
-        borderBottom: `1px solid ${theme.palette.divider}`,
         zIndex: 1000,
-        willChange: 'transform',
+        // The glass lives on a pseudo-element: backdrop-filter on the header itself would make
+        // it the containing block for the fixed dropdown/mobile panels and break their layout.
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          inset: 0,
+          zIndex: -1,
+          backgroundColor: solid
+            ? isDark
+              ? 'rgba(10,10,14,0.7)'
+              : 'rgba(255,255,255,0.75)'
+            : 'transparent',
+          backdropFilter: solid ? 'blur(16px) saturate(160%)' : 'none',
+          WebkitBackdropFilter: solid ? 'blur(16px) saturate(160%)' : 'none',
+          borderBottom: `1px solid ${
+            solid ? (isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)') : 'transparent'
+          }`,
+          boxShadow: solid
+            ? isDark
+              ? '0 10px 30px -15px rgba(0,0,0,0.6)'
+              : '0 10px 30px -15px rgba(0,0,0,0.12)'
+            : 'none',
+          transition: 'background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease',
+        },
       }}
     >
       <Box
@@ -50,36 +93,23 @@ export default function Header({ onThemeToggle }: HeaderProps) {
           maxWidth: '1200px',
           height: '100%',
           margin: '0 auto',
-          padding: '0 2rem',
+          padding: { xs: '0 1rem', sm: '0 2rem' },
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
         }}
       >
         {/* Left side */}
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '3rem',
-          }}
-        >
-          {/* Logo */}
-          <Link href={useAssetPath('/')}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: '2.5rem' }}>
+          <Link href="/" aria-label="GYCODING" onMouseEnter={() => setHoveredIndex(null)}>
             <Box
-              sx={{
-                position: 'relative',
-                width: '40px',
-                height: '40px',
-                transition: 'transform 0.2s ease-in-out',
-                cursor: 'pointer',
-                '&:hover': {
-                  transform: 'scale(1.05)',
-                },
-              }}
+              component={motion.div}
+              whileHover={{ scale: 1.06, rotate: -4 }}
+              whileTap={{ scale: 0.95 }}
+              sx={{ position: 'relative', width: '40px', height: '40px', cursor: 'pointer' }}
             >
               <Image
-                src={useAssetPath('/gy-logo.png')}
+                src={getAssetPath('/gy-logo.png')}
                 alt="GYCODING"
                 fill
                 style={{ objectFit: 'contain' }}
@@ -88,17 +118,11 @@ export default function Header({ onThemeToggle }: HeaderProps) {
             </Box>
           </Link>
 
-          {/* Menu items - Only show on desktop */}
           {!isMobile && (
-            <Box
-              sx={{
-                display: 'flex',
-                gap: '1.5rem',
-              }}
-            >
+            <Box component="nav" sx={{ display: 'flex', gap: '0.25rem' }}>
               {currentMenuItems.map((item, index) => (
                 <CustomMenuItem
-                  key={index}
+                  key={item.title}
                   item={item}
                   index={index}
                   isHovered={hoveredIndex === index}
@@ -111,42 +135,73 @@ export default function Header({ onThemeToggle }: HeaderProps) {
 
         {/* Right side */}
         <Box
-          sx={{
-            display: 'flex',
-            gap: '1rem',
-            alignItems: 'center',
-          }}
+          onMouseEnter={() => setHoveredIndex(null)}
+          sx={{ display: 'flex', gap: 1, alignItems: 'center' }}
         >
           <LanguageSelector />
           <ThemeToggle onToggle={onThemeToggle} />
           {isMobile ? (
-            <IconButton onClick={() => setMobileMenuOpen(!mobileMenuOpen)} sx={{ ml: 1 }}>
-              <MenuIcon />
+            <IconButton
+              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+              onClick={() => setMobileMenuOpen((open) => !open)}
+              sx={glassIconButtonSx(isDark)}
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={mobileMenuOpen ? 'close' : 'open'}
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.18 }}
+                  style={{ display: 'flex' }}
+                >
+                  {mobileMenuOpen ? <CloseRoundedIcon /> : <MenuRoundedIcon />}
+                </motion.span>
+              </AnimatePresence>
             </IconButton>
           ) : (
-            <CustomButton
-              text={getButtonText(language, 'login')}
-              link="https://accounts.gycoding.com"
-              sx={{
-                background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
-                border: 'none',
-                color: '#ffffff',
-                fontWeight: 600,
-                px: 3,
-                '&:hover': {
-                  opacity: 0.9,
-                  transform: 'translateY(-1px)',
-                },
-                '&:active': {
-                  transform: 'translateY(0)',
-                },
-              }}
-            />
+            <a href={LOGIN_URL} style={{ textDecoration: 'none', marginLeft: 8 }}>
+              <Box
+                component={motion.span}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                sx={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  height: 40,
+                  px: 2.5,
+                  borderRadius: '12px',
+                  fontFamily: lexendFont.style.fontFamily,
+                  fontSize: '0.9rem',
+                  fontWeight: 600,
+                  color: '#fff',
+                  background: BRAND_GRADIENT,
+                  boxShadow: '0 8px 24px -8px rgba(99,102,241,0.6)',
+                }}
+              >
+                {getButtonText(language, 'login')}
+              </Box>
+            </a>
           )}
         </Box>
       </Box>
 
-      {/* Floating menu for desktop */}
+      {/* Scroll progress */}
+      <motion.div
+        style={{
+          scaleX: progress,
+          transformOrigin: '0% 50%',
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          bottom: -1,
+          height: 2,
+          background: BRAND_GRADIENT,
+          opacity: scrolled ? 1 : 0,
+          transition: 'opacity 0.3s ease',
+        }}
+      />
+
       {!isMobile && (
         <FloatingMenu
           items={currentMenuItems}
@@ -155,7 +210,6 @@ export default function Header({ onThemeToggle }: HeaderProps) {
         />
       )}
 
-      {/* Mobile menu */}
       <MobileMenu
         isOpen={mobileMenuOpen}
         menuItems={currentMenuItems}

@@ -1,12 +1,14 @@
 'use client';
 
-import Link from 'next/link';
-import { IconButton, useTheme } from '@mui/material';
+import { Box, Tooltip, useTheme } from '@mui/material';
+import { motion } from 'framer-motion';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import XIcon from '@mui/icons-material/X';
-import EmailIcon from '@mui/icons-material/Email';
+import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded';
+import HelpOutlineRoundedIcon from '@mui/icons-material/HelpOutlineRounded';
 import Image from 'next/image';
-import QuestionMarkSharpIcon from '@mui/icons-material/QuestionMarkSharp';
+import { getAssetPath } from '../../utils/useImagePath';
+import { glassIconButtonSx } from '../headerStyles';
 
 interface SocialIconProps {
   name: string;
@@ -16,44 +18,50 @@ interface SocialIconProps {
 const iconMap = {
   GitHub: GitHubIcon,
   X: XIcon,
-  Contact: EmailIcon,
-  Support: QuestionMarkSharpIcon,
+  Contact: MailOutlineRoundedIcon,
+  Support: HelpOutlineRoundedIcon,
 };
 
 export default function SocialIcon({ name, href }: SocialIconProps) {
   const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
   const Icon = iconMap[name as keyof typeof iconMap];
+  const isMail = href.startsWith('mailto:');
 
   return (
-    <Link href={href} target="_blank" rel="noopener noreferrer">
-      <IconButton
-        aria-label={`Follow us on ${name}`}
+    <Tooltip title={name} arrow>
+      <Box
+        component={motion.a}
+        href={href}
+        target={isMail ? undefined : '_blank'}
+        rel={isMail ? undefined : 'noopener noreferrer'}
+        aria-label={name}
+        whileHover={{ y: -3 }}
+        whileTap={{ scale: 0.95 }}
         sx={{
-          color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)',
-          transition: 'all 0.3s ease',
+          ...glassIconButtonSx(isDark),
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
           '&:hover': {
-            color: theme.palette.mode === 'dark' ? '#fff' : '#000',
-            background:
-              theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
-            transform: 'translateY(-2px)',
+            ...glassIconButtonSx(isDark)['&:hover'],
+            color: isDark ? '#fff' : '#000',
+            boxShadow: '0 10px 25px -10px rgba(140,84,255,0.6)',
           },
         }}
       >
         {name === 'Discord' ? (
           <Image
-            src={'/icons/discord.svg'}
-            alt={name}
-            width={24}
-            height={24}
-            style={{
-              filter: theme.palette.mode === 'dark' ? 'invert(0)' : 'invert(1)',
-              opacity: '.7',
-            }}
+            src={getAssetPath('/icons/discord.svg')}
+            alt=""
+            width={20}
+            height={20}
+            style={{ filter: isDark ? 'none' : 'invert(1)', opacity: 0.8 }}
           />
         ) : (
-          <Icon />
+          Icon && <Icon sx={{ fontSize: '1.2rem' }} />
         )}
-      </IconButton>
-    </Link>
+      </Box>
+    </Tooltip>
   );
 }

@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
 import { styled } from '@mui/material/styles';
 import { motion } from 'framer-motion';
+import { getLenis } from '../hooks/useSmoothScroll';
 
 const StyledLinkWrapper = styled(motion.div)(({ theme }) => ({
   '& a': {
@@ -51,7 +52,12 @@ export default function SmartLink({ href, children, className }: SmartLinkProps)
       const targetId = href.slice(2);
       const element = document.getElementById(targetId);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        const lenis = getLenis();
+        if (lenis) {
+          lenis.scrollTo(element, { offset: -90, duration: 1.2 });
+        } else {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     }
   };

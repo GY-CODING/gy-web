@@ -1,8 +1,8 @@
 'use client';
 import { Box } from '@mui/material';
-import AboutSection from './components/AboutSection';
-import TechStack from './components/TechStack';
-import ModularSection from './components/ModularSection/ModularSection';
+import Hero from './components/home/Hero';
+import TechStackGrid from './components/home/TechStackGrid';
+import ServicesShowcase from './components/ModularSection/ServicesShowcase';
 
 export default function Home() {
   return (
@@ -19,12 +19,11 @@ export default function Home() {
           flex: '1 0 auto',
           display: 'flex',
           flexDirection: 'column',
-          gap: 4,
         }}
       >
-        <AboutSection />
-        <TechStack />
-        <ModularSection />
+        <Hero />
+        <TechStackGrid />
+        <ServicesShowcase />
       </Box>
     </Box>
   );

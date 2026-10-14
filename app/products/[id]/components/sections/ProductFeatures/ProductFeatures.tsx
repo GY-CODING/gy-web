@@ -1,7 +1,7 @@
 import { Box, Container, Typography, Grid } from '@mui/material';
 import { motion } from 'framer-motion';
 import { lexendFont } from '../../../../../utils/fonts';
-import SectionBadge from '../../shared/SectionBadge';
+import EyebrowBadge from '../../../../../components/home/EyebrowBadge';
 import FeatureCard from './FeatureCard';
 import type { ProductSectionProps } from '../../../types';
 
@@ -43,11 +43,11 @@ export default function ProductFeatures({ product, lang, mode }: ProductSectionP
           transition={{ duration: 0.6 }}
         >
           <Box sx={{ textAlign: 'center', mb: { xs: 7, md: 10 } }}>
-            <SectionBadge
-              label={lang === 'es' ? 'Características' : 'Features'}
-              primaryColor={product.theme.primary}
-              labelColor={isDark ? product.theme.accent : product.theme.secondary}
-            />
+            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
+              <EyebrowBadge accent={product.theme.textGradient}>
+                {lang === 'es' ? 'Características' : 'Features'}
+              </EyebrowBadge>
+            </Box>
 
             <Typography
               variant="h2"

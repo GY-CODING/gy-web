@@ -2,7 +2,9 @@ import { Box, Container, Typography, Grid } from '@mui/material';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { lexendFont } from '../../../../utils/fonts';
-import SectionBadge from '../shared/SectionBadge';
+import EyebrowBadge from '../../../../components/home/EyebrowBadge';
+import TiltCard from '../../../../components/home/TiltCard';
+import GlassTile from '../../../../components/home/GlassTile';
 import type { ProductSectionProps } from '../../types';
 
 export default function ProductProfileSection({ product, lang, mode }: ProductSectionProps) {
@@ -34,11 +36,11 @@ export default function ProductProfileSection({ product, lang, mode }: ProductSe
           transition={{ duration: 0.6 }}
         >
           <Box sx={{ textAlign: 'center', mb: { xs: 5, md: 7 } }}>
-            <SectionBadge
-              label={lang === 'es' ? 'Tu perfil' : 'Your profile'}
-              primaryColor={product.theme.primary}
-              labelColor={isDark ? product.theme.accent : product.theme.secondary}
-            />
+            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
+              <EyebrowBadge accent={product.theme.textGradient}>
+                {lang === 'es' ? 'Tu perfil' : 'Your profile'}
+              </EyebrowBadge>
+            </Box>
 
             <Typography
               variant="h2"
@@ -96,16 +98,23 @@ export default function ProductProfileSection({ product, lang, mode }: ProductSe
                     gap: 2,
                     p: 2,
                     height: '100%',
-                    borderRadius: '14px',
+                    borderRadius: '20px',
                     background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.75)',
                     border: `1px solid ${product.theme.primary}22`,
-                    backdropFilter: 'blur(8px)',
+                    backdropFilter: 'blur(10px)',
                     boxShadow: isDark ? 'none' : '0 2px 12px rgba(0,0,0,0.05)',
+                    transition: 'border-color 0.3s ease, transform 0.3s ease',
+                    '&:hover': {
+                      borderColor: `${product.theme.primary}66`,
+                      transform: 'translateY(-3px)',
+                    },
                   }}
                 >
-                  <Typography sx={{ fontSize: '1.4rem', lineHeight: 1, flexShrink: 0 }}>
-                    {h.icon}
-                  </Typography>
+                  <GlassTile
+                    icon={<span>{h.icon}</span>}
+                    gradient={product.theme.textGradient}
+                    size={48}
+                  />
                   <Typography
                     sx={{
                       fontFamily: lexendFont.style.fontFamily,
@@ -131,13 +140,15 @@ export default function ProductProfileSection({ product, lang, mode }: ProductSe
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            <Image
-              src={profileSection.image}
-              alt={`${product.name} profile`}
-              width={1200}
-              height={700}
-              style={{ width: '100%', height: 'auto', display: 'block' }}
-            />
+            <TiltCard maxTilt={3}>
+              <Image
+                src={profileSection.image}
+                alt={`${product.name} profile`}
+                width={1200}
+                height={700}
+                style={{ width: '100%', height: 'auto', display: 'block' }}
+              />
+            </TiltCard>
           </motion.div>
         )}
       </Container>
