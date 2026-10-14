@@ -201,12 +201,15 @@ const TeamMemberCard = ({ member, index }: { member: TeamMember; index: number }
                 ))}
               </Box>
 
-              <Box sx={{ display: 'flex', gap: { xs: 1.5, sm: 2 } }}>
-                <SocialIcon type="github" url={member.social.github} />
+            <Box sx={{ display: 'flex', gap: { xs: 1.5, sm: 2 } }}>
+              {member.social.github && <SocialIcon type="github" url={member.social.github} />}
+              {member.social.linkedin && (
                 <SocialIcon type="linkedin" url={member.social.linkedin} />
-                <SocialIcon type="email" url={member.social.email} />
+              )}
+              {member.social.email && <SocialIcon type="email" url={member.social.email} />}
+              {member.social.portfolio && (
                 <SocialIcon type="portfolio" url={member.social.portfolio} />
-              </Box>
+              )}
             </Box>
           </Box>
         </Box>
