@@ -235,7 +235,8 @@ Las tres usan `app/components/legal/LegalPageLayout.tsx`; cada página solo trad
 - Altura fija de **64px** (todas las páginas dependen de ella para su `pt` y el offset de scroll). Transparente arriba; al hacer scroll o con un menú abierto pasa a cristal.
 - El cristal va en un `::before`, **no** en el propio header: `backdrop-filter` (igual que `transform`/`will-change: transform`) convertiría al header en el containing block de los paneles `fixed` (`FloatingMenu`, `MobileMenu`) y los descolocaría.
 - Barra de progreso de scroll con gradiente en el borde inferior.
-- `menuItem.tsx`: pastilla de hover compartida (`layoutId="nav-hover-pill"`), flecha en grupos y punto de gradiente si alguna ruta hija está activa.
+- `menuItem.tsx`: pastilla de hover compartida (`layoutId="nav-hover-pill"`), flecha en grupos y peso 600 si alguna ruta hija está activa.
+- Login: botón glass cuadrado con el escudo de GY Accounts (`/icons/gy_accounts*.svg`), separado por un divisor vertical.
 - `FloatingMenu`: panel de cristal animado; el centrado usa `style={{ x: '-50%' }}` para no pisar la animación de `y`. El cierre por hover lo gestiona el `onMouseLeave` del header.
 - `MobileMenu`: panel con backdrop, acordeón animado y `data-lenis-prevent` para que Lenis no capture su scroll.
 - `ThemeToggle` / `LanguageSelector` / burger comparten `glassIconButtonSx` y las constantes de `headerStyles.ts` (`LOGIN_URL`, `BRAND_GRADIENT`).

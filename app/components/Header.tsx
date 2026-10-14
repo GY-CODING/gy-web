@@ -8,7 +8,6 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getAssetPath } from '../utils/useImagePath';
-import { lexendFont } from '../utils/fonts';
 import ThemeToggle from './ThemeToggle';
 import CustomMenuItem from './menuItem';
 import FloatingMenu from './FloatingMenu';
@@ -160,28 +159,44 @@ export default function Header({ onThemeToggle }: HeaderProps) {
               </AnimatePresence>
             </IconButton>
           ) : (
-            <a href={LOGIN_URL} style={{ textDecoration: 'none', marginLeft: 8 }}>
+            <>
+              {/* Divider sets the account button apart from the language/theme controls. */}
               <Box
-                component={motion.span}
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.97 }}
                 sx={{
+                  width: '1px',
+                  height: 24,
+                  mx: 1,
+                  background: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)',
+                }}
+              />
+              <Box
+                component={motion.a}
+                href={LOGIN_URL}
+                aria-label={getButtonText(language, 'login')}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                sx={{
+                  ...glassIconButtonSx(isDark),
                   display: 'inline-flex',
                   alignItems: 'center',
-                  height: 40,
-                  px: 2.5,
-                  borderRadius: '12px',
-                  fontFamily: lexendFont.style.fontFamily,
-                  fontSize: '0.9rem',
-                  fontWeight: 600,
-                  color: '#fff',
-                  background: BRAND_GRADIENT,
-                  boxShadow: '0 8px 24px -8px rgba(99,102,241,0.6)',
+                  justifyContent: 'center',
+                  boxShadow: '0 8px 24px -10px rgba(140,84,255,0.55)',
+                  '&:hover': {
+                    ...glassIconButtonSx(isDark)['&:hover'],
+                    boxShadow: '0 12px 28px -10px rgba(140,84,255,0.75)',
+                  },
                 }}
               >
-                {getButtonText(language, 'login')}
+                <Image
+                  src={getAssetPath(
+                    isDark ? '/icons/gy_accounts.svg' : '/icons/gy_accounts_light.svg'
+                  )}
+                  alt=""
+                  width={22}
+                  height={22}
+                />
               </Box>
-            </a>
+            </>
           )}
         </Box>
       </Box>

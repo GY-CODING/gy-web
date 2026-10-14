@@ -84,21 +84,6 @@ export default function CustomMenuItem({ item, index, isHovered, onHover }: Menu
           }}
         />
       )}
-
-      {isActive && (
-        <Box
-          sx={{
-            position: 'absolute',
-            left: '50%',
-            bottom: 2,
-            width: 5,
-            height: 5,
-            borderRadius: '50%',
-            transform: 'translateX(-50%)',
-            background: 'linear-gradient(135deg, #6366f1, #ec4899)',
-          }}
-        />
-      )}
     </Box>
   );
 
