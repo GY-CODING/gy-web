@@ -1,12 +1,9 @@
 name: Deploy to GitHub Pages
 
 on:
-  workflow_call:
-    inputs:
-      domain:
-        description: 'Domain where the website will be deployed.'
-        required: true
-        type: string
+  push:
+    branches:
+      - master
 
 jobs:
   deploy:
