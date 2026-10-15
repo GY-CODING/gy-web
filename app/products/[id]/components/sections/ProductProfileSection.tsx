@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { lexendFont } from '../../../../utils/fonts';
 import EyebrowBadge from '../../../../components/home/EyebrowBadge';
-import TiltCard from '../../../../components/home/TiltCard';
 import GlassTile from '../../../../components/home/GlassTile';
 import type { ProductSectionProps } from '../../types';
 
@@ -140,15 +139,13 @@ export default function ProductProfileSection({ product, lang, mode }: ProductSe
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            <TiltCard maxTilt={3}>
-              <Image
-                src={profileSection.image}
-                alt={`${product.name} profile`}
-                width={1200}
-                height={700}
-                style={{ width: '100%', height: 'auto', display: 'block' }}
-              />
-            </TiltCard>
+            <Image
+              src={profileSection.image}
+              alt={`${product.name} profile`}
+              width={1200}
+              height={700}
+              style={{ width: '100%', height: 'auto', display: 'block' }}
+            />
           </motion.div>
         )}
       </Container>

@@ -1,7 +1,8 @@
 'use client';
 
 import { Box, useTheme } from '@mui/material';
-import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { useLiteMotion } from '../../hooks/useLiteMotion';
 import { useEffect, useRef, useState } from 'react';
 
 const NOISE_URL =
@@ -26,7 +27,7 @@ export default function AuroraBackground({
   intensity?: number;
 }) {
   const theme = useTheme();
-  const reduceMotion = useReducedMotion();
+  const liteMotion = useLiteMotion();
   const isDark = theme.palette.mode === 'dark';
   const rootRef = useRef<HTMLDivElement>(null);
   const [trackPointer, setTrackPointer] = useState(false);
@@ -44,7 +45,7 @@ export default function AuroraBackground({
   });
 
   useEffect(() => {
-    if (reduceMotion || !window.matchMedia('(pointer: fine)').matches) return;
+    if (liteMotion || !window.matchMedia('(pointer: fine)').matches) return;
     setTrackPointer(true);
 
     const handleMove = (e: MouseEvent) => {
@@ -55,7 +56,7 @@ export default function AuroraBackground({
     };
     window.addEventListener('mousemove', handleMove);
     return () => window.removeEventListener('mousemove', handleMove);
-  }, [reduceMotion, mx, my]);
+  }, [liteMotion, mx, my]);
 
   const gridLineColor = isDark ? 'rgba(255,255,255,0.07)' : `${colors[0]}1f`;
 
@@ -91,7 +92,7 @@ export default function AuroraBackground({
             opacity: (isDark ? 0.22 : 0.14) * intensity,
           }}
           animate={
-            reduceMotion
+            liteMotion
               ? undefined
               : {
                   x: [0, 60, -40, 0],

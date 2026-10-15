@@ -4,6 +4,7 @@ import { Typography } from '@mui/material';
 import { SxProps, Theme } from '@mui/material/styles';
 import { motion } from 'framer-motion';
 import { lexendFont } from '../../utils/fonts';
+import { useLiteMotion } from '../../hooks/useLiteMotion';
 
 export default function AnimatedGradientHeadline({
   text,
@@ -19,6 +20,7 @@ export default function AnimatedGradientHeadline({
   gradient?: string;
 }) {
   const words = text.split(' ');
+  const lite = useLiteMotion();
 
   return (
     <Typography
@@ -38,7 +40,8 @@ export default function AnimatedGradientHeadline({
           animate={{
             opacity: 1,
             y: '0%',
-            backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+            // The looping gradient repaints every frame; skip it on touch / reduced motion.
+            ...(lite ? {} : { backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }),
           }}
           transition={{
             opacity: { duration: 0.7, delay: delayStart + i * 0.08, ease: [0.16, 1, 0.3, 1] },

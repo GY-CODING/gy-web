@@ -1,19 +1,19 @@
 import { Box, Container, Typography } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { useLiteMotion } from '../../../../hooks/useLiteMotion';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { lexendFont, valorantFont } from '../../../../utils/fonts';
 import { getLenis } from '../../../../hooks/useSmoothScroll';
 import AuroraBackground from '../../../../components/home/AuroraBackground';
 import AnimatedGradientHeadline from '../../../../components/home/AnimatedGradientHeadline';
-import TiltCard from '../../../../components/home/TiltCard';
 import { useHeroScroll } from '../../hooks/useHeroScroll';
 import type { ProductSectionProps } from '../../types';
 
 export default function ProductHero({ product, lang, mode }: ProductSectionProps) {
   const { heroRef, yTitle, opacity, scale, cueOpacity } = useHeroScroll();
-  const reduceMotion = useReducedMotion();
+  const liteMotion = useLiteMotion();
   const isDark = mode === 'dark';
   const taglineText = lang === 'es' ? product.taglineEs : product.tagline;
   const heroGradient = isDark ? product.theme.gradient : product.theme.lightGradient;
@@ -101,31 +101,29 @@ export default function ProductHero({ product, lang, mode }: ProductSectionProps
               transition={{ duration: 0.7, ease: [0.34, 1.56, 0.64, 1] }}
             >
               <motion.div
-                animate={reduceMotion ? undefined : { y: [0, -10, 0] }}
+                animate={liteMotion ? undefined : { y: [0, -10, 0] }}
                 transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
               >
-                <TiltCard maxTilt={14}>
-                  <Box
-                    sx={{
-                      position: 'relative',
-                      width: { xs: 96, md: 128 },
-                      height: { xs: 96, md: 128 },
-                      borderRadius: '30px',
-                      overflow: 'hidden',
-                      background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.9)',
-                      backdropFilter: 'blur(14px)',
-                      border: `1px solid ${product.theme.primary}55`,
-                      boxShadow: `0 0 40px ${product.theme.primary}33, 0 30px 60px -15px ${product.theme.primary}44`,
-                    }}
-                  >
-                    <Image
-                      src={product.logo}
-                      alt={`${product.name} logo`}
-                      fill
-                      style={{ objectFit: 'contain', padding: '14px' }}
-                    />
-                  </Box>
-                </TiltCard>
+                <Box
+                  sx={{
+                    position: 'relative',
+                    width: { xs: 96, md: 128 },
+                    height: { xs: 96, md: 128 },
+                    borderRadius: '30px',
+                    overflow: 'hidden',
+                    background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.9)',
+                    backdropFilter: 'blur(14px)',
+                    border: `1px solid ${product.theme.primary}55`,
+                    boxShadow: `0 0 40px ${product.theme.primary}33, 0 30px 60px -15px ${product.theme.primary}44`,
+                  }}
+                >
+                  <Image
+                    src={product.logo}
+                    alt={`${product.name} logo`}
+                    fill
+                    style={{ objectFit: 'contain', padding: '14px' }}
+                  />
+                </Box>
               </motion.div>
             </motion.div>
 

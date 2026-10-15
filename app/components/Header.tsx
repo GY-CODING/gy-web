@@ -139,9 +139,44 @@ export default function Header({ onThemeToggle }: HeaderProps) {
         >
           <LanguageSelector />
           <ThemeToggle onToggle={onThemeToggle} />
-          {isMobile ? (
+          {/* Divider sets the account button apart from the language/theme controls. */}
+          <Box
+            sx={{
+              width: '1px',
+              height: 24,
+              mx: { xs: 0.25, md: 1 },
+              background: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)',
+            }}
+          />
+          <Box
+            component={motion.a}
+            href={LOGIN_URL}
+            aria-label={getButtonText(language, 'login')}
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            sx={{
+              ...glassIconButtonSx(isDark),
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 8px 24px -10px rgba(140,84,255,0.55)',
+              '&:hover': {
+                ...glassIconButtonSx(isDark)['&:hover'],
+                boxShadow: '0 12px 28px -10px rgba(140,84,255,0.75)',
+              },
+            }}
+          >
+            <Image
+              src={getAssetPath(isDark ? '/icons/gy_accounts.svg' : '/icons/gy_accounts_light.svg')}
+              alt=""
+              width={22}
+              height={22}
+            />
+          </Box>
+          {isMobile && (
             <IconButton
               aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileMenuOpen}
               onClick={() => setMobileMenuOpen((open) => !open)}
               sx={glassIconButtonSx(isDark)}
             >
@@ -158,45 +193,6 @@ export default function Header({ onThemeToggle }: HeaderProps) {
                 </motion.span>
               </AnimatePresence>
             </IconButton>
-          ) : (
-            <>
-              {/* Divider sets the account button apart from the language/theme controls. */}
-              <Box
-                sx={{
-                  width: '1px',
-                  height: 24,
-                  mx: 1,
-                  background: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)',
-                }}
-              />
-              <Box
-                component={motion.a}
-                href={LOGIN_URL}
-                aria-label={getButtonText(language, 'login')}
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                sx={{
-                  ...glassIconButtonSx(isDark),
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  boxShadow: '0 8px 24px -10px rgba(140,84,255,0.55)',
-                  '&:hover': {
-                    ...glassIconButtonSx(isDark)['&:hover'],
-                    boxShadow: '0 12px 28px -10px rgba(140,84,255,0.75)',
-                  },
-                }}
-              >
-                <Image
-                  src={getAssetPath(
-                    isDark ? '/icons/gy_accounts.svg' : '/icons/gy_accounts_light.svg'
-                  )}
-                  alt=""
-                  width={22}
-                  height={22}
-                />
-              </Box>
-            </>
           )}
         </Box>
       </Box>

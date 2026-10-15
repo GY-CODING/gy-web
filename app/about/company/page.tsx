@@ -7,7 +7,6 @@ import { useLanguage } from '../../utils/languageContext';
 import AuroraBackground from '../../components/home/AuroraBackground';
 import EyebrowBadge from '../../components/home/EyebrowBadge';
 import AnimatedGradientHeadline from '../../components/home/AnimatedGradientHeadline';
-import TiltCard from '../../components/home/TiltCard';
 import GlassTile from '../../components/home/GlassTile';
 
 interface ValueItem {
@@ -61,49 +60,52 @@ const ValueCard = ({ value, index }: { value: ValueItem; index: number }) => {
       viewport={{ once: true }}
       style={{ height: '100%' }}
     >
-      <TiltCard maxTilt={6}>
-        <Box
+      <Box
+        sx={{
+          p: { xs: 3, sm: 4 },
+          height: '100%',
+          borderRadius: '24px',
+          backgroundColor: isDark ? 'rgba(17,17,17,0.8)' : 'rgba(255,255,255,0.9)',
+          backdropFilter: 'blur(10px)',
+          border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+          boxShadow: isDark ? '0 8px 32px rgba(0,0,0,0.4)' : '0 8px 32px rgba(0,0,0,0.08)',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2.5,
+          transition: 'transform 0.3s ease, border-color 0.3s ease',
+          '&:hover': {
+            transform: 'translateY(-4px)',
+            borderColor: 'rgba(140,84,255,0.4)',
+          },
+        }}
+      >
+        <GlassTile
+          icon={<span>{value.icon}</span>}
+          gradient={VALUE_GRADIENTS[index % VALUE_GRADIENTS.length]}
+          size={60}
+        />
+        <Typography
+          variant="h5"
           sx={{
-            p: { xs: 3, sm: 4 },
-            height: '100%',
-            borderRadius: '24px',
-            backgroundColor: isDark ? 'rgba(17,17,17,0.8)' : 'rgba(255,255,255,0.9)',
-            backdropFilter: 'blur(10px)',
-            border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
-            boxShadow: isDark ? '0 8px 32px rgba(0,0,0,0.4)' : '0 8px 32px rgba(0,0,0,0.08)',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 2.5,
+            fontFamily: lexendFont.style.fontFamily,
+            fontWeight: 600,
+            background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
           }}
         >
-          <GlassTile
-            icon={<span>{value.icon}</span>}
-            gradient={VALUE_GRADIENTS[index % VALUE_GRADIENTS.length]}
-            size={60}
-          />
-          <Typography
-            variant="h5"
-            sx={{
-              fontFamily: lexendFont.style.fontFamily,
-              fontWeight: 600,
-              background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            {value.title}
-          </Typography>
-          <Typography
-            sx={{
-              color: isDark ? 'grey.400' : 'grey.600',
-              lineHeight: 1.7,
-              fontSize: { xs: '0.875rem', sm: '1rem' },
-            }}
-          >
-            {value.description}
-          </Typography>
-        </Box>
-      </TiltCard>
+          {value.title}
+        </Typography>
+        <Typography
+          sx={{
+            color: isDark ? 'grey.400' : 'grey.600',
+            lineHeight: 1.7,
+            fontSize: { xs: '0.875rem', sm: '1rem' },
+          }}
+        >
+          {value.description}
+        </Typography>
+      </Box>
     </motion.div>
   );
 };

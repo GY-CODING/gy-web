@@ -1,14 +1,13 @@
 'use client';
 
 import { Box, Container, Typography, useTheme } from '@mui/material';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { lexendFont } from '../../utils/fonts';
 import { useLanguage } from '../../utils/languageContext';
 import { gradientTextStyles } from '../../utils/styles';
 import { getAssetPath } from '../../utils/useImagePath';
 import EyebrowBadge from './EyebrowBadge';
-import TiltCard from './TiltCard';
 
 const technologies = [
   { name: 'Next.js', icon: '/icons/nextjs.svg', color: '#818cf8' },
@@ -34,7 +33,6 @@ export default function TechStackGrid() {
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
   const { t } = useLanguage();
-  const reduceMotion = useReducedMotion();
 
   return (
     <Box id="tech-stack" component="section" sx={{ py: { xs: 10, md: 14 } }}>
@@ -89,7 +87,7 @@ export default function TechStackGrid() {
             gap: { xs: 3, sm: 4, md: 5 },
           }}
         >
-          {technologies.map((tech, index) => (
+          {technologies.map((tech) => (
             <motion.div
               key={tech.name}
               variants={{
@@ -102,73 +100,60 @@ export default function TechStackGrid() {
                 },
               }}
             >
-              <motion.div
-                animate={reduceMotion ? undefined : { y: [0, -6, 0] }}
-                transition={{
-                  duration: 4 + (index % 3),
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                  delay: index * 0.2,
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: 2,
+                  p: { xs: 2, sm: 3 },
+                  borderRadius: '20px',
+                  border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'}`,
+                  backgroundColor: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.015)',
+                  transition: 'box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-4px)',
+                    borderColor: tech.color,
+                    boxShadow: `0 20px 50px -15px ${hexToRgba(tech.color, isDark ? 0.45 : 0.3)}`,
+                  },
                 }}
               >
-                <TiltCard maxTilt={14}>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      gap: 2,
-                      p: { xs: 2, sm: 3 },
-                      borderRadius: '20px',
-                      border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'}`,
-                      backgroundColor: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.015)',
-                      transition: 'box-shadow 0.3s ease, border-color 0.3s ease',
-                      '&:hover': {
-                        borderColor: tech.color,
-                        boxShadow: `0 20px 50px -15px ${hexToRgba(tech.color, isDark ? 0.45 : 0.3)}`,
-                      },
+                <Box
+                  sx={{
+                    position: 'relative',
+                    width: { xs: '56px', sm: '64px', md: '72px' },
+                    height: { xs: '56px', sm: '64px', md: '72px' },
+                    borderRadius: '16px',
+                    backgroundColor: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.9)',
+                    border: `2px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+                    p: '12px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Image
+                    src={getAssetPath(tech.icon)}
+                    alt={tech.name}
+                    width={40}
+                    height={40}
+                    style={{
+                      filter: isDark ? 'brightness(0) invert(1)' : 'none',
+                      opacity: isDark ? 0.9 : 0.8,
                     }}
-                  >
-                    <Box
-                      sx={{
-                        position: 'relative',
-                        width: { xs: '56px', sm: '64px', md: '72px' },
-                        height: { xs: '56px', sm: '64px', md: '72px' },
-                        borderRadius: '16px',
-                        backgroundColor: isDark
-                          ? 'rgba(255,255,255,0.05)'
-                          : 'rgba(255,255,255,0.9)',
-                        border: `2px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
-                        p: '12px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <Image
-                        src={getAssetPath(tech.icon)}
-                        alt={tech.name}
-                        width={40}
-                        height={40}
-                        style={{
-                          filter: isDark ? 'brightness(0) invert(1)' : 'none',
-                          opacity: isDark ? 0.9 : 0.8,
-                        }}
-                      />
-                    </Box>
-                    <Typography
-                      sx={{
-                        fontFamily: lexendFont.style.fontFamily,
-                        fontSize: { xs: '0.875rem', sm: '1rem' },
-                        fontWeight: 500,
-                        color: isDark ? 'grey.300' : 'grey.700',
-                      }}
-                    >
-                      {tech.name}
-                    </Typography>
-                  </Box>
-                </TiltCard>
-              </motion.div>
+                  />
+                </Box>
+                <Typography
+                  sx={{
+                    fontFamily: lexendFont.style.fontFamily,
+                    fontSize: { xs: '0.875rem', sm: '1rem' },
+                    fontWeight: 500,
+                    color: isDark ? 'grey.300' : 'grey.700',
+                  }}
+                >
+                  {tech.name}
+                </Typography>
+              </Box>
             </motion.div>
           ))}
         </Box>

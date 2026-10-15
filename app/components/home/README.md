@@ -90,18 +90,11 @@ La fuente se puede sobrescribir en `sx` (en producto el nombre usa `valorantFont
 
 > Anima con `animate` (no `whileInView`), así que se dispara al montar. Para h2 muy abajo en la página la animación de entrada ya habrá pasado al llegar; si importa, envuélvelo en un `motion.div` con `whileInView`.
 
-### `TiltCard`
+### Sin tilt
+El antiguo `TiltCard` (inclinación 3D siguiendo al ratón) se eliminó por coste de rendimiento. Las tarjetas usan un hover CSS barato: `transform: translateY(-4px)` + cambio de borde, con `transition: 0.3s ease`.
 
-Wrapper que inclina en 3D su contenido según la posición del ratón (spring), y vuelve a plano al salir.
-
-| Prop         | Tipo                                                                        | Default |
-| ------------ | --------------------------------------------------------------------------- | ------- |
-| `children`   | `ReactNode`                                                                 | —       |
-| `maxTilt`    | `number` (grados)                                                           | `10`    |
-| `fullHeight` | `boolean` (aplica `height: 100%`, para tarjetas de igual altura en un grid) | `false` |
-| `className`  | `string`                                                                    | —       |
-
-Valores usados: `3` bloques muy grandes (CTA, capturas anchas), `4`–`5` tarjetas grandes / mockups, `6` tarjetas medianas (valores, features), `14` tiles pequeños (tech stack, logo de producto). No aplica estilos propios: la tarjeta visual va dentro.
+### `useLiteMotion` (`app/hooks/useLiteMotion.ts`)
+Devuelve `true` con `prefers-reduced-motion` **o** en dispositivos táctiles (`pointer: coarse`). Úsalo para apagar animaciones decorativas en bucle (blobs del aurora, flotación del hero, gradiente animado de titulares), que son lo que más lag provoca en móvil.
 
 ### `GlassTile`
 
@@ -137,7 +130,7 @@ Sección hero de la home (`/`). Dos columnas (texto | `Hero3DVisual`), apila en 
 
 Sección `#tech-stack`. Cabecera (eyebrow + h2 en gradiente + descripción, claves `techStack.*`) y grid responsive (2/3/4/5 columnas) de tecnologías.
 
-- Entrada en stagger con spring; cada tile flota en bucle y va dentro de un `TiltCard`.
+- Entrada en stagger con spring; hover con elevación CSS (sin bucles ni tilt).
 - En hover el borde y la sombra toman el color de marca de la tecnología (`color` en el array `technologies`).
 - Iconos vía `getAssetPath`, invertidos en blanco en modo oscuro.
 
@@ -194,7 +187,7 @@ Patrón seguido en `app/about/company/page.tsx` y `app/about/team/page.tsx`:
    ```
 2. **Cabecera de página** centrada (`maxWidth: 760`, `mb: { xs: 8, md: 12 }`): `EyebrowBadge` → `AnimatedGradientHeadline` h1 → párrafo en texto secundario (`lineHeight: 1.6`).
 3. **Secciones internas**: misma cabecera pero con h2 (`AnimatedGradientHeadline component="h2"` o `Typography` h2 con `gradientTextStyles`).
-4. **Tarjetas**: superficie/borde/sombra de la tabla de tokens, envueltas en `TiltCard` y con entrada `motion.div` `initial={{ opacity: 0, y: 30 }}` `whileInView={{ opacity: 1, y: 0 }}` `viewport={{ once: true }}` y `delay: index * 0.1`.
+4. **Tarjetas**: superficie/borde/sombra de la tabla de tokens, con hover `translateY(-4px)` en CSS y con entrada `motion.div` `initial={{ opacity: 0, y: 30 }}` `whileInView={{ opacity: 1, y: 0 }}` `viewport={{ once: true }}` y `delay: index * 0.1`.
 5. **Iconos destacados**: `GlassTile` rotando entre gradientes de la paleta (ver `VALUE_GRADIENTS` en company).
 6. **Textos nuevos**: añadir `eyebrow` (y lo que haga falta) en la interfaz `Locale` **y** en ambos idiomas de `app/utils/locales.ts`.
 7. **Texto de marca**: `[company]GyCODING[/company]` se renderiza con un `renderStyledText` local (está duplicado en `Hero` y en company; si se necesita una tercera vez, merece extraerlo a `utils`).
@@ -213,11 +206,11 @@ Restos sin uso tras el refactor: `fadeInUpVariants` (`app/utils/animations.ts`) 
 
 Rediseñadas con el mismo kit, pero **manteniendo la paleta propia de cada producto** (`product.theme` en `app/products/data/products.ts`). Regla: donde el kit usa índigo/rosa, en producto se usa `product.theme.textGradient` / `primary` / `accent` / `secondary`.
 
-- `ProductHero`: `AuroraBackground` tintado, logo glass con `TiltCard` y flotación, `EyebrowBadge` "A GYCODING product", nombre con `AnimatedGradientHeadline` (Valorant + gradiente del producto), botones del nuevo estilo, efecto de scroll con escala (`useHeroScroll` devuelve ahora también `scale` y `cueOpacity`) y "Ver más" con Lenis.
-- `ProductPreview` / `ProductProfileSection`: `EyebrowBadge`, mockups en `TiltCard` (+ glow del color del producto detrás en Preview), highlights con `GlassTile`.
-- `ProductFeatures` / `FeatureCard`: tarjetas con superficie del kit, `TiltCard fullHeight` y el emoji dentro de un `GlassTile`.
+- `ProductHero`: `AuroraBackground` tintado, logo glass con flotación (apagada en táctil), nombre con `AnimatedGradientHeadline` (Valorant + gradiente del producto), botones del nuevo estilo, efecto de scroll con escala (`useHeroScroll` devuelve ahora también `scale` y `cueOpacity`) y "Ver más" con Lenis.
+- `ProductPreview` / `ProductProfileSection`: `EyebrowBadge`, mockups sin marco (+ glow del color del producto detrás en Preview), highlights con `GlassTile`.
+- `ProductFeatures` / `FeatureCard`: tarjetas con superficie del kit, hover con elevación y el emoji dentro de un `GlassTile`.
 - `ProductTechStack`: `EyebrowBadge` traducido ("Built with" / "Construido con") y badges con flotación en bucle.
-- `ProductCTA`: `AuroraBackground` tintado, tarjeta en `TiltCard`, titular animado y botón del nuevo estilo.
+- `ProductCTA`: `AuroraBackground` tintado, tarjeta glass, titular animado y botón del nuevo estilo.
 - Eliminados `shared/FloatingOrb.tsx` y `shared/SectionBadge.tsx` (sustituidos por `AuroraBackground` y `EyebrowBadge`).
 
 ## Páginas legales (`/privacy`, `/terms`, `/cookies`)

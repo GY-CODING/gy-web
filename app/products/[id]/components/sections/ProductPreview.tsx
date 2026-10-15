@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { lexendFont } from '../../../../utils/fonts';
 import EyebrowBadge from '../../../../components/home/EyebrowBadge';
-import TiltCard from '../../../../components/home/TiltCard';
 import type { ProductSectionProps } from '../../types';
 
 export default function ProductPreview({ product, lang, mode }: ProductSectionProps) {
@@ -153,15 +152,13 @@ export default function ProductPreview({ product, lang, mode }: ProductSectionPr
                 viewport={{ once: true, margin: '-80px' }}
                 transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
               >
-                <TiltCard maxTilt={5}>
-                  <Image
-                    src={imageSrc!}
-                    alt={`${product.name} screenshot`}
-                    width={900}
-                    height={560}
-                    style={{ width: '100%', height: 'auto', display: 'block' }}
-                  />
-                </TiltCard>
+                <Image
+                  src={imageSrc!}
+                  alt={`${product.name} screenshot`}
+                  width={900}
+                  height={560}
+                  style={{ width: '100%', height: 'auto', display: 'block' }}
+                />
               </motion.div>
             </Box>
           )}

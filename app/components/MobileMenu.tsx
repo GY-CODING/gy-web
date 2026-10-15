@@ -10,6 +10,7 @@ import { MenuItem, getButtonText } from '../utils/menuItems';
 import { lexendFont } from '../utils/fonts';
 import { getAssetPath } from '../utils/useImagePath';
 import { useLanguage } from '../utils/languageContext';
+import { getLenis } from '../hooks/useSmoothScroll';
 import { LOGIN_URL, BRAND_GRADIENT } from './headerStyles';
 
 interface MobileMenuProps {
@@ -55,6 +56,19 @@ export default function MobileMenu({ isOpen, menuItems, onClose }: MobileMenuPro
 
   useEffect(() => {
     if (!isOpen) setExpanded(null);
+  }, [isOpen]);
+
+  // Freeze the page behind the open menu (Lenis drives scrolling when it's active).
+  useEffect(() => {
+    if (!isOpen) return;
+    const lenis = getLenis();
+    const previousOverflow = document.body.style.overflow;
+    lenis?.stop();
+    document.body.style.overflow = 'hidden';
+    return () => {
+      lenis?.start();
+      document.body.style.overflow = previousOverflow;
+    };
   }, [isOpen]);
 
   const rowSx = {
@@ -248,6 +262,7 @@ export default function MobileMenu({ isOpen, menuItems, onClose }: MobileMenuPro
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
+                    gap: 1.25,
                     height: 48,
                     borderRadius: '14px',
                     fontFamily: lexendFont.style.fontFamily,
@@ -257,6 +272,23 @@ export default function MobileMenu({ isOpen, menuItems, onClose }: MobileMenuPro
                     boxShadow: '0 10px 30px -8px rgba(99,102,241,0.6)',
                   }}
                 >
+                  {/* Shield on a light chip so it stands out against the gradient button. */}
+                  <Box
+                    component="span"
+                    sx={{
+                      display: 'flex',
+                      p: '5px',
+                      borderRadius: '8px',
+                      background: 'rgba(255,255,255,0.18)',
+                    }}
+                  >
+                    <Image
+                      src={getAssetPath('/icons/gy_accounts.svg')}
+                      alt=""
+                      width={18}
+                      height={18}
+                    />
+                  </Box>
                   {getButtonText(language, 'login')}
                 </Box>
               </a>

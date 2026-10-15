@@ -1,7 +1,8 @@
 'use client';
 
 import { Box } from '@mui/material';
-import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { useLiteMotion } from '../../hooks/useLiteMotion';
 import { useEffect, useRef } from 'react';
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import BoltRoundedIcon from '@mui/icons-material/BoltRounded';
@@ -9,8 +10,8 @@ import LottieAnimation from '../lottieAnimation';
 import GlassTile from './GlassTile';
 
 function ShineSweep() {
-  const reduceMotion = useReducedMotion();
-  if (reduceMotion) return null;
+  const liteMotion = useLiteMotion();
+  if (liteMotion) return null;
 
   return (
     <motion.div
@@ -31,7 +32,7 @@ function ShineSweep() {
 
 export default function Hero3DVisual({ lottieUrl }: { lottieUrl: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const reduceMotion = useReducedMotion();
+  const liteMotion = useLiteMotion();
 
   const mx = useMotionValue(0.5);
   const my = useMotionValue(0.5);
@@ -39,7 +40,7 @@ export default function Hero3DVisual({ lottieUrl }: { lottieUrl: string }) {
   const sy = useSpring(my, { stiffness: 120, damping: 22 });
 
   useEffect(() => {
-    if (reduceMotion || !window.matchMedia('(pointer: fine)').matches) return;
+    if (liteMotion || !window.matchMedia('(pointer: fine)').matches) return;
     const handleMove = (e: MouseEvent) => {
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
@@ -48,7 +49,7 @@ export default function Hero3DVisual({ lottieUrl }: { lottieUrl: string }) {
     };
     window.addEventListener('mousemove', handleMove);
     return () => window.removeEventListener('mousemove', handleMove);
-  }, [reduceMotion, mx, my]);
+  }, [liteMotion, mx, my]);
 
   // Layered parallax: each depth moves by its own multiple of the cursor offset,
   // so the composition reads as several panels floating at different distances
@@ -78,7 +79,7 @@ export default function Hero3DVisual({ lottieUrl }: { lottieUrl: string }) {
 
       <motion.div
         style={{ x: tileAX, y: tileAY, position: 'absolute', top: '2%', left: '0%', zIndex: 2 }}
-        animate={reduceMotion ? undefined : { y: [0, -14, 0] }}
+        animate={liteMotion ? undefined : { y: [0, -14, 0] }}
         transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
       >
         <GlassTile
@@ -96,7 +97,7 @@ export default function Hero3DVisual({ lottieUrl }: { lottieUrl: string }) {
           right: '-2%',
           zIndex: 2,
         }}
-        animate={reduceMotion ? undefined : { y: [0, 16, 0] }}
+        animate={liteMotion ? undefined : { y: [0, 16, 0] }}
         transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 0.6 }}
       >
         <GlassTile
@@ -125,7 +126,7 @@ export default function Hero3DVisual({ lottieUrl }: { lottieUrl: string }) {
             maxWidth: 400,
             aspectRatio: '1 / 1',
           }}
-          animate={reduceMotion ? undefined : { y: [0, -10, 0] }}
+          animate={liteMotion ? undefined : { y: [0, -10, 0] }}
           transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
         >
           <Box
