@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { detectLiteMotion } from './useLiteMotion';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,7 +17,9 @@ export function getLenis(): Lenis | null {
 export function useSmoothScroll() {
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
+    // Lenis runs a rAF loop on every frame; on phones and modest machines native scrolling
+    // is smoother and cheaper. Callers already fall back to native scroll when getLenis() is null.
+    if (prefersReducedMotion || detectLiteMotion()) return;
 
     const lenis = new Lenis({
       duration: 1.1,

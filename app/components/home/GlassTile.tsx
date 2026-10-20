@@ -8,11 +8,15 @@ export default function GlassTile({
   gradient,
   size = 72,
   radius,
+  blur = true,
 }: {
   icon: ReactNode;
   gradient: string;
   size?: number;
   radius?: number;
+  // Turn off the backdrop blur when the tile floats over animated content (e.g. the hero
+  // Lottie): the blur would be recomputed every frame.
+  blur?: boolean;
 }) {
   return (
     <Box
@@ -22,7 +26,7 @@ export default function GlassTile({
         borderRadius: `${radius ?? size * 0.28}px`,
         background: (theme) =>
           theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.75)',
-        backdropFilter: 'blur(14px)',
+        backdropFilter: blur ? 'blur(14px)' : 'none',
         border: (theme) =>
           `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.08)'}`,
         boxShadow: '0 20px 45px -12px rgba(99,102,241,0.4)',

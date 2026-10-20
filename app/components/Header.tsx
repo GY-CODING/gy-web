@@ -16,6 +16,7 @@ import LanguageSelector from './LanguageSelector';
 import { getMenuItems, getButtonText } from '../utils/menuItems';
 import { useLanguage } from '../utils/languageContext';
 import { LOGIN_URL, BRAND_GRADIENT, glassIconButtonSx } from './headerStyles';
+import { useLiteMotion } from '../hooks/useLiteMotion';
 
 interface HeaderProps {
   onThemeToggle: () => void;
@@ -28,6 +29,8 @@ export default function Header({ onThemeToggle }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  // Lite mode has no blur behind the bar, so it goes almost opaque to stay readable.
+  const lite = useLiteMotion();
   const { language } = useLanguage();
 
   const { scrollYProgress } = useScroll();
@@ -70,8 +73,12 @@ export default function Header({ onThemeToggle }: HeaderProps) {
           zIndex: -1,
           backgroundColor: solid
             ? isDark
-              ? 'rgba(10,10,14,0.7)'
-              : 'rgba(255,255,255,0.75)'
+              ? lite
+                ? 'rgba(10,10,14,0.94)'
+                : 'rgba(10,10,14,0.7)'
+              : lite
+                ? 'rgba(255,255,255,0.95)'
+                : 'rgba(255,255,255,0.75)'
             : 'transparent',
           backdropFilter: solid ? 'blur(16px) saturate(160%)' : 'none',
           WebkitBackdropFilter: solid ? 'blur(16px) saturate(160%)' : 'none',

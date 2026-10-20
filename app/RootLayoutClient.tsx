@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { ThemeProvider, CssBaseline, Box } from '@mui/material';
+import { ThemeProvider, CssBaseline, Box, GlobalStyles } from '@mui/material';
 import { createAppTheme } from './utils/theme';
 import Header from './components/Header';
 import LoadingScreen from './components/LoadingScreen';
@@ -9,6 +9,17 @@ import { lexendFont, valorantFont } from './utils/fonts';
 import Footer from './components/Footer/Footer';
 import { LanguageProvider } from './utils/languageContext';
 import { useSmoothScroll } from './hooks/useSmoothScroll';
+import { useLiteMotion } from './hooks/useLiteMotion';
+
+// Lite mode (touch devices, modest machines, reduced motion): no backdrop-filter anywhere.
+// The glass blur is recomputed on every scroll frame and was the main source of jank on
+// phones and low-end PCs; surfaces are opaque enough to stay readable without it.
+const liteModeStyles = {
+  'html[data-lite="true"] *, html[data-lite="true"] *::before, html[data-lite="true"] *::after': {
+    backdropFilter: 'none !important',
+    WebkitBackdropFilter: 'none !important',
+  },
+};
 
 export default function RootLayoutClient({ children }: { children: React.ReactNode }) {
   const [mode, setMode] = useState<'light' | 'dark'>('light');
@@ -16,22 +27,21 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
 
   useSmoothScroll();
 
+  // Flag lite mode on <html> so the global rule above can switch the glass off.
+  const lite = useLiteMotion();
   useEffect(() => {
-    const initializeApp = async () => {
-      const minLoadTime = new Promise((resolve) => setTimeout(resolve, 1000));
+    document.documentElement.dataset.lite = lite ? 'true' : 'false';
+  }, [lite]);
 
-      const savedTheme =
-        localStorage.getItem('theme') ||
-        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  useEffect(() => {
+    const savedTheme =
+      localStorage.getItem('theme') ||
+      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
 
-      setMode(savedTheme as 'light' | 'dark');
-
-      await minLoadTime;
-
-      setIsLoading(false);
-    };
-
-    initializeApp();
+    setMode(savedTheme as 'light' | 'dark');
+    // No artificial minimum wait (it used to be 1s): the overlay only needs to hide the
+    // light → saved-theme switch, which is done as soon as this effect runs.
+    setIsLoading(false);
   }, []);
 
   const toggleTheme = () => {
@@ -48,24 +58,30 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
         <body>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            <AnimatePresence mode="wait">
-              {isLoading ? (
-                <LoadingScreen key="loading" />
-              ) : (
-                <Box
-                  key="content"
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    minHeight: '100vh',
-                    width: '100%',
-                  }}
-                >
-                  <Header onThemeToggle={toggleTheme} />
-                  {children}
-                  <Footer />
-                </Box>
-              )}
+            <GlobalStyles styles={liteModeStyles} />
+            {/* The page mounts as soon as theme and language are known (first client render).
+                It can't be in the static HTML: language and theme come from localStorage /
+                navigator, so painting it earlier made the whole hero swap text and theme after
+                load (big layout shift). What made LCP slow was the forced 1s wait plus
+                `mode="wait"`, which only mounted the page after the loader's exit animation;
+                now the loader simply fades out on top of the already-mounted page. */}
+            {!isLoading && (
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  minHeight: '100vh',
+                  width: '100%',
+                }}
+              >
+                <Header onThemeToggle={toggleTheme} />
+                {children}
+                <Footer />
+              </Box>
+            )}
+            {/* initial={false}: the overlay is fully opaque in the server HTML. */}
+            <AnimatePresence initial={false}>
+              {isLoading && <LoadingScreen key="loading" />}
             </AnimatePresence>
           </ThemeProvider>
         </body>

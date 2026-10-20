@@ -91,9 +91,11 @@ La fuente se puede sobrescribir en `sx` (en producto el nombre usa `valorantFont
 > Anima con `animate` (no `whileInView`), así que se dispara al montar. Para h2 muy abajo en la página la animación de entrada ya habrá pasado al llegar; si importa, envuélvelo en un `motion.div` con `whileInView`.
 
 ### Sin tilt
+
 El antiguo `TiltCard` (inclinación 3D siguiendo al ratón) se eliminó por coste de rendimiento. Las tarjetas usan un hover CSS barato: `transform: translateY(-4px)` + cambio de borde, con `transition: 0.3s ease`.
 
 ### `useLiteMotion` (`app/hooks/useLiteMotion.ts`)
+
 Devuelve `true` con `prefers-reduced-motion` **o** en dispositivos táctiles (`pointer: coarse`). Úsalo para apagar animaciones decorativas en bucle (blobs del aurora, flotación del hero, gradiente animado de titulares), que son lo que más lag provoca en móvil.
 
 ### `GlassTile`

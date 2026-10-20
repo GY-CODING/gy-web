@@ -1080,7 +1080,7 @@ export const locales: Record<'en' | 'es', Locale> = {
       eyebrow: 'Estudio de Software',
       title: 'CREANDO SUEÑOS DIGITALES',
       description1:
-        'En [company]GyCODING[/company], fusionamos pasión y tecnología. Somos un equipo de desarrolladores especializados en crean soluciones digitales innovadoras, versátiles y escalables. ',
+        'En [company]GyCODING[/company], fusionamos pasión y tecnología. Somos un equipo de desarrolladores especializados en crear soluciones digitales innovadoras, versátiles y escalables. ',
       description2:
         'Apasionados con un aprendizaje continuo y una innovación constante, nos mantenemos siempre a la vanguardia de nuevas tecnologías y tendencias digitales.',
       companyName: 'GyCODING',

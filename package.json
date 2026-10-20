@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "preview": "NEXT_DIST_DIR=.preview LOCAL_PREVIEW=1 next build && npx --yes serve .preview -l 4000",
     "lint": "eslint . --ext .ts,.tsx --fix",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "export": "next export",

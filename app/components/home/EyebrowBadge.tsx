@@ -3,6 +3,7 @@
 import { Box, Typography, useTheme } from '@mui/material';
 import { motion } from 'framer-motion';
 import { lexendFont } from '../../utils/fonts';
+import { useLiteMotion } from '../../hooks/useLiteMotion';
 
 export default function EyebrowBadge({
   children,
@@ -13,6 +14,8 @@ export default function EyebrowBadge({
 }) {
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
+  // The pulsing dot is an infinite loop: skip it in lite mode.
+  const liteMotion = useLiteMotion();
 
   return (
     <motion.div
@@ -36,7 +39,7 @@ export default function EyebrowBadge({
       >
         <Box
           component={motion.div}
-          animate={{ scale: [1, 1.4, 1], opacity: [1, 0.6, 1] }}
+          animate={liteMotion ? undefined : { scale: [1, 1.4, 1], opacity: [1, 0.6, 1] }}
           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
           sx={{
             width: 6,

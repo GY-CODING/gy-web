@@ -2,14 +2,19 @@
 
 import { Box, Container, Typography, useTheme } from '@mui/material';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { Suspense, useRef } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { lexendFont, valorantFont } from '../../utils/fonts';
 import { useLanguage } from '../../utils/languageContext';
 import EyebrowBadge from './EyebrowBadge';
 import AuroraBackground from './AuroraBackground';
-import Hero3DVisual from './Hero3DVisual';
+import dynamic from 'next/dynamic';
+import DreamOrb from './DreamOrb';
+
+// The Lottie scene only exists for the `?coffee=true` easter egg now, so it's loaded on demand
+// and its code never ships with the normal home.
+const Hero3DVisual = dynamic(() => import('./Hero3DVisual'), { ssr: false });
 import AnimatedGradientHeadline from './AnimatedGradientHeadline';
 
 const renderStyledText = (text: string) => {
@@ -34,14 +39,22 @@ const renderStyledText = (text: string) => {
   });
 };
 
+// Reads `?coffee=true` (easter egg) in its own component behind <Suspense>: useSearchParams
+// in a static export otherwise forces the whole hero to client-only rendering, so the
+// headline and text would not be in the HTML.
+function HeroVisual() {
+  const searchParams = useSearchParams();
+  if (searchParams.get('coffee') === 'true') {
+    return <Hero3DVisual lottieUrl="/lottie/coffee.json" />;
+  }
+  return <DreamOrb />;
+}
+
 export default function Hero() {
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
   const { t } = useLanguage();
-  const searchParams = useSearchParams();
   const sectionRef = useRef<HTMLDivElement>(null);
-  const lottieUrl =
-    searchParams.get('coffee') === 'true' ? '/lottie/coffee.json' : '/lottie/lottie.json';
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -99,10 +112,12 @@ export default function Hero() {
                 }}
               />
 
+              {/* This paragraph is the mobile LCP element: a short delay keeps the entrance
+                  but lets it paint early (it used to wait 0.5s before starting to show). */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
+                transition={{ duration: 0.5, delay: 0.15 }}
               >
                 <Typography
                   sx={{
@@ -131,7 +146,7 @@ export default function Hero() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.65 }}
+                transition={{ duration: 0.5, delay: 0.25 }}
                 style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}
               >
                 <Link
@@ -186,8 +201,19 @@ export default function Hero() {
               </motion.div>
             </Box>
 
-            <Box sx={{ flex: '1 1 50%', width: '100%', height: { xs: 320, sm: 380, md: 480 } }}>
-              <Hero3DVisual lottieUrl={lottieUrl} />
+            <Box
+              sx={{
+                flex: '1 1 50%',
+                width: '100%',
+                height: { xs: 320, sm: 380, md: 480 },
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Suspense fallback={null}>
+                <HeroVisual />
+              </Suspense>
             </Box>
           </Box>
         </motion.div>

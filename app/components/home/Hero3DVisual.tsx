@@ -18,13 +18,16 @@ function ShineSweep() {
       style={{
         position: 'absolute',
         top: '-50%',
+        left: 0,
         width: '55%',
         height: '220%',
         background:
           'linear-gradient(75deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)',
         pointerEvents: 'none',
       }}
-      animate={{ left: ['-65%', '135%'] }}
+      // Animated with `x` (transform) instead of `left`: `left` forced layout + repaint
+      // on top of the Lottie every frame. Percentages are relative to the sweep's own width.
+      animate={{ x: ['-118%', '245%'] }}
       transition={{ duration: 2.4, repeat: Infinity, repeatDelay: 4.5, ease: 'easeInOut' }}
     />
   );
@@ -60,8 +63,6 @@ export default function Hero3DVisual({ lottieUrl }: { lottieUrl: string }) {
   const tileAY = useTransform(sy, [0, 1], [28, -28]);
   const tileBX = useTransform(sx, [0, 1], [-20, 20]);
   const tileBY = useTransform(sy, [0, 1], [-20, 20]);
-  const mainRotateX = useTransform(sy, [0, 1], [8, -8]);
-  const mainRotateY = useTransform(sx, [0, 1], [-8, 8]);
 
   return (
     <Box ref={containerRef} sx={{ position: 'relative', width: '100%', height: '100%' }}>
@@ -72,8 +73,9 @@ export default function Hero3DVisual({ lottieUrl }: { lottieUrl: string }) {
           position: 'absolute',
           inset: '8%',
           borderRadius: '50%',
+          // No `filter: blur()`: the radial gradient is already soft, and the blur was
+          // re-rasterised on every cursor move.
           background: 'radial-gradient(circle, rgba(99,102,241,0.3), transparent 70%)',
-          filter: 'blur(40px)',
         }}
       />
 
@@ -83,6 +85,7 @@ export default function Hero3DVisual({ lottieUrl }: { lottieUrl: string }) {
         transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
       >
         <GlassTile
+          blur={false}
           icon={<BoltRoundedIcon fontSize="inherit" />}
           gradient="linear-gradient(135deg, #6366f1, #8C54FF)"
         />
@@ -101,6 +104,7 @@ export default function Hero3DVisual({ lottieUrl }: { lottieUrl: string }) {
         transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 0.6 }}
       >
         <GlassTile
+          blur={false}
           icon={<AutoAwesomeRoundedIcon fontSize="inherit" />}
           gradient="linear-gradient(135deg, #ec4899, #8C54FF)"
           size={64}
@@ -117,17 +121,15 @@ export default function Hero3DVisual({ lottieUrl }: { lottieUrl: string }) {
           justifyContent: 'center',
         }}
       >
-        <motion.div
-          style={{
-            rotateX: mainRotateX,
-            rotateY: mainRotateY,
-            transformPerspective: 1000,
+        {/* The Lottie card stays still: tilting/floating it (plus backdrop-filter) forced the
+            whole animated SVG to be re-rasterised every frame, which is what made the home lag.
+            The parallax tiles and glow around it keep the depth effect. */}
+        <Box
+          sx={{
             width: '78%',
             maxWidth: 400,
             aspectRatio: '1 / 1',
           }}
-          animate={liteMotion ? undefined : { y: [0, -10, 0] }}
-          transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
         >
           <Box
             sx={{
@@ -137,7 +139,6 @@ export default function Hero3DVisual({ lottieUrl }: { lottieUrl: string }) {
               borderRadius: '32px',
               background: (theme) =>
                 theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.6)',
-              backdropFilter: 'blur(20px)',
               border: (theme) =>
                 `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.08)'}`,
               boxShadow: (theme) =>
@@ -151,7 +152,7 @@ export default function Hero3DVisual({ lottieUrl }: { lottieUrl: string }) {
             <ShineSweep />
             <LottieAnimation animationPath={lottieUrl} />
           </Box>
-        </motion.div>
+        </Box>
       </Box>
     </Box>
   );
