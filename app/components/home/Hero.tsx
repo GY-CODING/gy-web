@@ -29,6 +29,8 @@ const renderStyledText = (text: string) => {
             color: '#8C54FF',
             fontWeight: 400,
             fontFamily: valorantFont.style.fontFamily,
+            // Valorant has a single weight: no synthetic bold, it distorts the letters.
+            fontSynthesis: 'none',
           }}
         >
           {content}

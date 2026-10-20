@@ -33,7 +33,9 @@ const renderStyledText = (text: string) => {
           component="span"
           sx={{
             fontFamily: valorantFont.style.fontFamily,
-            fontWeight: 600,
+            // Valorant has a single weight: no synthetic bold, it distorts the letters.
+            fontSynthesis: 'none',
+            fontWeight: 400,
             background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',

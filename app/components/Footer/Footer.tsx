@@ -26,7 +26,9 @@ const renderStyledText = (text: string) => {
           component="span"
           sx={{
             fontFamily: valorantFont.style.fontFamily,
-            fontWeight: 600,
+            // Valorant has a single weight: no synthetic bold, it distorts the letters.
+            fontSynthesis: 'none',
+            fontWeight: 400,
             background: BRAND_GRADIENT,
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
@@ -216,6 +218,8 @@ export default function Footer() {
               <Typography
                 sx={{
                   fontFamily: valorantFont.style.fontFamily,
+                  fontWeight: 400,
+                  fontSynthesis: 'none',
                   fontSize: '1.5rem',
                   letterSpacing: '0.1em',
                   background: BRAND_GRADIENT,
@@ -289,7 +293,20 @@ export default function Footer() {
               fontSize: '0.85rem',
             }}
           >
-            © {new Date().getFullYear()} {t('footer.company').toUpperCase()} · {t('footer.rights')}
+            © {new Date().getFullYear()}{' '}
+            {/* Brand in Valorant (lowercase "y"), same as gy-accounts' footer. */}
+            <Box
+              component="span"
+              sx={{
+                fontFamily: valorantFont.style.fontFamily,
+                fontWeight: 400,
+                fontSynthesis: 'none',
+                letterSpacing: '0.04em',
+              }}
+            >
+              {t('footer.company')}
+            </Box>{' '}
+            · {t('footer.rights')}
           </Typography>
 
           <Box
