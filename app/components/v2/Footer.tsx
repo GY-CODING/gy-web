@@ -72,11 +72,20 @@ export function MonumentFooter({ copy }: { copy: Copy }) {
             component={Link}
             href="/"
             aria-label="GYCODING"
-            sx={{ display: 'inline-flex', alignItems: 'center', gap: 1.25, color: 'inherit', textDecoration: 'none' }}
+            sx={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 1.25,
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
           >
             <Image src="/gy-logo.png" alt="" width={30} height={30} />
             {/* Valorant junta la C bajo el brazo de la y; sin kerning se separan. */}
-            <Box component="span" sx={{ ...brandFont, fontSize: 21, lineHeight: 1, fontKerning: 'none' }}>
+            <Box
+              component="span"
+              sx={{ ...brandFont, fontSize: 21, lineHeight: 1, fontKerning: 'none' }}
+            >
               GyCODING
             </Box>
           </Box>

@@ -9,7 +9,14 @@
 // prefers-reduced-motion. Valorant only for the GYCODING wordmark; every other heading is Lexend.
 
 import { Box } from '@mui/material';
-import { motion, MotionValue, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import {
+  motion,
+  MotionValue,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useContext, useEffect, useRef, useState } from 'react';
@@ -29,7 +36,6 @@ import {
   visuallyHidden,
 } from './kit';
 import { Shot } from './media';
-
 
 // ─── Statement: the light sheet slides over the hero and one sentence lights up ───
 export function Statement({ copy }: { copy: Copy }) {
@@ -75,14 +81,27 @@ function WorldTile({ id, copy, lang }: { id: ProductId; copy: Copy; lang: string
         component={motion.h3}
         {...enter(0.06)}
         id={`world-${id}-title`}
-        sx={{ m: 0, mt: 2.5, ...display, fontSize: { xs: 48, md: 'clamp(56px, 6vw, 104px)' }, lineHeight: 1 }}
+        sx={{
+          m: 0,
+          mt: 2.5,
+          ...display,
+          fontSize: { xs: 48, md: 'clamp(56px, 6vw, 104px)' },
+          lineHeight: 1,
+        }}
       >
         {p.name}
       </Box>
       <Box
         component={motion.p}
         {...enter(0.12)}
-        sx={{ m: 0, mt: 2, maxWidth: 640, fontSize: { xs: 20, md: 28 }, lineHeight: 1.3, color: SOFT }}
+        sx={{
+          m: 0,
+          mt: 2,
+          maxWidth: 640,
+          fontSize: { xs: 20, md: 28 },
+          lineHeight: 1.3,
+          color: SOFT,
+        }}
       >
         {lang === 'es' ? p.taglineEs : p.tagline}
       </Box>
@@ -160,11 +179,23 @@ function ReelScene({
         alignItems: 'center',
       }}
     >
-      <Box component={motion.div} style={{ x: textX, opacity: textO }} sx={{ gridColumn: '1 / span 4', position: 'relative', zIndex: 1 }}>
+      <Box
+        component={motion.div}
+        style={{ x: textX, opacity: textO }}
+        sx={{ gridColumn: '1 / span 4', position: 'relative', zIndex: 1 }}
+      >
         <Image src={p.logo} alt="" width={56} height={56} style={{ objectFit: 'contain' }} />
         {/* The name rises out of a mask, like a title card. The mask only clips top and bottom, and
             leaves room under the baseline so descenders (the g of Wingwords) are never cut. */}
-        <Box sx={{ clipPath: 'inset(-0.1em -100vw 0 -100vw)', mt: 2.5, pb: '0.24em', mb: '-0.16em', fontSize: 'clamp(52px, 4.9vw, 92px)' }}>
+        <Box
+          sx={{
+            clipPath: 'inset(-0.1em -100vw 0 -100vw)',
+            mt: 2.5,
+            pb: '0.24em',
+            mb: '-0.16em',
+            fontSize: 'clamp(52px, 4.9vw, 92px)',
+          }}
+        >
           <Box
             component={motion.h3}
             style={{ y: nameY }}
@@ -174,7 +205,10 @@ function ReelScene({
             {p.name}
           </Box>
         </Box>
-        <Box component="p" sx={{ m: 0, mt: 2.5, maxWidth: 400, fontSize: 24, lineHeight: 1.35, color: SOFT }}>
+        <Box
+          component="p"
+          sx={{ m: 0, mt: 2.5, maxWidth: 400, fontSize: 24, lineHeight: 1.35, color: SOFT }}
+        >
           {lang === 'es' ? p.taglineEs : p.tagline}
         </Box>
         <Box sx={{ mt: 4.5 }}>
@@ -186,7 +220,6 @@ function ReelScene({
         style={{ x: imgX, scale: imgScale, rotate: imgRotate }}
         sx={{ gridColumn: '5 / span 8', display: 'flex', justifyContent: 'center' }}
       >
-
         {/* Pictures are capped by height too (≈ 68% of the screen) so tall ones never touch the edges.
             The picture is a second way into the world's page (hidden from the tab order: the
             "Discover" link is the keyboard way in). */}
@@ -236,22 +269,64 @@ function Reel({ ids, copy, lang }: { ids: ProductId[]; copy: Copy; lang: string 
   return (
     <Box ref={ref} id="worlds-reel" data-count={n} sx={{ height: `${n * 100 + 40}svh` }}>
       <Box sx={{ position: 'sticky', top: 0, height: '100svh', overflow: 'hidden' }}>
-        <Box component={motion.div} style={{ x }} sx={{ display: 'flex', width: `${n * 100}vw`, willChange: 'transform' }}>
+        <Box
+          component={motion.div}
+          style={{ x }}
+          sx={{ display: 'flex', width: `${n * 100}vw`, willChange: 'transform' }}
+        >
           {ids.map((id, i) => (
-            <ReelScene key={id} id={id} index={i} count={n} progress={scrollYProgress} copy={copy} lang={lang} />
+            <ReelScene
+              key={id}
+              id={id}
+              index={i}
+              count={n}
+              progress={scrollYProgress}
+              copy={copy}
+              lang={lang}
+            />
           ))}
         </Box>
         {/* Scene index: the three names, the current one in full ink, and the reel's progress. */}
-        <Box sx={{ position: 'absolute', left: 32, right: 32, bottom: 28, display: 'flex', alignItems: 'center', gap: 4 }}>
+        <Box
+          sx={{
+            position: 'absolute',
+            left: 32,
+            right: 32,
+            bottom: 28,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 4,
+          }}
+        >
           <Box sx={{ display: 'flex', gap: 3 }}>
             {ids.map((id, i) => (
-              <Box key={id} sx={{ fontSize: 15, fontWeight: 600, color: i === active ? 'inherit' : SOFT, transition: 'color 0.4s ease' }}>
+              <Box
+                key={id}
+                sx={{
+                  fontSize: 15,
+                  fontWeight: 600,
+                  color: i === active ? 'inherit' : SOFT,
+                  transition: 'color 0.4s ease',
+                }}
+              >
                 {PRODUCTS[id].name}
               </Box>
             ))}
           </Box>
-          <Box sx={{ flex: 1, height: 3, borderRadius: 2, background: 'color-mix(in srgb, currentColor 14%, transparent)', overflow: 'hidden' }}>
-            <Box component={motion.div} style={{ scaleX: bar }} sx={{ height: '100%', background: 'currentColor', transformOrigin: 'left' }} />
+          <Box
+            sx={{
+              flex: 1,
+              height: 3,
+              borderRadius: 2,
+              background: 'color-mix(in srgb, currentColor 14%, transparent)',
+              overflow: 'hidden',
+            }}
+          >
+            <Box
+              component={motion.div}
+              style={{ scaleX: bar }}
+              sx={{ height: '100%', background: 'currentColor', transformOrigin: 'left' }}
+            />
           </Box>
         </Box>
       </Box>
@@ -334,7 +409,12 @@ function Tile({
         overflow: 'hidden',
         borderRadius: '24px',
         transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
-        ...(href ? { '&:hover': { transform: 'translateY(-4px)' }, '&:hover .chev': { transform: 'translateX(4px)' } } : {}),
+        ...(href
+          ? {
+              '&:hover': { transform: 'translateY(-4px)' },
+              '&:hover .chev': { transform: 'translateX(4px)' },
+            }
+          : {}),
         background: dark ? '#0b0906' : '#f5f5f7',
         color: dark ? '#f5f0e1' : '#1d1d1f',
         minHeight: { xs: 400, md: 440 },
@@ -357,15 +437,33 @@ function Tile({
         />
       )}
       <Box sx={{ position: 'relative', zIndex: 1, p: { xs: 3, md: 4 } }}>
-        <Box component="h3" sx={{ m: 0, ...display, fontSize: { xs: 28, md: 34 }, lineHeight: 1.1 }}>
+        <Box
+          component="h3"
+          sx={{ m: 0, ...display, fontSize: { xs: 28, md: 34 }, lineHeight: 1.1 }}
+        >
           {title}
           {href && (
-            <Box component="span" className="chev" aria-hidden sx={{ display: 'inline-block', ml: '0.3em', transition: 'transform 0.25s ease' }}>
+            <Box
+              component="span"
+              className="chev"
+              aria-hidden
+              sx={{ display: 'inline-block', ml: '0.3em', transition: 'transform 0.25s ease' }}
+            >
               ›
             </Box>
           )}
         </Box>
-        <Box component="p" sx={{ m: 0, mt: 1, fontSize: 17, lineHeight: 1.47, color: dark ? '#c9bf9f' : '#6e6e73', maxWidth: 420 }}>
+        <Box
+          component="p"
+          sx={{
+            m: 0,
+            mt: 1,
+            fontSize: 17,
+            lineHeight: 1.47,
+            color: dark ? '#c9bf9f' : '#6e6e73',
+            maxWidth: 420,
+          }}
+        >
           {line}
         </Box>
       </Box>
@@ -383,7 +481,10 @@ function ProductCycle() {
   ];
   const { ref, i } = useCycle(shots.length, 3200);
   return (
-    <Box ref={ref} sx={{ position: 'absolute', inset: 0, px: { xs: 2, md: 4 }, pb: { xs: 2, md: 3 } }}>
+    <Box
+      ref={ref}
+      sx={{ position: 'absolute', inset: 0, px: { xs: 2, md: 4 }, pb: { xs: 2, md: 3 } }}
+    >
       {shots.map((s, k) => (
         <Box
           key={s.src}
@@ -395,7 +496,13 @@ function ProductCycle() {
             transition: 'opacity 0.9s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)',
           }}
         >
-          <Image src={s.src} alt={k === 0 ? s.alt : ''} fill sizes="(max-width: 900px) 100vw, 760px" style={{ objectFit: 'contain', objectPosition: 'center bottom' }} />
+          <Image
+            src={s.src}
+            alt={k === 0 ? s.alt : ''}
+            fill
+            sizes="(max-width: 900px) 100vw, 760px"
+            style={{ objectFit: 'contain', objectPosition: 'center bottom' }}
+          />
         </Box>
       ))}
     </Box>
@@ -404,7 +511,11 @@ function ProductCycle() {
 
 // Backend / identity: one GY account at the centre, the three worlds orbiting it.
 function IdentityOrbit() {
-  const logos = [PRODUCTS.wingwords.logo, PRODUCTS['heralds-of-chaos'].logo, PRODUCTS['gy-accounts'].logo];
+  const logos = [
+    PRODUCTS.wingwords.logo,
+    PRODUCTS['heralds-of-chaos'].logo,
+    PRODUCTS['gy-accounts'].logo,
+  ];
   const R = 112;
   return (
     <Box
@@ -431,9 +542,23 @@ function IdentityOrbit() {
         '@media (prefers-reduced-motion: reduce)': { '& *': { animation: 'none !important' } },
       }}
     >
-      <Box sx={{ position: 'relative', width: R * 2 + 64, height: R * 2 + 64, transform: { xs: 'scale(0.72)', md: 'none' } }}>
+      <Box
+        sx={{
+          position: 'relative',
+          width: R * 2 + 64,
+          height: R * 2 + 64,
+          transform: { xs: 'scale(0.72)', md: 'none' },
+        }}
+      >
         {/* the orbit path */}
-        <Box sx={{ position: 'absolute', inset: 32, borderRadius: '50%', border: '1.5px dashed rgba(29,29,31,0.18)' }} />
+        <Box
+          sx={{
+            position: 'absolute',
+            inset: 32,
+            borderRadius: '50%',
+            border: '1.5px dashed rgba(29,29,31,0.18)',
+          }}
+        />
         {/* signal leaving the centre */}
         {[0, 1].map((k) => (
           <Box
@@ -447,7 +572,8 @@ function IdentityOrbit() {
               ml: '-60px',
               mt: '-60px',
               borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(140,84,255,0.35) 0%, rgba(140,84,255,0) 70%)',
+              background:
+                'radial-gradient(circle, rgba(140,84,255,0.35) 0%, rgba(140,84,255,0) 70%)',
               animation: `gy-pulse 3.2s ease-out ${k * 1.6}s infinite`,
             }}
           />
@@ -513,7 +639,10 @@ function Relic() {
           from: { transform: 'scale(0.94)', opacity: 0.6 },
           to: { transform: 'scale(1.04)', opacity: 1 },
         },
-        '@keyframes gy-float': { from: { transform: 'translateY(6px)' }, to: { transform: 'translateY(-8px)' } },
+        '@keyframes gy-float': {
+          from: { transform: 'translateY(6px)' },
+          to: { transform: 'translateY(-8px)' },
+        },
         '@media (prefers-reduced-motion: reduce)': { '& *': { animation: 'none !important' } },
       }}
     >
@@ -524,12 +653,26 @@ function Relic() {
           width: 'min(240px, 70%)',
           aspectRatio: '1',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(212,175,55,0.16) 0%, rgba(212,175,55,0.05) 45%, rgba(212,175,55,0) 70%)',
+          background:
+            'radial-gradient(circle, rgba(212,175,55,0.16) 0%, rgba(212,175,55,0.05) 45%, rgba(212,175,55,0) 70%)',
           animation: 'gy-breathe 4.5s ease-in-out infinite alternate',
         }}
       />
-      <Box sx={{ position: 'relative', width: 150, height: 150, animation: 'gy-float 5s ease-in-out infinite alternate' }}>
-        <Image src={PRODUCTS['heralds-of-chaos'].logo} alt="" fill sizes="150px" style={{ objectFit: 'contain' }} />
+      <Box
+        sx={{
+          position: 'relative',
+          width: 150,
+          height: 150,
+          animation: 'gy-float 5s ease-in-out infinite alternate',
+        }}
+      >
+        <Image
+          src={PRODUCTS['heralds-of-chaos'].logo}
+          alt=""
+          fill
+          sizes="150px"
+          style={{ objectFit: 'contain' }}
+        />
       </Box>
     </Box>
   );
@@ -584,7 +727,10 @@ function ToolRows() {
         flexDirection: 'column',
         justifyContent: 'center',
         gap: 1,
-        '@keyframes gy-tools': { from: { transform: 'translateX(0)' }, to: { transform: 'translateX(-50%)' } },
+        '@keyframes gy-tools': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-50%)' },
+        },
         '&:hover .row': { animationPlayState: 'paused' },
         '@media (prefers-reduced-motion: reduce)': { '& .row': { animation: 'none' } },
       }}
@@ -606,10 +752,24 @@ export function Build({ copy }: { copy: Copy }) {
       sx={{ px: MARGIN, py: { xs: 14, md: 20 } }}
     >
       <Box sx={{ textAlign: 'center', mb: { xs: 6, md: 9 } }}>
-        <Box component={motion.h2} {...enter()} id="build-title" sx={{ m: 0, ...display, fontSize: { xs: 44, md: 'clamp(56px, 5.4vw, 88px)' }, lineHeight: 1 }}>
+        <Box
+          component={motion.h2}
+          {...enter()}
+          id="build-title"
+          sx={{
+            m: 0,
+            ...display,
+            fontSize: { xs: 44, md: 'clamp(56px, 5.4vw, 88px)' },
+            lineHeight: 1,
+          }}
+        >
           {copy.buildHeading}
         </Box>
-        <Box component={motion.p} {...enter(0.08)} sx={{ m: 0, mt: 2, fontSize: { xs: 20, md: 28 }, color: SOFT }}>
+        <Box
+          component={motion.p}
+          {...enter(0.08)}
+          sx={{ m: 0, mt: 2, fontSize: { xs: 20, md: 28 }, color: SOFT }}
+        >
           {copy.buildLead}
         </Box>
       </Box>
@@ -630,10 +790,23 @@ export function Build({ copy }: { copy: Copy }) {
         <Tile area="web" title={web.group} line={web.summary}>
           <ProductCycle />
         </Tile>
-        <Tile area="backend" title={backend.group} line={backend.summary} delay={0.08} href="/products/gy-accounts/">
+        <Tile
+          area="backend"
+          title={backend.group}
+          line={backend.summary}
+          delay={0.08}
+          href="/products/gy-accounts/"
+        >
           <IdentityOrbit />
         </Tile>
-        <Tile area="games" title={games.group} line={games.summary} dark delay={0.12} href="/products/heralds-of-chaos/">
+        <Tile
+          area="games"
+          title={games.group}
+          line={games.summary}
+          dark
+          delay={0.12}
+          href="/products/heralds-of-chaos/"
+        >
           <Relic />
         </Tile>
         <Tile area="tools" title={copy.toolsTitle} line={copy.toolsLine} delay={0.16}>
@@ -649,62 +822,80 @@ export function FounderDoors({ copy }: { copy: Copy }) {
   return (
     <Box
       component="ul"
-        sx={{ listStyle: 'none', m: 0, p: 0, mt: { xs: 7, md: 9 }, width: '100%', maxWidth: 1000, display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: { xs: 2, md: 3 } }}
-      >
-        {copy.founders.map((f, i) => (
+      sx={{
+        listStyle: 'none',
+        m: 0,
+        p: 0,
+        mt: { xs: 7, md: 9 },
+        width: '100%',
+        maxWidth: 1000,
+        display: 'grid',
+        gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+        gap: { xs: 2, md: 3 },
+      }}
+    >
+      {copy.founders.map((f, i) => (
+        <Box
+          key={f.slug}
+          component={motion.li}
+          initial={{ opacity: 0, y: 50, rotate: i ? 3 : -3 }}
+          whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 1, delay: 0.1 + i * 0.12, ease: easeOut }}
+        >
           <Box
-            key={f.slug}
-            component={motion.li}
-            initial={{ opacity: 0, y: 50, rotate: i ? 3 : -3 }}
-            whileInView={{ opacity: 1, y: 0, rotate: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 1, delay: 0.1 + i * 0.12, ease: easeOut }}
+            component={Link}
+            href={`/team/${f.slug}/`}
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              borderRadius: '32px',
+              background: 'rgba(255,255,255,0.05)',
+              color: 'inherit',
+              textDecoration: 'none',
+              p: { xs: 4, md: 5 },
+              transition:
+                'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease',
+              '&:hover': { transform: 'translateY(-6px)', background: 'rgba(255,255,255,0.09)' },
+              '&:hover .chev': { transform: 'translateX(4px)' },
+              '&:focus-visible': { outline: '2px solid currentColor', outlineOffset: 4 },
+            }}
           >
             <Box
-              component={Link}
-              href={`/team/${f.slug}/`}
+              className="bob"
               sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                borderRadius: '32px',
-                background: 'rgba(255,255,255,0.05)',
-                color: 'inherit',
-                textDecoration: 'none',
-                p: { xs: 4, md: 5 },
-                transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease',
-                '&:hover': { transform: 'translateY(-6px)', background: 'rgba(255,255,255,0.09)' },
-                '&:hover .chev': { transform: 'translateX(4px)' },
-                '&:focus-visible': { outline: '2px solid currentColor', outlineOffset: 4 },
+                position: 'relative',
+                width: { xs: 150, md: 190 },
+                aspectRatio: '1',
+                animation: `gy-bob ${4 + i}s ease-in-out ${i * 0.8}s infinite alternate`,
               }}
             >
+              <Image src={f.image} alt="" fill sizes="190px" style={{ objectFit: 'contain' }} />
+            </Box>
+            <Box
+              component="h3"
+              sx={{ m: 0, mt: 3, ...display, fontSize: { xs: 30, md: 36 }, lineHeight: 1.05 }}
+            >
+              {f.name}
+            </Box>
+            <Box component="p" sx={{ m: 0, mt: 1, fontSize: 17, color: SOFT }}>
+              {f.role}
+            </Box>
+            <Box component="span" sx={{ mt: 2.5, fontSize: 17, fontWeight: 600 }}>
+              {copy.team.view}{' '}
               <Box
-                className="bob"
-                sx={{
-                  position: 'relative',
-                  width: { xs: 150, md: 190 },
-                  aspectRatio: '1',
-                  animation: `gy-bob ${4 + i}s ease-in-out ${i * 0.8}s infinite alternate`,
-                }}
+                component="span"
+                className="chev"
+                sx={{ display: 'inline-block', transition: 'transform 0.2s ease' }}
               >
-                <Image src={f.image} alt="" fill sizes="190px" style={{ objectFit: 'contain' }} />
-              </Box>
-              <Box component="h3" sx={{ m: 0, mt: 3, ...display, fontSize: { xs: 30, md: 36 }, lineHeight: 1.05 }}>
-                {f.name}
-              </Box>
-              <Box component="p" sx={{ m: 0, mt: 1, fontSize: 17, color: SOFT }}>
-                {f.role}
-              </Box>
-              <Box component="span" sx={{ mt: 2.5, fontSize: 17, fontWeight: 600 }}>
-                {copy.team.view}{' '}
-                <Box component="span" className="chev" sx={{ display: 'inline-block', transition: 'transform 0.2s ease' }}>
-                  ›
-                </Box>
+                ›
               </Box>
             </Box>
           </Box>
-        ))}
-      </Box>
+        </Box>
+      ))}
+    </Box>
   );
 }
 
@@ -724,14 +915,38 @@ export function Story({ copy }: { copy: Copy }) {
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
-        '@keyframes gy-bob': { from: { transform: 'translateY(0)' }, to: { transform: 'translateY(-10px)' } },
+        '@keyframes gy-bob': {
+          from: { transform: 'translateY(0)' },
+          to: { transform: 'translateY(-10px)' },
+        },
         '@media (prefers-reduced-motion: reduce)': { '& .bob': { animation: 'none' } },
       }}
     >
-      <Box component={motion.h2} {...enter()} id="story-title" sx={{ m: 0, ...display, fontSize: { xs: 44, md: 'clamp(56px, 5.4vw, 88px)' }, lineHeight: 1 }}>
+      <Box
+        component={motion.h2}
+        {...enter()}
+        id="story-title"
+        sx={{
+          m: 0,
+          ...display,
+          fontSize: { xs: 44, md: 'clamp(56px, 5.4vw, 88px)' },
+          lineHeight: 1,
+        }}
+      >
         {copy.storyHeading}
       </Box>
-      <Box component={motion.p} {...enter(0.08)} sx={{ m: 0, mt: 3, maxWidth: 640, fontSize: { xs: 19, md: 24 }, lineHeight: 1.45, color: SOFT }}>
+      <Box
+        component={motion.p}
+        {...enter(0.08)}
+        sx={{
+          m: 0,
+          mt: 3,
+          maxWidth: 640,
+          fontSize: { xs: 19, md: 24 },
+          lineHeight: 1.45,
+          color: SOFT,
+        }}
+      >
         {copy.storyLine}
       </Box>
       <FounderDoors copy={copy} />
@@ -790,15 +1005,49 @@ export function InvertedCta({ copy }: { copy: Copy }) {
         ))}
       </Box>
       <Box sx={{ px: MARGIN, mt: { xs: 6, md: 8 }, textAlign: 'center' }}>
-        <Box component={motion.h2} {...enter()} id="cta-title" sx={{ m: 0, ...display, fontSize: { xs: '10vw', md: 'clamp(56px, 6.4vw, 112px)' }, lineHeight: 1 }}>
+        <Box
+          component={motion.h2}
+          {...enter()}
+          id="cta-title"
+          sx={{
+            m: 0,
+            ...display,
+            fontSize: { xs: '10vw', md: 'clamp(56px, 6.4vw, 112px)' },
+            lineHeight: 1,
+          }}
+        >
           {copy.ctaHeadline[0]}
           <br />
           {copy.ctaHeadline[1]}
         </Box>
-        <Box component={motion.p} {...enter(0.08)} sx={{ m: 0, mt: 3, mx: 'auto', maxWidth: 560, fontSize: { xs: 18, md: 22 }, lineHeight: 1.45, color: SOFT }}>
+        <Box
+          component={motion.p}
+          {...enter(0.08)}
+          sx={{
+            m: 0,
+            mt: 3,
+            mx: 'auto',
+            maxWidth: 560,
+            fontSize: { xs: 18, md: 22 },
+            lineHeight: 1.45,
+            color: SOFT,
+          }}
+        >
           {copy.ctaSentence}
         </Box>
-        <Box component={motion.div} {...enter(0.14)} sx={{ mt: 5, display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', columnGap: 3.5, rowGap: 2 }}>
+        <Box
+          component={motion.div}
+          {...enter(0.14)}
+          sx={{
+            mt: 5,
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            alignItems: 'center',
+            columnGap: 3.5,
+            rowGap: 2,
+          }}
+        >
           <Box
             component="a"
             href={DISCORD_URL}
@@ -843,4 +1092,3 @@ export function InvertedCta({ copy }: { copy: Copy }) {
     </Box>
   );
 }
-

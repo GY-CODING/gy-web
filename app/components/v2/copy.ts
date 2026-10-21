@@ -90,8 +90,18 @@ const copy = {
     storyLine:
       'It started as a place to build whatever we wanted to learn. Today it is a studio with three worlds in motion.',
     founders: [
-      { name: 'Guillermo Figueras', slug: 'guillermo-figueras', role: 'CEO & Frontend Developer', image: '/images/gfigueras.png' },
-      { name: 'Iván Vicente', slug: 'ivan-vicente', role: 'CEO & Backend Developer', image: '/images/toxyc.png' },
+      {
+        name: 'Guillermo Figueras',
+        slug: 'guillermo-figueras',
+        role: 'CEO & Frontend Developer',
+        image: '/images/gfigueras.png',
+      },
+      {
+        name: 'Iván Vicente',
+        slug: 'ivan-vicente',
+        role: 'CEO & Backend Developer',
+        image: '/images/toxyc.png',
+      },
     ],
     ctaHeadline: ['Let’s build', 'your next dream'],
     ctaSentence: `Tell us about it at ${CONTACT_EMAIL}, or come say hi in the community.`,
@@ -189,8 +199,18 @@ const copy = {
     storyLine:
       'Empezó como un sitio donde construir lo que quisiéramos aprender. Hoy es un estudio con tres mundos en marcha.',
     founders: [
-      { name: 'Guillermo Figueras', slug: 'guillermo-figueras', role: 'CEO y Desarrollador Frontend', image: '/images/gfigueras.png' },
-      { name: 'Iván Vicente', slug: 'ivan-vicente', role: 'CEO y Desarrollador Backend', image: '/images/toxyc.png' },
+      {
+        name: 'Guillermo Figueras',
+        slug: 'guillermo-figueras',
+        role: 'CEO y Desarrollador Frontend',
+        image: '/images/gfigueras.png',
+      },
+      {
+        name: 'Iván Vicente',
+        slug: 'ivan-vicente',
+        role: 'CEO y Desarrollador Backend',
+        image: '/images/toxyc.png',
+      },
     ],
     ctaHeadline: ['Construyamos', 'tu próximo sueño'],
     ctaSentence: `Cuéntanoslo en ${CONTACT_EMAIL} o pásate a saludar por la comunidad.`,
@@ -254,7 +274,10 @@ export type ToneKey =
   | 'heralds-of-chaos-dark'
   | 'heralds-void'
   | 'heralds-bone';
-export const TONES: Record<Exclude<ToneKey, 'ground'>, { bg: string; ink: string; soft: string }> = {
+export const TONES: Record<
+  Exclude<ToneKey, 'ground'>,
+  { bg: string; ink: string; soft: string }
+> = {
   mist: { bg: '#f5f5f7', ink: '#1d1d1f', soft: '#6e6e73' },
   paper: { bg: '#ffffff', ink: '#1d1d1f', soft: '#6e6e73' },
   night: { bg: '#07070b', ink: '#f5f5f7', soft: '#a1a1a6' },
@@ -271,17 +294,28 @@ export const TONES: Record<Exclude<ToneKey, 'ground'>, { bg: string; ink: string
 };
 
 // Per product: [dark tone, light tone] for its page's chapters.
-export const PRODUCT_TONES: Record<'wingwords' | 'gy-accounts' | 'heralds-of-chaos', [ToneKey, ToneKey]> = {
+export const PRODUCT_TONES: Record<
+  'wingwords' | 'gy-accounts' | 'heralds-of-chaos',
+  [ToneKey, ToneKey]
+> = {
   wingwords: ['wingwords-dark', 'wingwords'],
   'gy-accounts': ['gy-accounts', 'gy-accounts-light'],
   'heralds-of-chaos': ['heralds-of-chaos-dark', 'heralds-of-chaos'],
 };
 
 // Flat chapter bands for each world (dark, light) and the colour of its own action.
-export const WORLD_BANDS: Record<Exclude<WorldKey, 'gycoding'>, { dark: string; light: string; action: string; actionInk: string }> = {
+export const WORLD_BANDS: Record<
+  Exclude<WorldKey, 'gycoding'>,
+  { dark: string; light: string; action: string; actionInk: string }
+> = {
   wingwords: { dark: '#12061f', light: '#f6f0ff', action: '#7e3fd4', actionInk: '#ffffff' },
   'gy-accounts': { dark: '#0c0820', light: '#f0ebff', action: '#7c3aed', actionInk: '#ffffff' },
-  'heralds-of-chaos': { dark: '#0d0b06', light: '#fbf5e2', action: '#d4af37', actionInk: '#14100a' },
+  'heralds-of-chaos': {
+    dark: '#0d0b06',
+    light: '#fbf5e2',
+    action: '#d4af37',
+    actionInk: '#14100a',
+  },
 };
 
 export const BRAND_GRADIENT = 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)';

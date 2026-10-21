@@ -7,7 +7,13 @@
 // the statement slides over it with rounded shoulders; once covered, the hero's shader stops.
 
 import { Box } from '@mui/material';
-import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import {
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from 'framer-motion';
 import { useRef, useState } from 'react';
 import { useLanguage } from '../../utils/languageContext';
 import { getCopy, WorldKey } from './copy';
@@ -36,10 +42,20 @@ function OpeningScene({ onExplore }: { onExplore: (w: WorldKey) => void }) {
     <Box ref={stage} sx={{ position: 'relative', background: c.ground }}>
       <Box sx={{ position: 'sticky', top: 0, zIndex: 0, overflow: 'hidden' }}>
         <Box component={motion.div} style={{ scale, y }} sx={{ transformOrigin: '50% 35%' }}>
-          <WordmarkHero copy={copy} lang={language} onExplore={onExplore} paused={paused || covered} />
+          <WordmarkHero
+            copy={copy}
+            lang={language}
+            onExplore={onExplore}
+            paused={paused || covered}
+          />
         </Box>
         {/* Dims the hero into the ground as it recedes. */}
-        <Box component={motion.div} aria-hidden style={{ opacity: veil }} sx={{ position: 'absolute', inset: 0, background: c.ground, pointerEvents: 'none' }} />
+        <Box
+          component={motion.div}
+          aria-hidden
+          style={{ opacity: veil }}
+          sx={{ position: 'absolute', inset: 0, background: c.ground, pointerEvents: 'none' }}
+        />
       </Box>
       <Statement copy={copy} />
     </Box>
@@ -59,7 +75,8 @@ export default function HomeV2() {
       const order: WorldKey[] = ['wingwords', 'gy-accounts', 'heralds-of-chaos'];
       const n = Number(reel.dataset.count) || 3;
       const travel = reel.offsetHeight - window.innerHeight;
-      const top = reel.getBoundingClientRect().top + window.scrollY + (order.indexOf(w) / (n - 1)) * travel;
+      const top =
+        reel.getBoundingClientRect().top + window.scrollY + (order.indexOf(w) / (n - 1)) * travel;
       window.scrollTo({ top, behavior: 'smooth' });
       return;
     }

@@ -278,7 +278,8 @@ export default function WordmarkHero({
           const m = ctx.measureText(text);
           const ascent = m.fontBoundingBoxAscent ?? m.actualBoundingBoxAscent;
           const descent = m.fontBoundingBoxDescent ?? m.actualBoundingBoxDescent;
-          const baseline = (pr.top - rect.top) * scale + (pr.height * scale) / 2 + (ascent - descent) / 2;
+          const baseline =
+            (pr.top - rect.top) * scale + (pr.height * scale) / 2 + (ascent - descent) / 2;
           const cx = (pr.left - rect.left + pr.width / 2) * scale;
           ctx.fillText(text, cx, baseline);
         }
@@ -423,7 +424,18 @@ export default function WordmarkHero({
     >
       {/* Esquina superior derecha (la barra está oculta sobre el hero): pausar el movimiento
           decorativo (la nebulosa y todos los bucles de la página). */}
-      <Box sx={{ position: 'absolute', zIndex: 3, top: { xs: 20, md: 28 }, right: { xs: 20, md: 32 }, color: c.ink, display: 'flex', alignItems: 'center', gap: 1 }}>
+      <Box
+        sx={{
+          position: 'absolute',
+          zIndex: 3,
+          top: { xs: 20, md: 28 },
+          right: { xs: 20, md: 32 },
+          color: c.ink,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 1,
+        }}
+      >
         <PauseButton />
       </Box>
 
@@ -452,7 +464,7 @@ export default function WordmarkHero({
           // they first touch at -0.20em (at -0.14em a gap stayed); -0.21em merges them into one shape.
           // The canvas mask draws each span where the browser placed it, so it follows this offset.
           '& [data-line]': { display: 'inline' },
-          '& [data-line] + [data-line]': {  },
+          '& [data-line] + [data-line]': {},
         }}
       >
         <span data-line>Gy</span>
@@ -475,15 +487,43 @@ export default function WordmarkHero({
       />
 
       {/* Under the name, centred like every v2 page hero: what this is, and two ways in. */}
-      <Box sx={{ position: 'relative', zIndex: 2, mt: { xs: 4, md: 5 }, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+      <Box
+        sx={{
+          position: 'relative',
+          zIndex: 2,
+          mt: { xs: 4, md: 5 },
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          textAlign: 'center',
+        }}
+      >
         <Box
           component="p"
           aria-live="polite"
-          sx={{ m: 0, maxWidth: 640, minHeight: { md: '1.4em' }, fontSize: { xs: 20, md: 26 }, lineHeight: 1.35, color: c.ink, textWrap: 'balance' }}
+          sx={{
+            m: 0,
+            maxWidth: 640,
+            minHeight: { md: '1.4em' },
+            fontSize: { xs: 20, md: 26 },
+            lineHeight: 1.35,
+            color: c.ink,
+            textWrap: 'balance',
+          }}
         >
           {sentence}
         </Box>
-        <Box sx={{ mt: { xs: 3.5, md: 4 }, display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', columnGap: 3.5, rowGap: 2 }}>
+        <Box
+          sx={{
+            mt: { xs: 3.5, md: 4 },
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            alignItems: 'center',
+            columnGap: 3.5,
+            rowGap: 2,
+          }}
+        >
           {/* With a world chosen, the action opens that world's page. */}
           <Box
             component={product ? Link : 'button'}
@@ -573,7 +613,13 @@ export default function WordmarkHero({
                   background: on ? c.ink : 'transparent',
                   color: on ? c.ground : c.ink,
                   transition: 'background-color 0.3s ease, color 0.3s ease, transform 0.2s ease',
-                  '&:hover': { background: on ? c.ink : isDark ? 'rgba(242,240,247,0.08)' : 'rgba(13,11,20,0.06)' },
+                  '&:hover': {
+                    background: on
+                      ? c.ink
+                      : isDark
+                        ? 'rgba(242,240,247,0.08)'
+                        : 'rgba(13,11,20,0.06)',
+                  },
                   '&:active': { transform: 'scale(0.95)' },
                   '&:focus-visible': { outline: `2px solid ${c.ink}`, outlineOffset: 2 },
                 }}

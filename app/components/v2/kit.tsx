@@ -5,11 +5,26 @@
 // viewport), the global "pause animations" control, corner navigation and small controls.
 
 import { Box } from '@mui/material';
-import { AnimatePresence, motion, MotionValue, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import {
+  AnimatePresence,
+  motion,
+  MotionValue,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { createContext, ReactNode, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { valorantFont } from '../../utils/fonts';
 import { useLanguage } from '../../utils/languageContext';
 import { PRODUCT_ORDER, PRODUCTS } from '../../products/data/products';
@@ -152,7 +167,7 @@ export function TonePage({
           if (e.isIntersecting) setTone((e.target as HTMLElement).dataset.tone as ToneKey);
         }
       },
-      { rootMargin: '-50% 0px -50% 0px' },
+      { rootMargin: '-50% 0px -50% 0px' }
     );
     root.querySelectorAll('[data-tone]').forEach((el) => io.observe(el));
     return () => io.disconnect();
@@ -192,7 +207,13 @@ export function TonePage({
             id="main"
             ref={mainRef}
             data-paused={paused ? 'true' : 'false'}
-            style={{ '--tone-bg': t.bg, '--tone-ink': t.ink, '--tone-soft': t.soft } as React.CSSProperties}
+            style={
+              {
+                '--tone-bg': t.bg,
+                '--tone-ink': t.ink,
+                '--tone-soft': t.soft,
+              } as React.CSSProperties
+            }
             sx={{
               position: 'relative',
               zIndex: 1,
@@ -296,8 +317,18 @@ export function SiteNav({ reveal = false }: { reveal?: boolean }) {
     {
       label: copy.footer.team,
       children: [
-        { href: '/team/', label: copy.footer.team, line: copy.nav.teamLine, icon: '/icons/team.svg' },
-        { href: '/company/', label: copy.footer.company, line: copy.nav.companyLine, icon: '/icons/company.svg' },
+        {
+          href: '/team/',
+          label: copy.footer.team,
+          line: copy.nav.teamLine,
+          icon: '/icons/team.svg',
+        },
+        {
+          href: '/company/',
+          label: copy.footer.company,
+          line: copy.nav.companyLine,
+          icon: '/icons/company.svg',
+        },
       ],
     },
   ];
@@ -324,7 +355,13 @@ export function SiteNav({ reveal = false }: { reveal?: boolean }) {
         '&:focus-visible': { outline: '2px solid currentColor', outlineOffset: -2 },
       }}
     >
-      <Image src={c.icon} alt="" width={28} height={28} style={{ objectFit: 'contain', flexShrink: 0 }} />
+      <Image
+        src={c.icon}
+        alt=""
+        width={28}
+        height={28}
+        style={{ objectFit: 'contain', flexShrink: 0 }}
+      />
       <Box sx={{ minWidth: 0 }}>
         <Box sx={{ fontSize: 15.5, fontWeight: 600, lineHeight: 1.2 }}>{c.label}</Box>
         <Box sx={{ mt: 0.5, fontSize: 13.5, lineHeight: 1.4, color: SOFT }}>{c.line}</Box>
@@ -363,11 +400,25 @@ export function SiteNav({ reveal = false }: { reveal?: boolean }) {
           component={Link}
           href="/"
           aria-label="GYCODING"
-          sx={{ display: 'inline-flex', alignItems: 'center', gap: 1.25, color: 'inherit', textDecoration: 'none', '&:focus-visible': { outline: '2px solid currentColor', outlineOffset: 4, borderRadius: '8px' } }}
+          sx={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 1.25,
+            color: 'inherit',
+            textDecoration: 'none',
+            '&:focus-visible': {
+              outline: '2px solid currentColor',
+              outlineOffset: 4,
+              borderRadius: '8px',
+            },
+          }}
         >
           <Image src="/gy-logo.png" alt="" width={26} height={26} />
           {/* Valorant kerns the C under the y's arm until they touch; without kerning they stay apart. */}
-          <Box component="span" sx={{ ...brandFont, fontSize: 18, lineHeight: 1, fontKerning: 'none' }}>
+          <Box
+            component="span"
+            sx={{ ...brandFont, fontSize: 18, lineHeight: 1, fontKerning: 'none' }}
+          >
             GyCODING
           </Box>
         </Box>
@@ -397,7 +448,9 @@ export function SiteNav({ reveal = false }: { reveal?: boolean }) {
                     px: 1.5,
                     border: 0,
                     borderRadius: '12px',
-                    background: isOpen ? 'color-mix(in srgb, currentColor 8%, transparent)' : 'transparent',
+                    background: isOpen
+                      ? 'color-mix(in srgb, currentColor 8%, transparent)'
+                      : 'transparent',
                     color: on || isOpen ? 'var(--tone-ink)' : SOFT,
                     fontFamily: 'inherit',
                     fontSize: 15,
@@ -554,7 +607,16 @@ export function SiteNav({ reveal = false }: { reveal?: boolean }) {
                 transition={{ duration: 0.5, delay: 0.05 + gi * 0.06, ease: easeOut }}
                 sx={{ mb: 4 }}
               >
-                <Box sx={{ fontSize: 13, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: SOFT, mb: 1 }}>
+                <Box
+                  sx={{
+                    fontSize: 13,
+                    fontWeight: 600,
+                    letterSpacing: '0.12em',
+                    textTransform: 'uppercase',
+                    color: SOFT,
+                    mb: 1,
+                  }}
+                >
                   {g.label}
                 </Box>
                 <Box sx={{ display: 'grid', gap: 0.5, mx: -1.75 }}>
@@ -562,7 +624,12 @@ export function SiteNav({ reveal = false }: { reveal?: boolean }) {
                 </Box>
               </Box>
             ))}
-            <Box component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
+            <Box
+              component={motion.div}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
               <ActionButton href={ACCOUNTS_URL} bg={BRAND_GRADIENT}>
                 {copy.accountsAction}
               </ActionButton>
@@ -663,15 +730,30 @@ export function ActionButton({
 // ─── Scroll words: a pinned sentence that lights up word by word ───────────────
 // The dim copy of each word is a CSS pseudo-element (decoration); the real word fades in on
 // top from 0 to full ink, so readable text is never shown at low contrast.
-function Word({ children, progress, range }: { children: string; progress: MotionValue<number>; range: [number, number] }) {
+function Word({
+  children,
+  progress,
+  range,
+}: {
+  children: string;
+  progress: MotionValue<number>;
+  range: [number, number];
+}) {
   const opacity = useTransform(progress, range, [0, 1]);
   return (
     <Box
       component="span"
       data-w={children}
-      sx={{ position: 'relative', display: 'inline-block', mr: '0.25em', '&::before': { content: 'attr(data-w)', opacity: 0.14 } }}
+      sx={{
+        position: 'relative',
+        display: 'inline-block',
+        mr: '0.25em',
+        '&::before': { content: 'attr(data-w)', opacity: 0.14 },
+      }}
     >
-      <motion.span style={{ opacity, position: 'absolute', left: 0, top: 0 }}>{children}</motion.span>
+      <motion.span style={{ opacity, position: 'absolute', left: 0, top: 0 }}>
+        {children}
+      </motion.span>
     </Box>
   );
 }
@@ -707,7 +789,11 @@ export function ScrollWords({
         height: { xs: '200svh', md: '240svh' },
         // As a sheet it slides over the previous screen with rounded shoulders, in its own colour.
         ...(sheet && bg
-          ? { background: bg, color: TONES[tone as Exclude<ToneKey, 'ground'>].ink, borderRadius: { xs: '28px 28px 0 0', md: '40px 40px 0 0' } }
+          ? {
+              background: bg,
+              color: TONES[tone as Exclude<ToneKey, 'ground'>].ink,
+              borderRadius: { xs: '28px 28px 0 0', md: '40px 40px 0 0' },
+            }
           : {}),
       }}
     >
@@ -724,9 +810,18 @@ export function ScrollWords({
           textAlign: 'center',
         }}
       >
-        <Box component="p" sx={{ m: 0, maxWidth: 1100, ...display, fontSize: size, lineHeight: 1.05 }}>
+        <Box
+          component="p"
+          sx={{ m: 0, maxWidth: 1100, ...display, fontSize: size, lineHeight: 1.05 }}
+        >
           {words.map((w, i) => (
-            <Word key={i} progress={scrollYProgress} range={reduce ? [0, 0.0001] : [(i / words.length) * 0.75, ((i + 1) / words.length) * 0.75]}>
+            <Word
+              key={i}
+              progress={scrollYProgress}
+              range={
+                reduce ? [0, 0.0001] : [(i / words.length) * 0.75, ((i + 1) / words.length) * 0.75]
+              }
+            >
               {w}
             </Word>
           ))}
@@ -735,7 +830,12 @@ export function ScrollWords({
           <Box
             component={motion.p}
             style={reduce ? undefined : { opacity: subOpacity, y: subY }}
-            sx={{ m: 0, mt: { xs: 3, md: 4 }, fontSize: { xs: 19, md: 24 }, color: sheet && tone !== 'ground' ? TONES[tone].soft : SOFT }}
+            sx={{
+              m: 0,
+              mt: { xs: 3, md: 4 },
+              fontSize: { xs: 19, md: 24 },
+              color: sheet && tone !== 'ground' ? TONES[tone].soft : SOFT,
+            }}
           >
             {sub}
           </Box>
@@ -785,7 +885,16 @@ export function ToolChip({ name, light = true }: { name: string; light?: boolean
       {icon ? (
         <Image src={`/icons/${icon}.svg`} alt="" width={24} height={24} />
       ) : (
-        <Box aria-hidden sx={{ width: 24, height: 24, borderRadius: '8px', background: 'currentColor', opacity: 0.15 }} />
+        <Box
+          aria-hidden
+          sx={{
+            width: 24,
+            height: 24,
+            borderRadius: '8px',
+            background: 'currentColor',
+            opacity: 0.15,
+          }}
+        />
       )}
       {name}
     </Box>

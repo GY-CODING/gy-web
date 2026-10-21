@@ -16,7 +16,18 @@ import { useEffect, useRef, useState } from 'react';
 import { PRODUCT_ORDER, PRODUCTS, ProductId } from '../../products/data/products';
 import { useLanguage } from '../../utils/languageContext';
 import { getCopy, PRODUCT_REPOS, PRODUCT_TONES, TONES, WORLD_BANDS } from './copy';
-import { ActionButton, display, easeOut, enter, MARGIN, ScrollWords, SOFT, TextLink, TonePage, ToolChip } from './kit';
+import {
+  ActionButton,
+  display,
+  easeOut,
+  enter,
+  MARGIN,
+  ScrollWords,
+  SOFT,
+  TextLink,
+  TonePage,
+  ToolChip,
+} from './kit';
 import { Shot } from './media';
 import AccountsDemo from './AccountsDemo';
 
@@ -41,17 +52,37 @@ function ProductHero({ id }: { id: ProductId }) {
       ref={ref}
       component="section"
       data-tone={dark}
-      sx={{ minHeight: '100svh', px: MARGIN, pt: { xs: 14, md: 18 }, pb: { xs: 10, md: 14 }, textAlign: 'center', overflow: 'hidden' }}
+      sx={{
+        minHeight: '100svh',
+        px: MARGIN,
+        pt: { xs: 14, md: 18 },
+        pb: { xs: 10, md: 14 },
+        textAlign: 'center',
+        overflow: 'hidden',
+      }}
     >
       <Box component={motion.div} {...enter(0, 16)}>
-        <Image src={p.logo} alt="" width={72} height={72} style={{ objectFit: 'contain' }} priority />
+        <Image
+          src={p.logo}
+          alt=""
+          width={72}
+          height={72}
+          style={{ objectFit: 'contain' }}
+          priority
+        />
       </Box>
       <Box
         component={motion.h1}
         initial={{ opacity: 0, y: 40, filter: 'none' }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: easeOut, delay: 0.05 }}
-        sx={{ m: 0, mt: 3, ...display, fontSize: { xs: 56, md: 'clamp(72px, 9vw, 168px)' }, lineHeight: 0.95 }}
+        sx={{
+          m: 0,
+          mt: 3,
+          ...display,
+          fontSize: { xs: 56, md: 'clamp(72px, 9vw, 168px)' },
+          lineHeight: 0.95,
+        }}
       >
         {p.name}
       </Box>
@@ -60,7 +91,15 @@ function ProductHero({ id }: { id: ProductId }) {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: easeOut, delay: 0.15 }}
-        sx={{ m: 0, mt: 3, mx: 'auto', maxWidth: 720, fontSize: { xs: 22, md: 30 }, lineHeight: 1.3, color: SOFT }}
+        sx={{
+          m: 0,
+          mt: 3,
+          mx: 'auto',
+          maxWidth: 720,
+          fontSize: { xs: 22, md: 30 },
+          lineHeight: 1.3,
+          color: SOFT,
+        }}
       >
         {language === 'es' ? p.taglineEs : p.tagline}
       </Box>
@@ -69,7 +108,15 @@ function ProductHero({ id }: { id: ProductId }) {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: easeOut, delay: 0.25 }}
-        sx={{ mt: 5, display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', columnGap: 3.5, rowGap: 2 }}
+        sx={{
+          mt: 5,
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          alignItems: 'center',
+          columnGap: 3.5,
+          rowGap: 2,
+        }}
       >
         <ActionButton href={p.appUrl} bg={band.action} fg={band.actionInk}>
           {copy.worldsOpen(p.name)} ↗
@@ -85,7 +132,11 @@ function ProductHero({ id }: { id: ProductId }) {
         transition={{ duration: 1.2, ease: easeOut, delay: 0.35 }}
         sx={{ mt: { xs: 8, md: 10 }, mx: 'auto', width: '100%', maxWidth: 1180 }}
       >
-        <Box component={motion.div} style={{ scale, y }} sx={{ filter: 'drop-shadow(3px 5px 30px rgba(0,0,0,0.3))' }}>
+        <Box
+          component={motion.div}
+          style={{ scale, y }}
+          sx={{ filter: 'drop-shadow(3px 5px 30px rgba(0,0,0,0.3))' }}
+        >
           {picture(id, '(max-width: 900px) 100vw, 1180px')}
         </Box>
       </Box>
@@ -97,7 +148,7 @@ function ProductHero({ id }: { id: ProductId }) {
 // Products with one real capture per feature show it (crossfading); the rest zoom into one.
 const FEATURE_SHOTS: Partial<Record<ProductId, string[]>> = {
   wingwords: ['profile', 'book-searched', 'hall-of-fame', 'friends', 'editions', 'feed'].map(
-    (n) => `/images/products/wingwords/${n}.webp`,
+    (n) => `/images/products/wingwords/${n}.webp`
   ),
 };
 // Where the camera looks for each feature: scale and pan (percent of the frame).
@@ -121,10 +172,11 @@ function Features({ id }: { id: ProductId }) {
   useEffect(() => {
     const io = new IntersectionObserver(
       (entries) => {
-        for (const e of entries) if (e.isIntersecting) setActive(Number((e.target as HTMLElement).dataset.i));
+        for (const e of entries)
+          if (e.isIntersecting) setActive(Number((e.target as HTMLElement).dataset.i));
       },
       // A band just below the middle: on phones the pinned picture covers the top of the screen.
-      { rootMargin: '-60% 0px -32% 0px' },
+      { rootMargin: '-60% 0px -32% 0px' }
     );
     items.current.forEach((el) => el && io.observe(el));
     return () => io.disconnect();
@@ -133,8 +185,24 @@ function Features({ id }: { id: ProductId }) {
   const panel = TONES[dark as keyof typeof TONES];
 
   return (
-    <Box component="section" data-tone={dark} aria-labelledby="features-title" sx={{ px: MARGIN, py: { xs: 12, md: 18 } }}>
-      <Box component={motion.h2} {...enter()} id="features-title" sx={{ m: 0, ...display, fontSize: { xs: 44, md: 'clamp(56px, 5.4vw, 88px)' }, lineHeight: 1, textAlign: { md: 'center' } }}>
+    <Box
+      component="section"
+      data-tone={dark}
+      aria-labelledby="features-title"
+      sx={{ px: MARGIN, py: { xs: 12, md: 18 } }}
+    >
+      <Box
+        component={motion.h2}
+        {...enter()}
+        id="features-title"
+        sx={{
+          m: 0,
+          ...display,
+          fontSize: { xs: 44, md: 'clamp(56px, 5.4vw, 88px)' },
+          lineHeight: 1,
+          textAlign: { md: 'center' },
+        }}
+      >
         {copy.product.featuresTitle}
       </Box>
       <Box
@@ -181,7 +249,16 @@ function Features({ id }: { id: ProductId }) {
               </Box>
             ) : FEATURE_SHOTS[id] ? (
               // One real capture per feature, crossfading (with a slight settle) as features change.
-              <Box sx={{ position: 'relative', width: '100%', aspectRatio: '1800 / 1022', borderRadius: { xs: '10px', md: '16px' }, overflow: 'hidden', boxShadow: '0 0 0 1px rgba(255,255,255,0.08)' }}>
+              <Box
+                sx={{
+                  position: 'relative',
+                  width: '100%',
+                  aspectRatio: '1800 / 1022',
+                  borderRadius: { xs: '10px', md: '16px' },
+                  overflow: 'hidden',
+                  boxShadow: '0 0 0 1px rgba(255,255,255,0.08)',
+                }}
+              >
                 {FEATURE_SHOTS[id]!.map((src, k) => (
                   <Box
                     key={src}
@@ -194,25 +271,44 @@ function Features({ id }: { id: ProductId }) {
                       '@media (prefers-reduced-motion: reduce)': { transition: 'none' },
                     }}
                   >
-                    <Image src={src} alt={k === active ? (es ? p.features[k]?.titleEs : p.features[k]?.title) ?? '' : ''} fill sizes="(max-width: 900px) 100vw, 60vw" style={{ objectFit: 'cover', objectPosition: 'top center' }} />
+                    <Image
+                      src={src}
+                      alt={
+                        k === active
+                          ? ((es ? p.features[k]?.titleEs : p.features[k]?.title) ?? '')
+                          : ''
+                      }
+                      fill
+                      sizes="(max-width: 900px) 100vw, 60vw"
+                      style={{ objectFit: 'cover', objectPosition: 'top center' }}
+                    />
                   </Box>
                 ))}
               </Box>
             ) : (
-            <Box
-              sx={{
-                width: '100%',
-                transform: `translate(${shot.x}%, ${shot.y}%) scale(${shot.s})`,
-                transition: 'transform 1.1s cubic-bezier(0.16, 1, 0.3, 1)',
-                '@media (prefers-reduced-motion: reduce)': { transition: 'none' },
-              }}
-            >
-              {picture(id, '(max-width: 900px) 100vw, 60vw')}
-            </Box>
+              <Box
+                sx={{
+                  width: '100%',
+                  transform: `translate(${shot.x}%, ${shot.y}%) scale(${shot.s})`,
+                  transition: 'transform 1.1s cubic-bezier(0.16, 1, 0.3, 1)',
+                  '@media (prefers-reduced-motion: reduce)': { transition: 'none' },
+                }}
+              >
+                {picture(id, '(max-width: 900px) 100vw, 60vw')}
+              </Box>
             )}
           </Box>
         </Box>
-        <Box component="ol" sx={{ gridColumn: { md: '1 / span 5' }, gridRow: { md: 1 }, listStyle: 'none', m: 0, p: 0 }}>
+        <Box
+          component="ol"
+          sx={{
+            gridColumn: { md: '1 / span 5' },
+            gridRow: { md: 1 },
+            listStyle: 'none',
+            m: 0,
+            p: 0,
+          }}
+        >
           {p.features.map((f, i) => (
             <Box
               key={f.title}
@@ -243,7 +339,17 @@ function Features({ id }: { id: ProductId }) {
               >
                 {es ? f.titleEs : f.title}
               </Box>
-              <Box component="p" sx={{ m: 0, mt: 2, maxWidth: 460, fontSize: { xs: 18, md: 21 }, lineHeight: 1.47, color: SOFT }}>
+              <Box
+                component="p"
+                sx={{
+                  m: 0,
+                  mt: 2,
+                  maxWidth: 460,
+                  fontSize: { xs: 18, md: 21 },
+                  lineHeight: 1.47,
+                  color: SOFT,
+                }}
+              >
                 {es ? f.descriptionEs : f.description}
               </Box>
             </Box>
@@ -267,17 +373,69 @@ function Profile({ id }: { id: ProductId }) {
   if (!ps) return null;
   const es = language === 'es';
   return (
-    <Box ref={ref} component="section" data-tone={light} aria-labelledby="profile-title" sx={{ px: MARGIN, py: { xs: 12, md: 18 }, textAlign: 'center' }}>
-      <Box component={motion.h2} {...enter()} id="profile-title" sx={{ m: 0, ...display, fontSize: { xs: 44, md: 'clamp(56px, 5.4vw, 88px)' }, lineHeight: 1 }}>
+    <Box
+      ref={ref}
+      component="section"
+      data-tone={light}
+      aria-labelledby="profile-title"
+      sx={{ px: MARGIN, py: { xs: 12, md: 18 }, textAlign: 'center' }}
+    >
+      <Box
+        component={motion.h2}
+        {...enter()}
+        id="profile-title"
+        sx={{
+          m: 0,
+          ...display,
+          fontSize: { xs: 44, md: 'clamp(56px, 5.4vw, 88px)' },
+          lineHeight: 1,
+        }}
+      >
         {es ? ps.titleEs : ps.title}
       </Box>
-      <Box component={motion.p} {...enter(0.08)} sx={{ m: 0, mt: 3, mx: 'auto', maxWidth: 680, fontSize: { xs: 20, md: 26 }, lineHeight: 1.35, color: SOFT }}>
+      <Box
+        component={motion.p}
+        {...enter(0.08)}
+        sx={{
+          m: 0,
+          mt: 3,
+          mx: 'auto',
+          maxWidth: 680,
+          fontSize: { xs: 20, md: 26 },
+          lineHeight: 1.35,
+          color: SOFT,
+        }}
+      >
         {es ? ps.descriptionEs : ps.description}
       </Box>
       {/* Two real captures of the profile, overlapping: stats in front of the activity history. */}
-      <Box component={motion.div} style={{ scale }} sx={{ position: 'relative', mt: { xs: 7, md: 10 }, mx: 'auto', maxWidth: 1240, pb: { xs: '18%', md: '14%' } }}>
-        <Box sx={{ width: '78%', borderRadius: { xs: '10px', md: '16px' }, overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.25)' }}>
-          <Image src="/images/products/wingwords/activities.webp" alt="" width={1800} height={1022} sizes="(max-width: 900px) 80vw, 960px" style={{ width: '100%', height: 'auto', display: 'block' }} />
+      <Box
+        component={motion.div}
+        style={{ scale }}
+        sx={{
+          position: 'relative',
+          mt: { xs: 7, md: 10 },
+          mx: 'auto',
+          maxWidth: 1240,
+          pb: { xs: '18%', md: '14%' },
+        }}
+      >
+        <Box
+          sx={{
+            width: '78%',
+            borderRadius: { xs: '10px', md: '16px' },
+            overflow: 'hidden',
+            boxShadow: '0 30px 60px rgba(0,0,0,0.25)',
+          }}
+        >
+          <Image
+            src="/images/products/wingwords/activities.webp"
+            alt=""
+            width={1800}
+            height={1022}
+            sizes="(max-width: 900px) 80vw, 960px"
+            style={{ width: '100%', height: 'auto', display: 'block' }}
+          />
         </Box>
         <Box
           component={motion.div}
@@ -285,9 +443,24 @@ function Profile({ id }: { id: ProductId }) {
           whileInView={{ opacity: 1, x: 0, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 1.1, ease: easeOut, delay: 0.2 }}
-          sx={{ position: 'absolute', right: 0, bottom: 0, width: '62%', borderRadius: { xs: '10px', md: '16px' }, overflow: 'hidden', boxShadow: '0 40px 80px rgba(0,0,0,0.35)' }}
+          sx={{
+            position: 'absolute',
+            right: 0,
+            bottom: 0,
+            width: '62%',
+            borderRadius: { xs: '10px', md: '16px' },
+            overflow: 'hidden',
+            boxShadow: '0 40px 80px rgba(0,0,0,0.35)',
+          }}
         >
-          <Image src="/images/products/wingwords/stats.webp" alt={es ? ps.titleEs : ps.title} width={1800} height={1024} sizes="(max-width: 900px) 64vw, 770px" style={{ width: '100%', height: 'auto', display: 'block' }} />
+          <Image
+            src="/images/products/wingwords/stats.webp"
+            alt={es ? ps.titleEs : ps.title}
+            width={1800}
+            height={1024}
+            sizes="(max-width: 900px) 64vw, 770px"
+            style={{ width: '100%', height: 'auto', display: 'block' }}
+          />
         </Box>
       </Box>
       <Box
@@ -307,7 +480,12 @@ function Profile({ id }: { id: ProductId }) {
         }}
       >
         {ps.highlights.map((h, i) => (
-          <Box key={h.text} component={motion.li} {...enter(i * 0.05, 20)} sx={{ fontSize: { xs: 18, md: 20 }, lineHeight: 1.4, fontWeight: 600 }}>
+          <Box
+            key={h.text}
+            component={motion.li}
+            {...enter(i * 0.05, 20)}
+            sx={{ fontSize: { xs: 18, md: 20 }, lineHeight: 1.4, fontWeight: 600 }}
+          >
             {es ? h.textEs : h.text}
           </Box>
         ))}
@@ -322,26 +500,83 @@ export function Making({ id }: { id: ProductId }) {
   const copy = getCopy(language);
   const p = PRODUCTS[id];
   return (
-    <Box component="section" data-tone="paper" aria-labelledby="making-title" sx={{ px: MARGIN, py: { xs: 12, md: 18 } }}>
-      <Box sx={{ maxWidth: 1240, mx: 'auto', display: 'grid', gridTemplateColumns: { xs: '1fr', md: '7fr 5fr' }, columnGap: 8, rowGap: 8, alignItems: 'start' }}>
+    <Box
+      component="section"
+      data-tone="paper"
+      aria-labelledby="making-title"
+      sx={{ px: MARGIN, py: { xs: 12, md: 18 } }}
+    >
+      <Box
+        sx={{
+          maxWidth: 1240,
+          mx: 'auto',
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', md: '7fr 5fr' },
+          columnGap: 8,
+          rowGap: 8,
+          alignItems: 'start',
+        }}
+      >
         <Box>
-          <Box component={motion.h2} {...enter()} id="making-title" sx={{ m: 0, ...display, fontSize: { xs: 40, md: 64 }, lineHeight: 1 }}>
+          <Box
+            component={motion.h2}
+            {...enter()}
+            id="making-title"
+            sx={{ m: 0, ...display, fontSize: { xs: 40, md: 64 }, lineHeight: 1 }}
+          >
             {copy.product.stackTitle}
           </Box>
-          <Box component="ul" sx={{ listStyle: 'none', m: 0, p: 0, mt: 5, display: 'flex', flexWrap: 'wrap', gap: 1.5 }}>
+          <Box
+            component="ul"
+            sx={{
+              listStyle: 'none',
+              m: 0,
+              p: 0,
+              mt: 5,
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: 1.5,
+            }}
+          >
             {p.techStack.map((t, i) => (
-              <Box key={t.name} component={motion.li} {...enter(0.05 * i, 16)} sx={{ '& > div': { background: '#f5f5f7' } }}>
+              <Box
+                key={t.name}
+                component={motion.li}
+                {...enter(0.05 * i, 16)}
+                sx={{ '& > div': { background: '#f5f5f7' } }}
+              >
                 <ToolChip name={t.name} />
               </Box>
             ))}
           </Box>
         </Box>
-        <Box component={motion.div} {...enter(0.1)} sx={{ borderRadius: '24px', background: '#0d1117', color: '#f0f6fc', p: { xs: 3.5, md: 5 } }}>
-          <Image src="/icons/github.svg" alt="" width={40} height={40} style={{ filter: 'invert(1)' }} />
-          <Box component="h3" sx={{ m: 0, mt: 3, ...display, fontSize: { xs: 30, md: 40 }, lineHeight: 1.05 }}>
+        <Box
+          component={motion.div}
+          {...enter(0.1)}
+          sx={{
+            borderRadius: '24px',
+            background: '#0d1117',
+            color: '#f0f6fc',
+            p: { xs: 3.5, md: 5 },
+          }}
+        >
+          <Image
+            src="/icons/github.svg"
+            alt=""
+            width={40}
+            height={40}
+            style={{ filter: 'invert(1)' }}
+          />
+          <Box
+            component="h3"
+            sx={{ m: 0, mt: 3, ...display, fontSize: { xs: 30, md: 40 }, lineHeight: 1.05 }}
+          >
             {copy.product.codeTitle}
           </Box>
-          <Box component="p" sx={{ m: 0, mt: 1.5, fontSize: 18, lineHeight: 1.47, color: '#9da7b3' }}>
+          <Box
+            component="p"
+            sx={{ m: 0, mt: 1.5, fontSize: 18, lineHeight: 1.47, color: '#9da7b3' }}
+          >
             {copy.product.codeLine}
           </Box>
           <Box sx={{ mt: 4 }}>
@@ -380,7 +615,11 @@ export function NextWorld({ id }: { id: ProductId }) {
           '&:hover .arrow': { transform: 'translateX(16px)' },
           '& .logo': { transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)' },
           '&:hover .logo': { transform: 'rotate(-8deg) scale(1.08)' },
-          '&:focus-visible': { outline: '2px solid currentColor', outlineOffset: -12, borderRadius: '24px' },
+          '&:focus-visible': {
+            outline: '2px solid currentColor',
+            outlineOffset: -12,
+            borderRadius: '24px',
+          },
         }}
       >
         <Box component="span" sx={{ fontSize: { xs: 18, md: 22 }, color: SOFT }}>
@@ -389,7 +628,18 @@ export function NextWorld({ id }: { id: ProductId }) {
         <Box className="logo" sx={{ mt: 4 }}>
           <Image src={n.logo} alt="" width={88} height={88} style={{ objectFit: 'contain' }} />
         </Box>
-        <Box component="span" sx={{ mt: 3, display: 'inline-flex', alignItems: 'center', gap: '0.3em', ...display, fontSize: { xs: 52, md: 'clamp(72px, 9vw, 168px)' }, lineHeight: 1 }}>
+        <Box
+          component="span"
+          sx={{
+            mt: 3,
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.3em',
+            ...display,
+            fontSize: { xs: 52, md: 'clamp(72px, 9vw, 168px)' },
+            lineHeight: 1,
+          }}
+        >
           {n.name}
           <Box component="span" className="arrow" aria-hidden sx={{ display: 'inline-block' }}>
             →
@@ -408,7 +658,11 @@ export default function ProductPageV2({ id }: { id: string }) {
   return (
     <TonePage initial={PRODUCT_TONES[pid][0]}>
       <ProductHero id={pid} />
-      <ScrollWords text={language === 'es' ? p.descriptionEs : p.description} tone={light} size={{ xs: 32, sm: 44, md: 'clamp(44px, 4.2vw, 68px)' }} />
+      <ScrollWords
+        text={language === 'es' ? p.descriptionEs : p.description}
+        tone={light}
+        size={{ xs: 32, sm: 44, md: 'clamp(44px, 4.2vw, 68px)' }}
+      />
       <Features id={pid} />
       <Profile id={pid} />
       <Making id={pid} />
