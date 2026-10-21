@@ -8,13 +8,13 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Configuración para el dominio de producción
-  // LOCAL_PREVIEW serves assets locally, so a preview build measures your changes
-  // instead of the files already deployed on www.gycoding.com.
-  assetPrefix:
-    process.env.NODE_ENV === 'production' && !process.env.LOCAL_PREVIEW
-      ? 'https://www.gycoding.com'
-      : '',
+  // Left over from GitHub Pages + custom domain: every asset URL was forced absolute to
+  // https://www.gycoding.com so the page worked however it was reached. On Dokploy, HTML and
+  // assets are served from the same origin, and `www.` currently has no DNS record at all
+  // (only the bare domain resolves) — every JS/CSS/font request to that hardcoded host failed,
+  // so the app never hydrated and stayed on the loading screen. Assets now resolve relative to
+  // whatever origin actually serves the page, which also makes a future domain change painless.
+  assetPrefix: '',
   // Add configuration for static exports
   optimizeFonts: true,
   compiler: {

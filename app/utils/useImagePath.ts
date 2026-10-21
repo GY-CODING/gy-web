@@ -13,12 +13,11 @@ export function getAssetPath(path: string): string {
   // Asegurarse de que el path comienza con /
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
 
-  // En producción, usar el dominio completo
-  if (process.env.NODE_ENV === 'production') {
-    const fullPath = `https://www.gycoding.com${normalizedPath}`;
-    return fullPath;
-  }
-
+  // Antes forzaba https://www.gycoding.com en producción (resto del legado de GitHub Pages +
+  // dominio propio, como el assetPrefix de next.config.js). `www.` no tiene ni registro DNS
+  // ahora mismo, así que esas imágenes no cargaban en ningún sitio donde se usa esta función
+  // (Header, Footer, LoadingScreen —en todas las páginas—, menús…). Relativo funciona siempre,
+  // da igual el dominio o el hosting.
   return normalizedPath;
 }
 
