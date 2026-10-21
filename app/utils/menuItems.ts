@@ -85,14 +85,14 @@ const menuItemsEN: MenuItem[] = [
     children: [
       {
         title: 'Team',
-        path: '/about/team',
+        path: '/team',
         icon: ICON_PATHS.TEAM,
         icon_light: ICON_PATHS.TEAM_LIGHT,
         description: 'Meet our team.',
       },
       {
         title: 'Company',
-        path: '/about/company',
+        path: '/company',
         icon: ICON_PATHS.COMPANY,
         icon_light: ICON_PATHS.COMPANY_LIGHT,
         description: 'Learn more about our company.',
@@ -157,14 +157,14 @@ const menuItemsES: MenuItem[] = [
     children: [
       {
         title: 'Equipo',
-        path: '/about/team',
+        path: '/team',
         icon: ICON_PATHS.TEAM,
         icon_light: ICON_PATHS.TEAM_LIGHT,
         description: 'Conoce a nuestro equipo.',
       },
       {
         title: 'Compañía',
-        path: '/about/company',
+        path: '/company',
         icon: ICON_PATHS.COMPANY,
         icon_light: ICON_PATHS.COMPANY_LIGHT,
         description: 'Aprende más sobre nuestra compañía.',

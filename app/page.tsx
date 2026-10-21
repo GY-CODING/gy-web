@@ -1,30 +1,6 @@
-'use client';
-import { Box } from '@mui/material';
-import Hero from './components/home/Hero';
-import TechStackGrid from './components/home/TechStackGrid';
-import ServicesShowcase from './components/ModularSection/ServicesShowcase';
+import HomeV2 from './components/v2/HomeV2';
 
-export default function Home() {
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh',
-      }}
-    >
-      <Box
-        component="main"
-        sx={{
-          flex: '1 0 auto',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-        <Hero />
-        <TechStackGrid />
-        <ServicesShowcase />
-      </Box>
-    </Box>
-  );
+// The home: "the name as a monument" (frontend/.claude/docs/home-v2.md).
+export default function Page() {
+  return <HomeV2 />;
 }

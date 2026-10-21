@@ -1,5 +1,6 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { ThemeProvider, CssBaseline, Box, GlobalStyles } from '@mui/material';
 import { createAppTheme } from './utils/theme';
 import Header from './components/Header';
@@ -27,6 +28,13 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
 
   useSmoothScroll();
 
+  // Every real page now brings its own corner navigation and monument footer (the old /v2
+  // prototype's language). Only the three legal pages — never redesigned — still use the
+  // original Header/Footer, so they keep the chrome they were built against.
+  const pathname = usePathname();
+  const legalPath = pathname?.replace(/\/?$/, '/') ?? '/';
+  const bareLayout = !['/privacy/', '/terms/', '/cookies/'].includes(legalPath);
+
   // Flag lite mode on <html> so the global rule above can switch the glass off.
   const lite = useLiteMotion();
   useEffect(() => {
@@ -44,11 +52,13 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
     setIsLoading(false);
   }, []);
 
-  const toggleTheme = () => {
-    const newMode = mode === 'light' ? 'dark' : 'light';
-    setMode(newMode);
-    localStorage.setItem('theme', newMode);
-  };
+  const toggleTheme = useCallback(() => {
+    setMode((prev) => {
+      const next = prev === 'light' ? 'dark' : 'light';
+      localStorage.setItem('theme', next);
+      return next;
+    });
+  }, []);
 
   const theme = createAppTheme(mode);
 
@@ -74,9 +84,9 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
                   width: '100%',
                 }}
               >
-                <Header onThemeToggle={toggleTheme} />
+                {!bareLayout && <Header onThemeToggle={toggleTheme} />}
                 {children}
-                <Footer />
+                {!bareLayout && <Footer />}
               </Box>
             )}
             {/* initial={false}: the overlay is fully opaque in the server HTML. */}

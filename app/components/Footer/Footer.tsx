@@ -116,8 +116,8 @@ export default function Footer() {
   ];
 
   const aboutLinks = [
-    { name: t('footer.about.items.team'), href: '/about/team' },
-    { name: t('footer.about.items.company'), href: '/about/company' },
+    { name: t('footer.about.items.team'), href: '/team' },
+    { name: t('footer.about.items.company'), href: '/company' },
   ];
 
   const legalLinks = [
