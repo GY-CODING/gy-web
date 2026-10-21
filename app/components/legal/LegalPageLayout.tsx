@@ -1,6 +1,12 @@
 'use client';
 
-import { Box, Container, Typography, useTheme } from '@mui/material';
+// Shared layout for the three legal pages (/privacy, /terms, /cookies), in the same language as
+// every other page now that gy-web's /v2 redesign is the real site. The legal text itself still
+// comes from utils/locales.ts (t('privacy') etc.) — translating that much regulatory copy into
+// components/v2/copy.ts isn't worth it; only the chrome around it changed. Each page wraps this
+// in <TonePage>, which brings the real nav and footer — this component only renders the content.
+
+import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -10,9 +16,8 @@ import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded';
 import { lexendFont } from '../../utils/fonts';
 import { useLanguage } from '../../utils/languageContext';
 import { getLenis } from '../../hooks/useSmoothScroll';
-import AuroraBackground from '../home/AuroraBackground';
-import EyebrowBadge from '../home/EyebrowBadge';
-import AnimatedGradientHeadline from '../home/AnimatedGradientHeadline';
+import { ActionButton, display, easeOut, enter, MARGIN, SOFT } from '../v2/kit';
+import { BRAND_GRADIENT, CONTACT_EMAIL } from '../v2/copy';
 
 export interface LegalSection {
   id: string;
@@ -30,10 +35,8 @@ interface LegalPageLayoutProps {
   sections: LegalSection[];
 }
 
-const BRAND_GRADIENT = 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)';
-const CONTACT_EMAIL = 'it@gycoding.com';
-// Fixed header (64px) plus breathing room, shared by sticky nav and anchor scrolling.
-const HEADER_OFFSET = 110;
+// Fixed nav (56px) plus breathing room, shared by the sticky table of contents and anchor scroll.
+const HEADER_OFFSET = 80;
 
 // Locale titles already carry their number ("3. How We Collect…"); split it out so it can be
 // rendered as a badge, falling back to the position when a title has none.
@@ -78,7 +81,11 @@ const scrollToSection = (id: string) => {
   }
 };
 
-function LegalSwitcher({ isDark }: { isDark: boolean }) {
+// Glass: the same color-mix-on-currentColor treatment as the nav dropdown and the pause button.
+const glass = (strength = 8) => `color-mix(in srgb, currentColor ${strength}%, transparent)`;
+const glassBorder = (strength = 14) => `1px solid ${glass(strength)}`;
+
+function LegalSwitcher() {
   const { t } = useLanguage();
   const pathname = usePathname();
   const links = [
@@ -96,48 +103,42 @@ function LegalSwitcher({ isDark }: { isDark: boolean }) {
         gap: 0.5,
         p: 0.5,
         borderRadius: '16px',
-        border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)'}`,
-        background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.7)',
-        backdropFilter: 'blur(10px)',
+        border: glassBorder(),
+        background: glass(4),
       }}
     >
       {links.map((link) => {
         const isActive = pathname?.replace(/\/$/, '') === link.href;
         return (
-          <Link key={link.href} href={link.href} style={{ textDecoration: 'none' }}>
-            <Box
-              sx={{
-                px: { xs: 1.5, sm: 2.5 },
-                py: 1,
-                borderRadius: '12px',
-                fontFamily: lexendFont.style.fontFamily,
-                fontSize: { xs: '0.8rem', sm: '0.9rem' },
-                fontWeight: 600,
-                color: isActive ? '#fff' : isDark ? 'grey.400' : 'grey.700',
-                background: isActive ? BRAND_GRADIENT : 'transparent',
-                boxShadow: isActive ? '0 8px 24px -8px rgba(99,102,241,0.6)' : 'none',
-                transition: 'color 0.2s ease, background 0.2s ease',
-                '&:hover': isActive ? {} : { color: isDark ? '#fff' : '#000' },
-              }}
-            >
-              {link.label}
-            </Box>
-          </Link>
+          <Box
+            key={link.href}
+            component={Link}
+            href={link.href}
+            sx={{
+              px: { xs: 1.5, sm: 2.5 },
+              py: 1,
+              borderRadius: '12px',
+              fontFamily: lexendFont.style.fontFamily,
+              fontSize: { xs: '0.8rem', sm: '0.9rem' },
+              fontWeight: 600,
+              textDecoration: 'none',
+              color: isActive ? '#fff' : 'inherit',
+              opacity: isActive ? 1 : 0.7,
+              background: isActive ? BRAND_GRADIENT : 'transparent',
+              boxShadow: isActive ? '0 8px 24px -8px rgba(99,102,241,0.6)' : 'none',
+              transition: 'opacity 0.2s ease, background-color 0.2s ease',
+              '&:hover': { opacity: 1 },
+            }}
+          >
+            {link.label}
+          </Box>
         );
       })}
     </Box>
   );
 }
 
-function TableOfContents({
-  sections,
-  active,
-  isDark,
-}: {
-  sections: LegalSection[];
-  active: string;
-  isDark: boolean;
-}) {
+function TableOfContents({ sections, active }: { sections: LegalSection[]; active: string }) {
   const { t } = useLanguage();
 
   return (
@@ -148,9 +149,8 @@ function TableOfContents({
         top: HEADER_OFFSET,
         p: 2.5,
         borderRadius: '24px',
-        border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)'}`,
-        background: isDark ? 'rgba(17,17,17,0.6)' : 'rgba(255,255,255,0.8)',
-        backdropFilter: 'blur(10px)',
+        border: glassBorder(),
+        background: glass(5),
       }}
     >
       <Typography
@@ -160,7 +160,7 @@ function TableOfContents({
           fontWeight: 600,
           letterSpacing: '0.08em',
           textTransform: 'uppercase',
-          color: isDark ? 'grey.500' : 'grey.600',
+          color: SOFT,
           mb: 1.5,
           px: 1,
         }}
@@ -186,18 +186,14 @@ function TableOfContents({
                 px: 1,
                 py: 0.9,
                 borderRadius: '10px',
-                fontFamily: lexendFont.style.fontFamily,
+                fontFamily: 'inherit',
                 fontSize: '0.85rem',
                 lineHeight: 1.4,
-                color: isActive ? (isDark ? '#fff' : '#000') : isDark ? 'grey.500' : 'grey.600',
+                color: isActive ? 'inherit' : SOFT,
                 fontWeight: isActive ? 600 : 400,
-                background: isActive
-                  ? isDark
-                    ? 'rgba(255,255,255,0.06)'
-                    : 'rgba(99,102,241,0.06)'
-                  : 'transparent',
-                transition: 'color 0.2s ease, background 0.2s ease',
-                '&:hover': { color: isDark ? '#fff' : '#000' },
+                background: isActive ? glass(8) : 'transparent',
+                transition: 'color 0.2s ease, background-color 0.2s ease',
+                '&:hover': { color: 'inherit' },
                 '&::before': {
                   content: '""',
                   position: 'absolute',
@@ -224,21 +220,9 @@ function TableOfContents({
   );
 }
 
-function SectionCard({
-  section,
-  index,
-  isDark,
-}: {
-  section: LegalSection;
-  index: number;
-  isDark: boolean;
-}) {
+function SectionCard({ section, index }: { section: LegalSection; index: number }) {
   const { number, label } = splitNumberedTitle(section.title, index);
-  const bodySx = {
-    fontSize: { xs: '0.95rem', md: '1rem' },
-    lineHeight: 1.8,
-    color: isDark ? 'grey.300' : 'grey.700',
-  };
+  const bodySx = { fontSize: { xs: '0.95rem', md: '1rem' }, lineHeight: 1.8, color: SOFT };
 
   return (
     <Box
@@ -252,10 +236,8 @@ function SectionCard({
         scrollMarginTop: HEADER_OFFSET,
         p: { xs: 3, sm: 4 },
         borderRadius: '24px',
-        backgroundColor: isDark ? 'rgba(17,17,17,0.8)' : 'rgba(255,255,255,0.9)',
-        backdropFilter: 'blur(10px)',
-        border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)'}`,
-        boxShadow: isDark ? '0 20px 60px rgba(0,0,0,0.35)' : '0 20px 60px rgba(0,0,0,0.06)',
+        background: glass(5),
+        border: glassBorder(),
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2.5 }}>
@@ -277,15 +259,7 @@ function SectionCard({
         >
           {number}
         </Box>
-        <Typography
-          variant="h2"
-          sx={{
-            fontFamily: lexendFont.style.fontFamily,
-            fontSize: { xs: '1.2rem', md: '1.4rem' },
-            fontWeight: 600,
-            color: isDark ? '#fff' : 'grey.900',
-          }}
-        >
+        <Typography component="h2" sx={{ ...display, fontSize: { xs: '1.2rem', md: '1.4rem' } }}>
           {label}
         </Typography>
       </Box>
@@ -304,8 +278,8 @@ function SectionCard({
                 gap: 1.5,
                 p: 1.5,
                 borderRadius: '14px',
-                background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(99,102,241,0.04)',
-                border: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(99,102,241,0.08)'}`,
+                background: glass(3),
+                border: glassBorder(8),
               }}
             >
               <Box
@@ -322,21 +296,10 @@ function SectionCard({
                 <Typography sx={{ ...bodySx, lineHeight: 1.6 }}>{item}</Typography>
               ) : (
                 <Box>
-                  <Typography
-                    sx={{
-                      ...bodySx,
-                      lineHeight: 1.6,
-                      fontWeight: 600,
-                      color: isDark ? '#fff' : 'grey.900',
-                    }}
-                  >
+                  <Typography sx={{ ...bodySx, lineHeight: 1.6, fontWeight: 600, color: 'inherit' }}>
                     {item.primary}
                   </Typography>
-                  <Typography
-                    sx={{ ...bodySx, fontSize: '0.9rem', color: isDark ? 'grey.400' : 'grey.600' }}
-                  >
-                    {item.secondary}
-                  </Typography>
+                  <Typography sx={{ ...bodySx, fontSize: '0.9rem' }}>{item.secondary}</Typography>
                 </Box>
               )}
             </Box>
@@ -349,7 +312,7 @@ function SectionCard({
   );
 }
 
-function ContactCard({ isDark }: { isDark: boolean }) {
+function ContactCard() {
   const { t } = useLanguage();
 
   return (
@@ -360,8 +323,6 @@ function ContactCard({ isDark }: { isDark: boolean }) {
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.5 }}
       sx={{
-        position: 'relative',
-        overflow: 'hidden',
         p: { xs: 3, sm: 4 },
         borderRadius: '24px',
         display: 'flex',
@@ -369,51 +330,21 @@ function ContactCard({ isDark }: { isDark: boolean }) {
         alignItems: { xs: 'flex-start', sm: 'center' },
         justifyContent: 'space-between',
         gap: 3,
-        border: `1px solid ${isDark ? 'rgba(140,84,255,0.3)' : 'rgba(140,84,255,0.2)'}`,
-        background: isDark
-          ? 'linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(236,72,153,0.1) 100%)'
-          : 'linear-gradient(135deg, rgba(99,102,241,0.08) 0%, rgba(236,72,153,0.06) 100%)',
+        border: `1px solid color-mix(in srgb, ${'#8c54ff'} 30%, transparent)`,
+        background:
+          'linear-gradient(135deg, rgba(99,102,241,0.14) 0%, rgba(236,72,153,0.09) 100%)',
       }}
     >
       <Box>
-        <Typography
-          sx={{
-            fontFamily: lexendFont.style.fontFamily,
-            fontSize: { xs: '1.15rem', md: '1.3rem' },
-            fontWeight: 600,
-            color: isDark ? '#fff' : 'grey.900',
-            mb: 0.5,
-          }}
-        >
+        <Typography sx={{ ...display, fontSize: { xs: '1.15rem', md: '1.3rem' }, mb: 0.5 }}>
           {t('legalPage.questionsTitle')}
         </Typography>
-        <Typography sx={{ color: isDark ? 'grey.300' : 'grey.700' }}>
-          {t('legalPage.questionsDescription')}
-        </Typography>
+        <Typography sx={{ color: SOFT }}>{t('legalPage.questionsDescription')}</Typography>
       </Box>
-      <a href={`mailto:${CONTACT_EMAIL}`} style={{ textDecoration: 'none', flexShrink: 0 }}>
-        <Box
-          component={motion.span}
-          whileHover={{ y: -2 }}
-          whileTap={{ scale: 0.97 }}
-          sx={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 1,
-            borderRadius: '14px',
-            px: 3.5,
-            py: 1.5,
-            fontFamily: lexendFont.style.fontFamily,
-            fontWeight: 600,
-            color: '#fff',
-            background: BRAND_GRADIENT,
-            boxShadow: '0 10px 30px -8px rgba(99,102,241,0.6)',
-          }}
-        >
-          <MailOutlineRoundedIcon sx={{ fontSize: '1.1rem' }} />
-          {t('legalPage.contactButton')}
-        </Box>
-      </a>
+      <ActionButton href={`mailto:${CONTACT_EMAIL}`} bg={BRAND_GRADIENT} external={false}>
+        <MailOutlineRoundedIcon sx={{ fontSize: '1.1rem', mr: 1 }} />
+        {t('legalPage.contactButton')}
+      </ActionButton>
     </Box>
   );
 }
@@ -424,102 +355,99 @@ export default function LegalPageLayout({
   intro,
   sections,
 }: LegalPageLayoutProps) {
-  const theme = useTheme();
-  const isDark = theme.palette.mode === 'dark';
   const { t } = useLanguage();
   const active = useActiveSection(sections.map((s) => s.id));
 
   return (
     <Box
-      component="main"
+      component="section"
+      data-tone="ground"
       sx={{
-        minHeight: '100vh',
         position: 'relative',
-        // `clip` instead of `hidden`: hidden would turn this box into a scroll container
-        // and break the sticky table of contents.
-        overflowX: 'clip',
-        pt: { xs: '112px', sm: '120px', md: '128px' },
+        px: MARGIN,
+        pt: { xs: 14, md: 18 },
         pb: { xs: 10, md: 14 },
       }}
     >
-      {/* Aurora only behind the header area; legal text reads better on a calm background. */}
-      <Box sx={{ position: 'absolute', top: 0, left: 0, right: 0, height: '100vh' }}>
-        <AuroraBackground intensity={0.6} />
-      </Box>
-
-      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-        <Box sx={{ textAlign: 'center', maxWidth: 760, mx: 'auto', mb: { xs: 6, md: 8 } }}>
-          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
-            <EyebrowBadge>{t('footer.legal.title')}</EyebrowBadge>
-          </Box>
-
-          <AnimatedGradientHeadline
-            text={title}
-            component="h1"
-            sx={{
-              fontSize: { xs: '2.3rem', sm: '3rem', md: '3.6rem' },
-              lineHeight: 1.08,
-              mb: 2.5,
-              textAlign: 'center',
-            }}
-          />
-
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <Box
-              sx={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 1,
-                mb: 4,
-                color: isDark ? 'grey.400' : 'grey.600',
-                fontSize: '0.9rem',
-              }}
-            >
-              <CalendarMonthRoundedIcon sx={{ fontSize: '1rem' }} />
-              {lastUpdate}
-            </Box>
-
-            <Box sx={{ mb: 4 }}>
-              <LegalSwitcher isDark={isDark} />
-            </Box>
-
-            <Typography
-              sx={{
-                fontSize: { xs: '1.05rem', sm: '1.15rem' },
-                color: isDark ? 'grey.300' : 'grey.700',
-                lineHeight: 1.7,
-              }}
-            >
-              {intro}
-            </Typography>
-          </motion.div>
+      <Box sx={{ textAlign: 'center', maxWidth: 760, mx: 'auto', mb: { xs: 6, md: 8 } }}>
+        <Box
+          component={motion.p}
+          {...enter()}
+          sx={{
+            m: 0,
+            fontSize: 13,
+            fontWeight: 600,
+            letterSpacing: '0.18em',
+            textTransform: 'uppercase',
+            color: SOFT,
+          }}
+        >
+          {t('footer.legal.title')}
         </Box>
 
         <Box
-          sx={{
-            display: 'grid',
-            gridTemplateColumns: { xs: '1fr', md: '260px 1fr' },
-            gap: { xs: 3, md: 5 },
-            alignItems: 'start',
-          }}
+          component={motion.h1}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: easeOut, delay: 0.1 }}
+          sx={{ m: 0, mt: 2, ...display, fontSize: { xs: '2.3rem', sm: '3rem', md: '3.6rem' }, lineHeight: 1.05 }}
         >
-          {/* Stretched to the full grid row so the sticky nav has room to travel. */}
-          <Box sx={{ display: { xs: 'none', md: 'block' }, alignSelf: 'stretch' }}>
-            <TableOfContents sections={sections} active={active} isDark={isDark} />
+          {title}
+        </Box>
+
+        <Box
+          component={motion.div}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.35 }}
+        >
+          <Box
+            sx={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 1,
+              mt: 3,
+              mb: 4,
+              color: SOFT,
+              fontSize: '0.9rem',
+            }}
+          >
+            <CalendarMonthRoundedIcon sx={{ fontSize: '1rem' }} />
+            {lastUpdate}
           </Box>
 
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, minWidth: 0 }}>
-            {sections.map((section, i) => (
-              <SectionCard key={section.id} section={section} index={i} isDark={isDark} />
-            ))}
-            <ContactCard isDark={isDark} />
+          <Box sx={{ mb: 4 }}>
+            <LegalSwitcher />
           </Box>
+
+          <Typography sx={{ fontSize: { xs: '1.05rem', sm: '1.15rem' }, color: SOFT, lineHeight: 1.7 }}>
+            {intro}
+          </Typography>
         </Box>
-      </Container>
+      </Box>
+
+      <Box
+        sx={{
+          maxWidth: 1240,
+          mx: 'auto',
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', md: '260px 1fr' },
+          gap: { xs: 3, md: 5 },
+          alignItems: 'start',
+        }}
+      >
+        {/* Stretched to the full grid row so the sticky nav has room to travel. */}
+        <Box sx={{ display: { xs: 'none', md: 'block' }, alignSelf: 'stretch' }}>
+          <TableOfContents sections={sections} active={active} />
+        </Box>
+
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, minWidth: 0 }}>
+          {sections.map((section, i) => (
+            <SectionCard key={section.id} section={section} index={i} />
+          ))}
+          <ContactCard />
+        </Box>
+      </Box>
     </Box>
   );
 }

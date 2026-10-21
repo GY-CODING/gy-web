@@ -3,6 +3,7 @@
 import { useLanguage } from '../utils/languageContext';
 import { Locale } from '../utils/locales';
 import LegalPageLayout, { LegalSection } from '../components/legal/LegalPageLayout';
+import { TonePage } from '../components/v2/kit';
 
 export default function PrivacyPolicy() {
   const { t } = useLanguage();
@@ -27,11 +28,13 @@ export default function PrivacyPolicy() {
   ];
 
   return (
-    <LegalPageLayout
-      title={content.title}
-      lastUpdate={content.lastUpdate}
-      intro={content.intro}
-      sections={sections}
-    />
+    <TonePage>
+      <LegalPageLayout
+        title={content.title}
+        lastUpdate={content.lastUpdate}
+        intro={content.intro}
+        sections={sections}
+      />
+    </TonePage>
   );
 }

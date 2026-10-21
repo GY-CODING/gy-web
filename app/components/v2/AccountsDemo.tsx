@@ -1,32 +1,31 @@
 'use client';
 
-// A working replica of the GY Accounts dashboard (gy-accounts: header, identity card, personal
-// information, API access, footer), with the GYCODING account exactly as in the app's capture
+// A working replica of the GY Accounts dashboard — the identity card scene (front: photo, name,
+// roles; back: the API key) and the "Personal information" sheet, as they really are today
+// (gy-accounts /, formerly its /v2 prototype). The GYCODING account, as in the app's own capture
 // (public/images/products/accounts/accounts.png). The product page's features play it as they
-// scroll past: each step performs one thing the product really does. English, as the app.
-// The API key shown when revealed is a placeholder, not a real key.
+// scroll past: each step performs one thing the product really does. English, as the app. The
+// API key shown when revealed is a placeholder, not a real key.
 //
 // Drawn at a fixed virtual size (1000×680) and scaled to fit its frame, so it looks the same at
-// every width. Motion: transform/opacity only; reduced motion shows each step's end state.
+// every width. Motion: transform/opacity only; reduced motion shows each step's end state. The
+// card itself crossfades between its two faces rather than spinning in 3D — the real dashboard's
+// own "pause animations" mode does the same, and it reads just as clearly at demo scale.
 
 import { Box } from '@mui/material';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
 import { ReactNode, useEffect, useRef, useState } from 'react';
-import { PRODUCTS } from '../../products/data/products';
-import { valorantFont } from '../../utils/fonts';
+import { lexendFont, valorantFont } from '../../utils/fonts';
 
 const W = 1000;
 const H = 680;
 const P = { primary: '#8C54FF', secondary: '#6d28d9', accent: '#a855f7' };
 const T = { primary: '#ffffff', secondary: '#e0e0e0', tertiary: '#bdbdbd', muted: '#9e9e9e' };
 const GRAD = 'linear-gradient(135deg, #a855f7, #6366f1)';
-const card = {
-  background: 'rgba(17,17,17,0.8)',
-  border: '1px solid rgba(255,255,255,0.1)',
-  borderRadius: '24px',
-  padding: '22px',
-} as const;
+// Same gradient as the real card's two faces (IdentityScene.tsx).
+const FACE_BG = 'linear-gradient(150deg, #24104f 0%, #140a33 45%, #0a0620 100%)';
+const STRIPE_BG = 'linear-gradient(180deg, #050208 0%, #120a22 100%)';
 const overline = {
   fontSize: 11,
   fontWeight: 600,
@@ -35,6 +34,13 @@ const overline = {
   color: T.muted,
 } as const;
 const ease = [0.16, 1, 0.3, 1] as const;
+const brand = {
+  fontFamily: valorantFont.style.fontFamily,
+  fontWeight: 400,
+  fontSynthesis: 'none',
+  fontKerning: 'none',
+} as const;
+const lexend = { fontFamily: lexendFont.style.fontFamily } as const;
 
 // The account shown in the app's own capture.
 const PROFILE = {
@@ -134,8 +140,7 @@ function Row({
         gap: 12,
         padding: '10px 14px 10px 10px',
         borderRadius: 14,
-        background: 'rgba(255,255,255,0.03)',
-        border: '1px solid rgba(255,255,255,0.07)',
+        background: `${P.primary}0f`,
       }}
     >
       <span
@@ -144,18 +149,17 @@ function Row({
           height: 34,
           borderRadius: 10,
           background: `${P.primary}1f`,
-          border: `1px solid ${P.primary}33`,
           flexShrink: 0,
         }}
       />
       <span style={{ minWidth: 0 }}>
-        <span style={{ display: 'block', fontSize: 11, color: T.tertiary }}>{label}</span>
+        <span style={{ display: 'block', fontSize: 11, color: '#6e6e73' }}>{label}</span>
         <span
           style={{
             display: 'block',
             fontSize: 14,
-            fontWeight: 500,
-            color: T.primary,
+            fontWeight: 700,
+            color: '#1d1d1f',
             whiteSpace: 'nowrap',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
@@ -188,7 +192,7 @@ function Toast({ text }: { text: string }) {
         borderLeft: '3px solid #22c55e',
         color: T.primary,
         fontSize: 14,
-        zIndex: 5,
+        zIndex: 6,
       }}
     >
       <span
@@ -205,8 +209,8 @@ function Toast({ text }: { text: string }) {
   );
 }
 
-// step: 0 sign-in · 1 roles · 2 API key · 3 profile edit · 4 instant auth (the open session)
-//       5 unified ecosystem (the Products menu, as in the app's header)
+// step: 0 sign-in · 1 roles · 2 API key (the card's back) · 3 profile edit (the info sheet)
+//       4 instant auth (the account pill) · 5 unified ecosystem (the account menu)
 function Avatar({ size }: { size: number }) {
   return (
     <div style={{ width: size, height: size, borderRadius: '50%', padding: 3, background: GRAD }}>
@@ -233,25 +237,11 @@ function Avatar({ size }: { size: number }) {
 
 function Dashboard({ step }: { step: number }) {
   const ring = `0 0 0 2px ${P.primary}, 0 0 50px ${P.primary}55`;
-  const focus = (k: 'identity' | 'info' | 'api' | 'pill' | 'menu') => {
-    const map: Record<number, string[]> = {
-      0: [],
-      1: ['identity'],
-      2: ['api'],
-      3: ['identity', 'info'],
-      4: ['pill'],
-      5: ['menu'],
-    };
-    const on = map[step] ?? [];
-    const dim = on.length > 0 && !on.includes(k);
-    return {
-      opacity: dim ? 0.38 : 1,
-      boxShadow: on.includes(k) ? ring : 'none',
-      transition: 'opacity 0.6s ease, box-shadow 0.6s ease',
-    } as const;
-  };
+  const showBack = step === 2;
   const editing = step === 3;
-  const user = step >= 4 ? PROFILE.userEdited : PROFILE.user;
+  const menuOpen = step === 5;
+  const user = step >= 3 ? PROFILE.userEdited : PROFILE.user;
+
   return (
     <div
       style={{
@@ -261,30 +251,20 @@ function Dashboard({ step }: { step: number }) {
         overflow: 'hidden',
         borderRadius: 24,
         color: T.primary,
-        background: 'linear-gradient(160deg,#0a0020 0%,#1a0045 40%,#050010 100%)',
+        background: '#0c0820',
       }}
     >
+      {/* the stage's glow and grid, as the real scene */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
           background:
-            'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(140,84,255,.25) 0%, transparent 70%)',
-        }}
-      />
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage:
-            'linear-gradient(#8C54FF18 1px, transparent 1px), linear-gradient(90deg, #8C54FF18 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
-          WebkitMaskImage:
-            'radial-gradient(ellipse 100% 80% at 50% 30%, black 20%, transparent 80%)',
+            'radial-gradient(ellipse 70% 60% at 50% 10%, rgba(140,84,255,0.30) 0%, transparent 70%)',
         }}
       />
 
-      {/* header: logo + wordmark, Products / Docs / About, theme, account pill */}
+      {/* bar: just "Gy ACCOUNTS" + pause + the account pill — the real one has no products menu */}
       <div
         style={{
           position: 'relative',
@@ -293,59 +273,14 @@ function Dashboard({ step }: { step: number }) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '0 60px',
-          borderBottom: '1px solid rgba(255,255,255,0.07)',
+          padding: '0 44px',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <Image src="/gy-logo.png" alt="" width={30} height={30} />
-          <span
-            style={{
-              fontFamily: valorantFont.style.fontFamily,
-              fontWeight: 400,
-              fontSize: 18,
-              letterSpacing: '0.04em',
-            }}
-          >
-            Gy ACCOUNTS
-          </span>
-          <span
-            style={{ marginLeft: 30, display: 'flex', gap: 22, fontSize: 13, color: T.secondary }}
-          >
-            <span
-              style={{
-                position: 'relative',
-                padding: '6px 8px',
-                borderRadius: 10,
-                ...focus('menu'),
-                boxShadow: 'none',
-                background: step === 5 ? 'rgba(255,255,255,0.08)' : 'transparent',
-                color: step === 5 ? T.primary : T.secondary,
-              }}
-            >
-              Products ▾
-            </span>
-            <span
-              style={{
-                padding: '6px 0',
-                opacity: step === 5 || step === 4 ? 0.38 : 1,
-                transition: 'opacity 0.6s ease',
-              }}
-            >
-              Docs ▾
-            </span>
-            <span
-              style={{
-                padding: '6px 0',
-                opacity: step === 5 || step === 4 ? 0.38 : 1,
-                transition: 'opacity 0.6s ease',
-              }}
-            >
-              About ▾
-            </span>
-          </span>
+          <Image src="/gy-logo.png" alt="" width={26} height={26} />
+          <span style={{ ...brand, fontSize: 18, letterSpacing: '0.04em' }}>Gy ACCOUNTS</span>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: 10 }}>
           <span
             style={{
               width: 34,
@@ -353,15 +288,11 @@ function Dashboard({ step }: { step: number }) {
               borderRadius: 10,
               display: 'grid',
               placeItems: 'center',
-              background: 'rgba(255,255,255,0.04)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              color: '#fbbf24',
-              fontSize: 15,
-              opacity: step >= 4 ? 0.38 : 1,
-              transition: 'opacity 0.6s ease',
+              border: '1.5px solid rgba(255,255,255,0.22)',
+              fontSize: 13,
             }}
           >
-            ☀
+            ❚❚
           </span>
           <motion.div
             animate={step === 4 ? { scale: [1, 1.08, 1] } : { scale: 1 }}
@@ -372,358 +303,295 @@ function Dashboard({ step }: { step: number }) {
               gap: 8,
               height: 36,
               padding: '0 12px 0 4px',
-              borderRadius: 12,
-              border: '1px solid rgba(255,255,255,0.1)',
-              background: 'rgba(255,255,255,0.04)',
-              ...focus('pill'),
+              borderRadius: 999,
+              background: `rgba(255,255,255,${menuOpen || step === 4 ? 0.12 : 0.06})`,
+              boxShadow: step === 4 ? ring : 'none',
+              transition: 'box-shadow 0.6s ease, background-color 0.3s ease',
             }}
           >
             <span
               style={{
-                width: 28,
-                height: 28,
-                borderRadius: 7,
-                background: '#fff',
+                width: 26,
+                height: 26,
+                borderRadius: '50%',
+                padding: 2,
+                background: GRAD,
                 display: 'grid',
                 placeItems: 'center',
               }}
             >
-              <Image src="/gy-logo.png" alt="" width={18} height={18} />
+              <span
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  borderRadius: '50%',
+                  background: '#fff',
+                  display: 'grid',
+                  placeItems: 'center',
+                }}
+              >
+                <Image src="/gy-logo.png" alt="" width={14} height={14} />
+              </span>
             </span>
-            <span style={{ fontSize: 13, fontWeight: 600 }}>{user}</span>
+            <span style={{ fontSize: 13, fontWeight: 600 }}>{PROFILE.user}</span>
           </motion.div>
+
+          {/* the account menu, exactly as the real one: Edit profile · Go to GYCODING · Log out */}
+          <AnimatePresence>
+            {menuOpen && (
+              <motion.div
+                key="menu"
+                initial={{ opacity: 0, y: -8, scale: 0.97 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -6, scale: 0.98 }}
+                transition={{ duration: 0.3, ease, delay: 0.2 }}
+                style={{
+                  position: 'absolute',
+                  zIndex: 5,
+                  right: 0,
+                  top: 46,
+                  width: 230,
+                  padding: 8,
+                  borderRadius: 16,
+                  background: '#1d1b26',
+                  boxShadow: '0 0 0 1px rgba(255,255,255,0.08), 0 24px 60px rgba(0,0,0,0.35)',
+                }}
+              >
+                {[
+                  ['✎', 'Edit profile'],
+                  ['↗', 'Go to GYCODING'],
+                ].map(([icon, label], k) => (
+                  <motion.div
+                    key={label}
+                    initial={{ opacity: 0, x: -6 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 + k * 0.1, duration: 0.3, ease }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 10,
+                      padding: '9px 10px',
+                      borderRadius: 10,
+                      fontSize: 14,
+                      fontWeight: 500,
+                      background: k === 0 ? 'rgba(255,255,255,0.06)' : 'transparent',
+                    }}
+                  >
+                    <span style={{ opacity: 0.75 }}>{icon}</span>
+                    {label}
+                  </motion.div>
+                ))}
+                <div style={{ height: 1, margin: '6px 4px', background: 'rgba(255,255,255,0.08)' }} />
+                <motion.div
+                  initial={{ opacity: 0, x: -6 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.6, duration: 0.3, ease }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    padding: '9px 10px',
+                    borderRadius: 10,
+                    fontSize: 14,
+                    fontWeight: 500,
+                    color: '#ff8a8a',
+                  }}
+                >
+                  <span style={{ opacity: 0.75 }}>⏻</span>
+                  Log out
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
 
-      {/* Products menu (unified ecosystem): the header's own dropdown */}
-      <AnimatePresence>
-        {step === 5 && (
-          <motion.div
-            key="menu"
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.5, ease, delay: 0.3 }}
-            style={{
-              position: 'absolute',
-              zIndex: 4,
-              top: 60,
-              left: 230,
-              width: 340,
-              padding: 8,
-              borderRadius: 16,
-              background: 'rgba(14,14,20,0.96)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              boxShadow: ring,
-            }}
-          >
-            {[
-              ['Wingwords', PRODUCTS.wingwords.logo, PRODUCTS.wingwords.tagline],
-              [
-                'Heralds of Chaos',
-                PRODUCTS['heralds-of-chaos'].logo,
-                PRODUCTS['heralds-of-chaos'].tagline,
-              ],
-              ['GY Accounts', PRODUCTS['gy-accounts'].logo, PRODUCTS['gy-accounts'].tagline],
-            ].map(([n, logo, line], k) => (
-              <motion.div
-                key={n}
-                initial={{ opacity: 0, x: -8 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 + k * 0.12, duration: 0.4, ease }}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 12,
-                  padding: '10px 12px',
-                  borderRadius: 12,
-                  background: k === 0 ? 'rgba(140,84,255,0.10)' : 'transparent',
-                }}
-              >
-                <Image src={logo} alt="" width={28} height={28} style={{ objectFit: 'contain' }} />
-                <span>
-                  <span style={{ display: 'block', fontSize: 14, fontWeight: 600 }}>{n}</span>
-                  <span style={{ display: 'block', fontSize: 12, color: T.tertiary }}>{line}</span>
-                </span>
-              </motion.div>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* the account's name as a monument behind the card, in Lexend like the real one */}
+      <div
+        aria-hidden
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: 56,
+          textAlign: 'center',
+          ...lexend,
+          fontWeight: 600,
+          letterSpacing: '-0.03em',
+          fontSize: 92,
+          lineHeight: 1,
+          color: 'rgba(255,255,255,0.08)',
+          opacity: step >= 3 ? 0.4 : 1,
+          transition: 'opacity 0.6s ease',
+        }}
+      >
+        {PROFILE.name}
+      </div>
 
-      {/* page: identity card | personal information + API access */}
+      {/* the card: crossfades between its two faces, as the real one does when paused */}
       <div
         style={{
           position: 'relative',
-          padding: '26px 60px 0',
-          display: 'grid',
-          gridTemplateColumns: '270px 1fr',
-          gap: 18,
-          alignItems: 'start',
-          opacity: step >= 4 ? 0.38 : 1,
+          zIndex: 1,
+          margin: '92px auto 0',
+          width: 400,
+          aspectRatio: '1.586',
+          opacity: step >= 3 ? 0.42 : 1,
           transition: 'opacity 0.6s ease',
         }}
       >
         <div
           style={{
-            ...card,
-            padding: 0,
+            ...overline,
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            bottom: -26,
+            textAlign: 'center',
+          }}
+        >
+          {showBack ? 'The back of the card' : 'Scroll to turn the card ↓'}
+        </div>
+
+        {/* front */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            borderRadius: 20,
             overflow: 'hidden',
-            ...focus('identity'),
-            opacity: undefined,
+            background: FACE_BG,
+            boxShadow: step === 1 ? ring : 'none',
+            opacity: showBack ? 0 : 1,
+            transition: 'opacity 0.5s ease, box-shadow 0.6s ease',
           }}
         >
           <div
             style={{
-              height: 76,
-              background: '#0d0428',
-              borderBottom: `1px solid ${P.primary}22`,
-              backgroundImage: `linear-gradient(${P.primary}22 1px, transparent 1px), linear-gradient(90deg, ${P.primary}22 1px, transparent 1px)`,
+              position: 'absolute',
+              inset: 0,
+              backgroundImage:
+                'linear-gradient(#8C54FF1c 1px, transparent 1px), linear-gradient(90deg, #8C54FF1c 1px, transparent 1px)',
               backgroundSize: '22px 22px',
+              WebkitMaskImage:
+                'radial-gradient(ellipse 90% 80% at 80% 0%, black 10%, transparent 70%)',
             }}
           />
-          <div style={{ padding: '0 20px 20px', textAlign: 'center' }}>
-            <div style={{ display: 'flex', justifyContent: 'center', marginTop: -46 }}>
-              <div
-                style={{
-                  borderRadius: '50%',
-                  boxShadow: '0 0 0 4px rgba(17,17,17,.9), 0 20px 45px -12px #8C54FF88',
-                }}
-              >
-                <Avatar size={92} />
+          <div style={{ position: 'relative', height: '100%', padding: 22, display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ ...brand, fontSize: 15, letterSpacing: '0.04em' }}>Gy ACCOUNTS</span>
+              <Image src="/gy-logo.png" alt="" width={24} height={24} />
+            </div>
+            <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', gap: 14 }}>
+              <Avatar size={62} />
+              <div style={{ minWidth: 0 }}>
+                <div style={{ fontSize: 22, fontWeight: 700, ...lexend }}>{PROFILE.name}</div>
+                <div style={{ fontSize: 12, color: '#c9bdf0' }}>{PROFILE.email}</div>
               </div>
             </div>
-            <div style={{ marginTop: 12, fontSize: 19, fontWeight: 700 }}>{PROFILE.name}</div>
-            <div style={{ fontSize: 12.5, color: T.tertiary }}>{PROFILE.email}</div>
             <div
-              style={{
-                marginTop: 16,
-                paddingTop: 16,
-                borderTop: '1px solid rgba(255,255,255,0.07)',
-              }}
+              key={`roles-${step === 1}`}
+              style={{ marginTop: 14, display: 'flex', flexWrap: 'wrap', gap: 6 }}
             >
-              <div style={overline}>Roles</div>
-              <div
-                key={`roles-${step === 1}`}
-                style={{
-                  marginTop: 10,
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  justifyContent: 'center',
-                  gap: 8,
-                }}
-              >
-                <Chip role="ADMIN" delay={step === 1 ? 0.4 : 0} />
-                <Chip role="DEVELOPER" delay={step === 1 ? 0.55 : 0} />
-                <Chip role="COMMON" delay={step === 1 ? 0.7 : 0} />
-              </div>
-            </div>
-            <div style={{ marginTop: 18, display: 'grid', gap: 10 }}>
-              <div
-                style={{
-                  height: 40,
-                  borderRadius: 14,
-                  display: 'grid',
-                  placeItems: 'center',
-                  fontSize: 13,
-                  fontWeight: 600,
-                  background: GRAD,
-                  boxShadow: '0 10px 30px -8px #8C54FF99',
-                }}
-              >
-                {editing ? 'Save changes' : '✎  Edit profile'}
-              </div>
-              <div
-                style={{
-                  height: 40,
-                  borderRadius: 14,
-                  display: 'grid',
-                  placeItems: 'center',
-                  fontSize: 13,
-                  fontWeight: 600,
-                  border: editing ? '1.5px solid rgba(255,255,255,0.15)' : '1.5px solid #ef444466',
-                  color: editing ? T.primary : '#ef4444',
-                }}
-              >
-                {editing ? 'Cancel' : 'Log out'}
-              </div>
+              <Chip role="ADMIN" delay={step === 1 ? 0.4 : 0} />
+              <Chip role="DEVELOPER" delay={step === 1 ? 0.55 : 0} />
+              <Chip role="COMMON" delay={step === 1 ? 0.7 : 0} />
             </div>
           </div>
         </div>
 
-        <div style={{ display: 'grid', gap: 18 }}>
-          <div style={{ ...card, ...focus('info'), opacity: step === 1 || step === 2 ? 0.38 : 1 }}>
-            <div style={overline}>Profile</div>
-            <div style={{ marginTop: 4, fontSize: 17, fontWeight: 600 }}>Personal information</div>
-            <div style={{ fontSize: 12, color: T.tertiary }}>
-              This is how you appear across every GYCODING product.
-            </div>
-            <div
-              style={{ marginTop: 14, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}
-            >
-              {editing ? (
-                <>
-                  <div
-                    style={{
-                      padding: '8px 12px',
-                      borderRadius: 14,
-                      border: `1px solid ${P.primary}`,
-                      boxShadow: `0 0 0 4px ${P.primary}22`,
-                    }}
-                  >
-                    <div style={{ fontSize: 10, color: T.tertiary }}>Username</div>
-                    <div style={{ fontSize: 14 }}>
-                      <Typed text={PROFILE.userEdited} delay={0.4} speed={0.08} />
-                    </div>
-                  </div>
-                  <div
-                    style={{
-                      padding: '8px 12px',
-                      borderRadius: 14,
-                      border: '1px solid rgba(255,255,255,0.1)',
-                    }}
-                  >
-                    <div style={{ fontSize: 10, color: T.tertiary }}>Phone</div>
-                    <div style={{ fontSize: 14 }}>{PROFILE.phone}</div>
-                  </div>
-                  <div
-                    style={{
-                      gridColumn: '1 / -1',
-                      padding: '8px 12px',
-                      borderRadius: 14,
-                      border: '1px solid rgba(255,255,255,0.06)',
-                      opacity: 0.55,
-                    }}
-                  >
-                    <div style={{ fontSize: 10, color: T.tertiary }}>Email</div>
-                    <div style={{ fontSize: 14 }}>{PROFILE.email}</div>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <Row label="Username">{user}</Row>
-                  <Row label="Phone">{PROFILE.phone}</Row>
-                  <Row label="Email" wide>
-                    {PROFILE.email}
-                  </Row>
-                </>
-              )}
-            </div>
-          </div>
-
-          <div style={{ ...card, ...focus('api'), opacity: step === 1 || step === 3 ? 0.38 : 1 }}>
-            <div style={overline}>Developers</div>
-            <div style={{ marginTop: 4, fontSize: 17, fontWeight: 600 }}>API access</div>
-            <div style={{ fontSize: 12, color: T.tertiary }}>
-              Use this key to authenticate requests to the GYCODING APIs. Keep it secret — anyone
-              with it can act on your behalf.
-            </div>
+        {/* back: the API key */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            borderRadius: 20,
+            overflow: 'hidden',
+            background: FACE_BG,
+            boxShadow: showBack ? ring : 'none',
+            opacity: showBack ? 1 : 0,
+            transition: 'opacity 0.5s ease, box-shadow 0.6s ease',
+          }}
+        >
+          <div style={{ position: 'absolute', left: 0, right: 0, top: '15%', height: '21%', background: STRIPE_BG }} />
+          <div style={{ position: 'absolute', left: 20, right: 20, bottom: 18 }}>
+            <div style={{ fontSize: 11, color: '#c9bdf0' }}>API key</div>
             <div
               style={{
-                marginTop: 14,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 10,
-                height: 48,
-                padding: '0 8px',
-                borderRadius: 14,
-                border: '1px solid rgba(255,255,255,0.1)',
+                marginTop: 6,
+                padding: '8px 12px',
+                borderRadius: 10,
+                background: '#f5f0ff',
+                color: '#1a0b3d',
+                fontFamily: 'ui-monospace, Menlo, monospace',
+                fontSize: 13,
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
               }}
             >
-              <span
-                style={{
-                  width: 30,
-                  height: 30,
-                  borderRadius: 10,
-                  display: 'grid',
-                  placeItems: 'center',
-                  background: step === 2 ? `${P.primary}1a` : 'transparent',
-                  color: step === 2 ? P.primary : T.muted,
-                  fontSize: 14,
-                }}
-              >
-                👁
-              </span>
-              <span
-                style={{
-                  flex: 1,
-                  fontSize: 14,
-                  letterSpacing: step === 2 ? '0.02em' : '0.15em',
-                  fontFamily: step === 2 ? 'ui-monospace, Menlo, monospace' : 'inherit',
-                }}
-              >
-                {step === 2 ? (
-                  <Typed text={PROFILE.key} delay={0.5} speed={0.03} />
-                ) : (
-                  '••••••••••••••••••••••••••••'
-                )}
-              </span>
+              {showBack ? <Typed text={PROFILE.key} delay={0.5} speed={0.03} /> : '•'.repeat(22)}
+            </div>
+            <div style={{ marginTop: 8, display: 'flex', gap: 10, fontSize: 12, color: '#c9bdf0' }}>
+              <span>Show key</span>
               <motion.span
                 key={`copy-${step}`}
                 initial={false}
-                animate={step === 2 ? { scale: [1, 1, 1.2, 1] } : { scale: 1 }}
-                transition={{ duration: 0.6, delay: 1.7, times: [0, 0.4, 0.7, 1] }}
-                style={{
-                  width: 30,
-                  height: 30,
-                  borderRadius: 10,
-                  display: 'grid',
-                  placeItems: 'center',
-                  fontSize: 14,
-                  color: step === 2 ? '#22c55e' : T.muted,
-                }}
+                animate={showBack ? { color: ['#c9bdf0', '#22c55e'] } : { color: '#c9bdf0' }}
+                transition={{ duration: 0.4, delay: 1.7 }}
               >
-                {step === 2 ? '✓' : '⧉'}
+                {showBack ? 'Copied!' : 'Copy'}
               </motion.span>
-            </div>
-            <div style={{ marginTop: 8, fontSize: 12, color: T.muted }}>
-              {step === 2 ? 'Copied!' : 'Enter edit mode to regenerate your key.'}
+              <span>Edit to regenerate ›</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* footer strip, as in the app */}
+      {/* "Personal information": the light sheet below the card, as the real one */}
       <div
         style={{
           position: 'absolute',
           left: 0,
           right: 0,
           bottom: 0,
-          height: 46,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '0 60px',
-          borderTop: '1px solid rgba(255,255,255,0.07)',
-          background: 'rgba(5,0,16,0.6)',
-          fontSize: 12,
-          color: T.secondary,
-          opacity: step >= 4 ? 0.38 : 1,
-          transition: 'opacity 0.6s ease',
+          height: 196,
+          borderRadius: '28px 28px 0 0',
+          background: '#f5f5f7',
+          color: '#1d1d1f',
+          padding: '20px 44px',
+          opacity: step === 1 || showBack ? 0.4 : 1,
+          boxShadow: editing ? `0 0 0 2px ${P.primary} inset` : 'none',
+          transition: 'opacity 0.6s ease, box-shadow 0.6s ease',
         }}
       >
-        <span
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 8,
-            padding: '4px 10px',
-            borderRadius: 10,
-            border: '1px solid rgba(255,255,255,0.1)',
-            fontWeight: 600,
-          }}
-        >
-          <Image src="/gy-logo.png" alt="" width={16} height={16} />
-          GYCODING
-        </span>
-        <span style={{ display: 'flex', gap: 22 }}>
-          <span>GYCODING</span>
-          <span>GY Accounts</span>
-          <span>Privacy</span>
-          <span>Terms</span>
-          <span>Support</span>
-        </span>
+        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
+          <div>
+            <div style={{ ...overline, color: '#9a8fc9' }}>Profile</div>
+            <div style={{ marginTop: 2, fontSize: 19, fontWeight: 700 }}>Personal information</div>
+          </div>
+          <div
+            style={{
+              height: 34,
+              padding: '0 14px',
+              borderRadius: 10,
+              display: 'grid',
+              placeItems: 'center',
+              fontSize: 12,
+              fontWeight: 600,
+              color: '#fff',
+              background: GRAD,
+            }}
+          >
+            {editing ? 'Save changes' : 'Edit profile'}
+          </div>
+        </div>
+        <div style={{ marginTop: 14, display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10 }}>
+          <Row label="Username">
+            {editing ? <Typed text={PROFILE.userEdited} delay={0.4} speed={0.08} /> : user}
+          </Row>
+          <Row label="Phone">{PROFILE.phone}</Row>
+          <Row label="Email">{PROFILE.email}</Row>
+        </div>
       </div>
 
       <AnimatePresence>
