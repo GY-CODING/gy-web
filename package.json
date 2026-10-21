@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "npx --yes serve out -l ${PORT:-3000}",
     "preview": "NEXT_DIST_DIR=.preview LOCAL_PREVIEW=1 next build && npx --yes serve .preview -l 4000",
     "lint": "eslint . --ext .ts,.tsx --fix",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
