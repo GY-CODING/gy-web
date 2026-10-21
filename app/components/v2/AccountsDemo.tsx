@@ -381,7 +381,9 @@ function Dashboard({ step }: { step: number }) {
                     {label}
                   </motion.div>
                 ))}
-                <div style={{ height: 1, margin: '6px 4px', background: 'rgba(255,255,255,0.08)' }} />
+                <div
+                  style={{ height: 1, margin: '6px 4px', background: 'rgba(255,255,255,0.08)' }}
+                />
                 <motion.div
                   initial={{ opacity: 0, x: -6 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -477,7 +479,15 @@ function Dashboard({ step }: { step: number }) {
                 'radial-gradient(ellipse 90% 80% at 80% 0%, black 10%, transparent 70%)',
             }}
           />
-          <div style={{ position: 'relative', height: '100%', padding: 22, display: 'flex', flexDirection: 'column' }}>
+          <div
+            style={{
+              position: 'relative',
+              height: '100%',
+              padding: 22,
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ ...brand, fontSize: 15, letterSpacing: '0.04em' }}>Gy ACCOUNTS</span>
               <Image src="/gy-logo.png" alt="" width={24} height={24} />
@@ -513,7 +523,16 @@ function Dashboard({ step }: { step: number }) {
             transition: 'opacity 0.5s ease, box-shadow 0.6s ease',
           }}
         >
-          <div style={{ position: 'absolute', left: 0, right: 0, top: '15%', height: '21%', background: STRIPE_BG }} />
+          <div
+            style={{
+              position: 'absolute',
+              left: 0,
+              right: 0,
+              top: '15%',
+              height: '21%',
+              background: STRIPE_BG,
+            }}
+          />
           <div style={{ position: 'absolute', left: 20, right: 20, bottom: 18 }}>
             <div style={{ fontSize: 11, color: '#c9bdf0' }}>API key</div>
             <div
@@ -585,7 +604,9 @@ function Dashboard({ step }: { step: number }) {
             {editing ? 'Save changes' : 'Edit profile'}
           </div>
         </div>
-        <div style={{ marginTop: 14, display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10 }}>
+        <div
+          style={{ marginTop: 14, display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10 }}
+        >
           <Row label="Username">
             {editing ? <Typed text={PROFILE.userEdited} delay={0.4} speed={0.08} /> : user}
           </Row>

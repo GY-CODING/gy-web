@@ -296,7 +296,9 @@ function SectionCard({ section, index }: { section: LegalSection; index: number 
                 <Typography sx={{ ...bodySx, lineHeight: 1.6 }}>{item}</Typography>
               ) : (
                 <Box>
-                  <Typography sx={{ ...bodySx, lineHeight: 1.6, fontWeight: 600, color: 'inherit' }}>
+                  <Typography
+                    sx={{ ...bodySx, lineHeight: 1.6, fontWeight: 600, color: 'inherit' }}
+                  >
                     {item.primary}
                   </Typography>
                   <Typography sx={{ ...bodySx, fontSize: '0.9rem' }}>{item.secondary}</Typography>
@@ -331,8 +333,7 @@ function ContactCard() {
         justifyContent: 'space-between',
         gap: 3,
         border: `1px solid color-mix(in srgb, ${'#8c54ff'} 30%, transparent)`,
-        background:
-          'linear-gradient(135deg, rgba(99,102,241,0.14) 0%, rgba(236,72,153,0.09) 100%)',
+        background: 'linear-gradient(135deg, rgba(99,102,241,0.14) 0%, rgba(236,72,153,0.09) 100%)',
       }}
     >
       <Box>
@@ -390,7 +391,13 @@ export default function LegalPageLayout({
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: easeOut, delay: 0.1 }}
-          sx={{ m: 0, mt: 2, ...display, fontSize: { xs: '2.3rem', sm: '3rem', md: '3.6rem' }, lineHeight: 1.05 }}
+          sx={{
+            m: 0,
+            mt: 2,
+            ...display,
+            fontSize: { xs: '2.3rem', sm: '3rem', md: '3.6rem' },
+            lineHeight: 1.05,
+          }}
         >
           {title}
         </Box>
@@ -420,7 +427,9 @@ export default function LegalPageLayout({
             <LegalSwitcher />
           </Box>
 
-          <Typography sx={{ fontSize: { xs: '1.05rem', sm: '1.15rem' }, color: SOFT, lineHeight: 1.7 }}>
+          <Typography
+            sx={{ fontSize: { xs: '1.05rem', sm: '1.15rem' }, color: SOFT, lineHeight: 1.7 }}
+          >
             {intro}
           </Typography>
         </Box>
