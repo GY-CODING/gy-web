@@ -5,14 +5,29 @@
 // company.values) plus the public facts in copy.ts (base city, founding year).
 
 import { Box } from '@mui/material';
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+} from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRef } from 'react';
 import { useLanguage } from '../../utils/languageContext';
 import { locales } from '../../utils/locales';
 import { getCopy, TEAM_SLUGS } from './copy';
-import { display, easeOut, enter, MARGIN, ScrollWords, SOFT, TonePage, ToolChip } from './kit';
+import {
+  brandFont,
+  display,
+  easeOut,
+  enter,
+  MARGIN,
+  ScrollWords,
+  SOFT,
+  TonePage,
+  ToolChip,
+} from './kit';
 
 type Member = (typeof locales)['en']['team']['members'][number];
 
@@ -21,6 +36,9 @@ const IMAGES: Record<string, string> = {
   'ivan-vicente': '/images/toxyc.png',
 };
 const SLUGS = Object.keys(TEAM_SLUGS);
+
+// The tilt's spring: soft enough that the card follows the pointer without wobbling.
+const SPRING = { stiffness: 140, damping: 18, mass: 0.6 } as const;
 
 function useTeam() {
   const { language } = useLanguage();
@@ -252,244 +270,274 @@ export function TeamIndexV2() {
 }
 
 // ─── /team/<slug>/ ─────────────────────────────────────────────────────────
-function MemberHero({ slug }: { slug: string }) {
+// ─── The member card: an ID card, like the GY Accounts one ────────────────────
+// Same language as the GY Accounts card: landscape credential, wordmark and logo on top, the
+// portrait in a gradient ring, the name, then — where the account card shows roles — the tools
+// they use, and the links at the foot. One face, everything visible. It tilts toward the pointer
+// with a sheen that follows it; only transform and the sheen's background move, and both are off
+// for a coarse pointer or `prefers-reduced-motion`.
+
+// Monochrome marks (currentColor): the brand icons in `public/icons` are black and vanish on the
+// dark card.
+const LINK_ICONS: Record<string, string> = {
+  github:
+    'M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.64-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z',
+  linkedin:
+    'M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z',
+  web: 'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm6.93 9h-3.05a15.7 15.7 0 0 0-1.38-6.02A8.02 8.02 0 0 1 18.93 11ZM12 4.04c.83 1.2 1.9 3.37 2.12 6.96H9.88C10.1 7.41 11.17 5.24 12 4.04ZM4.26 13h3.05c.14 2.2.6 4.25 1.38 6.02A8.02 8.02 0 0 1 4.26 13Zm3.05-2H4.26a8.02 8.02 0 0 1 4.43-6.02A15.7 15.7 0 0 0 7.31 11ZM12 19.96c-.83-1.2-1.9-3.37-2.12-6.96h4.24c-.22 3.59-1.29 5.76-2.12 6.96Zm3.31-.94c.78-1.77 1.24-3.82 1.38-6.02h3.05a8.02 8.02 0 0 1-4.43 6.02ZM9.7 11c.07-1.9.4-3.7 1.06-5.3.12-.28.25-.55.4-.8a5.2 5.2 0 0 0-.4.8C10.1 7.3 9.77 9.1 9.7 11Z',
+  mail: 'M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm8 8.2L20 7V6l-8 5.2L4 6v1l8 5.2Z',
+};
+
+function LinkPill({ kind, label, href }: { kind: string; label: string; href: string }) {
+  return (
+    <Box
+      component="a"
+      href={href}
+      {...(href.startsWith('mailto:') ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
+      sx={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 1,
+        height: 40,
+        px: 1.75,
+        borderRadius: '12px',
+        fontSize: 14,
+        fontWeight: 600,
+        whiteSpace: 'nowrap',
+        color: 'inherit',
+        textDecoration: 'none',
+        background: 'rgba(255,255,255,0.07)',
+        transition: 'background-color 0.25s ease, transform 0.25s ease',
+        '&:hover': { background: 'rgba(255,255,255,0.16)', transform: 'translateY(-2px)' },
+        '&:focus-visible': { outline: '2px solid currentColor', outlineOffset: 2 },
+      }}
+    >
+      <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden fill="currentColor">
+        <path d={LINK_ICONS[kind]} />
+      </svg>
+      {label}
+    </Box>
+  );
+}
+
+function MemberCard({ slug }: { slug: string }) {
   const { copy, bySlug } = useTeam();
   const m = bySlug(slug);
   const reduce = useReducedMotion();
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
-  const py = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [0, 120]);
-  const pr = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [0, -8]);
+
+  // Tilt: the pointer's position on the card, in degrees, smoothed by a spring.
+  const px = useMotionValue(0);
+  const py = useMotionValue(0);
+  const rx = useSpring(useTransform(py, [-0.5, 0.5], [7, -7]), SPRING);
+  const ry = useSpring(useTransform(px, [-0.5, 0.5], [-9, 9]), SPRING);
+  const sheen = useTransform(
+    [px, py],
+    ([x, y]: number[]) =>
+      `radial-gradient(520px circle at ${(x + 0.5) * 100}% ${(y + 0.5) * 100}%, rgba(255,255,255,0.13), rgba(255,255,255,0) 60%)`,
+  );
+
+  const onMove = (e: React.PointerEvent) => {
+    if (reduce || e.pointerType !== 'mouse') return;
+    const r = e.currentTarget.getBoundingClientRect();
+    px.set((e.clientX - r.left) / r.width - 0.5);
+    py.set((e.clientY - r.top) / r.height - 0.5);
+  };
+  const onLeave = () => {
+    px.set(0);
+    py.set(0);
+  };
+
+  const links: [string, string, string][] = [
+    ['github', 'GitHub', m.social.github],
+    ['linkedin', 'LinkedIn', m.social.linkedin],
+    ['web', copy.team.portfolio, m.social.portfolio],
+    ['mail', copy.team.email, `mailto:${m.social.email}`],
+  ];
+
   return (
     <Box
-      ref={ref}
       component="section"
       data-tone="night"
+      aria-labelledby="member-name"
       sx={{
         minHeight: '100svh',
         px: MARGIN,
-        pt: { xs: 14, md: 12 },
+        pt: { xs: 13, md: 12 },
         pb: { xs: 8, md: 10 },
-        display: 'grid',
-        gridTemplateColumns: { xs: '1fr', md: 'repeat(12, minmax(0, 1fr))' },
-        columnGap: 4,
-        rowGap: 6,
+        display: 'flex',
         alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
-      <Box sx={{ gridColumn: { md: '1 / span 7' }, order: { xs: 2, md: 1 } }}>
-        <Box
-          component={motion.p}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: easeOut }}
-          sx={{ m: 0, fontSize: { xs: 17, md: 20 }, color: SOFT }}
-        >
-          {copy.team.based} · {copy.team.founded}
-        </Box>
-        <Box
-          component={motion.h1}
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.1, ease: easeOut, delay: 0.08 }}
-          sx={{
-            m: 0,
-            mt: 2,
-            ...display,
-            fontSize: { xs: 60, md: 'clamp(80px, 8.4vw, 160px)' },
-            lineHeight: 0.92,
-          }}
-        >
-          {m.name}
-        </Box>
-        <Box
-          component={motion.p}
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: easeOut, delay: 0.2 }}
-          sx={{ m: 0, mt: 3, fontSize: { xs: 22, md: 30 }, lineHeight: 1.3 }}
-        >
-          {m.role}
-        </Box>
-      </Box>
       <Box
-        sx={{
-          gridColumn: { md: '8 / span 5' },
-          order: { xs: 1, md: 2 },
-          display: 'flex',
-          justifyContent: 'center',
-        }}
+        component={motion.div}
+        initial={reduce ? false : { opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: easeOut }}
+        onPointerMove={onMove}
+        onPointerLeave={onLeave}
+        sx={{ perspective: '1800px', width: 'min(100%, 760px)' }}
       >
         <Box
           component={motion.div}
-          initial={{ opacity: 0, scale: 0.85, rotate: -6 }}
-          animate={{ opacity: 1, scale: 1, rotate: -2 }}
-          transition={{ duration: 1.2, ease: easeOut, delay: 0.1 }}
-        >
-          <motion.div style={{ y: py, rotate: pr }}>
-            <Portrait
-              slug={slug}
-              name={m.name}
-              size={{ xs: 220, sm: 300, md: 'min(34vw, 480px)' }}
-            />
-          </motion.div>
-        </Box>
-      </Box>
-    </Box>
-  );
-}
-
-function Skills({ slug }: { slug: string }) {
-  const { copy, bySlug } = useTeam();
-  const m = bySlug(slug);
-  return (
-    <Box
-      component="section"
-      data-tone="paper"
-      aria-labelledby="skills-title"
-      sx={{ px: MARGIN, py: { xs: 12, md: 18 }, textAlign: 'center' }}
-    >
-      <Box
-        component={motion.h2}
-        {...enter()}
-        id="skills-title"
-        sx={{
-          m: 0,
-          ...display,
-          fontSize: { xs: 44, md: 'clamp(56px, 5.4vw, 88px)' },
-          lineHeight: 1,
-        }}
-      >
-        {copy.team.skills}
-      </Box>
-      <Box
-        component="ul"
-        sx={{
-          listStyle: 'none',
-          m: 0,
-          p: 0,
-          mt: { xs: 6, md: 8 },
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-          gap: 1.5,
-          maxWidth: 900,
-          mx: 'auto',
-        }}
-      >
-        {m.skills.map((s, i) => (
-          <Box
-            key={s}
-            component={motion.li}
-            initial={{ opacity: 0, y: 30, scale: 0.9 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.7, delay: i * 0.07, ease: easeOut }}
-            sx={{ '& > div': { background: '#f5f5f7', height: 64, px: 3, fontSize: 18 } }}
-          >
-            <ToolChip name={s} />
-          </Box>
-        ))}
-      </Box>
-    </Box>
-  );
-}
-
-function Links({ slug }: { slug: string }) {
-  const { copy, bySlug } = useTeam();
-  const m = bySlug(slug);
-  const rows: [string, string, string][] = [
-    ['GitHub', m.social.github, m.social.github.replace('https://github.com/', '@')],
-    [
-      'LinkedIn',
-      m.social.linkedin,
-      m.social.linkedin.replace('https://www.linkedin.com/in/', '').replace(/\/$/, ''),
-    ],
-    [copy.team.portfolio, m.social.portfolio, m.social.portfolio.replace('https://', '')],
-    [copy.team.email, `mailto:${m.social.email}`, m.social.email],
-  ];
-  return (
-    <Box
-      component="section"
-      data-tone="night"
-      aria-labelledby="links-title"
-      sx={{ px: MARGIN, py: { xs: 12, md: 18 } }}
-    >
-      <Box sx={{ maxWidth: 1240, mx: 'auto' }}>
-        <Box
-          component={motion.h2}
-          {...enter()}
-          id="links-title"
+          style={{ rotateX: reduce ? 0 : rx, rotateY: reduce ? 0 : ry }}
           sx={{
-            m: 0,
-            ...display,
-            fontSize: { xs: 44, md: 'clamp(56px, 5.4vw, 88px)' },
-            lineHeight: 1,
+            position: 'relative',
+            overflow: 'hidden',
+            borderRadius: { xs: '24px', md: '32px' },
+            p: { xs: 3, md: 5 },
+            minHeight: { md: 440 },
+            display: 'flex',
+            flexDirection: 'column',
+            background:
+              'radial-gradient(120% 80% at 0% 0%, rgba(99,102,241,0.22) 0%, rgba(99,102,241,0) 60%), radial-gradient(90% 70% at 100% 100%, rgba(236,72,153,0.18) 0%, rgba(236,72,153,0) 60%), #0e0e14',
+            boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.1), 0 50px 100px -40px rgba(0,0,0,0.9)',
           }}
         >
-          {copy.team.links}
-        </Box>
-        <Box
-          component="ul"
-          sx={{ listStyle: 'none', m: 0, p: 0, mt: { xs: 5, md: 8 }, display: 'grid', gap: 1.5 }}
-        >
-          {rows.map(([label, href, shown], i) => (
-            <Box key={label} component={motion.li} {...enter(i * 0.06, 20)}>
+          {/* fine grid, as on the account card */}
+          <Box
+            aria-hidden
+            sx={{
+              position: 'absolute',
+              inset: 0,
+              backgroundImage:
+                'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',
+              backgroundSize: '22px 22px',
+              WebkitMaskImage:
+                'radial-gradient(ellipse 90% 80% at 80% 0%, black 10%, transparent 70%)',
+              maskImage: 'radial-gradient(ellipse 90% 80% at 80% 0%, black 10%, transparent 70%)',
+            }}
+          />
+          {!reduce && (
+            <Box
+              component={motion.div}
+              aria-hidden
+              style={{ background: sheen }}
+              sx={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}
+            />
+          )}
+
+          <Box
+            sx={{
+              position: 'relative',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Box
+              component="span"
+              sx={{ ...brandFont, fontSize: { xs: 15, md: 20 }, letterSpacing: '0.04em', fontKerning: 'none' }}
+            >
+              GyCODING
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
               <Box
-                component="a"
-                href={href}
-                {...(href.startsWith('mailto:')
-                  ? {}
-                  : { target: '_blank', rel: 'noopener noreferrer' })}
-                sx={{
-                  display: 'grid',
-                  gridTemplateColumns: { xs: '1fr auto', md: '220px 1fr auto' },
-                  alignItems: 'center',
-                  columnGap: 3,
-                  rowGap: 0.5,
-                  px: { xs: 3, md: 4 },
-                  py: { xs: 2.5, md: 3.5 },
-                  borderRadius: '24px',
-                  background: 'rgba(255,255,255,0.05)',
-                  color: 'inherit',
-                  textDecoration: 'none',
-                  transition: 'background-color 0.3s ease',
-                  '& .arrow': { transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)' },
-                  '&:hover': { background: 'rgba(255,255,255,0.1)' },
-                  '&:hover .arrow': { transform: 'translate(4px, -4px)' },
-                  '&:focus-visible': { outline: '2px solid currentColor', outlineOffset: 3 },
-                }}
+                component="span"
+                sx={{ fontSize: 12, letterSpacing: '0.14em', textTransform: 'uppercase', color: SOFT }}
               >
-                <Box sx={{ fontSize: 17, color: SOFT, gridColumn: { xs: '1', md: 'auto' } }}>
-                  {label}
-                </Box>
-                <Box
-                  sx={{
-                    ...display,
-                    fontSize: { xs: 22, md: 34 },
-                    lineHeight: 1.1,
-                    minWidth: 0,
-                    overflowWrap: 'anywhere',
-                    gridColumn: { xs: '1', md: 'auto' },
-                    gridRow: { xs: 2, md: 'auto' },
-                  }}
-                >
-                  {shown}
-                </Box>
-                <Box
-                  className="arrow"
-                  aria-hidden
-                  sx={{
-                    fontSize: { xs: 24, md: 32 },
-                    gridRow: { xs: '1 / span 2', md: 'auto' },
-                    gridColumn: { xs: 2, md: 'auto' },
-                  }}
-                >
-                  ↗
-                </Box>
+                {copy.team.based}
+              </Box>
+              <Image src="/gy-logo.png" alt="" width={30} height={30} />
+            </Box>
+          </Box>
+
+          <Box
+            sx={{
+              position: 'relative',
+              mt: 'auto',
+              pt: { xs: 5, md: 6 },
+              display: 'flex',
+              flexDirection: { xs: 'column', sm: 'row' },
+              alignItems: { xs: 'flex-start', sm: 'center' },
+              gap: { xs: 2.5, md: 4 },
+            }}
+          >
+            {/* The PNG as is: no circle, no ring, no fill. A soft glow behind keeps it from floating. */}
+            <Box
+              sx={{
+                position: 'relative',
+                flexShrink: 0,
+                width: { xs: 120, md: 180 },
+                aspectRatio: '1',
+                '&::before': {
+                  content: '""',
+                  position: 'absolute',
+                  inset: '-10%',
+                  borderRadius: '50%',
+                  background:
+                    'radial-gradient(circle, rgba(139,92,246,0.32) 0%, rgba(139,92,246,0) 65%)',
+                },
+              }}
+            >
+              <Image
+                src={IMAGES[slug]}
+                alt={m.name}
+                fill
+                sizes="180px"
+                style={{ objectFit: 'contain' }}
+                priority
+              />
+            </Box>
+            <Box sx={{ minWidth: 0 }}>
+              <Box
+                component="h1"
+                id="member-name"
+                sx={{ m: 0, ...display, fontSize: { xs: 34, md: 52 }, lineHeight: 1.04 }}
+              >
+                {m.name}
+              </Box>
+              <Box component="p" sx={{ m: 0, mt: 1, fontSize: { xs: 15, md: 18 }, color: SOFT }}>
+                {m.role}
               </Box>
             </Box>
-          ))}
+          </Box>
+
+          {/* Where the account card lists roles, the card lists the tools. */}
+          <Box
+            component="ul"
+            aria-label={copy.team.skills}
+            sx={{
+              position: 'relative',
+              listStyle: 'none',
+              m: 0,
+              p: 0,
+              mt: { xs: 3, md: 4 },
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: 1,
+              '& > li > div': { height: 40, px: 1.5, fontSize: 14 },
+            }}
+          >
+            {m.skills.map((skill) => (
+              <li key={skill}>
+                <ToolChip name={skill} />
+              </li>
+            ))}
+          </Box>
+
+          <Box
+            component="ul"
+            aria-label={copy.team.links}
+            sx={{
+              position: 'relative',
+              listStyle: 'none',
+              m: 0,
+              p: 0,
+              mt: { xs: 3, md: 4 },
+              pt: { xs: 3, md: 3.5 },
+              borderTop: '1px solid rgba(255,255,255,0.1)',
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: 1,
+            }}
+          >
+            {links.map(([kind, label, href]) => (
+              <li key={kind}>
+                <LinkPill kind={kind} label={label} href={href} />
+              </li>
+            ))}
+          </Box>
         </Box>
       </Box>
     </Box>
@@ -558,14 +606,12 @@ export function TeamMemberV2({ slug }: { slug: string }) {
   const m = bySlug(s);
   return (
     <TonePage initial="night">
-      <MemberHero slug={s} />
+      <MemberCard slug={s} />
       <ScrollWords
         text={m.description}
         tone="mist"
         size={{ xs: 32, sm: 44, md: 'clamp(44px, 4.4vw, 72px)' }}
       />
-      <Skills slug={s} />
-      <Links slug={s} />
       <Values />
       <Other slug={s} />
     </TonePage>

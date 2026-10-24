@@ -28,7 +28,7 @@ import {
 import { valorantFont } from '../../utils/fonts';
 import { useLanguage } from '../../utils/languageContext';
 import { PRODUCT_ORDER, PRODUCTS } from '../../products/data/products';
-import { ACCOUNTS_URL, BRAND_GRADIENT, getCopy, ink, ToneKey, TONES } from './copy';
+import { ACCOUNTS_URL, BRAND_GRADIENT, DOCS_URL, STATUS_URL, getCopy, ink, ToneKey, TONES } from './copy';
 import { MonumentFooter } from './Footer';
 import { getLenis } from '../../hooks/useSmoothScroll';
 
@@ -242,7 +242,7 @@ export function TonePage({
 // iconos y una línea por destino (el desplegable de la v1). A la derecha, pausar animaciones y
 // GY Accounts. Sin interruptor de tema: /v2 es oscuro y punto.
 
-type NavChild = { href: string; label: string; line: string; icon: string };
+type NavChild = { href: string; label: string; line: string; icon: string; external?: boolean };
 
 export function SiteNav({ reveal = false }: { reveal?: boolean }) {
   const { language } = useLanguage();
@@ -331,15 +331,35 @@ export function SiteNav({ reveal = false }: { reveal?: boolean }) {
         },
       ],
     },
+    {
+      label: copy.nav.docs,
+      children: [
+        {
+          href: DOCS_URL,
+          label: copy.nav.docsLabel,
+          line: copy.nav.docsLine,
+          icon: '/icons/docs.svg',
+          external: true,
+        },
+        {
+          href: STATUS_URL,
+          label: copy.nav.statusLabel,
+          line: copy.nav.statusLine,
+          icon: '/icons/status_dark.svg',
+          external: true,
+        },
+      ],
+    },
   ];
-  const isCurrent = (href: string) => path.replace(/\/?$/, '/').startsWith(href);
+  const isCurrent = (href: string) => !href.startsWith('http') && path.replace(/\/?$/, '/').startsWith(href);
   const groupActive = (children: NavChild[]) => children.some((c) => isCurrent(c.href));
 
   const panelItem = (c: NavChild, onPick: () => void) => (
     <Box
       key={c.href}
-      component={Link}
+      component={c.external ? 'a' : Link}
       href={c.href}
+      {...(c.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       onClick={onPick}
       aria-current={isCurrent(c.href) ? 'page' : undefined}
       sx={{

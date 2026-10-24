@@ -8,6 +8,8 @@ export const DISCORD_URL = 'https://discord.gg/AGYhzD53qg';
 export const ACCOUNTS_URL = 'https://accounts.gycoding.com';
 export const GITHUB_URL = 'https://github.com/GY-CODING';
 export const X_URL = 'https://x.com/GYCODING';
+export const DOCS_URL = 'https://docs.gycoding.com';
+export const STATUS_URL = 'https://status.gycoding.com';
 export const CONTACT_EMAIL = 'it@gycoding.com';
 
 const copy = {
@@ -19,6 +21,11 @@ const copy = {
       community: 'Community',
       teamLine: 'The people who build it.',
       companyLine: 'Where GYCODING comes from, and where it is going.',
+      docs: 'Docs',
+      docsLabel: 'Documentation',
+      docsLine: 'Guides and API reference, all in one place.',
+      statusLabel: 'Health status',
+      statusLine: 'Live status of every GYCODING service.',
     },
     heroSentence: 'A software studio building web, backends and games since 2021.',
     heroAction: 'Explore our worlds',
@@ -64,6 +71,8 @@ const copy = {
       other: 'Also on the team',
       view: 'View profile',
       valuesTitle: 'What drives us',
+      cardTools: 'See the tools',
+      cardContact: 'See the contact',
     },
     worldsHeading: 'Three worlds',
     worldsCaption:
@@ -128,6 +137,11 @@ const copy = {
       community: 'Comunidad',
       teamLine: 'Las personas que lo construyen.',
       companyLine: 'De dónde viene GYCODING y a dónde va.',
+      docs: 'Docs',
+      docsLabel: 'Documentación',
+      docsLine: 'Guías y referencia de la API, en un solo sitio.',
+      statusLabel: 'Estado de salud',
+      statusLine: 'Estado en vivo de cada servicio de GYCODING.',
     },
     heroSentence: 'Estudio de software que crea webs, backends y videojuegos desde 2021.',
     heroAction: 'Explora nuestros mundos',
@@ -172,6 +186,8 @@ const copy = {
       email: 'Correo',
       other: 'También en el equipo',
       view: 'Ver perfil',
+      cardTools: 'Ver las herramientas',
+      cardContact: 'Ver el contacto',
       valuesTitle: 'Lo que nos mueve',
     },
     worldsHeading: 'Tres mundos',

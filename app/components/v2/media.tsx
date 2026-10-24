@@ -28,7 +28,9 @@ export function Shot({
   // /v2 uses WebP copies of the screenshots (≈10× lighter, 1800px wide); the PNGs stay for the live site.
   const src = png?.replace(/\.png$/, '.webp');
   const size: Record<string, [number, number]> = {
-    '/images/products/wingwords.webp': [1800, 1494],
+    // Wingwords: su página completa, capturada de la web en producción (antes era un montaje
+    // de escritorio + móvil del panel, recortado).
+    '/images/products/wingwords.webp': [1800, 1125],
     '/images/products/heralds-dark.webp': [1800, 1468],
     '/images/products/heralds-light.webp': [1800, 1464],
     '/images/products/wingwords-2.webp': [1800, 805],
