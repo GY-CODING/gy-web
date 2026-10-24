@@ -28,7 +28,16 @@ import {
 import { valorantFont } from '../../utils/fonts';
 import { useLanguage } from '../../utils/languageContext';
 import { PRODUCT_ORDER, PRODUCTS } from '../../products/data/products';
-import { ACCOUNTS_URL, BRAND_GRADIENT, DOCS_URL, STATUS_URL, getCopy, ink, ToneKey, TONES } from './copy';
+import {
+  ACCOUNTS_URL,
+  BRAND_GRADIENT,
+  DOCS_URL,
+  STATUS_URL,
+  getCopy,
+  ink,
+  ToneKey,
+  TONES,
+} from './copy';
 import { MonumentFooter } from './Footer';
 import { getLenis } from '../../hooks/useSmoothScroll';
 
@@ -351,7 +360,8 @@ export function SiteNav({ reveal = false }: { reveal?: boolean }) {
       ],
     },
   ];
-  const isCurrent = (href: string) => !href.startsWith('http') && path.replace(/\/?$/, '/').startsWith(href);
+  const isCurrent = (href: string) =>
+    !href.startsWith('http') && path.replace(/\/?$/, '/').startsWith(href);
   const groupActive = (children: NavChild[]) => children.some((c) => isCurrent(c.href));
 
   const panelItem = (c: NavChild, onPick: () => void) => (

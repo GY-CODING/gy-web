@@ -5,13 +5,7 @@
 // company.values) plus the public facts in copy.ts (base city, founding year).
 
 import { Box } from '@mui/material';
-import {
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useSpring,
-  useTransform,
-} from 'framer-motion';
+import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLanguage } from '../../utils/languageContext';
@@ -333,7 +327,7 @@ function MemberCard({ slug }: { slug: string }) {
   const sheen = useTransform(
     [px, py],
     ([x, y]: number[]) =>
-      `radial-gradient(520px circle at ${(x + 0.5) * 100}% ${(y + 0.5) * 100}%, rgba(255,255,255,0.13), rgba(255,255,255,0) 60%)`,
+      `radial-gradient(520px circle at ${(x + 0.5) * 100}% ${(y + 0.5) * 100}%, rgba(255,255,255,0.13), rgba(255,255,255,0) 60%)`
   );
 
   const onMove = (e: React.PointerEvent) => {
@@ -427,14 +421,24 @@ function MemberCard({ slug }: { slug: string }) {
           >
             <Box
               component="span"
-              sx={{ ...brandFont, fontSize: { xs: 15, md: 20 }, letterSpacing: '0.04em', fontKerning: 'none' }}
+              sx={{
+                ...brandFont,
+                fontSize: { xs: 15, md: 20 },
+                letterSpacing: '0.04em',
+                fontKerning: 'none',
+              }}
             >
               GyCODING
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
               <Box
                 component="span"
-                sx={{ fontSize: 12, letterSpacing: '0.14em', textTransform: 'uppercase', color: SOFT }}
+                sx={{
+                  fontSize: 12,
+                  letterSpacing: '0.14em',
+                  textTransform: 'uppercase',
+                  color: SOFT,
+                }}
               >
                 {copy.team.based}
               </Box>
